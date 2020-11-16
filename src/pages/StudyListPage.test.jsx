@@ -9,7 +9,7 @@ describe('StudyListPage', () => {
     <StudyListPage />,
   );
 
-  it('renders Page Title', () => {
+  it('renders StudyList Title', () => {
     const { container } = renderStudyListPage();
 
     expect(container).toHaveTextContent('스터디 목록');
