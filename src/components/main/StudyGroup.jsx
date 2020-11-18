@@ -1,18 +1,31 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 import Tags from '../common/Tags';
 
 const StudyGroupWrapper = styled.div``;
 
+const HeaderLink = styled(Link)`
+  font-size: 1.5em;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-weight: bold;
+  &:hover {
+    color: gray;
+  }
+`;
+
 const StudyGroup = ({ group }) => {
   const {
-    moderatorId, title, personnel, applyEndDate, applyStartDate, tags,
+    id, moderatorId, title, personnel, applyEndDate, applyStartDate, tags,
   } = group;
 
   return (
     <StudyGroupWrapper>
-      <h3>{title}</h3>
+      <HeaderLink to={`/introduce/${id}`}>
+        {title}
+      </HeaderLink>
       <div>
         <small>{moderatorId}</small>
         <div>{`참여 인원: ${personnel}`}</div>

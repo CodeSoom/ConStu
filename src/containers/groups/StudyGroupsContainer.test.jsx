@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import { MemoryRouter } from 'react-router-dom';
 import StudyGroupsContainer from './StudyGroupsContainer';
 
 describe('StudyGroupsContainer', () => {
@@ -19,7 +20,9 @@ describe('StudyGroupsContainer', () => {
   });
 
   const renderStudyGroupsContainer = () => render((
-    <StudyGroupsContainer />
+    <MemoryRouter>
+      <StudyGroupsContainer />
+    </MemoryRouter>
   ));
 
   context('with groups', () => {

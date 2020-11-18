@@ -11,7 +11,7 @@ const App = () => (
     <HeaderContainer />
     <Switch>
       <Route exact path="/" component={MainPage} />
-      <Route path="/introduce" component={IntroducePage} />
+      <Route path="/introduce/:id" component={IntroducePage} />
     </Switch>
   </>
 );

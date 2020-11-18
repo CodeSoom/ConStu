@@ -2,13 +2,16 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { MemoryRouter } from 'react-router-dom';
 import StudyGroup from './StudyGroup';
 
 describe('StudyGroup', () => {
   const renderStudyGroup = ({ group }) => render((
-    <StudyGroup
-      group={group}
-    />
+    <MemoryRouter>
+      <StudyGroup
+        group={group}
+      />
+    </MemoryRouter>
   ));
 
   it('renders study group text contents', () => {

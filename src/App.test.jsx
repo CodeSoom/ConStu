@@ -39,7 +39,7 @@ describe('App', () => {
 
   context('with path /introduce', () => {
     it('renders the study introduce page', () => {
-      const { container } = renderApp({ path: '/introduce' });
+      const { container } = renderApp({ path: '/introduce/1' });
 
       expect(container).toHaveTextContent('스터디 소개');
     });
