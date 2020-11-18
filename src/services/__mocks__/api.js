@@ -1,3 +1,3 @@
 export const getStudyGroups = async () => [];
 
-export const test = async () => [];
+export const getStudyGroup = async () => [];
