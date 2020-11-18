@@ -4,6 +4,8 @@ import { render } from '@testing-library/react';
 
 import StudyGroups from './StudyGroups';
 
+import STUDY_GROUPS from '../../../fixtures/study-groups';
+
 describe('StudyGroups', () => {
   const renderStudyGroups = ({ groups }) => render((
     <StudyGroups
@@ -11,17 +13,13 @@ describe('StudyGroups', () => {
     />
   ));
 
-  it('nothing render menu list', () => {
-    const groups = [
-      {
-        id: 1,
-        moderatorId: 'user1',
-        title: '스터디를 소개합니다. 1',
-      },
-    ];
+  it('renders study group list text contents', () => {
+    const { container } = renderStudyGroups({ groups: STUDY_GROUPS });
 
-    const { container } = renderStudyGroups({ groups });
-
-    expect(container).toHaveTextContent('스터디를 소개합니다. 1');
+    STUDY_GROUPS.forEach(({ moderatorId, title, personnel }) => {
+      expect(container).toHaveTextContent(title);
+      expect(container).toHaveTextContent(personnel);
+      expect(container).toHaveTextContent(moderatorId);
+    });
   });
 });

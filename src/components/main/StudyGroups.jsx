@@ -2,12 +2,17 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-const StudyGroupsWrapper = styled.ul``;
+import StudyGroup from './StudyGroup';
+
+const StudyGroupsWrapper = styled.div``;
 
 const StudyGroups = ({ groups }) => (
   <StudyGroupsWrapper>
     {groups.map((group) => (
-      <li key={group.id}>{group.title}</li>
+      <StudyGroup
+        key={group.id}
+        group={group}
+      />
     ))}
   </StudyGroupsWrapper>
 );
