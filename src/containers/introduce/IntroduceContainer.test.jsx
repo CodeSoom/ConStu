@@ -15,18 +15,7 @@ describe('IntroduceContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      group: {
-        id: 1,
-        moderatorId: 'user1',
-        title: '스터디를 소개합니다. 1',
-        personnel: 7,
-        contents: '우리는 이것저것 합니다.1',
-        tags: [
-          'JavaScript',
-          'React',
-          'Algorithm',
-        ],
-      },
+      group: given.group,
     }));
   });
 
@@ -34,16 +23,41 @@ describe('IntroduceContainer', () => {
     <IntroduceContainer groupId={id} />,
   );
 
-  it('renders study group title and contents', () => {
-    const { container } = renderIntroduceContainer(1);
+  context('with group', () => {
+    given('group', () => ({
+      id: 1,
+      moderatorId: 'user1',
+      title: '스터디를 소개합니다. 1',
+      personnel: 7,
+      contents: '우리는 이것저것 합니다.1',
+      tags: [
+        'JavaScript',
+        'React',
+        'Algorithm',
+      ],
+    }));
 
-    expect(container).toHaveTextContent('스터디를 소개합니다. 1');
-    expect(container).toHaveTextContent('우리는 이것저것 합니다.1');
+    it('renders study group title and contents', () => {
+      const { container } = renderIntroduceContainer(1);
+
+      expect(container).toHaveTextContent('스터디를 소개합니다. 1');
+      expect(container).toHaveTextContent('우리는 이것저것 합니다.1');
+    });
+
+    it('call dispatch actions', () => {
+      renderIntroduceContainer(1);
+
+      expect(dispatch).toBeCalled();
+    });
   });
 
-  it('call dispatch actions', () => {
-    renderIntroduceContainer(1);
+  context('without group', () => {
+    given('group', () => (null));
 
-    expect(dispatch).toBeCalled();
+    it('renders "loading.." text', () => {
+      const { container } = renderIntroduceContainer(1);
+
+      expect(container).toHaveTextContent('로딩중..');
+    });
   });
 });
