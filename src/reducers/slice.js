@@ -39,6 +39,8 @@ export const loadStudyGroups = () => async (dispatch) => {
 };
 
 export const loadStudyGroup = (id) => async (dispatch) => {
+  dispatch(setStudyGroup(null));
+
   const group = await getStudyGroup(id);
 
   dispatch(setStudyGroup(group));

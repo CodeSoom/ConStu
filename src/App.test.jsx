@@ -7,6 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
 import App from './App';
+import STUDY_GROUP from '../fixtures/study-group';
 
 jest.mock('react-redux');
 
@@ -20,6 +21,7 @@ describe('App', () => {
 
     useSelector.mockImplementation((selector) => selector({
       groups: [],
+      group: STUDY_GROUP,
     }));
   });
 
