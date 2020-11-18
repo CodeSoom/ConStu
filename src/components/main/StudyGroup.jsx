@@ -1,12 +1,13 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
+import Tags from '../common/Tags';
 
 const StudyGroupWrapper = styled.div``;
 
 const StudyGroup = ({ group }) => {
   const {
-    moderatorId, title, personnel, applyEndDate, applyStartDate,
+    moderatorId, title, personnel, applyEndDate, applyStartDate, tags,
   } = group;
 
   return (
@@ -19,6 +20,7 @@ const StudyGroup = ({ group }) => {
           <label htmlFor="applyDate">신청 기간</label>
           <div>{`${applyStartDate} ~ ${applyEndDate}`}</div>
         </div>
+        <Tags tags={tags} />
       </div>
     </StudyGroupWrapper>
   );

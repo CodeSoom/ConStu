@@ -19,6 +19,7 @@ describe('StudyGroup', () => {
       personnel: 5,
       applyEndDate: null,
       applyStartDate: null,
+      tags: [],
     };
 
     const { container } = renderStudyGroup({ group });

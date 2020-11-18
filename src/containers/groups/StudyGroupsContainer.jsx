@@ -12,7 +12,7 @@ const StudyGroupsContainerBlock = styled.div``;
 const StudyGroupsContainer = () => {
   const groups = useSelector(get('groups'));
 
-  if (!groups.length || !groups) {
+  if (!groups || !groups.length) {
     return <div>스터디가 존재하지 않습니다.</div>;
   }
 
