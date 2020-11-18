@@ -1,10 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const mode = process.env.NODE_ENV || 'development';
+const DEVELOPMENT_ENV = 'development';
+const mode = process.env.NODE_ENV || DEVELOPMENT_ENV;
 
 module.exports = {
+  mode,
   entry: path.resolve(__dirname, 'src/index.jsx'),
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle.[hash].js',
+    publicPath: '/',
+  },
   module: {
     rules: [
       {
@@ -18,15 +25,14 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    historyApiFallback: true,
+    hot: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: './public/index.html',
       templateParameters: {
-        env: mode === 'development' ? '(개발용)' : '',
+        env: mode === DEVELOPMENT_ENV ? '(개발용)' : '',
       },
     }),
   ],
