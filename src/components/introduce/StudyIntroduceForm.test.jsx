@@ -18,7 +18,6 @@ describe('StudyIntroduceForm', () => {
       title: '스터디를 소개합니다. 1',
       personnel: 5,
       applyEndDate: null,
-      applyStartDate: null,
       contents: '우리는 스터디합니다.',
       tags: [],
     };

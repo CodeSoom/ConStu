@@ -1,12 +1,20 @@
 {
   "groups": [
     {
-      "id": 1,
+      "id": 0,
+      "title": "스터디를 소개합니다.1",
       "moderatorId": "user1",
-      "title": "스터디를 소개합니다. 1",
-      "applyStartDate": "2020-7-10",
-      "applyEndDate": "2020-12-3",
-      "personnel": 7,
+      "applyEndDate": "2020-12-13",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user7"
+      ],
+      "personnel": 10,
       "contents": "우리는 이것저것 합니다.1",
       "tags": [
         "JavaScript",
@@ -15,12 +23,14 @@
       ]
     },
     {
-      "id": 2,
+      "id": 1,
+      "title": "스터디를 소개합니다.2",
       "moderatorId": "user2",
-      "title": "스터디를 소개합니다. 2",
-      "applyStartDate": "2020-10-18",
-      "applyEndDate": "2020-12-3",
-      "personnel": 10,
+      "applyEndDate": "2020-12-23",
+      "participants": [
+        "user2"
+      ],
+      "personnel": 2,
       "contents": "우리는 이것저것 합니다.2",
       "tags": [
         "JavaScript",
@@ -29,12 +39,16 @@
       ]
     },
     {
-      "id": 3,
+      "id": 2,
+      "title": "스터디를 소개합니다.3",
       "moderatorId": "user3",
-      "title": "스터디를 소개합니다. 3",
-      "applyStartDate": "2020-2-18",
-      "applyEndDate": "2020-12-3",
-      "personnel": 2,
+      "applyEndDate": "2020-12-20",
+      "participants": [
+        "user1",
+        "user2",
+        "user3"
+      ],
+      "personnel": 5,
       "contents": "우리는 이것저것 합니다.3",
       "tags": [
         "JavaScript",
@@ -43,12 +57,20 @@
       ]
     },
     {
-      "id": 4,
+      "id": 3,
+      "title": "스터디를 소개합니다.4",
       "moderatorId": "user4",
-      "title": "스터디를 소개합니다. 4",
-      "applyStartDate": "2020-8-14",
-      "applyEndDate": "2020-12-3",
-      "personnel": 8,
+      "applyEndDate": "2020-12-13",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user7"
+      ],
+      "personnel": 10,
       "contents": "우리는 이것저것 합니다.4",
       "tags": [
         "JavaScript",
@@ -57,12 +79,21 @@
       ]
     },
     {
-      "id": 5,
+      "id": 4,
+      "title": "스터디를 소개합니다.5",
       "moderatorId": "user5",
-      "title": "스터디를 소개합니다. 5",
-      "applyStartDate": "2020-4-2",
-      "applyEndDate": "2020-12-3",
-      "personnel": 4,
+      "applyEndDate": "2020-12-27",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user7",
+        "user8"
+      ],
+      "personnel": 9,
       "contents": "우리는 이것저것 합니다.5",
       "tags": [
         "JavaScript",
@@ -71,12 +102,19 @@
       ]
     },
     {
-      "id": 6,
+      "id": 5,
+      "title": "스터디를 소개합니다.6",
       "moderatorId": "user6",
-      "title": "스터디를 소개합니다. 6",
-      "applyStartDate": "2020-9-25",
-      "applyEndDate": "2020-12-3",
-      "personnel": 9,
+      "applyEndDate": "2020-12-28",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6"
+      ],
+      "personnel": 8,
       "contents": "우리는 이것저것 합니다.6",
       "tags": [
         "JavaScript",
@@ -85,12 +123,16 @@
       ]
     },
     {
-      "id": 7,
+      "id": 6,
+      "title": "스터디를 소개합니다.7",
       "moderatorId": "user7",
-      "title": "스터디를 소개합니다. 7",
-      "applyStartDate": "2020-8-20",
-      "applyEndDate": "2020-12-3",
-      "personnel": 8,
+      "applyEndDate": "2020-12-15",
+      "participants": [
+        "user1",
+        "user2",
+        "user7"
+      ],
+      "personnel": 5,
       "contents": "우리는 이것저것 합니다.7",
       "tags": [
         "JavaScript",
@@ -99,12 +141,17 @@
       ]
     },
     {
-      "id": 8,
+      "id": 7,
+      "title": "스터디를 소개합니다.8",
       "moderatorId": "user8",
-      "title": "스터디를 소개합니다. 8",
-      "applyStartDate": "2020-8-25",
-      "applyEndDate": "2020-12-3",
-      "personnel": 8,
+      "applyEndDate": "2020-12-17",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user8"
+      ],
+      "personnel": 6,
       "contents": "우리는 이것저것 합니다.8",
       "tags": [
         "JavaScript",
@@ -113,12 +160,22 @@
       ]
     },
     {
-      "id": 9,
+      "id": 8,
+      "title": "스터디를 소개합니다.9",
       "moderatorId": "user9",
-      "title": "스터디를 소개합니다. 9",
-      "applyStartDate": "2020-2-11",
-      "applyEndDate": "2020-12-3",
-      "personnel": 2,
+      "applyEndDate": "2020-12-15",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user7",
+        "user8",
+        "user9"
+      ],
+      "personnel": 9,
       "contents": "우리는 이것저것 합니다.9",
       "tags": [
         "JavaScript",
@@ -127,13 +184,236 @@
       ]
     },
     {
-      "id": 10,
+      "id": 9,
+      "title": "스터디를 소개합니다.10",
       "moderatorId": "user10",
-      "title": "스터디를 소개합니다. 10",
-      "applyStartDate": "2020-3-2",
-      "applyEndDate": "2020-12-3",
-      "personnel": 3,
+      "applyEndDate": "2020-12-14",
+      "participants": [
+        "user1",
+        "user2",
+        "user10"
+      ],
+      "personnel": 4,
       "contents": "우리는 이것저것 합니다.10",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "스터디를 소개합니다.11",
+      "moderatorId": "user11",
+      "applyEndDate": "2020-12-19",
+      "participants": [
+        "user11"
+      ],
+      "personnel": 2,
+      "contents": "우리는 이것저것 합니다.11",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "스터디를 소개합니다.12",
+      "moderatorId": "user12",
+      "applyEndDate": "2020-12-20",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user12"
+      ],
+      "personnel": 8,
+      "contents": "우리는 이것저것 합니다.12",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "스터디를 소개합니다.13",
+      "moderatorId": "user13",
+      "applyEndDate": "2020-12-2",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user13"
+      ],
+      "personnel": 8,
+      "contents": "우리는 이것저것 합니다.13",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "스터디를 소개합니다.14",
+      "moderatorId": "user14",
+      "applyEndDate": "2020-12-23",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user7",
+        "user8",
+        "user14"
+      ],
+      "personnel": 9,
+      "contents": "우리는 이것저것 합니다.14",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "스터디를 소개합니다.15",
+      "moderatorId": "user15",
+      "applyEndDate": "2020-12-2",
+      "participants": [
+        "user15"
+      ],
+      "personnel": 1,
+      "contents": "우리는 이것저것 합니다.15",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "스터디를 소개합니다.16",
+      "moderatorId": "user16",
+      "applyEndDate": "2020-12-9",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user6",
+        "user7",
+        "user8",
+        "user16"
+      ],
+      "personnel": 10,
+      "contents": "우리는 이것저것 합니다.16",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "스터디를 소개합니다.17",
+      "moderatorId": "user17",
+      "applyEndDate": "2020-12-2",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user17"
+      ],
+      "personnel": 6,
+      "contents": "우리는 이것저것 합니다.17",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "스터디를 소개합니다.18",
+      "moderatorId": "user18",
+      "applyEndDate": "2020-12-16",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user18"
+      ],
+      "personnel": 6,
+      "contents": "우리는 이것저것 합니다.18",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "스터디를 소개합니다.19",
+      "moderatorId": "user19",
+      "applyEndDate": "2020-12-8",
+      "participants": [
+        "user19"
+      ],
+      "personnel": 3,
+      "contents": "우리는 이것저것 합니다.19",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "스터디를 소개합니다.20",
+      "moderatorId": "user20",
+      "applyEndDate": "2020-12-8",
+      "participants": [
+        "user1",
+        "user20"
+      ],
+      "personnel": 2,
+      "contents": "우리는 이것저것 합니다.20",
+      "tags": [
+        "JavaScript",
+        "React",
+        "Algorithm"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "스터디를 소개합니다.21",
+      "moderatorId": "user21",
+      "applyEndDate": "2020-12-23",
+      "participants": [
+        "user1",
+        "user2",
+        "user3",
+        "user4",
+        "user5",
+        "user21"
+      ],
+      "personnel": 8,
+      "contents": "우리는 이것저것 합니다.21",
       "tags": [
         "JavaScript",
         "React",

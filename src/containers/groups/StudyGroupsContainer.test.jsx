@@ -30,6 +30,7 @@ describe('StudyGroupsContainer', () => {
       id: 1,
       moderatorId: 'user1',
       title: '소개합니다.',
+      participants: [],
     }]));
 
     it('renders groups title', () => {
