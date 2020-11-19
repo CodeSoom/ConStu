@@ -5,4 +5,7 @@ export const getStudyGroups = async () => {
   return response.data;
 };
 
-export const test = async () => [];
+export const getStudyGroup = async (id) => {
+  const response = await axios.get(`http://localhost:3000/groups/${id}`);
+  return response.data;
+};

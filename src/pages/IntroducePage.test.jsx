@@ -1,17 +1,55 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { render } from '@testing-library/react';
 
 import IntroducePage from './IntroducePage';
 
 describe('IntroducePage', () => {
-  const renderIntroducePage = () => render(
-    <IntroducePage />,
-  );
+  beforeEach(() => {
+    const dispatch = jest.fn();
 
-  it('renders Introduce Title', () => {
-    const { container } = renderIntroducePage();
+    useDispatch.mockImplementation(() => dispatch);
 
-    expect(container).toHaveTextContent('스터디 소개');
+    useSelector.mockImplementation((state) => state({
+      group: {
+        id: 1,
+        moderatorId: 'user1',
+        title: '스터디를 소개합니다. 1',
+        personnel: 7,
+        contents: '우리는 이것저것 합니다.1',
+        tags: [
+          'JavaScript',
+          'React',
+          'Algorithm',
+        ],
+      },
+    }));
+  });
+
+  context('with params props', () => {
+    it('renders title', () => {
+      const params = { id: '1' };
+
+      const { container } = render(
+        <IntroducePage params={params} />,
+      );
+
+      expect(container).toHaveTextContent('스터디를 소개합니다. 1');
+    });
+  });
+
+  context('without params props', () => {
+    it('renders title', () => {
+      const { container } = render(
+        <MemoryRouter initialEntries={['/introduce/1']}>
+          <IntroducePage />
+        </MemoryRouter>,
+      );
+
+      expect(container).toHaveTextContent('스터디를 소개합니다. 1');
+    });
   });
 });
