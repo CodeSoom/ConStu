@@ -18,7 +18,7 @@ const HeaderLink = styled(Link)`
 
 const StudyGroup = ({ group }) => {
   const {
-    id, moderatorId, title, personnel, applyEndDate, applyStartDate, tags,
+    id, moderatorId, title, personnel, applyEndDate, tags, participants,
   } = group;
 
   return (
@@ -28,10 +28,9 @@ const StudyGroup = ({ group }) => {
       </HeaderLink>
       <div>
         <small>{moderatorId}</small>
-        <div>{`참여 인원: ${personnel}`}</div>
+        <div>{`모집 인원: ${participants.length} / ${personnel}`}</div>
         <div>
-          <label htmlFor="applyDate">신청 기간</label>
-          <div>{`${applyStartDate} ~ ${applyEndDate}`}</div>
+          <div>{`마감 일자: ${applyEndDate}`}</div>
         </div>
         <Tags tags={tags} />
       </div>

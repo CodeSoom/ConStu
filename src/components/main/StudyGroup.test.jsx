@@ -21,8 +21,8 @@ describe('StudyGroup', () => {
       moderatorId: 'user1',
       title: '스터디를 소개합니다. 1',
       personnel: 5,
+      participants: [],
       applyEndDate: null,
-      applyStartDate: null,
       tags: [],
     };
 
