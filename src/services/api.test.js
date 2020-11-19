@@ -10,18 +10,12 @@ import STUDY_GROUP from '../../fixtures/study-group';
 
 jest.mock('axios');
 describe('api', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  const axiosMockResolved = (data) => {
-    axios.get.mockResolvedValue({ data });
-  };
-
   describe('getStudyGroups', () => {
-    it('returns study groups list', async () => {
-      axiosMockResolved(STUDY_GROUPS);
+    beforeEach(() => {
+      axios.get.mockResolvedValue({ data: STUDY_GROUPS });
+    });
 
+    it('returns study groups list', async () => {
       await expect(getStudyGroups()).resolves.toEqual(STUDY_GROUPS);
 
       expect(axios.get).toHaveBeenCalledWith(
@@ -31,10 +25,12 @@ describe('api', () => {
   });
 
   describe('getStudyGroup', () => {
-    const { id } = STUDY_GROUP;
+    beforeEach(() => {
+      axios.get.mockResolvedValue({ data: STUDY_GROUP });
+    });
 
     it('returns study group detail', async () => {
-      axiosMockResolved(STUDY_GROUP);
+      const { id } = STUDY_GROUP;
 
       await expect(getStudyGroup(id)).resolves.toEqual(STUDY_GROUP);
 

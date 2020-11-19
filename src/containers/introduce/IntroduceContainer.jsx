@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 
 import { loadStudyGroup } from '../../reducers/slice';
 import { get } from '../../../utils';
+import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 
 const IntroduceContainerWrapper = styled.div``;
 
@@ -26,8 +27,7 @@ const IntroduceContainer = ({ groupId }) => {
 
   return (
     <IntroduceContainerWrapper>
-      <h2>{group.title}</h2>
-      <p>{group.contents}</p>
+      <StudyIntroduceForm group={group} />
     </IntroduceContainerWrapper>
   );
 };
