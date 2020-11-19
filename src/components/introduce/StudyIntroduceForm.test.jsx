@@ -1,14 +1,18 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
+
 import { render } from '@testing-library/react';
 
 import StudyIntroduceForm from './StudyIntroduceForm';
 
 describe('StudyIntroduceForm', () => {
   const renderStudyIntroduceForm = ({ group }) => render((
-    <StudyIntroduceForm
-      group={group}
-    />
+    <MemoryRouter>
+      <StudyIntroduceForm
+        group={group}
+      />
+    </MemoryRouter>
   ));
 
   it('renders study group title and contents', () => {

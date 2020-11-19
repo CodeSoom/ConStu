@@ -1,14 +1,18 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
+
 import { render } from '@testing-library/react';
 
 import Tags from './Tags';
 
 describe('Tags', () => {
   const renderTags = (tags) => render((
-    <Tags
-      tags={tags}
-    />
+    <MemoryRouter>
+      <Tags
+        tags={tags}
+      />
+    </MemoryRouter>
   ));
 
   context('with tags', () => {

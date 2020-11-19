@@ -6,8 +6,11 @@ import styled from '@emotion/styled';
 
 import { loadStudyGroups } from '../reducers/slice';
 import StudyGroupsContainer from '../containers/groups/StudyGroupsContainer';
+import Responsive from '../styles/Responsive';
 
-const MainPageWrapper = styled.div``;
+const MainPageWrapper = styled(Responsive)`
+
+`;
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const MainPage = () => {
 
   return (
     <MainPageWrapper>
-      <h2>스터디 목록</h2>
+      <h2>지금 바로 시작하세요!</h2>
       <StudyGroupsContainer />
     </MainPageWrapper>
   );
