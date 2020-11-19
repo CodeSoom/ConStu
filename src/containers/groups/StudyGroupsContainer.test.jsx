@@ -1,10 +1,10 @@
 import React from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+
 import { render } from '@testing-library/react';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-import { MemoryRouter } from 'react-router-dom';
 import StudyGroupsContainer from './StudyGroupsContainer';
 
 describe('StudyGroupsContainer', () => {
