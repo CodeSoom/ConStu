@@ -11,13 +11,12 @@ const StudyGroupsWrapper = styled.div`
   align-content: space-between;
 `;
 
-const StudyGroups = ({ groups, seconds }) => (
+const StudyGroups = ({ groups }) => (
   <StudyGroupsWrapper>
     {groups.map((group) => (
       <StudyGroup
         key={group.id}
         group={group}
-        seconds={seconds}
       />
     ))}
   </StudyGroupsWrapper>

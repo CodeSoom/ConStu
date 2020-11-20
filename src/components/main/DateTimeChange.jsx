@@ -8,6 +8,10 @@ import DateTimeStatus from '../../styles/DateTimeStatus';
 
 const DateTimeChangeWrapper = styled.div``;
 
+const isCheckedTimeStatus = ({
+  realTime, applyEndTime, participants, personnel,
+}) => (!!((realTime - applyEndTime >= 0 || participants.length === personnel)));
+
 const DateTimeChange = ({ group }) => {
   const { participants, personnel, applyEndDate } = group;
   const applyEndTime = new Date(applyEndDate).getTime();
@@ -18,8 +22,12 @@ const DateTimeChange = ({ group }) => {
     setRealTime(Date.now());
   }, 1000);
 
-  const isCheckedTimeStatus = () => {
-    if (realTime - applyEndTime >= 0 || participants.length === personnel) {
+  const valid = {
+    realTime, applyEndTime, participants, personnel,
+  };
+
+  const timeStatusChange = () => {
+    if (isCheckedTimeStatus(valid)) {
       return (
         <DateTimeStatus status="deadline">모집마감</DateTimeStatus>
       );
@@ -33,7 +41,7 @@ const DateTimeChange = ({ group }) => {
   return (
     <DateTimeChangeWrapper>
       {`모집 인원: ${participants.length} / ${personnel}`}
-      {isCheckedTimeStatus()}
+      {timeStatusChange()}
     </DateTimeChangeWrapper>
   );
 };
