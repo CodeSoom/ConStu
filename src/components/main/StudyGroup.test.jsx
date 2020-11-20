@@ -15,20 +15,43 @@ describe('StudyGroup', () => {
     </MemoryRouter>
   ));
 
-  it('renders study group text contents', () => {
+  describe('renders study group text contents', () => {
     const group = {
       id: 1,
-      moderatorId: 'user1',
-      title: '스터디를 소개합니다. 1',
-      personnel: 5,
-      participants: [],
-      applyEndDate: null,
-      tags: [],
+      title: '스터디를 소개합니다.2',
+      moderatorId: 'user2',
+      applyEndDate: '2020-12-23',
+      participants: [
+        'user2',
+      ],
+      personnel: 2,
+      tags: [
+        'JavaScript',
+        'React',
+        'Algorithm',
+      ],
     };
+    it('renders title, moderatorId, tags', () => {
+      const { container } = renderStudyGroup({ group });
 
-    const { container } = renderStudyGroup({ group });
+      expect(container).toHaveTextContent('스터디를 소개합니다.2');
+      expect(container).toHaveTextContent('user2');
+      group.tags.forEach((tag) => {
+        expect(container).toHaveTextContent(`#${tag}`);
+      });
+      expect(container).toHaveTextContent('2020년 12월 23일');
+    });
 
-    expect(container).toHaveTextContent('스터디를 소개합니다. 1');
-    expect(container).toHaveTextContent('user1');
+    it('renders changed applyEndDate format', () => {
+      const { container } = renderStudyGroup({ group });
+
+      expect(container).toHaveTextContent('2020년 12월 23일');
+    });
+
+    it('renders study status is Recruiting', () => {
+      const { container } = renderStudyGroup({ group });
+
+      expect(container).toHaveTextContent('모집중');
+    });
   });
 });
