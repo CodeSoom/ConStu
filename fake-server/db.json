@@ -4,7 +4,7 @@
       "id": 0,
       "title": "스터디를 소개합니다.1",
       "moderatorId": "user1",
-      "applyEndDate": "2020-12-13",
+      "applyEndDate": "2020-11-20 23:04",
       "participants": [
         "user1",
         "user2",
@@ -91,7 +91,8 @@
         "user5",
         "user6",
         "user7",
-        "user8"
+        "user8",
+        "user9"
       ],
       "personnel": 9,
       "contents": "우리는 이것저것 합니다.5",

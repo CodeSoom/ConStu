@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
+import Moment from 'react-moment';
+
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
+import DateTimeChange from './DateTimeChange';
 
 const StudyGroupWrapper = styled.div`
   margin: 1em .5em 1em .5em;
@@ -36,23 +39,9 @@ const StudyInfoWrapper = styled.div`
   }
 `;
 
-const DateTimeChange = styled.div`
-  margin-left: 1.5rem;
-  font-weight: 600;
-  font-size: 1.1rem;
-  font-family: 'Gamja Flower', cursive;
-  padding: .1rem .5rem .1rem .5rem;
-  display: inline-flex;
-  color: white;
-  border-radius: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  background: ${palette.cyan[4]};
-`;
-
 const StudyGroup = ({ group }) => {
   const {
-    id, moderatorId, title, personnel, applyEndDate, tags, participants,
+    id, moderatorId, title, applyEndDate, tags,
   } = group;
 
   return (
@@ -63,11 +52,11 @@ const StudyGroup = ({ group }) => {
       <StudyInfoWrapper>
         <div className="moderator">{moderatorId}</div>
         <div>
-          {`모집 인원: ${participants.length} / ${personnel}`}
-          <DateTimeChange>모집중</DateTimeChange>
+          <DateTimeChange group={group} />
         </div>
         <div>
-          {`마감 일자: ${applyEndDate}`}
+          {'마감 일자: '}
+          <Moment interval={0} format="YYYY년 MM월 DD일">{applyEndDate}</Moment>
         </div>
         <Tags tags={tags} />
       </StudyInfoWrapper>
