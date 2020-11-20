@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
+import { MemoryRouter } from 'react-router-dom';
 import IntroduceContainer from './IntroduceContainer';
 
 describe('IntroduceContainer', () => {
@@ -19,9 +20,11 @@ describe('IntroduceContainer', () => {
     }));
   });
 
-  const renderIntroduceContainer = ({ id }) => render(
-    <IntroduceContainer groupId={id} />,
-  );
+  const renderIntroduceContainer = ({ id }) => render((
+    <MemoryRouter>
+      <IntroduceContainer groupId={id} />
+    </MemoryRouter>
+  ));
 
   context('with group', () => {
     given('group', () => ({

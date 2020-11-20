@@ -33,9 +33,11 @@ describe('IntroducePage', () => {
     it('renders title', () => {
       const params = { id: '1' };
 
-      const { container } = render(
-        <IntroducePage params={params} />,
-      );
+      const { container } = render((
+        <MemoryRouter>
+          <IntroducePage params={params} />
+        </MemoryRouter>
+      ));
 
       expect(container).toHaveTextContent('스터디를 소개합니다. 1');
     });

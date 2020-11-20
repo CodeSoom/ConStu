@@ -27,7 +27,7 @@ describe('MainPage', () => {
   it('renders Main Page Title', () => {
     const { container } = renderMainPage();
 
-    expect(container).toHaveTextContent('스터디 목록');
+    expect(container).toHaveTextContent('지금 바로 시작하세요!');
   });
 
   it('calls dispatch with loadStudyGroups action', () => {
