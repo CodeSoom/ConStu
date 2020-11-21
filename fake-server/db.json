@@ -18,7 +18,6 @@
       "contents": "우리는 이것저것 합니다.1",
       "tags": [
         "JavaScript",
-        "React",
         "Algorithm"
       ]
     },
@@ -34,8 +33,7 @@
       "contents": "우리는 이것저것 합니다.2",
       "tags": [
         "JavaScript",
-        "React",
-        "Algorithm"
+        "React"
       ]
     },
     {
@@ -52,7 +50,6 @@
       "contents": "우리는 이것저것 합니다.3",
       "tags": [
         "JavaScript",
-        "React",
         "Algorithm"
       ]
     },
@@ -97,7 +94,6 @@
       "personnel": 9,
       "contents": "우리는 이것저것 합니다.5",
       "tags": [
-        "JavaScript",
         "React",
         "Algorithm"
       ]
@@ -137,8 +133,7 @@
       "contents": "우리는 이것저것 합니다.7",
       "tags": [
         "JavaScript",
-        "React",
-        "Algorithm"
+        "React"
       ]
     },
     {
@@ -343,7 +338,7 @@
       "tags": [
         "JavaScript",
         "React",
-        "Algorithm"
+        "C"
       ]
     },
     {
@@ -364,7 +359,7 @@
       "tags": [
         "JavaScript",
         "React",
-        "Algorithm"
+        "C"
       ]
     },
     {
@@ -379,7 +374,6 @@
       "contents": "우리는 이것저것 합니다.19",
       "tags": [
         "JavaScript",
-        "React",
         "Algorithm"
       ]
     },
@@ -416,9 +410,8 @@
       "personnel": 8,
       "contents": "우리는 이것저것 합니다.21",
       "tags": [
-        "JavaScript",
         "React",
-        "Algorithm"
+        "Java"
       ]
     }
   ],

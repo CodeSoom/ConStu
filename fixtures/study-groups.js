@@ -32,7 +32,6 @@ const studyGroups = [
     personnel: 2,
     contents: '우리는 이것저것 합니다.2',
     tags: [
-      'JavaScript',
       'React',
       'Algorithm',
     ],

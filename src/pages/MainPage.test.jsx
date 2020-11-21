@@ -2,11 +2,12 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+
+import { MemoryRouter } from 'react-router-dom';
 
 import MainPage from './MainPage';
-
-jest.mock('react-redux');
+import STUDY_GROUPS from '../../fixtures/study-groups';
 
 describe('MainPage', () => {
   const dispatch = jest.fn();
@@ -16,13 +17,15 @@ describe('MainPage', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      groups: [],
+      groups: STUDY_GROUPS,
     }));
   });
 
-  const renderMainPage = () => render(
-    <MainPage />,
-  );
+  const renderMainPage = () => render((
+    <MemoryRouter initialEntries={['/?tag=JavaScript']}>
+      <MainPage />
+    </MemoryRouter>
+  ));
 
   it('renders Main Page Title', () => {
     const { container } = renderMainPage();
@@ -31,7 +34,18 @@ describe('MainPage', () => {
   });
 
   it('calls dispatch with loadStudyGroups action', () => {
-    renderMainPage();
+    const { container } = renderMainPage();
+
+    expect(dispatch).toBeCalled();
+
+    expect(container).toHaveTextContent('스터디를 소개합니다.1');
+    expect(container).toHaveTextContent('스터디를 소개합니다.2');
+  });
+
+  it('Click event to calls dispatch', () => {
+    const { getByText } = renderMainPage();
+
+    fireEvent.click(getByText('#JavaScript'));
 
     expect(dispatch).toBeCalled();
   });

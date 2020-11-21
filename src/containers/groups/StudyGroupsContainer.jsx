@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import StudyGroups from '../../components/main/StudyGroups';
+import qs from 'qs';
+
 import { get } from '../../../utils';
+import { loadStudyGroups } from '../../reducers/slice';
+import StudyGroups from '../../components/main/StudyGroups';
 
 const StudyGroupsContainer = () => {
+  const { search } = useLocation();
+
+  const dispatch = useDispatch();
   const groups = useSelector(get('groups'));
+
+  useEffect(() => {
+    const { tag } = qs.parse(search, {
+      ignoreQueryPrefix: true,
+    });
+
+    dispatch(loadStudyGroups(tag));
+  }, [dispatch, search]);
 
   if (!groups || !groups.length) {
     return <div>스터디가 존재하지 않습니다.</div>;

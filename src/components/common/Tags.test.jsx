@@ -16,13 +16,14 @@ describe('Tags', () => {
   ));
 
   context('with tags', () => {
+    const tags = ['JavaScript', 'C', 'Python'];
     it('renders tags name', () => {
-      const tags = ['JavaScript', 'C', 'Python'];
-
       const { container } = renderTags(tags);
 
       tags.forEach((tag) => {
         expect(container).toHaveTextContent(tag);
+
+        expect(container.innerHTML).toContain('<a');
       });
     });
   });
