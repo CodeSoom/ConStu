@@ -12,10 +12,16 @@ const { actions, reducer } = createSlice({
     group: null,
   },
   reducers: {
-    setStudyGroups(state, { payload: groups }) {
+    setStudyGroups(state, { payload: { groups, tag } }) {
       return {
         ...state,
-        groups,
+        groups: tag ? groups.reduce((studies, group) => {
+          if (group.tags.includes(tag)) {
+            return [...studies, group];
+          }
+
+          return studies;
+        }, []) : groups,
       };
     },
     setStudyGroup(state, { payload: group }) {
@@ -32,10 +38,10 @@ export const {
   setStudyGroup,
 } = actions;
 
-export const loadStudyGroups = () => async (dispatch) => {
+export const loadStudyGroups = (tag) => async (dispatch) => {
   const groups = await getStudyGroups();
 
-  dispatch(setStudyGroups(groups));
+  dispatch(setStudyGroups({ groups, tag }));
 };
 
 export const loadStudyGroup = (id) => async (dispatch) => {

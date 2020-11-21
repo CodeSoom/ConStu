@@ -33,14 +33,34 @@ describe('reducer', () => {
   });
 
   describe('setStudyGroups', () => {
-    it('changes groups', () => {
-      const initialState = {
-        groups: [],
-      };
+    context('with tag', () => {
+      it('get study groups list with tags filtered', () => {
+        const initialState = {
+          groups: [],
+        };
 
-      const state = reducer(initialState, setStudyGroups(STUDY_GROUPS));
+        const state = reducer(
+          initialState,
+          setStudyGroups({ groups: STUDY_GROUPS, tag: 'JavaScript' }),
+        );
 
-      expect(state.groups).toHaveLength(2);
+        expect(state.groups).toHaveLength(1);
+      });
+    });
+
+    context('without tag', () => {
+      it("get study groups list doesn't tags filtered", () => {
+        const initialState = {
+          groups: [],
+        };
+
+        const state = reducer(
+          initialState,
+          setStudyGroups({ groups: STUDY_GROUPS, tag: '' }),
+        );
+
+        expect(state.groups).toHaveLength(2);
+      });
     });
   });
 
@@ -65,16 +85,19 @@ describe('async actions', () => {
       store = mockStore({});
     });
 
-    it('loads groups', async () => {
+    it('loads study group list', async () => {
       await store.dispatch(loadStudyGroups());
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual(setStudyGroups([]));
+      expect(actions[0]).toEqual(setStudyGroups({
+        groups: [],
+        tag: undefined,
+      }));
     });
   });
 
-  describe('loadStudyGroups', () => {
+  describe('loadStudyGroup', () => {
     beforeEach(() => {
       store = mockStore({});
     });

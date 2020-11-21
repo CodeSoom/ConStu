@@ -3,9 +3,18 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import StudyGroupsContainer from './StudyGroupsContainer';
+
+const mockSearch = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation() {
+    return { search: mockSearch };
+  },
+}));
 
 describe('StudyGroupsContainer', () => {
   const dispatch = jest.fn();
@@ -31,12 +40,21 @@ describe('StudyGroupsContainer', () => {
       moderatorId: 'user1',
       title: '소개합니다.',
       participants: [],
+      tags: ['JavaScript'],
     }]));
 
     it('renders groups title', () => {
       const { container } = renderStudyGroupsContainer();
 
       expect(container).toHaveTextContent('소개합니다.');
+    });
+
+    it('click event calls dispatch', () => {
+      const { getByText } = renderStudyGroupsContainer();
+
+      fireEvent.click(getByText('#JavaScript'));
+
+      expect(dispatch).toBeCalled();
     });
   });
 

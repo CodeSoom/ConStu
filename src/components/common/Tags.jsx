@@ -8,7 +8,7 @@ import palette from '../../styles/palette';
 
 const TagsWrapper = styled.div`
   margin-top: 1rem;
-  .lang {
+  .tag {
     display: inline-flex;
     align-items: center;
     padding-left: .6em;
@@ -36,8 +36,8 @@ const Tags = ({ tags }) => {
       {tags.map((tag) => (
         <Link
           key={tag}
-          to="/#"
-          className="lang"
+          to={`/?tag=${tag}`}
+          className="tag"
         >
           {`#${tag}`}
         </Link>
