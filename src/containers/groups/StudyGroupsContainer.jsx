@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import qs from 'qs';
 
-import { get } from '../../../utils';
+import { get } from '../../util/utils';
 import { loadStudyGroups } from '../../reducers/slice';
 import StudyGroups from '../../components/main/StudyGroups';
 

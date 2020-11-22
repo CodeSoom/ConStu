@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { get } from '../../../utils';
+import { get } from '../../util/utils';
 import { loadStudyGroup } from '../../reducers/slice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
