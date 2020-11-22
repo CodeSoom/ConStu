@@ -6,6 +6,8 @@ import { render } from '@testing-library/react';
 
 import StudyIntroduceForm from './StudyIntroduceForm';
 
+import STUDY_GROUP from '../../../fixtures/study-group';
+
 describe('StudyIntroduceForm', () => {
   const renderStudyIntroduceForm = ({ group }) => render((
     <MemoryRouter>
@@ -16,19 +18,15 @@ describe('StudyIntroduceForm', () => {
   ));
 
   it('renders study group title and contents', () => {
-    const group = {
-      id: 1,
-      moderatorId: 'user1',
-      title: '스터디를 소개합니다. 1',
-      personnel: 5,
-      applyEndDate: null,
-      contents: '우리는 스터디합니다.',
-      tags: [],
-    };
+    const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
 
-    const { container } = renderStudyIntroduceForm({ group });
+    expect(container).toHaveTextContent('스터디를 소개합니다.2');
+    expect(container).toHaveTextContent('우리는 이것저것 합니다.2');
+  });
 
-    expect(container).toHaveTextContent('스터디를 소개합니다. 1');
-    expect(container).toHaveTextContent('우리는 스터디합니다.');
+  it('renders links of tags', () => {
+    const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
+
+    expect(container.innerHTML).toContain('<a ');
   });
 });

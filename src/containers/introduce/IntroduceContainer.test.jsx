@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
+
 import IntroduceContainer from './IntroduceContainer';
 
 describe('IntroduceContainer', () => {
@@ -32,6 +33,7 @@ describe('IntroduceContainer', () => {
       moderatorId: 'user1',
       title: '스터디를 소개합니다. 1',
       personnel: 7,
+      participants: [],
       contents: '우리는 이것저것 합니다.1',
       tags: [
         'JavaScript',

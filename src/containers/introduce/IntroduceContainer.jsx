@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import styled from '@emotion/styled';
-
-import { loadStudyGroup } from '../../reducers/slice';
 import { get } from '../../../utils';
-import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
+import { loadStudyGroup } from '../../reducers/slice';
 
-const IntroduceContainerWrapper = styled.div``;
+import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 
 const IntroduceContainer = ({ groupId }) => {
   const dispatch = useDispatch();
@@ -26,9 +23,7 @@ const IntroduceContainer = ({ groupId }) => {
   }
 
   return (
-    <IntroduceContainerWrapper>
-      <StudyIntroduceForm group={group} />
-    </IntroduceContainerWrapper>
+    <StudyIntroduceForm group={group} />
   );
 };
 

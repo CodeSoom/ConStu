@@ -7,6 +7,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
 import App from './App';
+
+import STUDY_GROUPS from '../fixtures/study-groups';
 import STUDY_GROUP from '../fixtures/study-group';
 
 jest.mock('react-redux');
@@ -20,7 +22,7 @@ describe('App', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      groups: [],
+      groups: STUDY_GROUPS,
       group: STUDY_GROUP,
     }));
   });
@@ -43,7 +45,7 @@ describe('App', () => {
     it('renders the study introduce page', () => {
       const { container } = renderApp({ path: '/introduce/1' });
 
-      expect(container).toHaveTextContent('스터디 소개');
+      expect(container).toHaveTextContent('스터디를 소개합니다.2');
     });
   });
 });

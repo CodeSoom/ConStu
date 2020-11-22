@@ -7,15 +7,6 @@ import { render, fireEvent } from '@testing-library/react';
 
 import StudyGroupsContainer from './StudyGroupsContainer';
 
-const mockSearch = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useLocation() {
-    return { search: mockSearch };
-  },
-}));
-
 describe('StudyGroupsContainer', () => {
   const dispatch = jest.fn();
 
