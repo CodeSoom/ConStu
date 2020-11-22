@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
+import DateTimeChange from '../common/DateTimeChange';
 
 const StudyIntroduceWrapper = styled.div`
   margin-top: 6em;
@@ -33,6 +34,7 @@ const IntroduceHeaderWrapper = styled.div`
     border: none;
     background: ${palette.teal[5]};
     color: white;
+    cursor: pointer;
     &:hover{
       background: ${palette.teal[4]};
     }
@@ -41,6 +43,7 @@ const IntroduceHeaderWrapper = styled.div`
 
 const IntroduceReferenceWrapper = styled.div`
   display: flex;
+  justify-content: space-evenly;
   padding: 1rem;
   border-radius: 0.75rem;
   background-color: ${palette.gray[1]};
@@ -61,7 +64,6 @@ const ModeratorWrapper = styled.div`
 `;
 
 const IntroduceReference = styled.div`
-  padding-left: 50px;
   padding-right: 50px;
   border-right: 0.1rem solid ${palette.gray[3]};
 `;
@@ -89,6 +91,7 @@ const StudyIntroduceForm = ({ group }) => {
   const {
     title, contents, tags, moderatorId, personnel, participants, applyEndDate,
   } = group;
+
   return (
     <StudyIntroduceWrapper>
       <IntroduceHeaderWrapper>
@@ -106,9 +109,13 @@ const StudyIntroduceForm = ({ group }) => {
           </span>
         </IntroduceReference>
         <IntroduceReference>
-          <label htmlFor="apply-end">접수 마감 일자 :</label>
+          <label htmlFor="apply-end">모집 마감 일자 :</label>
           <span id="apply-end">{applyEndDate}</span>
         </IntroduceReference>
+        <DateTimeChange
+          group={group}
+          page="introduce"
+        />
       </IntroduceReferenceWrapper>
       <IntroduceContentTitle>
         소개

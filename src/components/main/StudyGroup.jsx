@@ -8,7 +8,7 @@ import Moment from 'react-moment';
 
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
-import DateTimeChange from './DateTimeChange';
+import DateTimeChange from '../common/DateTimeChange';
 
 const StudyGroupWrapper = styled.div`
   margin: 1em .5em 1em .5em;
@@ -52,7 +52,10 @@ const StudyGroup = ({ group }) => {
       <StudyInfoWrapper>
         <div className="moderator">{moderatorId}</div>
         <div>
-          <DateTimeChange group={group} />
+          <DateTimeChange
+            group={group}
+            page="main"
+          />
         </div>
         <div>
           {'마감 일자: '}
