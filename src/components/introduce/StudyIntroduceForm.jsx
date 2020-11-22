@@ -2,6 +2,10 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import Moment from 'react-moment';
+
+import { isCheckedTimeStatus } from '../../util/utils';
+
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
@@ -32,9 +36,17 @@ const IntroduceHeaderWrapper = styled.div`
     font-family: 'Gamja Flower', cursive;
     border-radius: 0.4rem;
     border: none;
-    background: ${palette.teal[5]};
+    outline: none;
+  }
+  .deadline{
+    cursor: not-allowed;
+    background: ${palette.gray[3]};
+    color: ${palette.gray[5]};
+  }
+  .apply{
     color: white;
     cursor: pointer;
+    background: ${palette.teal[5]};
     &:hover{
       background: ${palette.teal[4]};
     }
@@ -87,16 +99,32 @@ const IntroduceContent = styled.div`
   padding: 1.5rem;
 `;
 
-const StudyIntroduceForm = ({ group }) => {
+const StudyIntroduceForm = ({ group, realTime }) => {
   const {
     title, contents, tags, moderatorId, personnel, participants, applyEndDate,
   } = group;
+
+  const applyEndTime = new Date(applyEndDate).getTime();
 
   return (
     <StudyIntroduceWrapper>
       <IntroduceHeaderWrapper>
         <h1>{title}</h1>
-        <button type="button">신청하기</button>
+        {isCheckedTimeStatus({ ...group, time: realTime, applyEndTime }) ? (
+          <button
+            type="button"
+            className="deadline"
+          >
+            모집마감
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="apply"
+          >
+            신청하기
+          </button>
+        )}
       </IntroduceHeaderWrapper>
       <ModeratorWrapper>
         {`🙋‍♂️ ${moderatorId}`}
@@ -110,10 +138,11 @@ const StudyIntroduceForm = ({ group }) => {
         </IntroduceReference>
         <IntroduceReference>
           <label htmlFor="apply-end">모집 마감 일자 :</label>
-          <span id="apply-end">{applyEndDate}</span>
+          <Moment interval={0} format="YYYY년 MM월 DD일">{applyEndTime}</Moment>
         </IntroduceReference>
         <DateTimeChange
           group={group}
+          time={realTime}
           page="introduce"
         />
       </IntroduceReferenceWrapper>

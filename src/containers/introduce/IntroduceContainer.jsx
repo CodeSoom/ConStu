@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { get } from '../../util/utils';
+import useInterval from '../../util/useInterval';
 import { loadStudyGroup } from '../../reducers/slice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 
 const IntroduceContainer = ({ groupId }) => {
+  const [realTime, setRealTime] = useState(Date.now());
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,6 +19,10 @@ const IntroduceContainer = ({ groupId }) => {
 
   const group = useSelector(get('group'));
 
+  useInterval(() => {
+    setRealTime(Date.now());
+  }, 1000);
+
   if (!group) {
     return (
       <div>로딩중..</div>
@@ -23,7 +30,10 @@ const IntroduceContainer = ({ groupId }) => {
   }
 
   return (
-    <StudyIntroduceForm group={group} />
+    <StudyIntroduceForm
+      group={group}
+      realTime={realTime}
+    />
   );
 };
 

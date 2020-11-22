@@ -39,7 +39,7 @@ const StudyInfoWrapper = styled.div`
   }
 `;
 
-const StudyGroup = ({ group }) => {
+const StudyGroup = ({ group, realTime }) => {
   const {
     id, moderatorId, title, applyEndDate, tags,
   } = group;
@@ -57,6 +57,7 @@ const StudyGroup = ({ group }) => {
           <DateTimeChange
             group={group}
             page="main"
+            time={realTime}
           />
         </div>
         <div>
