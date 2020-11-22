@@ -9,10 +9,11 @@ import StudyIntroduceForm from './StudyIntroduceForm';
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 describe('StudyIntroduceForm', () => {
-  const renderStudyIntroduceForm = ({ group }) => render((
+  const renderStudyIntroduceForm = ({ group, time }) => render((
     <MemoryRouter>
       <StudyIntroduceForm
         group={group}
+        realTime={time}
       />
     </MemoryRouter>
   ));
@@ -28,5 +29,78 @@ describe('StudyIntroduceForm', () => {
     const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
 
     expect(container.innerHTML).toContain('<a ');
+  });
+
+  context('When the study recruitment is closed', () => {
+    const time = Date.now();
+
+    describe('current time is after the recruitment deadline', () => {
+      const nowDate = new Date();
+      const yesterday = nowDate.setDate(nowDate.getDate() - 1);
+
+      const group = {
+        ...STUDY_GROUP,
+        applyEndDate: yesterday,
+        participants: [
+          'user2',
+        ],
+        personnel: 2,
+      };
+
+      it('renders recruitment closed text', () => {
+        const { container } = renderStudyIntroduceForm({ group, time });
+
+        expect(container).toHaveTextContent('모집마감');
+        expect(container).not.toHaveTextContent('신청하기');
+      });
+    });
+
+    describe('When the number of study group participants equals the maximum number of participants', () => {
+      const nowDate = new Date();
+      const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+      const group = {
+        ...STUDY_GROUP,
+        applyEndDate: tomorrow,
+        participants: [
+          'user2',
+          'user3',
+        ],
+        personnel: 2,
+      };
+
+      it('renders recruitment closed text', () => {
+        const { container } = renderStudyIntroduceForm({ group, time });
+
+        expect(container).toHaveTextContent('모집마감');
+        expect(container).not.toHaveTextContent('신청하기');
+      });
+    });
+  });
+
+  context('When the study recruitment is opened', () => {
+    const time = Date.now();
+
+    describe(`current time is before the recruitment deadline and 
+      when the number of study group participants is less than the maximum number of participants`, () => {
+      const nowDate = new Date();
+      const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+      const group = {
+        ...STUDY_GROUP,
+        applyEndDate: tomorrow,
+        participants: [
+          'user2',
+        ],
+        personnel: 2,
+      };
+
+      it('renders recruitment apply text', () => {
+        const { container } = renderStudyIntroduceForm({ group, time });
+
+        expect(container).toHaveTextContent('신청하기');
+        expect(container).not.toHaveTextContent('모집마감');
+      });
+    });
   });
 });
