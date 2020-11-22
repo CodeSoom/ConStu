@@ -44,6 +44,8 @@ const StudyGroup = ({ group }) => {
     id, moderatorId, title, applyEndDate, tags,
   } = group;
 
+  const applyEndTime = new Date(applyEndDate);
+
   return (
     <StudyGroupWrapper>
       <HeaderLink to={`/introduce/${id}`}>
@@ -59,7 +61,7 @@ const StudyGroup = ({ group }) => {
         </div>
         <div>
           {'마감 일자: '}
-          <Moment interval={0} format="YYYY년 MM월 DD일">{applyEndDate}</Moment>
+          <Moment interval={0} format="YYYY년 MM월 DD일">{applyEndTime}</Moment>
         </div>
         <Tags tags={tags} />
       </StudyInfoWrapper>

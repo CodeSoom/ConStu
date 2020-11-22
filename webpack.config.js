@@ -15,6 +15,7 @@ const appHtml = path.resolve(__dirname, 'public', 'index.html');
 
 module.exports = {
   mode,
+  devtool: 'cheap-eval-source-map',
   entry: appIndex,
   output: {
     path: appBuild,
@@ -33,7 +34,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpe?g|PNG|gif|svg)$/,
+        test: /\.(jpe?g|PNG|gif|svg)$/i,
         loader: 'url-loader',
         options: {
           name: '[name].[hash:8].[ext]',
@@ -46,7 +47,8 @@ module.exports = {
         loader: 'file-loader',
         exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/],
         options: {
-          name: 'static/media/[name].[hash:8].[ext]',
+          name: '[name].[hash:8].[ext]',
+          outputPath: 'static/media',
         },
       },
       {
