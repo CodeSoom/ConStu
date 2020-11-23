@@ -24,6 +24,9 @@ describe('App', () => {
     useSelector.mockImplementation((selector) => selector({
       groups: STUDY_GROUPS,
       group: STUDY_GROUP,
+      writeField: {
+        tags: [],
+      },
     }));
   });
 

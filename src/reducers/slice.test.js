@@ -8,6 +8,7 @@ import reducer, {
   loadStudyGroups,
   setStudyGroup,
   loadStudyGroup,
+  changeWriteField,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -23,6 +24,15 @@ describe('reducer', () => {
     const initialState = {
       groups: [],
       group: null,
+      writeField: {
+        title: '',
+        contents: '',
+        moderatorId: '',
+        applyEndDate: '',
+        participants: [],
+        personnel: 0,
+        tags: [],
+      },
     };
 
     it('returns initialState', () => {
@@ -73,6 +83,29 @@ describe('reducer', () => {
       const state = reducer(initialState, setStudyGroup(STUDY_GROUP));
 
       expect(state.group.id).toBe(1);
+    });
+  });
+
+  describe('changeWriteField', () => {
+    it('changes a field of establish study group write', () => {
+      const initialState = {
+        writeField: {
+          title: '',
+          contents: '',
+          moderatorId: '',
+          applyEndDate: '',
+          participants: [],
+          personnel: 0,
+          tags: [],
+        },
+      };
+
+      const state = reducer(
+        initialState,
+        changeWriteField({ name: 'tags', value: ['JavaScript', 'React'] }),
+      );
+
+      expect(state.writeField.tags).toEqual(['JavaScript', 'React']);
     });
   });
 });

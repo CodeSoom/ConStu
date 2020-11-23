@@ -5,11 +5,22 @@ import {
   getStudyGroups,
 } from '../services/api';
 
+const writeInitialState = {
+  title: '',
+  contents: '',
+  moderatorId: '',
+  applyEndDate: '',
+  participants: [],
+  personnel: 0,
+  tags: [],
+};
+
 const { actions, reducer } = createSlice({
   name: 'application',
   initialState: {
     groups: [],
     group: null,
+    writeField: writeInitialState,
   },
   reducers: {
     setStudyGroups(state, { payload: { groups, tag } }) {
@@ -30,12 +41,22 @@ const { actions, reducer } = createSlice({
         group,
       };
     },
+    changeWriteField(state, { payload: { name, value } }) {
+      return {
+        ...state,
+        writeField: {
+          ...state.writeField,
+          [name]: value,
+        },
+      };
+    },
   },
 });
 
 export const {
   setStudyGroups,
   setStudyGroup,
+  changeWriteField,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
