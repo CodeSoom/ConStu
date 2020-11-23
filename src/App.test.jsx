@@ -48,4 +48,12 @@ describe('App', () => {
       expect(container).toHaveTextContent('스터디를 소개합니다.2');
     });
   });
+
+  context('with path /write', () => {
+    it('renders the study write page', () => {
+      const { container } = renderApp({ path: '/write' });
+
+      expect(container).toHaveTextContent('스터디 그룹 개설하기');
+    });
+  });
 });
