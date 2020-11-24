@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import TagList from './TagList';
+
 const TagsFormWrapper = styled.div``;
 
 const TagsForm = ({ onChange, tags }) => {
@@ -9,11 +11,7 @@ const TagsForm = ({ onChange, tags }) => {
   const [inputTags, setInputTags] = useState([]);
 
   const validateInput = (value) => {
-    if (!value) {
-      return;
-    }
-
-    if (inputTags.includes(value)) {
+    if (!value || inputTags.includes(value)) {
       return;
     }
 
@@ -24,19 +22,21 @@ const TagsForm = ({ onChange, tags }) => {
   };
 
   const handleChange = (e) => {
-    setTag(e.target.value);
+    const { value } = e.target;
+
+    setTag(value);
   };
 
-  const handleRemove = (removeTag) => {
-    const removeTags = inputTags.filter((value) => value !== removeTag);
-
+  const handleRemove = (removeTags) => {
     setInputTags(removeTags);
     onChange(removeTags);
   };
 
-  const handleSubmit = () => {
-    validateInput(tag.trim());
-    setTag('');
+  const handleSubmit = (e) => {
+    if (e.key === 'Enter') {
+      validateInput(tag.trim());
+      setTag('');
+    }
   };
 
   useEffect(() => {
@@ -53,19 +53,10 @@ const TagsForm = ({ onChange, tags }) => {
         onChange={handleChange}
         onKeyPress={handleSubmit}
       />
-      <div>
-        {inputTags.map((inputTag) => (
-          <span
-            key={inputTag}
-            onClick={() => handleRemove(inputTag)}
-            onKeyPress={() => {}}
-            role="button"
-            tabIndex="-1"
-          >
-            {`#${inputTag}`}
-          </span>
-        ))}
-      </div>
+      <TagList
+        tags={inputTags}
+        onRemove={handleRemove}
+      />
     </TagsFormWrapper>
   );
 };
