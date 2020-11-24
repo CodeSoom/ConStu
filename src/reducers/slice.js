@@ -42,10 +42,12 @@ const { actions, reducer } = createSlice({
       };
     },
     changeWriteField(state, { payload: { name, value } }) {
+      const { writeField } = state;
+
       return {
         ...state,
         writeField: {
-          ...state.writeField,
+          ...writeField,
           [name]: value,
         },
       };
