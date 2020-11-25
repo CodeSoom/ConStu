@@ -33,11 +33,10 @@ describe('WritePage', () => {
     });
 
     it('renders write form tag', () => {
-      const { getByPlaceholderText, getByText } = renderWritePage();
+      const { getByPlaceholderText } = renderWritePage();
 
       expect(getByPlaceholderText('제목을 입력하세요')).not.toBeNull();
       expect(getByPlaceholderText('내용')).not.toBeNull();
-      expect(getByText('저장')).not.toBeNull();
     });
 
     it('renders tag form text', () => {
@@ -45,6 +44,13 @@ describe('WritePage', () => {
 
       expect(getByPlaceholderText('태그를 입력하세요')).not.toBeNull();
       expect(container).toHaveTextContent('태그');
+    });
+
+    it('renders buttons', () => {
+      const { getByText } = renderWritePage();
+
+      expect(getByText('등록하기')).not.toBeNull();
+      expect(getByText('취소')).not.toBeNull();
     });
   });
 });

@@ -9,10 +9,13 @@ import reducer, {
   setStudyGroup,
   loadStudyGroup,
   changeWriteField,
+  writeStudyGroup,
+  clearWriteFields,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
 import STUDY_GROUP from '../../fixtures/study-group';
+import WRITE_FORM from '../../fixtures/write-form';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -108,6 +111,24 @@ describe('reducer', () => {
       expect(state.writeField.tags).toEqual(['JavaScript', 'React']);
     });
   });
+
+  describe('clearWriteFields', () => {
+    const initialState = {
+      writeField: {
+        title: '타이틀',
+        contents: '내용',
+      },
+    };
+
+    it('clears fields of write', () => {
+      const state = reducer(initialState, clearWriteFields());
+
+      const { writeField: { title, contents } } = state;
+
+      expect(title).toBe('');
+      expect(contents).toBe('');
+    });
+  });
 });
 
 describe('async actions', () => {
@@ -141,7 +162,24 @@ describe('async actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setStudyGroup(null));
-      expect(actions[1]).toEqual(setStudyGroup([]));
+      expect(actions[1]).toEqual(setStudyGroup(undefined));
+    });
+  });
+
+  describe('writeStudyGroup', () => {
+    beforeEach(() => {
+      store = mockStore({
+        writeField: WRITE_FORM,
+      });
+    });
+
+    it('dispatches clearWriteFields', async () => {
+      await store.dispatch(writeStudyGroup());
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(setStudyGroup(undefined));
+      expect(actions[1]).toEqual(clearWriteFields(undefined));
     });
   });
 });

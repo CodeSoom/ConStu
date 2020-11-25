@@ -23,7 +23,7 @@ describe('App', () => {
 
     useSelector.mockImplementation((selector) => selector({
       groups: STUDY_GROUPS,
-      group: STUDY_GROUP,
+      group: given.group,
       writeField: {
         tags: [],
       },
@@ -37,6 +37,7 @@ describe('App', () => {
   ));
 
   context('with path /', () => {
+    given('group', () => (null));
     it('renders the study list page', () => {
       const { container } = renderApp({ path: '/' });
 
@@ -45,6 +46,7 @@ describe('App', () => {
   });
 
   context('with path /introduce', () => {
+    given('group', () => (STUDY_GROUP));
     it('renders the study introduce page', () => {
       const { container } = renderApp({ path: '/introduce/1' });
 
@@ -53,6 +55,7 @@ describe('App', () => {
   });
 
   context('with path /write', () => {
+    given('group', () => (null));
     it('renders the study write page', () => {
       const { container } = renderApp({ path: '/write' });
 
