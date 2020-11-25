@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { get } from '../../util/utils';
 import WriteForm from '../../components/write/WriteForm';
 
-import { changeWriteField } from '../../reducers/slice';
+import { changeWriteField, clearWriteFields } from '../../reducers/slice';
 
 const WriteFormContainer = () => {
   const dispatch = useDispatch();
@@ -20,6 +20,10 @@ const WriteFormContainer = () => {
       }),
     );
   };
+
+  useEffect(() => () => {
+    dispatch(clearWriteFields());
+  }, [dispatch]);
 
   return (
     <WriteForm

@@ -1,7 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useHistory } from 'react-router-dom';
 
 import { get } from '../../util/utils';
@@ -28,10 +27,15 @@ const WriteButtonsContainer = () => {
     }
   }, [history, group]);
 
+  const onCancel = () => {
+    history.push('/');
+  };
+
   return (
     <WriteButtons
       fields={writeField}
       onSubmit={onSubmit}
+      onCancel={onCancel}
     />
   );
 };

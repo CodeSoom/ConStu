@@ -47,10 +47,23 @@ describe('WriteButtonsContainer', () => {
     expect(container).toHaveTextContent('취소');
   });
 
+  describe('when click cancel button', () => {
+    given('group', () => (null));
+
+    it('Go to the main page', () => {
+      const { getByText } = renderWriteButtonsContainer();
+
+      fireEvent.click(getByText('취소'));
+
+      expect(mockPush).toBeCalledWith('/');
+    });
+  });
+
   describe('when click submit button', () => {
     context('with group', () => {
       given('group', () => (STUDY_GROUP));
-      it('dispatch action submit event', () => {
+
+      it('dispatch action writeStudyGroup event', () => {
         const { getByText } = renderWriteButtonsContainer();
 
         fireEvent.click(getByText('등록하기'));
@@ -63,6 +76,7 @@ describe('WriteButtonsContainer', () => {
 
     context('without group', () => {
       given('group', () => (null));
+
       it('dispatch action submit event', () => {
         const { getByText } = renderWriteButtonsContainer();
 
