@@ -8,4 +8,4 @@ export function equal(key, value) {
 
 export const isCheckedTimeStatus = ({
   time, applyEndTime, participants, personnel,
-}) => (!!((time - applyEndTime >= 0 || participants.length === personnel)));
+}) => (!!((time - applyEndTime >= 0 || participants.length === parseInt(personnel, 10))));
