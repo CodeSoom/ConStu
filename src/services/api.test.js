@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   getStudyGroup,
   getStudyGroups,
+  postStudyGroup,
 } from './api';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -36,6 +37,21 @@ describe('api', () => {
 
       expect(axios.get).toHaveBeenCalledWith(
         `http://localhost:3000/groups/${id}`,
+      );
+    });
+  });
+
+  describe('postStudyGroup', () => {
+    beforeEach(() => {
+      axios.post.mockResolvedValue({ data: STUDY_GROUP });
+    });
+
+    it('returns study group post', async () => {
+      await expect(postStudyGroup(STUDY_GROUP)).resolves.toEqual(STUDY_GROUP);
+
+      expect(axios.post).toHaveBeenCalledWith(
+        'http://localhost:3000/groups/',
+        STUDY_GROUP,
       );
     });
   });

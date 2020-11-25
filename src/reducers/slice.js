@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   getStudyGroup,
   getStudyGroups,
+  postStudyGroup,
 } from '../services/api';
 
 const writeInitialState = {
@@ -52,6 +53,14 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+    clearWriteFields(state) {
+      return {
+        ...state,
+        writeField: {
+          ...writeInitialState,
+        },
+      };
+    },
   },
 });
 
@@ -59,6 +68,7 @@ export const {
   setStudyGroups,
   setStudyGroup,
   changeWriteField,
+  clearWriteFields,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
@@ -73,6 +83,16 @@ export const loadStudyGroup = (id) => async (dispatch) => {
   const group = await getStudyGroup(id);
 
   dispatch(setStudyGroup(group));
+};
+
+export const writeStudyGroup = () => async (dispatch, getState) => {
+  const { writeField } = getState();
+
+  // NOTE: 현재 로그인 기능이 없는 관계로 임의로 작성자(moderatorId)를 넣어줌
+  const group = await postStudyGroup({ ...writeField, moderatorId: 'user1' });
+
+  dispatch(setStudyGroup(group));
+  dispatch(clearWriteFields());
 };
 
 export default reducer;
