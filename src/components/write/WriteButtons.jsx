@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 const WriteButtonsWrapper = styled.div``;
 
-const WriteButtons = ({ onSubmit }) => (
+const WriteButtons = ({ onSubmit, onCancel }) => (
   <WriteButtonsWrapper>
     <button
       type="button"
@@ -12,7 +12,12 @@ const WriteButtons = ({ onSubmit }) => (
     >
       등록하기
     </button>
-    <button type="button">취소</button>
+    <button
+      type="button"
+      onClick={onCancel}
+    >
+      취소
+    </button>
   </WriteButtonsWrapper>
 );
 
