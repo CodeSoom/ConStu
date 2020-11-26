@@ -35,7 +35,6 @@ describe('WriteFormContainer', () => {
       const { getByPlaceholderText, getByLabelText } = renderWriteFormContainer();
 
       expect(getByPlaceholderText('제목을 입력하세요')).not.toBeNull();
-      expect(getByPlaceholderText('내용')).not.toBeNull();
       expect(getByLabelText('모집 마감 날짜')).not.toBeNull();
       expect(getByLabelText('참여 인원 수')).not.toBeNull();
     });
