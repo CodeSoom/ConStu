@@ -6,6 +6,8 @@ import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 const WriteEditorWrapper = styled.div``;
 
 const WriteEditor = ({ onChange }) => {
@@ -29,7 +31,6 @@ const WriteEditor = ({ onChange }) => {
         localization={{
           locale: 'ko',
         }}
-        // 에디터 상단에 표시될 toolbar 설정
         toolbar={{
           list: { inDropdown: true },
           textAlign: { inDropdown: true },
