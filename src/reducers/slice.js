@@ -88,8 +88,12 @@ export const loadStudyGroup = (id) => async (dispatch) => {
 export const writeStudyGroup = () => async (dispatch, getState) => {
   const { writeField } = getState();
 
-  // NOTE: 현재 로그인 기능이 없는 관계로 임의로 작성자(moderatorId)를 넣어줌
-  const group = await postStudyGroup({ ...writeField, moderatorId: 'user1' });
+  // NOTE: 현재 로그인 기능이 없는 관계로 임의로 작성자(moderatorId)와 참여자 목록(participants)에 넣어줌
+  const group = await postStudyGroup({
+    ...writeField,
+    moderatorId: 'user1',
+    participants: [...writeField.participants, 'user1'],
+  });
 
   dispatch(setStudyGroup(group));
   dispatch(clearWriteFields());

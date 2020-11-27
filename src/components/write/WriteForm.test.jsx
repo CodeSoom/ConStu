@@ -24,13 +24,12 @@ describe('WriteForm', () => {
     const { getByLabelText, getByPlaceholderText } = renderWriteForm(WRITE_FORM);
 
     const {
-      title, applyEndDate, personnel, contents,
+      title, applyEndDate, personnel,
     } = WRITE_FORM;
 
     expect(getByPlaceholderText('제목을 입력하세요')).toHaveValue(title);
     expect(getByLabelText('모집 마감 날짜')).toHaveValue(applyEndDate);
     expect(getByLabelText('참여 인원 수')).toHaveValue(personnel);
-    expect(getByPlaceholderText('내용')).toHaveTextContent(contents);
   });
 
   describe('listens change event', () => {

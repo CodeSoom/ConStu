@@ -6,7 +6,7 @@ const WriteFormWrapper = styled.div``;
 
 const WriteForm = ({ onChange, fields }) => {
   const {
-    title, applyEndDate, personnel, contents,
+    title, applyEndDate, personnel,
   } = fields;
 
   const handleChange = (e) => {
@@ -44,17 +44,6 @@ const WriteForm = ({ onChange, fields }) => {
           value={personnel}
           onChange={handleChange}
           id="participants-number"
-        />
-      </div>
-      <div>
-        {/* TODO: 추후 draft.js를 사용하여 변경 예정 */}
-        <textarea
-          rows="10"
-          cols="100"
-          name="contents"
-          value={contents}
-          onChange={handleChange}
-          placeholder="내용"
         />
       </div>
     </WriteFormWrapper>

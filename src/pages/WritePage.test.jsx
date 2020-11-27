@@ -36,7 +36,6 @@ describe('WritePage', () => {
       const { getByPlaceholderText } = renderWritePage();
 
       expect(getByPlaceholderText('제목을 입력하세요')).not.toBeNull();
-      expect(getByPlaceholderText('내용')).not.toBeNull();
     });
 
     it('renders tag form text', () => {
