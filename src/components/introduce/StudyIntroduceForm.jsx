@@ -149,10 +149,7 @@ const StudyIntroduceForm = ({ group, realTime }) => {
       <IntroduceContentTitle>
         소개
       </IntroduceContentTitle>
-      {/* TODO: dangerouslySetInnerHTML으로 변경하기 */}
-      <IntroduceContent>
-        {contents}
-      </IntroduceContent>
+      <IntroduceContent dangerouslySetInnerHTML={{ __html: contents }} />
       <Tags tags={tags} />
     </StudyIntroduceWrapper>
   );
