@@ -1,5 +1,8 @@
 # 🌈 project-react-2-saseungmin (이름 미정)
 
+### 🎈 Hosting URL
+https://sweet-1cfff.web.app/
+
 ### 🎈 사용 목적
 - 개발과 관련한 또는 IT와 관련된 스터디를 찾고 같이 공부하고 소통하고 싶을 때 사용합니다.
 
