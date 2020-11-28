@@ -52,5 +52,6 @@ module.exports = {
     'react/prop-types': 'off',
     'linebreak-style': 'off',
     'no-proto': 'off',
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['draft'] }],
   },
 };
