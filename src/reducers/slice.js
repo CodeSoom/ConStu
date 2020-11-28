@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import produce from 'immer';
+
 import {
   getStudyGroup,
   getStudyGroups,
@@ -16,6 +18,18 @@ const writeInitialState = {
   tags: [],
 };
 
+const authInitialState = {
+  register: {
+    userEmail: '',
+    password: '',
+    passwordConfirm: '',
+  },
+  login: {
+    userEmail: '',
+    password: '',
+  },
+};
+
 const { actions, reducer } = createSlice({
   name: 'application',
   initialState: {
@@ -23,7 +37,10 @@ const { actions, reducer } = createSlice({
     group: null,
     groupId: null,
     writeField: writeInitialState,
+    register: authInitialState.register,
+    login: authInitialState.login,
   },
+
   reducers: {
     setStudyGroups(state, { payload: { groups, tag } }) {
       return {
@@ -37,12 +54,14 @@ const { actions, reducer } = createSlice({
         }, []) : groups,
       };
     },
+
     setStudyGroup(state, { payload: group }) {
       return {
         ...state,
         group,
       };
     },
+
     changeWriteField(state, { payload: { name, value } }) {
       const { writeField } = state;
 
@@ -54,6 +73,7 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+
     clearWriteFields(state) {
       return {
         ...state,
@@ -62,11 +82,18 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+
     successWrite(state, { payload: groupId }) {
       return {
         ...state,
         groupId,
       };
+    },
+
+    changeAuthField(state, { payload: { form, name, value } }) {
+      return produce(state, (draft) => {
+        draft[form][name] = value;
+      });
     },
   },
 });
@@ -77,6 +104,7 @@ export const {
   changeWriteField,
   clearWriteFields,
   successWrite,
+  changeAuthField,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {

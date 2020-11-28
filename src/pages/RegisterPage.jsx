@@ -1,9 +1,9 @@
 import React from 'react';
 
-import AuthForm from '../components/auth/AuthForm';
+import RegisterFormContainer from '../containers/auth/RegisterFormContainer';
 
 const RegisterPage = () => (
-  <AuthForm type="Register" />
+  <RegisterFormContainer />
 );
 
 export default RegisterPage;

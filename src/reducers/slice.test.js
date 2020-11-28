@@ -12,6 +12,7 @@ import reducer, {
   writeStudyGroup,
   clearWriteFields,
   successWrite,
+  changeAuthField,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -37,6 +38,15 @@ describe('reducer', () => {
         participants: [],
         personnel: 0,
         tags: [],
+      },
+      register: {
+        userEmail: '',
+        password: '',
+        passwordConfirm: '',
+      },
+      login: {
+        userEmail: '',
+        password: '',
       },
     };
 
@@ -141,6 +151,50 @@ describe('reducer', () => {
       const state = reducer(initialState, successWrite('1'));
 
       expect(state.groupId).toBe('1');
+    });
+  });
+
+  describe('changeAuthField', () => {
+    const initialState = {
+      register: {
+        userEmail: '',
+        password: '',
+        passwordConfirm: '',
+      },
+      login: {
+        userEmail: '',
+        password: '',
+      },
+    };
+
+    context('When the form name is login', () => {
+      it('login form is change', () => {
+        const state = reducer(initialState,
+          changeAuthField(
+            {
+              form: 'login',
+              name: 'userEmail',
+              value: 'tktmdals',
+            },
+          ));
+
+        expect(state.login.userEmail).toBe('tktmdals');
+      });
+    });
+
+    context('When the form name is register', () => {
+      it('register form is change', () => {
+        const state = reducer(initialState,
+          changeAuthField(
+            {
+              form: 'register',
+              name: 'userEmail',
+              value: 'tktmdals',
+            },
+          ));
+
+        expect(state.register.userEmail).toBe('tktmdals');
+      });
     });
   });
 });

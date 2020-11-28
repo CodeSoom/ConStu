@@ -27,6 +27,15 @@ describe('App', () => {
       writeField: {
         tags: [],
       },
+      register: {
+        userEmail: '',
+        password: '',
+        passwordConfirm: '',
+      },
+      login: {
+        userEmail: '',
+        password: '',
+      },
     }));
   });
 
@@ -67,7 +76,7 @@ describe('App', () => {
     it('renders the study login page', () => {
       const { container } = renderApp({ path: '/login' });
 
-      expect(container).toHaveTextContent('Login');
+      expect(container).toHaveTextContent('로그인');
     });
   });
 
@@ -75,7 +84,7 @@ describe('App', () => {
     it('renders the study register page', () => {
       const { container } = renderApp({ path: '/register' });
 
-      expect(container).toHaveTextContent('Register');
+      expect(container).toHaveTextContent('회원가입');
     });
   });
 });
