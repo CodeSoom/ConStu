@@ -8,7 +8,6 @@ import { render, fireEvent } from '@testing-library/react';
 import WriteButtonsContainer from './WriteButtonsContainer';
 
 import WRITE_FORM from '../../../fixtures/write-form';
-import STUDY_GROUP from '../../../fixtures/study-group';
 
 const mockPush = jest.fn();
 
@@ -30,7 +29,7 @@ describe('WriteButtonsContainer', () => {
 
     useSelector.mockImplementation((state) => state({
       writeField: WRITE_FORM,
-      group: given.group,
+      groupId: given.groupId,
     }));
   });
 
@@ -48,7 +47,7 @@ describe('WriteButtonsContainer', () => {
   });
 
   describe('when click cancel button', () => {
-    given('group', () => (null));
+    given('groupId', () => (null));
 
     it('Go to the main page', () => {
       const { getByText } = renderWriteButtonsContainer();
@@ -61,7 +60,7 @@ describe('WriteButtonsContainer', () => {
 
   describe('when click submit button', () => {
     context('with group', () => {
-      given('group', () => (STUDY_GROUP));
+      given('groupId', () => ('1'));
 
       it('dispatch action writeStudyGroup event', () => {
         const { getByText } = renderWriteButtonsContainer();
@@ -75,7 +74,7 @@ describe('WriteButtonsContainer', () => {
     });
 
     context('without group', () => {
-      given('group', () => (null));
+      given('groupId', () => (null));
 
       it('dispatch action submit event', () => {
         const { getByText } = renderWriteButtonsContainer();

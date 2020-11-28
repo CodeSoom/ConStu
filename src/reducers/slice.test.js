@@ -11,6 +11,7 @@ import reducer, {
   changeWriteField,
   writeStudyGroup,
   clearWriteFields,
+  successWrite,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -27,6 +28,7 @@ describe('reducer', () => {
     const initialState = {
       groups: [],
       group: null,
+      groupId: null,
       writeField: {
         title: '',
         contents: '',
@@ -129,6 +131,18 @@ describe('reducer', () => {
       expect(contents).toBe('');
     });
   });
+
+  describe('successWrite', () => {
+    const initialState = {
+      groupId: null,
+    };
+
+    it('groupId return after successful writing', () => {
+      const state = reducer(initialState, successWrite('1'));
+
+      expect(state.groupId).toBe('1');
+    });
+  });
 });
 
 describe('async actions', () => {
@@ -178,7 +192,7 @@ describe('async actions', () => {
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual(setStudyGroup(undefined));
+      expect(actions[0]).toEqual(successWrite(undefined));
       expect(actions[1]).toEqual(clearWriteFields(undefined));
     });
   });
