@@ -1,8 +1,9 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
+import Responsive from '../../styles/Responsive';
 
-const AuthFormWrapper = styled.div``;
+const AuthFormWrapper = styled(Responsive)``;
 
 const AuthForm = ({ type }) => (
   <AuthFormWrapper>
