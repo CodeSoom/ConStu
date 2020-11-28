@@ -1,6 +1,6 @@
 # 🌈 project-react-2-saseungmin (이름 미정)
 
-### 🎈 Hosting URL
+### 🚀 Hosting URL
 https://sweet-1cfff.web.app/
 
 ### 🎈 사용 목적
@@ -16,6 +16,7 @@ https://sweet-1cfff.web.app/
 
 
 ### 📚 Project Settings
+
 #### 📢 Install npm dependencies
 
 ```
@@ -41,12 +42,6 @@ $ npm run test:unit
 
 ```
 $ npm build
-```
-
-#### 📢 Run json-server
-
-```
-$ npm run server:start
 ```
 
 #### 📢 Run Lint
