@@ -13,7 +13,7 @@ const WriteButtonsContainer = () => {
   const dispatch = useDispatch();
 
   const writeField = useSelector(get('writeField'));
-  const group = useSelector(get('group'));
+  const groupId = useSelector(get('groupId'));
 
   const onSubmit = useCallback(() => {
     // TODO: write form validate 체크 하기
@@ -21,11 +21,10 @@ const WriteButtonsContainer = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (group) {
-      const { id } = group;
-      history.push(`/introduce/${id}`);
+    if (groupId) {
+      history.push(`/introduce/${groupId}`);
     }
-  }, [history, group]);
+  }, [history, groupId]);
 
   const onCancel = () => {
     history.push('/');

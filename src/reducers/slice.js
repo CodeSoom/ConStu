@@ -21,6 +21,7 @@ const { actions, reducer } = createSlice({
   initialState: {
     groups: [],
     group: null,
+    groupId: null,
     writeField: writeInitialState,
   },
   reducers: {
@@ -61,6 +62,12 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+    successWrite(state, { payload: groupId }) {
+      return {
+        ...state,
+        groupId,
+      };
+    },
   },
 });
 
@@ -69,6 +76,7 @@ export const {
   setStudyGroup,
   changeWriteField,
   clearWriteFields,
+  successWrite,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
@@ -89,13 +97,13 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
   const { writeField } = getState();
 
   // NOTE: 현재 로그인 기능이 없는 관계로 임의로 작성자(moderatorId)와 참여자 목록(participants)에 넣어줌
-  const group = await postStudyGroup({
+  const groupId = await postStudyGroup({
     ...writeField,
     moderatorId: 'user1',
     participants: [...writeField.participants, 'user1'],
   });
 
-  dispatch(setStudyGroup(group));
+  dispatch(successWrite(groupId));
   dispatch(clearWriteFields());
 };
 
