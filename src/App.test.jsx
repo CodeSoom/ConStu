@@ -62,4 +62,20 @@ describe('App', () => {
       expect(container).toHaveTextContent('스터디 그룹 개설하기');
     });
   });
+
+  context('with path /login', () => {
+    it('renders the study login page', () => {
+      const { container } = renderApp({ path: '/login' });
+
+      expect(container).toHaveTextContent('Login');
+    });
+  });
+
+  context('with path /register', () => {
+    it('renders the study register page', () => {
+      const { container } = renderApp({ path: '/register' });
+
+      expect(container).toHaveTextContent('Register');
+    });
+  });
 });
