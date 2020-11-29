@@ -43,15 +43,21 @@ const Spacer = styled.div`
   height: 6rem;
 `;
 
-const Header = () => (
+const Header = ({ user }) => (
   <>
     <HeaderWrapper>
       <Wrapper>
         <TitleWrapper to="/">제목(미정)</TitleWrapper>
-        <div>
-          <LinkWrapper to="/login">로그인</LinkWrapper>
-          <LinkWrapper to="/register">회원가입</LinkWrapper>
-        </div>
+        {user ? (
+          <div>
+            <button type="button">로그아웃</button>
+          </div>
+        ) : (
+          <div>
+            <LinkWrapper to="/login">로그인</LinkWrapper>
+            <LinkWrapper to="/register">회원가입</LinkWrapper>
+          </div>
+        )}
       </Wrapper>
     </HeaderWrapper>
     <Spacer />

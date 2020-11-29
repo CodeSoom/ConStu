@@ -9,6 +9,7 @@ import {
   postUserLogin,
   postUserRegister,
 } from '../services/api';
+import { saveItem } from '../services/storage';
 
 const writeInitialState = {
   title: '',
@@ -204,8 +205,13 @@ export const requestLogin = () => async (dispatch, getState) => {
   try {
     const { user } = await postUserLogin({ userEmail, password });
 
-    dispatch(setUser(user.email));
+    const { email } = user;
 
+    saveItem('user', {
+      email,
+    });
+
+    dispatch(setUser(email));
     dispatch(clearAuthFields());
   } catch (error) {
     setAuthError(error);
