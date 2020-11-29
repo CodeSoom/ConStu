@@ -13,11 +13,17 @@ import reducer, {
   clearWriteFields,
   successWrite,
   changeAuthField,
+  clearAuthFields,
+  setAuth,
+  setAuthError,
+  clearAuth,
+  requestRegister,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
 import STUDY_GROUP from '../../fixtures/study-group';
 import WRITE_FORM from '../../fixtures/write-form';
+import { postUserRegister } from '../services/api';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -48,6 +54,8 @@ describe('reducer', () => {
         userEmail: '',
         password: '',
       },
+      auth: null,
+      authError: null,
     };
 
     it('returns initialState', () => {
@@ -197,6 +205,69 @@ describe('reducer', () => {
       });
     });
   });
+
+  describe('clearAuthFields', () => {
+    const initialState = {
+      register: {
+        userEmail: 'seungmin@naver.com',
+        password: '1234',
+        passwordConfirm: '1234',
+      },
+      login: {
+        userEmail: 'seungmin@naver.com',
+        password: '1234',
+      },
+    };
+
+    it('auth form is all cleared', () => {
+      const { register, login } = reducer(initialState, clearAuthFields());
+
+      expect(register.userEmail).toBe('');
+      expect(login.userEmail).toBe('');
+    });
+  });
+
+  describe('setAuth', () => {
+    const initialState = {
+      auth: null,
+    };
+
+    it('authentication success', () => {
+      const userEmail = 'seungmin@naver.com';
+
+      const { auth } = reducer(initialState, setAuth(userEmail));
+
+      expect(auth).toBe(userEmail);
+    });
+  });
+
+  describe('setAuthError', () => {
+    const initialState = {
+      authError: null,
+    };
+
+    it('authentication failure', () => {
+      const error = 'error message';
+
+      const { authError } = reducer(initialState, setAuthError(error));
+
+      expect(authError).toBe(error);
+    });
+  });
+
+  describe('clearAuth', () => {
+    const initialState = {
+      auth: 'seungmin@naver.com',
+      authError: 'error',
+    };
+
+    it('Clean up to auth and authError', () => {
+      const { auth, authError } = reducer(initialState, clearAuth());
+
+      expect(auth).toBe(null);
+      expect(authError).toBe(null);
+    });
+  });
 });
 
 describe('async actions', () => {
@@ -248,6 +319,53 @@ describe('async actions', () => {
 
       expect(actions[0]).toEqual(successWrite(undefined));
       expect(actions[1]).toEqual(clearWriteFields(undefined));
+    });
+  });
+
+  describe('requestRegister', () => {
+    const register = {
+      userEmail: 'seungmin@naver.com',
+      password: '123456',
+    };
+
+    beforeEach(() => {
+      store = mockStore({
+        register,
+      });
+    });
+
+    context('without auth error', () => {
+      const { userEmail } = register;
+
+      postUserRegister.mockImplementationOnce(() => ({
+        user: {
+          email: userEmail,
+        },
+      }));
+      it('dispatches requestRegister action success to return user email', async () => {
+        await store.dispatch(requestRegister());
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual(setAuth(userEmail));
+        expect(actions[1]).toEqual(clearAuthFields());
+      });
+    });
+
+    context('with auth error', () => {
+      postUserRegister.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('dispatches requestRegister action failure to return error', async () => {
+        try {
+          await store.dispatch(requestRegister());
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual(setAuthError(error));
+        }
+      });
     });
   });
 });

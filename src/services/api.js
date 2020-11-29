@@ -1,4 +1,4 @@
-import db from './firebase';
+import { db, auth } from './firebase';
 
 export const getStudyGroups = async () => {
   const response = await db.collection('groups').get();
@@ -25,4 +25,24 @@ export const postStudyGroup = async (post) => {
   const { id } = await db.collection('groups').add(post);
 
   return id;
+};
+
+export const postUserRegister = async ({ userEmail, password }) => {
+  const response = await auth
+    .createUserWithEmailAndPassword(userEmail, password);
+
+  return response;
+};
+
+export const postUserLogin = async ({ userEmail, password }) => {
+  const response = await auth
+    .signInWithEmailAndPassword(userEmail, password);
+
+  return response;
+};
+
+export const postUserLogout = async () => {
+  const response = await auth.signOut();
+
+  return response;
 };
