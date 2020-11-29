@@ -7,9 +7,10 @@ import {
   getStudyGroups,
   postStudyGroup,
   postUserLogin,
+  postUserLogout,
   postUserRegister,
 } from '../services/api';
-import { saveItem } from '../services/storage';
+import { removeItem, saveItem } from '../services/storage';
 
 const writeInitialState = {
   title: '',
@@ -140,6 +141,12 @@ const { actions, reducer } = createSlice({
         user,
       };
     },
+    logout(state) {
+      return {
+        ...state,
+        user: null,
+      };
+    },
   },
 });
 
@@ -155,6 +162,7 @@ export const {
   setAuthError,
   clearAuth,
   setUser,
+  logout,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
@@ -216,6 +224,14 @@ export const requestLogin = () => async (dispatch, getState) => {
   } catch (error) {
     setAuthError(error);
   }
+};
+
+export const requestLogout = () => async (dispatch) => {
+  await postUserLogout();
+
+  removeItem('user');
+
+  dispatch(logout());
 };
 
 export default reducer;

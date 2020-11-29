@@ -94,13 +94,11 @@ describe('api', () => {
 
   describe('postUserLogout', () => {
     beforeEach(() => {
-      auth.signOut = jest.fn().mockResolvedValue(true);
+      auth.signOut = jest.fn();
     });
 
     it('returns true after success logout', async () => {
-      const response = await postUserLogout();
-
-      expect(response).toBe(true);
+      await postUserLogout();
     });
   });
 });
