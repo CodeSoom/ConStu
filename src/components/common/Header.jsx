@@ -43,14 +43,20 @@ const Spacer = styled.div`
   height: 6rem;
 `;
 
-const Header = ({ user }) => (
+const Header = ({ user, onLogout }) => (
   <>
     <HeaderWrapper>
       <Wrapper>
         <TitleWrapper to="/">제목(미정)</TitleWrapper>
         {user ? (
           <div>
-            <button type="button">로그아웃</button>
+            <span>{user}</span>
+            <button
+              onClick={onLogout}
+              type="button"
+            >
+              로그아웃
+            </button>
           </div>
         ) : (
           <div>

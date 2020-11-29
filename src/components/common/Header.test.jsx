@@ -6,17 +6,29 @@ import { render } from '@testing-library/react';
 import Header from './Header';
 
 describe('Header', () => {
-  const renderHeader = () => render((
+  const renderHeader = (user) => render((
     <MemoryRouter>
-      <Header />
+      <Header user={user} />
     </MemoryRouter>
   ));
 
-  it('renders Header text', () => {
-    const { container } = renderHeader();
+  context('with user', () => {
+    const user = 'seungmin@naver.com';
 
-    expect(container).toHaveTextContent('제목(미정)');
-    expect(container).toHaveTextContent('로그인');
-    expect(container).toHaveTextContent('회원가입');
+    it('renders Header text', () => {
+      const { container } = renderHeader(user);
+
+      expect(container).toHaveTextContent('로그아웃');
+      expect(container).toHaveTextContent(user);
+    });
+  });
+
+  context('without user', () => {
+    it('renders Header text', () => {
+      const { container } = renderHeader();
+
+      expect(container).toHaveTextContent('로그인');
+      expect(container).toHaveTextContent('회원가입');
+    });
   });
 });

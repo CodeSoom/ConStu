@@ -42,7 +42,5 @@ export const postUserLogin = async ({ userEmail, password }) => {
 };
 
 export const postUserLogout = async () => {
-  const response = await auth.signOut();
-
-  return response;
+  await auth.signOut();
 };

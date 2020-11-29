@@ -7,3 +7,5 @@ export const postStudyGroup = async () => {};
 export const postUserRegister = jest.fn();
 
 export const postUserLogin = jest.fn();
+
+export const postUserLogout = jest.fn();

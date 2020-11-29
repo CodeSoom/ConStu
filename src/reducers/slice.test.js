@@ -20,12 +20,14 @@ import reducer, {
   requestRegister,
   requestLogin,
   setUser,
+  logout,
+  requestLogout,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
 import STUDY_GROUP from '../../fixtures/study-group';
 import WRITE_FORM from '../../fixtures/write-form';
-import { postUserLogin, postUserRegister } from '../services/api';
+import { postUserLogin, postUserLogout, postUserRegister } from '../services/api';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -285,6 +287,18 @@ describe('reducer', () => {
       expect(user).toBe(userEmail);
     });
   });
+
+  describe('logout', () => {
+    const initialState = {
+      user: 'seungmin@naver.com',
+    };
+
+    it('after logout clear user', () => {
+      const { user } = reducer(initialState, logout());
+
+      expect(user).toBe(null);
+    });
+  });
 });
 
 describe('async actions', () => {
@@ -432,6 +446,22 @@ describe('async actions', () => {
           expect(actions[0]).toEqual(setAuthError(error));
         }
       });
+    });
+  });
+
+  describe('requestLogout', () => {
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    postUserLogout.mockImplementationOnce(() => ({}));
+
+    it('dispatches requestLogout action success to logout', async () => {
+      await store.dispatch(requestLogout());
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(logout());
     });
   });
 });
