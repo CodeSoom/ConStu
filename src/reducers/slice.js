@@ -6,6 +6,7 @@ import {
   getStudyGroup,
   getStudyGroups,
   postStudyGroup,
+  postUserRegister,
 } from '../services/api';
 
 const writeInitialState = {
@@ -39,6 +40,8 @@ const { actions, reducer } = createSlice({
     writeField: writeInitialState,
     register: authInitialState.register,
     login: authInitialState.login,
+    auth: null,
+    authError: null,
   },
 
   reducers: {
@@ -95,6 +98,38 @@ const { actions, reducer } = createSlice({
         draft[form][name] = value;
       });
     },
+
+    clearAuthFields(state) {
+      const { register, login } = authInitialState;
+
+      return {
+        ...state,
+        register,
+        login,
+      };
+    },
+
+    setAuth(state, { payload: user }) {
+      return {
+        ...state,
+        auth: user,
+      };
+    },
+
+    setAuthError(state, { payload: error }) {
+      return {
+        ...state,
+        authError: error,
+      };
+    },
+
+    clearAuth(state) {
+      return {
+        ...state,
+        auth: null,
+        authError: null,
+      };
+    },
   },
 });
 
@@ -105,6 +140,10 @@ export const {
   clearWriteFields,
   successWrite,
   changeAuthField,
+  clearAuthFields,
+  setAuth,
+  setAuthError,
+  clearAuth,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
@@ -133,6 +172,20 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
 
   dispatch(successWrite(groupId));
   dispatch(clearWriteFields());
+};
+
+export const requestRegister = () => async (dispatch, getState) => {
+  const { register: { userEmail, password } } = getState();
+
+  try {
+    const { user } = await postUserRegister({ userEmail, password });
+
+    dispatch(setAuth(user.email));
+
+    dispatch(clearAuthFields());
+  } catch (error) {
+    setAuthError(error);
+  }
 };
 
 export default reducer;

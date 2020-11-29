@@ -1,10 +1,20 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render, fireEvent } from '@testing-library/react';
 
 import RegisterFormContainer from './RegisterFormContainer';
+
+const mockPush = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory() {
+    return { push: mockPush };
+  },
+}));
 
 describe('RegisterFormContainer', () => {
   const dispatch = jest.fn();
@@ -19,11 +29,15 @@ describe('RegisterFormContainer', () => {
         password: '',
         passwordConfirm: '',
       },
+      auth: given.auth,
+      authError: given.authError,
     }));
   });
 
   const renderRegisterFormContainer = () => render((
-    <RegisterFormContainer />
+    <MemoryRouter>
+      <RegisterFormContainer />
+    </MemoryRouter>
   ));
 
   it('renders register form text', () => {
@@ -61,6 +75,39 @@ describe('RegisterFormContainer', () => {
           },
         });
       });
+    });
+
+    it('submit event calls dispatch', () => {
+      const { getByTestId } = renderRegisterFormContainer();
+
+      const button = getByTestId('auth-button');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.submit(button);
+
+      expect(dispatch).toBeCalled();
+    });
+  });
+
+  describe('action after signing up', () => {
+    context('when success auth to register', () => {
+      given('auth', () => ({
+        auth: 'seungmin@naver.com',
+      }));
+
+      it('go to login page', () => {
+        renderRegisterFormContainer();
+
+        expect(mockPush).toBeCalledWith('/login');
+      });
+    });
+
+    // TODO: 현재 authError는 콘솔 출력
+    context('when failure auth to register', () => {
+      given('authError', () => ({
+        authError: 'error',
+      }));
     });
   });
 });

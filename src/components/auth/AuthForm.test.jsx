@@ -6,9 +6,11 @@ import AuthForm from './AuthForm';
 
 describe('AuthForm', () => {
   const handleChange = jest.fn();
+  const handleSubmit = jest.fn();
 
   beforeEach(() => {
     handleChange.mockClear();
+    handleSubmit.mockClear();
   });
 
   const renderAuthForm = ({ type, fields }) => render((
@@ -16,6 +18,7 @@ describe('AuthForm', () => {
       type={type}
       fields={fields}
       onChange={handleChange}
+      onSubmit={handleSubmit}
     />
   ));
 
@@ -93,6 +96,18 @@ describe('AuthForm', () => {
 
         expect(handleChange).toBeCalled();
       });
+    });
+
+    it('listens event call submit', () => {
+      const { getByTestId } = renderAuthForm(register);
+
+      const button = getByTestId('auth-button');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.submit(button);
+
+      expect(handleSubmit).toBeCalled();
     });
   });
 });

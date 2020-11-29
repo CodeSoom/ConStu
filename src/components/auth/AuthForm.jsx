@@ -11,7 +11,9 @@ const FORM_TYPE = {
   register: '회원가입',
 };
 
-const AuthForm = ({ type, onChange, fields }) => {
+const AuthForm = ({
+  type, fields, onChange, onSubmit,
+}) => {
   const formType = FORM_TYPE[type];
 
   const { userEmail, password } = fields;
@@ -22,35 +24,49 @@ const AuthForm = ({ type, onChange, fields }) => {
     onChange({ name, value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    onSubmit();
+  };
+
   return (
     <AuthFormWrapper>
       <h2>{formType}</h2>
-      <input
-        type="text"
-        value={userEmail}
-        name="userEmail"
-        placeholder="이메일"
-        autoComplete="email"
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        value={password}
-        name="password"
-        placeholder="비밀번호"
-        autoComplete="password"
-        onChange={handleChange}
-      />
-      {type === 'register' && (
+      <form onSubmit={handleSubmit}>
         <input
-          type="password"
-          value={fields.passwordConfirm}
-          name="passwordConfirm"
-          placeholder="비밀번호 확인"
-          autoComplete="new-password"
+          type="text"
+          value={userEmail}
+          name="userEmail"
+          placeholder="이메일"
+          autoComplete="email"
           onChange={handleChange}
         />
-      )}
+        <input
+          type="password"
+          value={password}
+          name="password"
+          placeholder="비밀번호"
+          autoComplete="password"
+          onChange={handleChange}
+        />
+        {type === 'register' && (
+          <input
+            type="password"
+            value={fields.passwordConfirm}
+            name="passwordConfirm"
+            placeholder="비밀번호 확인"
+            autoComplete="new-password"
+            onChange={handleChange}
+          />
+        )}
+        <button
+          data-testid="auth-button"
+          type="submit"
+        >
+          {formType}
+        </button>
+      </form>
     </AuthFormWrapper>
   );
 };
