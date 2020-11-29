@@ -1,17 +1,19 @@
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-
 import { MemoryRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
 import App from './App';
 
+import { loadItem } from './services/storage';
+
 import STUDY_GROUPS from '../fixtures/study-groups';
 import STUDY_GROUP from '../fixtures/study-group';
 
 jest.mock('react-redux');
+jest.mock('./services/storage');
 
 describe('App', () => {
   const dispatch = jest.fn();
@@ -85,6 +87,25 @@ describe('App', () => {
       const { container } = renderApp({ path: '/register' });
 
       expect(container).toHaveTextContent('회원가입');
+    });
+  });
+
+  context('when logged in', () => {
+    const user = {
+      email: 'seungmin@naver.com',
+    };
+
+    beforeEach(() => {
+      loadItem.mockImplementation(() => user);
+    });
+
+    it('calls dispatch with "setUser" action', () => {
+      renderApp({ path: '/' });
+
+      expect(dispatch).toBeCalledWith({
+        type: 'application/setUser',
+        payload: user.email,
+      });
     });
   });
 });

@@ -21,16 +21,19 @@ describe('RegisterFormContainer', () => {
 
   beforeEach(() => {
     dispatch.mockClear();
+    mockPush.mockClear();
+
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
+      user: given.user,
+      auth: given.auth,
+      authError: given.authError,
       register: {
         userEmail: '',
         password: '',
         passwordConfirm: '',
       },
-      auth: given.auth,
-      authError: given.authError,
     }));
   });
 
@@ -90,7 +93,7 @@ describe('RegisterFormContainer', () => {
     });
   });
 
-  describe('action after signing up', () => {
+  describe('actions after signing up', () => {
     context('when success auth to register', () => {
       given('auth', () => ({
         auth: 'seungmin@naver.com',
@@ -108,6 +111,18 @@ describe('RegisterFormContainer', () => {
       given('authError', () => ({
         authError: 'error',
       }));
+    });
+  });
+
+  describe('action after login', () => {
+    given('user', () => ({
+      user: 'seungmin@naver.com',
+    }));
+
+    it('redirection go to main page', () => {
+      renderRegisterFormContainer();
+
+      expect(mockPush).toBeCalledWith('/');
     });
   });
 });

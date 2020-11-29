@@ -14,6 +14,7 @@ const RegisterFormContainer = () => {
 
   const register = useSelector(get('register'));
   const auth = useSelector(get('auth'));
+  const user = useSelector(get('user'));
   const authError = useSelector(get('authError'));
 
   const onChangeRegisterField = useCallback(({ name, value }) => {
@@ -27,8 +28,16 @@ const RegisterFormContainer = () => {
   }, [dispatch]);
 
   const onSubmit = useCallback(() => {
+    // TODO: 회원가입 validation 체크 로직 추가
+
     dispatch(requestRegister());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      history.push('/');
+    }
+  }, [user]);
 
   useEffect(() => {
     if (auth) {
@@ -36,14 +45,14 @@ const RegisterFormContainer = () => {
     }
 
     if (authError) {
-      // TODO: 추 후 error 처리
+      // TODO: error 처리 추가
       console.error(authError);
     }
+  }, [auth, authError]);
 
-    return () => {
-      dispatch(clearAuth());
-    };
-  }, [dispatch, auth, authError]);
+  useEffect(() => () => {
+    dispatch(clearAuth());
+  }, [dispatch]);
 
   return (
     <AuthForm

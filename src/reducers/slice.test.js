@@ -18,12 +18,14 @@ import reducer, {
   setAuthError,
   clearAuth,
   requestRegister,
+  requestLogin,
+  setUser,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
 import STUDY_GROUP from '../../fixtures/study-group';
 import WRITE_FORM from '../../fixtures/write-form';
-import { postUserRegister } from '../services/api';
+import { postUserLogin, postUserRegister } from '../services/api';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -36,6 +38,9 @@ describe('reducer', () => {
       groups: [],
       group: null,
       groupId: null,
+      user: null,
+      auth: null,
+      authError: null,
       writeField: {
         title: '',
         contents: '',
@@ -54,8 +59,6 @@ describe('reducer', () => {
         userEmail: '',
         password: '',
       },
-      auth: null,
-      authError: null,
     };
 
     it('returns initialState', () => {
@@ -261,11 +264,25 @@ describe('reducer', () => {
       authError: 'error',
     };
 
-    it('Clean up to auth and authError', () => {
+    it('clean up to auth and authError', () => {
       const { auth, authError } = reducer(initialState, clearAuth());
 
       expect(auth).toBe(null);
       expect(authError).toBe(null);
+    });
+  });
+
+  describe('setUser', () => {
+    const initialState = {
+      user: null,
+    };
+
+    const userEmail = 'seungmin@naver.com';
+
+    it('success login', () => {
+      const { user } = reducer(initialState, setUser(userEmail));
+
+      expect(user).toBe(userEmail);
     });
   });
 });
@@ -342,6 +359,7 @@ describe('async actions', () => {
           email: userEmail,
         },
       }));
+
       it('dispatches requestRegister action success to return user email', async () => {
         await store.dispatch(requestRegister());
 
@@ -360,6 +378,54 @@ describe('async actions', () => {
       it('dispatches requestRegister action failure to return error', async () => {
         try {
           await store.dispatch(requestRegister());
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual(setAuthError(error));
+        }
+      });
+    });
+  });
+
+  describe('requestLogin', () => {
+    const login = {
+      userEmail: 'seungmin@naver.com',
+      password: '123456',
+    };
+
+    beforeEach(() => {
+      store = mockStore({
+        login,
+      });
+    });
+
+    context('without auth error', () => {
+      const { userEmail } = login;
+
+      postUserLogin.mockImplementationOnce(() => ({
+        user: {
+          email: userEmail,
+        },
+      }));
+
+      it('dispatches requestLogin action success to return user email', async () => {
+        await store.dispatch(requestLogin());
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual(setUser(userEmail));
+        expect(actions[1]).toEqual(clearAuthFields());
+      });
+    });
+
+    context('with auth error', () => {
+      postUserLogin.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('dispatches requestLogin action failure to return error', async () => {
+        try {
+          await store.dispatch(requestLogin());
         } catch (error) {
           const actions = store.getActions();
 

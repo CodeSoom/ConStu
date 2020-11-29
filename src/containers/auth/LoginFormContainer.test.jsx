@@ -6,11 +6,22 @@ import { render, fireEvent } from '@testing-library/react';
 
 import LoginFormContainer from './LoginFormContainer';
 
+const mockPush = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory() {
+    return { push: mockPush };
+  },
+}));
+
 describe('LoginFormContainer', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => {
     dispatch.mockClear();
+    mockPush.mockClear();
+
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
@@ -18,6 +29,8 @@ describe('LoginFormContainer', () => {
         userEmail: '',
         password: '',
       },
+      user: given.user,
+      authError: given.authError,
     }));
   });
 
@@ -58,6 +71,39 @@ describe('LoginFormContainer', () => {
           },
         });
       });
+    });
+
+    it('submit event calls dispatch', () => {
+      const { getByTestId } = renderLoginFormContainer();
+
+      const button = getByTestId('auth-button');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.submit(button);
+
+      expect(dispatch).toBeCalled();
+    });
+  });
+
+  describe('actions after login', () => {
+    context('when success auth to login', () => {
+      given('user', () => ({
+        user: 'seungmin@naver.com',
+      }));
+
+      it('redirection go to main page', () => {
+        renderLoginFormContainer();
+
+        expect(mockPush).toBeCalledWith('/');
+      });
+    });
+
+    // TODO: 현재 authError는 콘솔 출력
+    context('when failure auth to login', () => {
+      given('authError', () => ({
+        authError: 'error',
+      }));
     });
   });
 });
