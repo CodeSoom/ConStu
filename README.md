@@ -13,7 +13,10 @@ https://sweet-1cfff.web.app/
 
 #### 🎯 2 주차
 - [2주차 계획](https://github.com/CodeSoom/project-react-2-saseungmin/issues/20)
+- [2주차 회고](https://github.com/saseungmin/codesoom_code_review_repository/tree/master/week_10)
 
+#### 🎯 3 주차
+- [3주차 계획](https://github.com/CodeSoom/project-react-2-saseungmin/issues/44)
 
 ### 📚 Project Settings
 
