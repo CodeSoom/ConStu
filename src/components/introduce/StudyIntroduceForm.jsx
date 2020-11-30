@@ -138,7 +138,7 @@ const StudyIntroduceForm = ({ group, realTime }) => {
         </IntroduceReference>
         <IntroduceReference>
           <label htmlFor="apply-end">모집 마감 일자 :</label>
-          <Moment interval={0} format="YYYY년 MM월 DD일">{applyEndTime}</Moment>
+          <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{applyEndTime}</Moment>
         </IntroduceReference>
         <DateTimeChange
           group={group}

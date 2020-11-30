@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { get } from '../../util/utils';
-import useInterval from '../../util/useInterval';
 import { loadStudyGroup } from '../../reducers/slice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
