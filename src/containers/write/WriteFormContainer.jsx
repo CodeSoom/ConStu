@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
+import { useUnmount } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { get } from '../../util/utils';
@@ -21,9 +22,7 @@ const WriteFormContainer = () => {
     );
   };
 
-  useEffect(() => () => {
-    dispatch(clearWriteFields());
-  }, [dispatch]);
+  useUnmount(() => dispatch(clearWriteFields()));
 
   return (
     <WriteForm

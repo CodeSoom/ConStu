@@ -200,10 +200,8 @@ export const requestRegister = () => async (dispatch, getState) => {
     const { user } = await postUserRegister({ userEmail, password });
 
     dispatch(setAuth(user.email));
-
-    dispatch(clearAuthFields());
   } catch (error) {
-    setAuthError(error);
+    dispatch(setAuthError(error.code));
   }
 };
 
@@ -220,9 +218,8 @@ export const requestLogin = () => async (dispatch, getState) => {
     });
 
     dispatch(setUser(email));
-    dispatch(clearAuthFields());
   } catch (error) {
-    setAuthError(error);
+    dispatch(setAuthError(error.code));
   }
 };
 
