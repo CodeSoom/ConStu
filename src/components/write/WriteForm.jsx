@@ -29,7 +29,7 @@ const WriteForm = ({ onChange, fields }) => {
       <div>
         <label htmlFor="application-deadline">모집 마감 날짜</label>
         <input
-          type="date"
+          type="datetime-local"
           name="applyEndDate"
           value={applyEndDate}
           onChange={handleChange}
@@ -39,6 +39,7 @@ const WriteForm = ({ onChange, fields }) => {
       <div>
         <label htmlFor="participants-number">참여 인원 수</label>
         <input
+          min="1"
           type="number"
           name="personnel"
           value={personnel}

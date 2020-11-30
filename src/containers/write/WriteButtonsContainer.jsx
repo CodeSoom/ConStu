@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -8,17 +8,43 @@ import { writeStudyGroup } from '../../reducers/slice';
 
 import WriteButtons from '../../components/write/WriteButtons';
 
+const checkTrim = (value) => value.trim();
+
+const isCheckValidate = (values) => values.map(checkTrim).includes('');
+
 const WriteButtonsContainer = () => {
+  const [error, setError] = useState(null);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
   const writeField = useSelector(get('writeField'));
   const groupId = useSelector(get('groupId'));
 
-  const onSubmit = useCallback(() => {
-    // TODO: write form validate 체크 하기
+  const {
+    title, applyEndDate, personnel, tags,
+  } = writeField;
+
+  const applyEndTime = new Date(applyEndDate).getTime();
+
+  const onSubmit = () => {
+    if (isCheckValidate([title, applyEndDate, personnel])) {
+      setError('입력이 안된 사항이 있습니다.');
+      return;
+    }
+
+    if (!tags.length) {
+      setError('태그를 입력하세요.');
+      return;
+    }
+
+    if (Date.now() - applyEndTime >= 0) {
+      setError('접수 마감날짜가 현재 시간보다 빠릅니다.');
+      return;
+    }
+
     dispatch(writeStudyGroup());
-  }, [dispatch]);
+  };
 
   useEffect(() => {
     if (groupId) {
@@ -26,13 +52,13 @@ const WriteButtonsContainer = () => {
     }
   }, [history, groupId]);
 
-  const onCancel = () => {
+  const onCancel = useCallback(() => {
     history.push('/');
-  };
+  }, [history]);
 
   return (
     <WriteButtons
-      fields={writeField}
+      error={error}
       onSubmit={onSubmit}
       onCancel={onCancel}
     />

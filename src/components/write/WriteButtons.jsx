@@ -4,8 +4,11 @@ import styled from '@emotion/styled';
 
 const WriteButtonsWrapper = styled.div``;
 
-const WriteButtons = ({ onSubmit, onCancel }) => (
+const WriteButtons = ({ error, onSubmit, onCancel }) => (
   <WriteButtonsWrapper>
+    {error && (
+      <div>{error}</div>
+    )}
     <button
       type="button"
       onClick={onSubmit}

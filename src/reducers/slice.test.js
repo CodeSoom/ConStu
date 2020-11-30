@@ -49,7 +49,7 @@ describe('reducer', () => {
         moderatorId: '',
         applyEndDate: '',
         participants: [],
-        personnel: 0,
+        personnel: '1',
         tags: [],
       },
       register: {
@@ -123,7 +123,7 @@ describe('reducer', () => {
           moderatorId: '',
           applyEndDate: '',
           participants: [],
-          personnel: 0,
+          personnel: '1',
           tags: [],
         },
       };
