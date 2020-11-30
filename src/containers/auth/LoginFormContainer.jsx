@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect } from 'react';
 
+import { useUnmount } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { get } from '../../util/utils';
-import { changeAuthField, clearAuth, requestLogin } from '../../reducers/slice';
+import {
+  changeAuthField, clearAuth, clearAuthFields, requestLogin,
+} from '../../reducers/slice';
 
 import AuthForm from '../../components/auth/AuthForm';
 
@@ -43,9 +46,10 @@ const LoginFormContainer = () => {
     }
   }, [user, authError]);
 
-  useEffect(() => () => {
+  useUnmount(() => {
+    dispatch(clearAuthFields());
     dispatch(clearAuth());
-  }, [dispatch]);
+  });
 
   return (
     <AuthForm

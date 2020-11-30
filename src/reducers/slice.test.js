@@ -380,7 +380,6 @@ describe('async actions', () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual(setAuth(userEmail));
-        expect(actions[1]).toEqual(clearAuthFields());
       });
     });
 
@@ -428,7 +427,6 @@ describe('async actions', () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual(setUser(userEmail));
-        expect(actions[1]).toEqual(clearAuthFields());
       });
     });
 

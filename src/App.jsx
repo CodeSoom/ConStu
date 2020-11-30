@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
@@ -18,11 +18,13 @@ const App = () => {
 
   const user = loadItem('user');
 
-  if (user) {
-    const { email } = user;
+  useEffect(() => {
+    if (user) {
+      const { email } = user;
 
-    dispatch(setUser(email));
-  }
+      dispatch(setUser(email));
+    }
+  }, [dispatch, user]);
 
   return (
     <>
