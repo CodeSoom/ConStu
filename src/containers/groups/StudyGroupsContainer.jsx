@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+import { useInterval } from 'react-use';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import qs from 'qs';
 
 import { get } from '../../util/utils';
-import useInterval from '../../util/useInterval';
 import { loadStudyGroups } from '../../reducers/slice';
 
 import StudyGroups from '../../components/main/StudyGroups';
