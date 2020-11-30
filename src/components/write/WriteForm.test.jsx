@@ -23,13 +23,11 @@ describe('WriteForm', () => {
   it('renders input write form text', () => {
     const { getByLabelText, getByPlaceholderText } = renderWriteForm(WRITE_FORM);
 
-    const {
-      title, applyEndDate, personnel,
-    } = WRITE_FORM;
+    const { title, personnel } = WRITE_FORM;
 
     expect(getByPlaceholderText('제목을 입력하세요')).toHaveValue(title);
-    expect(getByLabelText('모집 마감 날짜')).toHaveValue(applyEndDate);
-    expect(getByLabelText('참여 인원 수')).toHaveValue(personnel);
+    expect(getByLabelText('모집 마감 날짜')).toHaveValue('2020-12-24T11:00');
+    expect(getByLabelText('참여 인원 수')).toHaveValue(parseInt(personnel, 10));
   });
 
   describe('listens change event', () => {

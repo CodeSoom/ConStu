@@ -18,7 +18,7 @@ const writeInitialState = {
   moderatorId: '',
   applyEndDate: '',
   participants: [],
-  personnel: 0,
+  personnel: '1',
   tags: [],
 };
 
