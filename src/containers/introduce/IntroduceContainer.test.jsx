@@ -2,9 +2,11 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
+
+import STUDY_GROUP from '../../../fixtures/study-group';
 
 import IntroduceContainer from './IntroduceContainer';
 
@@ -18,6 +20,7 @@ describe('IntroduceContainer', () => {
 
     useSelector.mockImplementation((state) => state({
       group: given.group,
+      user: given.user,
     }));
   });
 
@@ -63,6 +66,40 @@ describe('IntroduceContainer', () => {
       const { container } = renderIntroduceContainer(1);
 
       expect(container).toHaveTextContent('로딩중..');
+    });
+  });
+
+  context('with user', () => {
+    given('group', () => (STUDY_GROUP));
+    given('user', () => ('user'));
+
+    it('click event dispatches action call updateStudyGroup', () => {
+      const { getByText } = renderIntroduceContainer(1);
+
+      const button = getByText('신청하기');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.click(button);
+
+      expect(dispatch).toBeCalledTimes(2);
+    });
+  });
+
+  context('without user', () => {
+    given('group', () => (STUDY_GROUP));
+    given('user', () => (null));
+
+    it("click event doesn't dispatches action call updateStudyGroup", () => {
+      const { getByText } = renderIntroduceContainer(1);
+
+      const button = getByText('신청하기');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.click(button);
+
+      expect(dispatch).toBeCalledTimes(1);
     });
   });
 });

@@ -99,7 +99,11 @@ const IntroduceContent = styled.div`
   padding: 1.5rem;
 `;
 
-const StudyIntroduceForm = ({ group, realTime }) => {
+const isCheckApplyValidate = (user) => (participants) => user && !participants.includes(user);
+
+const StudyIntroduceForm = ({
+  group, realTime, onApply, user,
+}) => {
   const {
     title, contents, tags, moderatorId, personnel, participants, applyEndDate,
   } = group;
@@ -121,6 +125,7 @@ const StudyIntroduceForm = ({ group, realTime }) => {
           <button
             type="button"
             className="apply"
+            onClick={onApply}
           >
             신청하기
           </button>

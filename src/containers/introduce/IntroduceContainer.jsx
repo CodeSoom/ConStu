@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { get } from '../../util/utils';
-import { loadStudyGroup } from '../../reducers/slice';
+import { loadStudyGroup, updateStudyGroup } from '../../reducers/slice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 
@@ -13,15 +13,22 @@ const IntroduceContainer = ({ groupId }) => {
 
   const dispatch = useDispatch();
 
+  const group = useSelector(get('group'));
+  const user = useSelector(get('user'));
+
   useEffect(() => {
     dispatch(loadStudyGroup(groupId));
-  }, []);
-
-  const group = useSelector(get('group'));
+  }, [dispatch, groupId]);
 
   useInterval(() => {
     setRealTime(Date.now());
   }, 1000);
+
+  const onApplyStudy = useCallback(() => {
+    if (user) {
+      dispatch(updateStudyGroup());
+    }
+  }, [dispatch, user]);
 
   if (!group) {
     return (
@@ -31,8 +38,10 @@ const IntroduceContainer = ({ groupId }) => {
 
   return (
     <StudyIntroduceForm
+      user={user}
       group={group}
       realTime={realTime}
+      onApply={onApplyStudy}
     />
   );
 };

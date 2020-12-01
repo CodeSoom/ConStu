@@ -22,6 +22,7 @@ import reducer, {
   setUser,
   logout,
   requestLogout,
+  updateStudyGroup,
 } from './slice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -332,7 +333,7 @@ describe('async actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setStudyGroup(null));
-      expect(actions[1]).toEqual(setStudyGroup(undefined));
+      expect(actions[1]).toEqual(setStudyGroup({ id: 1 }));
     });
   });
 
@@ -343,13 +344,33 @@ describe('async actions', () => {
       });
     });
 
-    it('dispatches clearWriteFields', async () => {
+    it('dispatches clearWriteFields and successWrite', async () => {
       await store.dispatch(writeStudyGroup());
 
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(successWrite(undefined));
       expect(actions[1]).toEqual(clearWriteFields(undefined));
+    });
+  });
+
+  describe('updateStudyGroup', () => {
+    beforeEach(() => {
+      store = mockStore({
+        group: STUDY_GROUP,
+        user: 'example',
+      });
+    });
+
+    it('dispatches setStudyGroup', async () => {
+      await store.dispatch(updateStudyGroup());
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(setStudyGroup({
+        ...STUDY_GROUP,
+        participants: [...STUDY_GROUP.participants, 'example'],
+      }));
     });
   });
 

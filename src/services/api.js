@@ -27,6 +27,14 @@ export const postStudyGroup = async (post) => {
   return id;
 };
 
+export const updateParticipants = async (group) => {
+  const { id, participants } = group;
+
+  const groups = db.collection('groups').doc(id);
+
+  await groups.update({ participants });
+};
+
 export const postUserRegister = async ({ userEmail, password }) => {
   const response = await auth
     .createUserWithEmailAndPassword(userEmail, password);

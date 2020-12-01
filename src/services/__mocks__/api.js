@@ -9,3 +9,5 @@ export const postUserRegister = jest.fn();
 export const postUserLogin = jest.fn();
 
 export const postUserLogout = jest.fn();
+
+export const updateParticipants = jest.fn();
