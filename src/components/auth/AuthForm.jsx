@@ -12,7 +12,7 @@ const FORM_TYPE = {
 };
 
 const AuthForm = ({
-  type, fields, onChange, onSubmit,
+  type, fields, onChange, onSubmit, error,
 }) => {
   const formType = FORM_TYPE[type];
 
@@ -59,6 +59,9 @@ const AuthForm = ({
             autoComplete="new-password"
             onChange={handleChange}
           />
+        )}
+        {error && (
+          <div>{error}</div>
         )}
         <button
           data-testid="auth-button"
