@@ -25,10 +25,7 @@ describe('LoginFormContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      login: {
-        userEmail: '',
-        password: '',
-      },
+      login: given.login,
       user: given.user,
       authError: given.authError,
     }));
@@ -39,6 +36,11 @@ describe('LoginFormContainer', () => {
   ));
 
   it('renders login form text', () => {
+    given('login', () => ({
+      userEmail: '',
+      password: '',
+    }));
+
     const { container, getByPlaceholderText } = renderLoginFormContainer();
 
     expect(container).toHaveTextContent('로그인');
@@ -47,6 +49,11 @@ describe('LoginFormContainer', () => {
   });
 
   describe('action dispatch in login page', () => {
+    given('login', () => ({
+      userEmail: '',
+      password: '',
+    }));
+
     it('change event calls dispatch', () => {
       const { getByPlaceholderText } = renderLoginFormContainer();
 
@@ -73,20 +80,52 @@ describe('LoginFormContainer', () => {
       });
     });
 
-    it('submit event calls dispatch', () => {
-      const { getByTestId } = renderLoginFormContainer();
+    context('without validation error', () => {
+      given('login', () => ({
+        userEmail: 'example@example.com',
+        password: '123456',
+      }));
 
-      const button = getByTestId('auth-button');
+      it('submit event calls dispatch', () => {
+        const { getByTestId } = renderLoginFormContainer();
 
-      expect(button).not.toBeNull();
+        const button = getByTestId('auth-button');
 
-      fireEvent.submit(button);
+        expect(button).not.toBeNull();
 
-      expect(dispatch).toBeCalled();
+        fireEvent.submit(button);
+
+        expect(dispatch).toBeCalled();
+      });
+    });
+
+    context('with validation error', () => {
+      given('login', () => ({
+        userEmail: '',
+        password: '',
+      }));
+
+      it('renders error message "There are some items that have not been entered."', () => {
+        const { getByTestId, container } = renderLoginFormContainer();
+
+        const button = getByTestId('auth-button');
+
+        expect(button).not.toBeNull();
+
+        fireEvent.submit(button);
+
+        expect(dispatch).not.toBeCalled();
+
+        expect(container).toHaveTextContent('입력이 안된 사항이 있습니다.');
+      });
     });
   });
 
   describe('actions after login', () => {
+    given('login', () => ({
+      userEmail: '',
+      password: '',
+    }));
     context('when success auth to login', () => {
       given('user', () => ({
         user: 'seungmin@naver.com',
@@ -99,11 +138,20 @@ describe('LoginFormContainer', () => {
       });
     });
 
-    // TODO: 현재 authError는 콘솔 출력
     context('when failure auth to login', () => {
       given('authError', () => ({
         authError: 'error',
       }));
+
+      it('renders error message', () => {
+        const { container } = renderLoginFormContainer();
+
+        expect(container).toHaveTextContent('로그인에 실패하였습니다.');
+
+        expect(dispatch).toBeCalledWith({
+          type: 'application/clearAuthFields',
+        });
+      });
     });
   });
 });

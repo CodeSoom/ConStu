@@ -1,17 +1,22 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useUnmount } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { get } from '../../util/utils';
+import { get, isCheckValidate } from '../../util/utils';
 import {
   changeAuthField, clearAuth, clearAuthFields, requestLogin,
 } from '../../reducers/slice';
+import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/messages';
 
 import AuthForm from '../../components/auth/AuthForm';
 
+const { NO_INPUT, FAILURE_LOGIN } = ERROR_MESSAGE;
+
 const LoginFormContainer = () => {
+  const [error, setError] = useState(null);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -29,22 +34,32 @@ const LoginFormContainer = () => {
     );
   });
 
-  const onSubmit = useCallback(() => {
-    // TODO: 로그인 validation 체크 로직 추가
+  const onSubmit = () => {
+    const { userEmail, password } = login;
+
+    if (isCheckValidate([userEmail, password])) {
+      setError(NO_INPUT);
+      return;
+    }
 
     dispatch(requestLogin());
-  }, [dispatch]);
+  };
 
   useEffect(() => {
     if (user) {
       history.push('/');
     }
+  }, [user]);
 
+  useEffect(() => {
     if (authError) {
-      // TODO: error 처리 추가
-      console.error(authError);
+      setError(
+        FIREBASE_AUTH_ERROR_MESSAGE[authError]
+        || FAILURE_LOGIN,
+      );
+      dispatch(clearAuthFields());
     }
-  }, [user, authError]);
+  }, [authError, dispatch]);
 
   useUnmount(() => {
     dispatch(clearAuthFields());
@@ -54,6 +69,7 @@ const LoginFormContainer = () => {
   return (
     <AuthForm
       type="login"
+      error={error}
       fields={login}
       onChange={onChangeLoginField}
       onSubmit={onSubmit}
