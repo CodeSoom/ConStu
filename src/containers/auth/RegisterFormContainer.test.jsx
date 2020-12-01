@@ -29,11 +29,7 @@ describe('RegisterFormContainer', () => {
       user: given.user,
       auth: given.auth,
       authError: given.authError,
-      register: {
-        userEmail: '',
-        password: '',
-        passwordConfirm: '',
-      },
+      register: given.register,
     }));
   });
 
@@ -44,6 +40,12 @@ describe('RegisterFormContainer', () => {
   ));
 
   it('renders register form text', () => {
+    given('register', () => ({
+      userEmail: '',
+      password: '',
+      passwordConfirm: '',
+    }));
+
     const { container, getByPlaceholderText } = renderRegisterFormContainer();
 
     expect(container).toHaveTextContent('회원가입');
@@ -54,6 +56,12 @@ describe('RegisterFormContainer', () => {
 
   describe('action dispatch in register page', () => {
     it('change event calls dispatch', () => {
+      given('register', () => ({
+        userEmail: '',
+        password: '',
+        passwordConfirm: '',
+      }));
+
       const { getByPlaceholderText } = renderRegisterFormContainer();
 
       const inputs = [
@@ -80,20 +88,87 @@ describe('RegisterFormContainer', () => {
       });
     });
 
-    it('submit event calls dispatch', () => {
-      const { getByTestId } = renderRegisterFormContainer();
+    context('without validation error', () => {
+      given('register', () => ({
+        userEmail: 'seungmin@example.com',
+        password: '123456',
+        passwordConfirm: '123456',
+      }));
 
-      const button = getByTestId('auth-button');
+      it('submit event calls dispatch', () => {
+        const { getByTestId } = renderRegisterFormContainer();
 
-      expect(button).not.toBeNull();
+        const button = getByTestId('auth-button');
 
-      fireEvent.submit(button);
+        expect(button).not.toBeNull();
 
-      expect(dispatch).toBeCalled();
+        fireEvent.submit(button);
+
+        expect(dispatch).toBeCalled();
+      });
+    });
+
+    context('with validation check error', () => {
+      describe('When there is something that has not been entered', () => {
+        given('register', () => ({
+          userEmail: '',
+          password: '',
+          passwordConfirm: '',
+        }));
+
+        it('renders error message "There are some items that have not been entered."', () => {
+          const { getByTestId, container } = renderRegisterFormContainer();
+
+          const button = getByTestId('auth-button');
+
+          expect(button).not.toBeNull();
+
+          fireEvent.submit(button);
+
+          expect(dispatch).not.toBeCalled();
+
+          expect(container).toHaveTextContent('입력이 안된 사항이 있습니다.');
+        });
+      });
+
+      describe('When the password and password confirmation value are different', () => {
+        given('register', () => ({
+          userEmail: 'seungmin@example.com',
+          password: '1234561',
+          passwordConfirm: '1232456',
+        }));
+
+        it('renders error message "The password is different."', () => {
+          const { getByTestId, container } = renderRegisterFormContainer();
+
+          const button = getByTestId('auth-button');
+
+          expect(button).not.toBeNull();
+
+          fireEvent.submit(button);
+
+          expect(dispatch).toBeCalledWith({
+            payload: {
+              form: 'register',
+              name: 'password',
+              value: '',
+            },
+            type: 'application/changeAuthField',
+          });
+
+          expect(container).toHaveTextContent('비밀번호가 일치하지 않습니다.');
+        });
+      });
     });
   });
 
   describe('actions after signing up', () => {
+    given('register', () => ({
+      userEmail: '',
+      password: '',
+      passwordConfirm: '',
+    }));
+
     context('when success auth to register', () => {
       given('auth', () => ({
         auth: 'seungmin@naver.com',
@@ -106,15 +181,26 @@ describe('RegisterFormContainer', () => {
       });
     });
 
-    // TODO: 현재 authError는 콘솔 출력
     context('when failure auth to register', () => {
       given('authError', () => ({
         authError: 'error',
       }));
+
+      it('renders error message', () => {
+        const { container } = renderRegisterFormContainer();
+
+        expect(container).toHaveTextContent('회원가입에 실패하였습니다.');
+      });
     });
   });
 
   describe('action after login', () => {
+    given('register', () => ({
+      userEmail: '',
+      password: '',
+      passwordConfirm: '',
+    }));
+
     given('user', () => ({
       user: 'seungmin@naver.com',
     }));

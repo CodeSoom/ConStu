@@ -3,14 +3,15 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { get } from '../../util/utils';
+import { ERROR_MESSAGE } from '../../util/messages';
+import { get, isCheckValidate } from '../../util/utils';
 import { writeStudyGroup } from '../../reducers/slice';
 
 import WriteButtons from '../../components/write/WriteButtons';
 
-const checkTrim = (value) => value.trim();
+const isCheckApplyEndDate = (applyDate) => Date.now() - applyDate >= 0;
 
-const isCheckValidate = (values) => values.map(checkTrim).includes('');
+const { NO_INPUT, NO_TAG, FAST_APPLY_DEADLINE } = ERROR_MESSAGE;
 
 const WriteButtonsContainer = () => {
   const [error, setError] = useState(null);
@@ -29,17 +30,17 @@ const WriteButtonsContainer = () => {
 
   const onSubmit = () => {
     if (isCheckValidate([title, applyEndDate, personnel])) {
-      setError('입력이 안된 사항이 있습니다.');
+      setError(NO_INPUT);
       return;
     }
 
     if (!tags.length) {
-      setError('태그를 입력하세요.');
+      setError(NO_TAG);
       return;
     }
 
-    if (Date.now() - applyEndTime >= 0) {
-      setError('접수 마감날짜가 현재 시간보다 빠릅니다.');
+    if (isCheckApplyEndDate(applyEndTime)) {
+      setError(FAST_APPLY_DEADLINE);
       return;
     }
 
