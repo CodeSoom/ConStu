@@ -4,11 +4,11 @@ import { useUnmount } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/messages';
 import { get, isCheckValidate } from '../../util/utils';
 import {
   changeAuthField, clearAuth, clearAuthFields, requestRegister,
 } from '../../reducers/slice';
+import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/messages';
 
 import AuthForm from '../../components/auth/AuthForm';
 
