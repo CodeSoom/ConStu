@@ -9,6 +9,7 @@ import {
   postUserLogin,
   postUserLogout,
   postUserRegister,
+  updateParticipants,
 } from '../services/api';
 import { removeItem, saveItem } from '../services/storage';
 
@@ -176,7 +177,10 @@ export const loadStudyGroup = (id) => async (dispatch) => {
 
   const group = await getStudyGroup(id);
 
-  dispatch(setStudyGroup(group));
+  dispatch(setStudyGroup({
+    ...group,
+    id,
+  }));
 };
 
 export const writeStudyGroup = () => async (dispatch, getState) => {
@@ -191,6 +195,19 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
 
   dispatch(successWrite(groupId));
   dispatch(clearWriteFields());
+};
+
+export const updateStudyGroup = () => async (dispatch, getState) => {
+  const { group, user } = getState();
+
+  const newGroup = produce(group, (draft) => {
+    draft.participants.push(user);
+  });
+
+  // TODO: 같은 유저가 들어가도 update 된다. validation 하기
+  await updateParticipants(newGroup);
+
+  dispatch(setStudyGroup(newGroup));
 };
 
 export const requestRegister = () => async (dispatch, getState) => {
