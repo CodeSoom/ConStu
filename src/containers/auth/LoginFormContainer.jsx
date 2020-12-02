@@ -49,7 +49,7 @@ const LoginFormContainer = () => {
     if (user) {
       history.push('/');
     }
-  }, [user]);
+  }, [user, history]);
 
   useEffect(() => {
     if (authError) {
@@ -58,7 +58,10 @@ const LoginFormContainer = () => {
         || FAILURE_LOGIN,
       );
       dispatch(clearAuthFields());
+      return;
     }
+
+    setError(null);
   }, [authError, dispatch]);
 
   useUnmount(() => {
