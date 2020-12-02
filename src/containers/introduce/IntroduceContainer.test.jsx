@@ -93,7 +93,7 @@ describe('IntroduceContainer', () => {
     it("click event doesn't dispatches action call updateStudyGroup", () => {
       const { getByText } = renderIntroduceContainer(1);
 
-      const button = getByText('신청하기');
+      const button = getByText('로그인 후 신청 가능합니다.');
 
       expect(button).not.toBeNull();
 

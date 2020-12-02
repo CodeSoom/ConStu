@@ -9,9 +9,10 @@ import StudyIntroduceForm from './StudyIntroduceForm';
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 describe('StudyIntroduceForm', () => {
-  const renderStudyIntroduceForm = ({ group, time }) => render((
+  const renderStudyIntroduceForm = ({ group, time, user = 'user' }) => render((
     <MemoryRouter>
       <StudyIntroduceForm
+        user={user}
         group={group}
         realTime={time}
       />
@@ -22,13 +23,20 @@ describe('StudyIntroduceForm', () => {
     const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
 
     expect(container).toHaveTextContent('스터디를 소개합니다.2');
-    expect(container).toHaveTextContent('우리는 이것저것 합니다.2');
   });
 
   it('renders links of tags', () => {
     const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
 
     expect(container.innerHTML).toContain('<a ');
+  });
+
+  context('When the author and the logged-in user have the same ID', () => {
+    it("doesn't renders apply button", () => {
+      const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP, user: 'user2' });
+
+      expect(container).not.toHaveTextContent('신청하기');
+    });
   });
 
   context('When the study recruitment is closed', () => {

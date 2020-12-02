@@ -9,6 +9,7 @@ import { isCheckedTimeStatus } from '../../util/utils';
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
+import ApplyStatusButton from './ApplyStatusButton';
 
 const StudyIntroduceWrapper = styled.div`
   margin-top: 6em;
@@ -99,8 +100,6 @@ const IntroduceContent = styled.div`
   padding: 1.5rem;
 `;
 
-const isCheckApplyValidate = (user) => (participants) => user && !participants.includes(user);
-
 const StudyIntroduceForm = ({
   group, realTime, onApply, user,
 }) => {
@@ -114,21 +113,13 @@ const StudyIntroduceForm = ({
     <StudyIntroduceWrapper>
       <IntroduceHeaderWrapper>
         <h1>{title}</h1>
-        {isCheckedTimeStatus({ ...group, time: realTime, applyEndTime }) ? (
-          <button
-            type="button"
-            className="deadline"
-          >
-            모집마감
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="apply"
-            onClick={onApply}
-          >
-            신청하기
-          </button>
+        {moderatorId !== user && (
+          <ApplyStatusButton
+            user={user}
+            onApply={onApply}
+            applyStatus={participants.includes(user)}
+            timeStatus={isCheckedTimeStatus({ ...group, time: realTime, applyEndTime })}
+          />
         )}
       </IntroduceHeaderWrapper>
       <ModeratorWrapper>
