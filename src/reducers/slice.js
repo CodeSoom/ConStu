@@ -184,14 +184,12 @@ export const loadStudyGroup = (id) => async (dispatch) => {
 };
 
 export const writeStudyGroup = () => async (dispatch, getState) => {
-  const { writeField } = getState();
+  const { writeField, user } = getState();
 
-  // NOTE: 현재 로그인 기능이 없는 관계로 임의로 작성자(moderatorId)와 참여자 목록(participants)에 넣어줌
-  const groupId = await postStudyGroup({
-    ...writeField,
-    moderatorId: 'user1',
-    participants: [...writeField.participants, 'user1'],
-  });
+  const groupId = await postStudyGroup(produce(writeField, (draft) => {
+    draft.moderatorId = user;
+    draft.participants.push(user);
+  }));
 
   dispatch(successWrite(groupId));
   dispatch(clearWriteFields());
@@ -204,7 +202,6 @@ export const updateStudyGroup = () => async (dispatch, getState) => {
     draft.participants.push(user);
   });
 
-  // TODO: 같은 유저가 들어가도 update 된다. validation 하기
   await updateParticipants(newGroup);
 
   dispatch(setStudyGroup(newGroup));
