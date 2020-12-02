@@ -69,7 +69,10 @@ const RegisterFormContainer = () => {
         FIREBASE_AUTH_ERROR_MESSAGE[authError]
         || FAILURE_REGISTER,
       );
+      return;
     }
+
+    setError(null);
   }, [auth, authError]);
 
   useUnmount(() => {
