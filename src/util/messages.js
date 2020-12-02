@@ -5,6 +5,7 @@ export const ERROR_MESSAGE = {
   FAST_APPLY_DEADLINE: '접수 마감날짜가 현재 시간보다 빠릅니다.',
   FAILURE_REGISTER: '회원가입에 실패하였습니다.',
   FAILURE_LOGIN: '로그인에 실패하였습니다.',
+  NO_LOGGED_IN: '로그인 후 이용하세요.',
 };
 
 export const FIREBASE_AUTH_ERROR_MESSAGE = {

@@ -18,6 +18,7 @@ const StudyGroupsContainer = () => {
   const dispatch = useDispatch();
 
   const groups = useSelector(get('groups'));
+  const user = useSelector(get('user'));
 
   useInterval(() => {
     setRealTime(Date.now());
@@ -37,6 +38,7 @@ const StudyGroupsContainer = () => {
 
   return (
     <StudyGroups
+      user={user}
       groups={groups}
       realTime={realTime}
     />

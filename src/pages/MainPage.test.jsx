@@ -19,6 +19,7 @@ describe('MainPage', () => {
 
     useSelector.mockImplementation((selector) => selector({
       groups: STUDY_GROUPS,
+      user: given.user,
     }));
   });
 
@@ -35,12 +36,6 @@ describe('MainPage', () => {
       expect(container).toHaveTextContent('지금 바로 시작하세요!');
     });
 
-    it('renders Main Page Link text', () => {
-      const { container } = renderMainPage();
-
-      expect(container).toHaveTextContent('스터디 개설하기');
-    });
-
     it('renders Main Page study group tags', () => {
       const { container } = renderMainPage();
 
@@ -48,6 +43,24 @@ describe('MainPage', () => {
         tags.forEach((tag) => {
           expect(container).toHaveTextContent(tag);
         });
+      });
+    });
+
+    context('without user', () => {
+      given('user', () => (null));
+      it("doesn't renders Main Page Link text", () => {
+        const { container } = renderMainPage();
+
+        expect(container).not.toHaveTextContent('스터디 개설하기');
+      });
+    });
+
+    context('with user', () => {
+      given('user', () => ('user'));
+      it('renders Main Page Link text', () => {
+        const { container } = renderMainPage();
+
+        expect(container).toHaveTextContent('스터디 개설하기');
       });
     });
   });
