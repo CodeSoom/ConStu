@@ -11,9 +11,7 @@ import WriteButtons from '../../components/write/WriteButtons';
 
 const isCheckApplyEndDate = (applyDate) => Date.now() - applyDate >= 0;
 
-const {
-  NO_INPUT, NO_TAG, FAST_APPLY_DEADLINE, NO_LOGGED_IN,
-} = ERROR_MESSAGE;
+const { NO_INPUT, NO_TAG, FAST_APPLY_DEADLINE } = ERROR_MESSAGE;
 
 const WriteButtonsContainer = () => {
   const [error, setError] = useState(null);
@@ -31,13 +29,13 @@ const WriteButtonsContainer = () => {
 
   const applyEndTime = new Date(applyEndDate).getTime();
 
-  const onSubmit = () => {
-    // TODO: 모달창으로 처리 후 redirection 시키기?
+  useEffect(() => {
     if (!user) {
-      setError(NO_LOGGED_IN);
-      return;
+      history.push('/');
     }
+  }, [user, history]);
 
+  const onSubmit = () => {
     if (isCheckValidate([title, applyEndDate, personnel])) {
       setError(NO_INPUT);
       return;

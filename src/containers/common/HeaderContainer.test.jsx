@@ -7,21 +7,11 @@ import { fireEvent, render } from '@testing-library/react';
 
 import HeaderContainer from './HeaderContainer';
 
-const mockPush = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useHistory() {
-    return { push: mockPush };
-  },
-}));
-
 describe('HeaderContainer', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => {
     dispatch.mockClear();
-    mockPush.mockClear();
 
     useDispatch.mockImplementation(() => dispatch);
 
@@ -58,7 +48,6 @@ describe('HeaderContainer', () => {
       fireEvent.click(button);
 
       expect(dispatch).toBeCalled();
-      expect(mockPush).toBeCalledWith('/');
     });
   });
 

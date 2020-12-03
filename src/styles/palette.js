@@ -59,6 +59,11 @@ const palette = {
     '#6741d9',
     '#5f3dc4',
   ],
+  warn: [
+    '#ffa8a8',
+    '#ff8787',
+    '#ff6b6b',
+  ],
 };
 
 export default palette;

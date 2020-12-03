@@ -26,32 +26,6 @@ const IntroduceHeaderWrapper = styled.div`
     line-height: 1.5;
     margin: 0;
   }
-  // TODO: 추후 공통 버튼 style component로 변경
-  button {
-    display: inline-flex;
-    align-items: center;
-    margin: .5rem 0 .5rem 0;
-    padding: 0.25rem 5rem;
-    font-size: 1.5em;
-    line-height: 0;
-    font-family: 'Gamja Flower', cursive;
-    border-radius: 0.4rem;
-    border: none;
-    outline: none;
-  }
-  .deadline{
-    cursor: not-allowed;
-    background: ${palette.gray[3]};
-    color: ${palette.gray[5]};
-  }
-  .apply{
-    color: white;
-    cursor: pointer;
-    background: ${palette.teal[5]};
-    &:hover{
-      background: ${palette.teal[4]};
-    }
-  }
 `;
 
 const IntroduceReferenceWrapper = styled.div`

@@ -185,12 +185,10 @@ describe('WriteButtonsContainer', () => {
         ],
       }));
 
-      it('renders error message "Please use after logging in"', () => {
-        const { container, getByText } = renderWriteButtonsContainer();
+      it('go to redirection main page', () => {
+        renderWriteButtonsContainer();
 
-        fireEvent.click(getByText('등록하기'));
-
-        expect(container).toHaveTextContent('로그인 후 이용하세요.');
+        expect(mockPush).toBeCalledWith('/');
       });
     });
   });

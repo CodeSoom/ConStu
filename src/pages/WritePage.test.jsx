@@ -21,7 +21,7 @@ describe('WritePage', () => {
         },
       },
       authReducer: {
-        user: null,
+        user: 'user1',
       },
     }));
   });
