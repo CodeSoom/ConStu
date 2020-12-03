@@ -7,7 +7,6 @@ import WriteButtonsContainer from '../containers/write/WriteButtonsContainer';
 import WriteEditorContainer from '../containers/write/WriteEditorContainer';
 import WriteFormContainer from '../containers/write/WriteFormContainer';
 
-
 const IntroducePage = () => (
   <Responsive>
     <h1>스터디 그룹 개설하기</h1>
