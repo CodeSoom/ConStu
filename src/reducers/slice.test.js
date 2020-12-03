@@ -72,34 +72,17 @@ describe('reducer', () => {
   });
 
   describe('setStudyGroups', () => {
-    context('with tag', () => {
-      it('get study groups list with tags filtered', () => {
-        const initialState = {
-          groups: [],
-        };
+    it('get study groups list', () => {
+      const initialState = {
+        groups: [],
+      };
 
-        const state = reducer(
-          initialState,
-          setStudyGroups({ groups: STUDY_GROUPS, tag: 'JavaScript' }),
-        );
+      const state = reducer(
+        initialState,
+        setStudyGroups(STUDY_GROUPS),
+      );
 
-        expect(state.groups).toHaveLength(1);
-      });
-    });
-
-    context('without tag', () => {
-      it("get study groups list doesn't tags filtered", () => {
-        const initialState = {
-          groups: [],
-        };
-
-        const state = reducer(
-          initialState,
-          setStudyGroups({ groups: STUDY_GROUPS, tag: '' }),
-        );
-
-        expect(state.groups).toHaveLength(2);
-      });
+      expect(state.groups).toHaveLength(2);
     });
   });
 
@@ -315,10 +298,7 @@ describe('async actions', () => {
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual(setStudyGroups({
-        groups: [],
-        tag: undefined,
-      }));
+      expect(actions[0]).toEqual(setStudyGroups([]));
     });
   });
 

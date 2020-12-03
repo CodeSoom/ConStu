@@ -1,7 +1,15 @@
 import { db, auth } from './firebase';
 
-export const getStudyGroups = async () => {
-  const response = await db.collection('groups').get();
+const branchGetGroups = (tag) => {
+  if (tag) {
+    return db.collection('groups').where('tags', 'array-contains', tag).get();
+  }
+
+  return db.collection('groups').get();
+};
+
+export const getStudyGroups = async (tag) => {
+  const response = await branchGetGroups(tag);
 
   const groups = response.docs.map((doc) => ({
     ...doc.data(),
