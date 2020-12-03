@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 
 import Responsive from '../../styles/Responsive';
 import palette from '../../styles/palette';
+import Button from '../../styles/Button';
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -19,24 +20,17 @@ const Wrapper = styled(Responsive)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  div{
-    margin-right: 4rem;
+`;
+
+const UserStatusWrapper = styled.div`
+  span {
+    margin-right: 1rem;
   }
 `;
 
 const TitleWrapper = styled(Link)`
   font-weight: bold;
   font-size: 1.8rem;
-`;
-
-const LinkWrapper = styled(Link)`
-  :first-of-type{
-    margin-right: 1rem;
-  }
-  :hover {
-    color: ${palette.gray[6]};
-  }
-  font-weight: bold;
 `;
 
 const Spacer = styled.div`
@@ -49,19 +43,19 @@ const Header = ({ user, onLogout }) => (
       <Wrapper>
         <TitleWrapper to="/">제목(미정)</TitleWrapper>
         {user ? (
-          <div>
+          <UserStatusWrapper>
             <span>{user}</span>
-            <button
+            <Button
+              warn
               onClick={onLogout}
-              type="button"
             >
               로그아웃
-            </button>
-          </div>
+            </Button>
+          </UserStatusWrapper>
         ) : (
           <div>
-            <LinkWrapper to="/login">로그인</LinkWrapper>
-            <LinkWrapper to="/register">회원가입</LinkWrapper>
+            <Button to="/login" style={{ marginRight: '0.5rem' }}>로그인</Button>
+            <Button to="/register" success>회원가입</Button>
           </div>
         )}
       </Wrapper>

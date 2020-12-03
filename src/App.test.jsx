@@ -41,6 +41,7 @@ describe('App', () => {
           userEmail: '',
           password: '',
         },
+        user: given.user,
       },
     }));
   });
@@ -71,6 +72,7 @@ describe('App', () => {
 
   context('with path /write', () => {
     given('group', () => (null));
+    given('user', () => ('user1'));
     it('renders the study write page', () => {
       const { container } = renderApp({ path: '/write' });
 
