@@ -19,7 +19,7 @@ const writeInitialState = {
   tags: [],
 };
 
-const { actions, reducer: groupSlice } = createSlice({
+const { actions, reducer } = createSlice({
   name: 'group',
   initialState: {
     groups: [],
@@ -98,9 +98,11 @@ export const loadStudyGroup = (id) => async (dispatch) => {
 };
 
 export const writeStudyGroup = () => async (dispatch, getState) => {
-  const { writeField, user } = getState();
+  const { groupReducer, authReducer } = getState();
 
-  const groupId = await postStudyGroup(produce(writeField, (draft) => {
+  const { user } = authReducer;
+
+  const groupId = await postStudyGroup(produce(groupReducer.writeField, (draft) => {
     draft.moderatorId = user;
     draft.participants.push(user);
   }));
@@ -110,10 +112,10 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
 };
 
 export const updateStudyGroup = () => async (dispatch, getState) => {
-  const { group, user } = getState();
+  const { groupReducer, authReducer } = getState();
 
-  const newGroup = produce(group, (draft) => {
-    draft.participants.push(user);
+  const newGroup = produce(groupReducer.group, (draft) => {
+    draft.participants.push(authReducer.user);
   });
 
   await updateParticipants(newGroup);
@@ -121,4 +123,4 @@ export const updateStudyGroup = () => async (dispatch, getState) => {
   dispatch(setStudyGroup(newGroup));
 };
 
-export default groupSlice;
+export default reducer;

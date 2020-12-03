@@ -22,13 +22,11 @@ const authInitialState = {
   },
 };
 
-const { login, register } = authInitialState;
-
-const { actions, reducer: authReducer } = createSlice({
+const { actions, reducer } = createSlice({
   name: 'auth',
   initialState: {
-    login,
-    register,
+    login: authInitialState.login,
+    register: authInitialState.register,
     user: null,
     auth: null,
     authError: null,
@@ -42,6 +40,7 @@ const { actions, reducer: authReducer } = createSlice({
     },
 
     clearAuthFields(state) {
+      const { login, register } = authInitialState;
       return {
         ...state,
         register,
@@ -98,7 +97,9 @@ export const {
 } = actions;
 
 export const requestRegister = () => async (dispatch, getState) => {
-  const { register: { userEmail, password } } = getState();
+  const { authReducer: { register } } = getState();
+
+  const { userEmail, password } = register;
 
   try {
     const { user } = await postUserRegister({ userEmail, password });
@@ -110,7 +111,9 @@ export const requestRegister = () => async (dispatch, getState) => {
 };
 
 export const requestLogin = () => async (dispatch, getState) => {
-  const { login: { userEmail, password } } = getState();
+  const { authReducer: { login } } = getState();
+
+  const { userEmail, password } = login;
 
   try {
     const { user } = await postUserLogin({ userEmail, password });
@@ -135,4 +138,4 @@ export const requestLogout = () => async (dispatch) => {
   dispatch(logout());
 };
 
-export default authReducer;
+export default reducer;
