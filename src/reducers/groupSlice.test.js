@@ -164,7 +164,12 @@ describe('async actions', () => {
   describe('writeStudyGroup', () => {
     beforeEach(() => {
       store = mockStore({
-        writeField: WRITE_FORM,
+        groupReducer: {
+          writeField: WRITE_FORM,
+        },
+        authReducer: {
+          user: null,
+        },
       });
     });
 
@@ -181,8 +186,12 @@ describe('async actions', () => {
   describe('updateStudyGroup', () => {
     beforeEach(() => {
       store = mockStore({
-        group: STUDY_GROUP,
-        user: 'example',
+        groupReducer: {
+          group: STUDY_GROUP,
+        },
+        authReducer: {
+          user: 'example',
+        },
       });
     });
 

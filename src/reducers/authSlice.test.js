@@ -192,7 +192,9 @@ describe('async actions', () => {
 
     beforeEach(() => {
       store = mockStore({
-        register,
+        authReducer: {
+          register,
+        },
       });
     });
 
@@ -239,7 +241,9 @@ describe('async actions', () => {
 
     beforeEach(() => {
       store = mockStore({
-        login,
+        authReducer: {
+          login,
+        },
       });
     });
 
