@@ -27,6 +27,7 @@ module.exports = {
   plugins: [
     'react',
   ],
+  ignorePatterns: ['build/', 'node_modules/'],
   rules: {
     indent: ['error', 2],
     'no-trailing-spaces': 'error',
