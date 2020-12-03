@@ -15,9 +15,11 @@ describe('LoginPage', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      login: {
-        userEmail: '',
-        password: '',
+      authReducer: {
+        login: {
+          userEmail: '',
+          password: '',
+        },
       },
     }));
   });

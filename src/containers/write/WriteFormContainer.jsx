@@ -3,15 +3,15 @@ import React from 'react';
 import { useUnmount } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { get } from '../../util/utils';
+import { getGroup } from '../../util/utils';
 import WriteForm from '../../components/write/WriteForm';
 
-import { changeWriteField, clearWriteFields } from '../../reducers/slice';
+import { changeWriteField, clearWriteFields } from '../../reducers/groupSlice';
 
 const WriteFormContainer = () => {
   const dispatch = useDispatch();
 
-  const writeField = useSelector(get('writeField'));
+  const writeField = useSelector(getGroup('writeField'));
 
   const onChangeWriteField = ({ name, value }) => {
     dispatch(

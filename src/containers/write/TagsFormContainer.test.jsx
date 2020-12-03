@@ -15,8 +15,10 @@ describe('TagsFormContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      writeField: {
-        tags: [],
+      groupReducer: {
+        writeField: {
+          tags: [],
+        },
       },
     }));
   });
@@ -49,7 +51,7 @@ describe('TagsFormContainer', () => {
         expect(input).toHaveValue('');
       });
       expect(dispatch).toBeCalledWith({
-        type: 'application/changeWriteField',
+        type: 'group/changeWriteField',
         payload: { name: 'tags', value: tags },
       });
     });

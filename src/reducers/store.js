@@ -2,8 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createLogger } from 'redux-logger';
 
-import reducer from './slice';
+import rootReducer from './rootSlice';
 
-const store = configureStore({ reducer }, composeWithDevTools(createLogger()));
+const store = configureStore({ reducer: rootReducer }, composeWithDevTools(createLogger()));
 
 export default store;

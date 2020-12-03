@@ -25,9 +25,11 @@ describe('LoginFormContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      login: given.login,
-      user: given.user,
-      authError: given.authError,
+      authReducer: {
+        login: given.login,
+        user: given.user,
+        authError: given.authError,
+      },
     }));
   });
 
@@ -70,7 +72,7 @@ describe('LoginFormContainer', () => {
         fireEvent.change(field, { target: { value, name } });
 
         expect(dispatch).toBeCalledWith({
-          type: 'application/changeAuthField',
+          type: 'auth/changeAuthField',
           payload: {
             form: 'login',
             name,
@@ -149,7 +151,7 @@ describe('LoginFormContainer', () => {
         expect(container).toHaveTextContent('로그인에 실패하였습니다.');
 
         expect(dispatch).toBeCalledWith({
-          type: 'application/clearAuthFields',
+          type: 'auth/clearAuthFields',
         });
       });
     });

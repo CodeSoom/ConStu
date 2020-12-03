@@ -14,19 +14,22 @@ describe('IntroducePage', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      group: {
-        id: 1,
-        moderatorId: 'user1',
-        title: '스터디를 소개합니다. 1',
-        personnel: 7,
-        contents: '우리는 이것저것 합니다.1',
-        participants: [],
-        tags: [
-          'JavaScript',
-          'React',
-          'Algorithm',
-        ],
+      groupReducer: {
+        group: {
+          id: 1,
+          moderatorId: 'user1',
+          title: '스터디를 소개합니다. 1',
+          personnel: 7,
+          contents: '우리는 이것저것 합니다.1',
+          participants: [],
+          tags: [
+            'JavaScript',
+            'React',
+            'Algorithm',
+          ],
+        },
       },
+      authReducer: {},
     }));
   });
 

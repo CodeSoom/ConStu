@@ -3,8 +3,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { get } from '../../util/utils';
-import { loadStudyGroup, updateStudyGroup } from '../../reducers/slice';
+import { getAuth, getGroup } from '../../util/utils';
+import { loadStudyGroup, updateStudyGroup } from '../../reducers/groupSlice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 
@@ -13,8 +13,8 @@ const IntroduceContainer = ({ groupId }) => {
 
   const dispatch = useDispatch();
 
-  const group = useSelector(get('group'));
-  const user = useSelector(get('user'));
+  const group = useSelector(getGroup('group'));
+  const user = useSelector(getAuth('user'));
 
   useEffect(() => {
     dispatch(loadStudyGroup(groupId));

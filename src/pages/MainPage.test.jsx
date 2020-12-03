@@ -18,8 +18,12 @@ describe('MainPage', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      groups: STUDY_GROUPS,
-      user: given.user,
+      groupReducer: {
+        groups: STUDY_GROUPS,
+      },
+      authReducer: {
+        user: given.user,
+      },
     }));
   });
 

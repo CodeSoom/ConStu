@@ -26,10 +26,12 @@ describe('RegisterFormContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      user: given.user,
-      auth: given.auth,
-      authError: given.authError,
-      register: given.register,
+      authReducer: {
+        user: given.user,
+        auth: given.auth,
+        authError: given.authError,
+        register: given.register,
+      },
     }));
   });
 
@@ -78,7 +80,7 @@ describe('RegisterFormContainer', () => {
         fireEvent.change(field, { target: { value, name } });
 
         expect(dispatch).toBeCalledWith({
-          type: 'application/changeAuthField',
+          type: 'auth/changeAuthField',
           payload: {
             form: 'register',
             name,
@@ -153,7 +155,7 @@ describe('RegisterFormContainer', () => {
               name: 'password',
               value: '',
             },
-            type: 'application/changeAuthField',
+            type: 'auth/changeAuthField',
           });
 
           expect(container).toHaveTextContent('비밀번호가 일치하지 않습니다.');

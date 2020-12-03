@@ -2,15 +2,15 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { get } from '../../util/utils';
+import { getGroup } from '../../util/utils';
 import TagsForm from '../../components/write/TagsForm';
 
-import { changeWriteField } from '../../reducers/slice';
+import { changeWriteField } from '../../reducers/groupSlice';
 
 const TagsFormContainer = () => {
   const dispatch = useDispatch();
 
-  const { tags } = useSelector(get('writeField'));
+  const { tags } = useSelector(getGroup('writeField'));
 
   const onChangeTags = (nextTags) => {
     dispatch(

@@ -15,13 +15,15 @@ describe('WriteFormContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      writeField: {
-        title: '',
-        contents: '',
-        moderatorId: '',
-        applyEndDate: '',
-        participants: [],
-        personnel: 0,
+      groupReducer: {
+        writeField: {
+          title: '',
+          contents: '',
+          moderatorId: '',
+          applyEndDate: '',
+          participants: [],
+          personnel: 0,
+        },
       },
     }));
   });
@@ -61,7 +63,7 @@ describe('WriteFormContainer', () => {
           name,
           value,
         },
-        type: 'application/changeWriteField',
+        type: 'group/changeWriteField',
       });
     });
   });

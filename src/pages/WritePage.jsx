@@ -1,11 +1,12 @@
 import React from 'react';
 
+import Responsive from '../styles/Responsive';
+
 import TagFormContainer from '../containers/write/TagsFormContainer';
 import WriteButtonsContainer from '../containers/write/WriteButtonsContainer';
 import WriteEditorContainer from '../containers/write/WriteEditorContainer';
 import WriteFormContainer from '../containers/write/WriteFormContainer';
 
-import Responsive from '../styles/Responsive';
 
 const IntroducePage = () => (
   <Responsive>

@@ -1,12 +1,28 @@
-import { get, equal } from './utils';
+import { getAuth, getGroup, equal } from './utils';
 
-test('get', () => {
+test('getAuth', () => {
   const state = {
-    name: '홍길동',
+    authReducer: {
+      name: '홍길동',
+    },
   };
 
-  const f = get('name');
-  const g = get('age');
+  const f = getAuth('name');
+  const g = getAuth('age');
+
+  expect(f(state)).toBe('홍길동');
+  expect(g(state)).toBeUndefined();
+});
+
+test('getGroup', () => {
+  const state = {
+    groupReducer: {
+      name: '홍길동',
+    },
+  };
+
+  const f = getGroup('name');
+  const g = getGroup('age');
 
   expect(f(state)).toBe('홍길동');
   expect(g(state)).toBeUndefined();

@@ -4,10 +4,10 @@ import { useUnmount } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { get, isCheckValidate } from '../../util/utils';
+import { getAuth, isCheckValidate } from '../../util/utils';
 import {
   changeAuthField, clearAuth, clearAuthFields, requestRegister,
-} from '../../reducers/slice';
+} from '../../reducers/authSlice';
 import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/messages';
 
 import AuthForm from '../../components/auth/AuthForm';
@@ -20,10 +20,10 @@ const RegisterFormContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const register = useSelector(get('register'));
-  const auth = useSelector(get('auth'));
-  const user = useSelector(get('user'));
-  const authError = useSelector(get('authError'));
+  const register = useSelector(getAuth('register'));
+  const auth = useSelector(getAuth('auth'));
+  const user = useSelector(getAuth('user'));
+  const authError = useSelector(getAuth('authError'));
 
   const onChangeRegisterField = useCallback(({ name, value }) => {
     dispatch(

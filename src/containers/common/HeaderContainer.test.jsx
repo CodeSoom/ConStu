@@ -26,7 +26,9 @@ describe('HeaderContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      user: given.user,
+      authReducer: {
+        user: given.user,
+      },
     }));
   });
 
