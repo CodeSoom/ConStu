@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { ERROR_MESSAGE } from '../../util/messages';
-import { get, isCheckValidate } from '../../util/utils';
-import { writeStudyGroup } from '../../reducers/slice';
+import { getAuth, getGroup, isCheckValidate } from '../../util/utils';
+import { writeStudyGroup } from '../../reducers/groupSlice';
 
 import WriteButtons from '../../components/write/WriteButtons';
 
@@ -21,9 +21,9 @@ const WriteButtonsContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const writeField = useSelector(get('writeField'));
-  const groupId = useSelector(get('groupId'));
-  const user = useSelector(get('user'));
+  const writeField = useSelector(getGroup('writeField'));
+  const groupId = useSelector(getGroup('groupId'));
+  const user = useSelector(getAuth('user'));
 
   const {
     title, applyEndDate, personnel, tags,

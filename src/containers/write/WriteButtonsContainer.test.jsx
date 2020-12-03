@@ -28,9 +28,13 @@ describe('WriteButtonsContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      writeField: given.writeField,
-      groupId: given.groupId,
-      user: given.user,
+      groupReducer: {
+        writeField: given.writeField,
+        groupId: given.groupId,
+      },
+      authReducer: {
+        user: given.user,
+      },
     }));
   });
 

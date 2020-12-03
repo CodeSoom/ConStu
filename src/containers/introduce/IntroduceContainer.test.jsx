@@ -19,8 +19,12 @@ describe('IntroduceContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      group: given.group,
-      user: given.user,
+      authReducer: {
+        user: given.user,
+      },
+      groupReducer: {
+        group: given.group,
+      },
     }));
   });
 

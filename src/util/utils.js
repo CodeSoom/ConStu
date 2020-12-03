@@ -1,6 +1,6 @@
-export function get(key) {
-  return (obj) => obj[key];
-}
+export const getAuth = (key) => (obj) => obj.authReducer[key];
+
+export const getGroup = (key) => (obj) => obj.groupReducer[key];
 
 export function equal(key, value) {
   return (obj) => obj[key] === value;

@@ -15,8 +15,10 @@ describe('WriteEditorContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      writeField: {
-        contents: '',
+      groupReducer: {
+        writeField: {
+          contents: '',
+        },
       },
     }));
   });

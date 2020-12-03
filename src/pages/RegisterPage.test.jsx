@@ -15,10 +15,12 @@ describe('RegisterPage', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      register: {
-        userEmail: '',
-        password: '',
-        passwordConfirm: '',
+      authReducer: {
+        register: {
+          userEmail: '',
+          password: '',
+          passwordConfirm: '',
+        },
       },
     }));
   });

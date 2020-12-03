@@ -24,19 +24,23 @@ describe('App', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      groups: STUDY_GROUPS,
-      group: given.group,
-      writeField: {
-        tags: [],
+      groupReducer: {
+        groups: STUDY_GROUPS,
+        group: given.group,
+        writeField: {
+          tags: [],
+        },
       },
-      register: {
-        userEmail: '',
-        password: '',
-        passwordConfirm: '',
-      },
-      login: {
-        userEmail: '',
-        password: '',
+      authReducer: {
+        register: {
+          userEmail: '',
+          password: '',
+          passwordConfirm: '',
+        },
+        login: {
+          userEmail: '',
+          password: '',
+        },
       },
     }));
   });
@@ -103,7 +107,7 @@ describe('App', () => {
       renderApp({ path: '/' });
 
       expect(dispatch).toBeCalledWith({
-        type: 'application/setUser',
+        type: 'auth/setUser',
         payload: user.email,
       });
     });

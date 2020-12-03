@@ -15,8 +15,13 @@ describe('WritePage', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((state) => state({
-      writeField: {
-        tags: [],
+      groupReducer: {
+        writeField: {
+          tags: [],
+        },
+      },
+      authReducer: {
+        user: null,
       },
     }));
   });

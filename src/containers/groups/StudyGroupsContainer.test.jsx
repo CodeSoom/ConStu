@@ -15,7 +15,12 @@ describe('StudyGroupsContainer', () => {
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
-      groups: given.groups,
+      groupReducer: {
+        groups: given.groups,
+      },
+      authReducer: {
+        user: 'user1',
+      },
     }));
   });
 

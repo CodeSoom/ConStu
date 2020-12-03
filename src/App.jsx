@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import { loadItem } from './services/storage';
-import { setUser } from './reducers/slice';
+import { setUser } from './reducers/authSlice';
 
 import MainPage from './pages/MainPage';
 import WritePage from './pages/WritePage';

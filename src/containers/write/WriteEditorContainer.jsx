@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { changeWriteField } from '../../reducers/slice';
+import { changeWriteField } from '../../reducers/groupSlice';
 
 import WriteEditor from '../../components/write/WriteEditor';
 

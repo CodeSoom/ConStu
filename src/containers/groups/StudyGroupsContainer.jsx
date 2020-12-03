@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import qs from 'qs';
 
-import { get } from '../../util/utils';
-import { loadStudyGroups } from '../../reducers/slice';
+import { getAuth, getGroup } from '../../util/utils';
+import { loadStudyGroups } from '../../reducers/groupSlice';
 
 import StudyGroups from '../../components/main/StudyGroups';
 
@@ -17,8 +17,8 @@ const StudyGroupsContainer = () => {
 
   const dispatch = useDispatch();
 
-  const groups = useSelector(get('groups'));
-  const user = useSelector(get('user'));
+  const groups = useSelector(getGroup('groups'));
+  const user = useSelector(getAuth('user'));
 
   useInterval(() => {
     setRealTime(Date.now());
