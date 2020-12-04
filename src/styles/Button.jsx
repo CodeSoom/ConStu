@@ -8,7 +8,7 @@ import { css } from '@emotion/react';
 
 import palette from './palette';
 
-const ButtonWrapper = (props) => css`
+const ButtonWrapper = ({ warn, success }) => css`
   border-radius: 4px;
   font-size: 1rem;
   font-weight: bold;
@@ -19,13 +19,16 @@ const ButtonWrapper = (props) => css`
   cursor: pointer;
   border: 1px solid ${palette.gray[7]};
   background: white;
+  transition-duration: 0.08s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  transition-delay: initial;
   &:hover {
     color: white;
     background: ${palette.gray[7]};
   }
 
-  ${props.warn
-    && css`
+  ${warn && css`
       color: white;
       padding: 0.15rem 0.9rem;
       background: ${palette.warn[1]};
@@ -37,8 +40,7 @@ const ButtonWrapper = (props) => css`
       }
   `}
 
-  ${props.success
-    && css`
+  ${success && css`
     color: white;
     background: ${palette.teal[5]};
     border: 1px solid ${palette.teal[5]};

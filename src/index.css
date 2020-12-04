@@ -21,6 +21,10 @@ body {
   margin: 0;
 }
 
+input {
+  outline:none;
+}
+
 code {
   padding: 0.2em 0.4em;
   margin: 0;

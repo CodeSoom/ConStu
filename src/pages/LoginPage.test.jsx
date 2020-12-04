@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
@@ -25,7 +26,9 @@ describe('LoginPage', () => {
   });
 
   const renderLoginPage = () => render((
-    <LoginPage />
+    <MemoryRouter>
+      <LoginPage />
+    </MemoryRouter>
   ));
 
   describe('renders Login page text contents', () => {
