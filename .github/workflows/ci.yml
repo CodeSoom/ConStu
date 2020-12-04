@@ -35,6 +35,10 @@ jobs:
         FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
     - name: Install
       run: npm ci
+    - name: create env file
+      run: |
+        touch .env
+        echo FIREBASE_API_KEY =${{ secrets.FIREBASE_API_KEY }} >> .env
     - name: Test
       run: npm run test:unit
       env:
