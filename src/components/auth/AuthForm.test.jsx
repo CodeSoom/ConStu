@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
+
 import { render, fireEvent } from '@testing-library/react';
 
 import AuthForm from './AuthForm';
@@ -14,12 +16,14 @@ describe('AuthForm', () => {
   });
 
   const renderAuthForm = ({ type, fields }) => render((
-    <AuthForm
-      type={type}
-      fields={fields}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    />
+    <MemoryRouter>
+      <AuthForm
+        type={type}
+        fields={fields}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+    </MemoryRouter>
   ));
 
   context('when type is login', () => {
@@ -108,6 +112,24 @@ describe('AuthForm', () => {
       fireEvent.submit(button);
 
       expect(handleSubmit).toBeCalled();
+    });
+  });
+
+  context('when type is login', () => {
+    const login = {
+      type: 'login',
+      fields: {
+        userEmail: 'tktmdals@naver.com',
+        password: '1234',
+      },
+    };
+
+    it('renders register link', () => {
+      const { getByTestId } = renderAuthForm(login);
+
+      const link = getByTestId('sign-up-link');
+
+      expect(link).not.toBeNull();
     });
   });
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render, fireEvent } from '@testing-library/react';
@@ -34,7 +35,9 @@ describe('LoginFormContainer', () => {
   });
 
   const renderLoginFormContainer = () => render((
-    <LoginFormContainer />
+    <MemoryRouter>
+      <LoginFormContainer />
+    </MemoryRouter>
   ));
 
   it('renders login form text', () => {
