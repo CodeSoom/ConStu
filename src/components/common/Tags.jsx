@@ -8,21 +8,22 @@ import palette from '../../styles/palette';
 
 const TagsWrapper = styled.div`
   margin-top: 1rem;
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    padding-left: .6em;
-    padding-right: .6em;
-    height: 3em;
-    font-weight: bold;
-    font-size: .6em;
-    border-radius: .6em;
-    margin-right: 0.5rem;
-    color: ${palette.teal[7]};
-    background:${palette.gray[1]};
-    &:hover {
-      color: ${palette.teal[5]};
-    }
+`;
+
+const TagStyledLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  height: 3em;
+  font-weight: bold;
+  font-size: .8em;
+  border-radius: .8em;
+  margin-right: 0.5rem;
+  color: ${palette.teal[7]};
+  background:${palette.gray[2]};
+  &:hover {
+    color: ${palette.teal[5]};
   }
 `;
 
@@ -34,13 +35,13 @@ const Tags = ({ tags }) => {
   return (
     <TagsWrapper>
       {tags.map((tag) => (
-        <Link
+        <TagStyledLink
           key={tag}
           to={`/?tag=${tag}`}
           className="tag"
         >
           {`#${tag}`}
-        </Link>
+        </TagStyledLink>
       ))}
     </TagsWrapper>
   );

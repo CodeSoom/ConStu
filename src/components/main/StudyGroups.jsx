@@ -7,9 +7,8 @@ import Button from '../../styles/Button';
 
 const StudyGroupsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  align-content: space-between;
+  margin-top: 2rem;
 `;
 
 const TitleHeader = styled.div`
