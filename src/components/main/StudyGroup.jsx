@@ -11,18 +11,22 @@ import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
 
 const StudyGroupWrapper = styled.div`
-  margin: 1em .5em 1em .5em;
-  padding: 2em 0 1em 1em;
-  width: 28%;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  width: 19rem;
+  margin: 1rem;
   border: 2px solid ${palette.gray[4]};
-  border-radius: 1rem;
+  border-radius: 4px;
+  background: rgb(248, 249, 250);
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
 `;
 
 const HeaderLink = styled(Link)`
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  padding: 1.4rem 0 0.8rem 0;
+  font-size: 2.3rem;
   font-weight: 500;
   font-family: 'Nanum Pen Script', cursive;
   &:hover {
@@ -31,12 +35,22 @@ const HeaderLink = styled(Link)`
 `;
 
 const StudyInfoWrapper = styled.div`
-  margin: 1rem 0 1rem 0;
+  padding: 1rem;
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
   .moderator{
     margin-bottom: 1rem;
     color: ${palette.gray[5]};
     font-weight: bold;
   }
+`;
+
+const ApplyEndDateWrapper = styled.div`
+  padding-bottom: 2rem;
+  border: 50%;
+  border-bottom: 1px solid ${palette.gray[4]}; 
+
 `;
 
 const StudyGroup = ({ group, realTime }) => {
@@ -60,10 +74,10 @@ const StudyGroup = ({ group, realTime }) => {
             time={realTime}
           />
         </div>
-        <div>
+        <ApplyEndDateWrapper>
           {'마감 일자: '}
           <Moment interval={0} format="YYYY년 MM월 DD일">{applyEndTime}</Moment>
-        </div>
+        </ApplyEndDateWrapper>
         <Tags tags={tags} />
       </StudyInfoWrapper>
     </StudyGroupWrapper>
