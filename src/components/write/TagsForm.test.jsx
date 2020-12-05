@@ -115,7 +115,7 @@ describe('TagsForm', () => {
       const { getByText, container } = renderTagsForm(tags);
 
       tags.forEach((tag) => {
-        fireEvent.click(getByText(`#${tag}`));
+        fireEvent.click(getByText(`#${tag}`).nextElementSibling);
 
         expect(container).not.toHaveTextContent(`#${tag}`);
       });

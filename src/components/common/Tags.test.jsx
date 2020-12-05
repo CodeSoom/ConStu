@@ -7,9 +7,10 @@ import { render } from '@testing-library/react';
 import Tags from './Tags';
 
 describe('Tags', () => {
-  const renderTags = (tags) => render((
+  const renderTags = ({ tags, type }) => render((
     <MemoryRouter>
       <Tags
+        type={type}
         tags={tags}
       />
     </MemoryRouter>
@@ -18,7 +19,7 @@ describe('Tags', () => {
   context('with tags', () => {
     const tags = ['JavaScript', 'C', 'Python'];
     it('renders tags name', () => {
-      const { container } = renderTags(tags);
+      const { container } = renderTags({ tags });
 
       tags.forEach((tag) => {
         expect(container).toHaveTextContent(tag);
@@ -32,9 +33,24 @@ describe('Tags', () => {
     it('nothing renders tags name', () => {
       const tags = [];
 
-      const { container } = renderTags(tags);
+      const { container } = renderTags({ tags });
 
       expect(container).toBeEmptyDOMElement();
+    });
+  });
+
+  context('with type introduce', () => {
+    const tags = ['JavaScript', 'C', 'Python'];
+    const type = 'introduce';
+
+    it('renders tags name', () => {
+      const { container } = renderTags({ tags, type });
+
+      tags.forEach((tag) => {
+        expect(container).toHaveTextContent(tag);
+
+        expect(container.innerHTML).not.toContain('<a');
+      });
     });
   });
 });
