@@ -60,7 +60,7 @@ describe('StudyGroupsContainer', () => {
     it('nothing group list text message', () => {
       const { container } = renderStudyGroupsContainer();
 
-      expect(container).toHaveTextContent('스터디가 존재하지 않습니다.');
+      expect(container).toHaveTextContent('Loading...');
     });
   });
 });

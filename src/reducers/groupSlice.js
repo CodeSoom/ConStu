@@ -81,6 +81,10 @@ export const {
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
+  if (tag) {
+    dispatch(setStudyGroups(null));
+  }
+
   const groups = await getStudyGroups(tag);
 
   dispatch(setStudyGroups(groups));
