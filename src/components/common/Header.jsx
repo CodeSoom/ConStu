@@ -13,6 +13,7 @@ const HeaderWrapper = styled.div`
   width: 100%;
   background: white;
   box-shadow: 0px 2px 4px ${palette.teal[2]};
+  z-index: 100;
 `;
 
 const Wrapper = styled(Responsive)`

@@ -56,10 +56,7 @@ const InputWrapper = styled.input`
   transition-delay: initial;
   padding: 8px 12px;
   border: 2px solid #D7E2EB;
-  &:focus{
-    border: 2px solid ${palette.teal[5]};
-  }
-  &:hover{
+  &:focus, &.hover {
     border: 2px solid ${palette.teal[5]};
   }
   width: 400px;

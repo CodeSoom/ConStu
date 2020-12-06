@@ -20,10 +20,9 @@ describe('TagsForm', () => {
 
   describe('render Tag Form Container contents text', () => {
     it('renders tag form text', () => {
-      const { getByPlaceholderText, container } = renderTagsForm([]);
+      const { getByPlaceholderText } = renderTagsForm([]);
 
       expect(getByPlaceholderText('태그를 입력하세요')).not.toBeNull();
-      expect(container).toHaveTextContent('태그');
     });
   });
 
