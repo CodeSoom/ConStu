@@ -1,11 +1,20 @@
-import { db, auth } from './firebase';
+import { db, auth, fireStore } from './firebase';
+
+import { applyDateToString, createDateToString } from '../util/utils';
 
 const branchGetGroups = (tag) => {
   if (tag) {
-    return db.collection('groups').where('tags', 'array-contains', tag).get();
+    return db
+      .collection('groups')
+      .orderBy('applyEndDate', 'asc')
+      .where('tags', 'array-contains', tag)
+      .get();
   }
 
-  return db.collection('groups').get();
+  return db
+    .collection('groups')
+    .orderBy('applyEndDate', 'asc')
+    .get();
 };
 
 export const getStudyGroups = async (tag) => {
@@ -14,23 +23,42 @@ export const getStudyGroups = async (tag) => {
   const groups = response.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
+    applyEndDate: applyDateToString(doc),
+    createDate: createDateToString(doc),
   }));
 
   return groups;
 };
 
 export const getStudyGroup = async (id) => {
-  const response = await db.collection('groups').doc(id).get();
+  const response = await db
+    .collection('groups')
+    .doc(id)
+    .get();
 
   if (!response.exists) {
     return null;
   }
 
-  return response.data();
+  return {
+    ...response.data(),
+    id: response.id,
+    applyEndDate: applyDateToString(response),
+    createDate: createDateToString(response),
+  };
 };
 
-export const postStudyGroup = async (post) => {
-  const { id } = await db.collection('groups').add(post);
+export const postStudyGroup = async (group) => {
+  const { applyEndDate } = group;
+
+  const timeStamp = fireStore.Timestamp.fromDate(new Date(applyEndDate));
+  const now = fireStore.FieldValue.serverTimestamp();
+
+  const { id } = await db.collection('groups').add({
+    ...group,
+    applyEndDate: timeStamp,
+    createDate: now,
+  });
 
   return id;
 };

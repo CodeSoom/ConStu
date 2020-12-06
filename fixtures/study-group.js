@@ -13,6 +13,7 @@ const studyGroup = {
     'React',
     'Algorithm',
   ],
+  createDate: new Date('2020/12/06'),
 };
 
 export default studyGroup;

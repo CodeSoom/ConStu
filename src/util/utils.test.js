@@ -1,4 +1,6 @@
-import { getAuth, getGroup, equal } from './utils';
+import {
+  getAuth, getGroup, equal, changeDateToTime, applyDateToString, createDateToString,
+} from './utils';
 
 test('getAuth', () => {
   const state = {
@@ -38,4 +40,39 @@ test('equal', () => {
 
   expect(f(state)).toBeTruthy();
   expect(g(state)).toBeFalsy();
+});
+
+test('changeDateToTime', () => {
+  const date = new Date();
+
+  const time = changeDateToTime(date);
+  expect(time).toBe(date.getTime());
+});
+
+test('applyDateToString', () => {
+  const date = new Date('2020/12/06');
+  const response = {
+    data: jest.fn().mockReturnValue({
+      applyEndDate: {
+        toDate: jest.fn().mockReturnValue(date),
+      },
+    }),
+  };
+
+  const time = applyDateToString(response);
+  expect(time).toBe(date.toString());
+});
+
+test('createDateToString', () => {
+  const date = new Date('2020/12/06');
+  const response = {
+    data: jest.fn().mockReturnValue({
+      createDate: {
+        toDate: jest.fn().mockReturnValue(date),
+      },
+    }),
+  };
+
+  const time = createDateToString(response);
+  expect(time).toBe(date.toString());
 });

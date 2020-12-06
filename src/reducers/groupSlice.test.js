@@ -157,7 +157,7 @@ describe('async actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setStudyGroup(null));
-      expect(actions[1]).toEqual(setStudyGroup({ id: 1 }));
+      expect(actions[1]).toEqual(setStudyGroup());
     });
   });
 
