@@ -7,6 +7,7 @@ import { getAuth, getGroup } from '../../util/utils';
 import { loadStudyGroup, updateStudyGroup } from '../../reducers/groupSlice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
+import GroupContentLoader from '../../components/introduce/GroupsContentLoader';
 
 const IntroduceContainer = ({ groupId }) => {
   const [realTime, setRealTime] = useState(Date.now());
@@ -32,7 +33,7 @@ const IntroduceContainer = ({ groupId }) => {
 
   if (!group) {
     return (
-      <div>로딩중..</div>
+      <GroupContentLoader />
     );
   }
 
