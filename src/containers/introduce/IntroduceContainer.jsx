@@ -46,4 +46,4 @@ const IntroduceContainer = ({ groupId }) => {
   );
 };
 
-export default IntroduceContainer;
+export default React.memo(IntroduceContainer);

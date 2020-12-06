@@ -15,4 +15,4 @@ const IntroducePage = ({ params }) => {
     </Responsive>
   );
 };
-export default IntroducePage;
+export default React.memo(IntroducePage);

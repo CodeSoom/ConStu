@@ -90,4 +90,4 @@ const ApplyStatusButton = ({
   );
 };
 
-export default ApplyStatusButton;
+export default React.memo(ApplyStatusButton);

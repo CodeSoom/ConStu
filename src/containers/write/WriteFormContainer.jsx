@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useUnmount } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,14 +13,14 @@ const WriteFormContainer = () => {
 
   const writeField = useSelector(getGroup('writeField'));
 
-  const onChangeWriteField = ({ name, value }) => {
+  const onChangeWriteField = useCallback(({ name, value }) => {
     dispatch(
       changeWriteField({
         name,
         value,
       }),
     );
-  };
+  }, [dispatch]);
 
   useUnmount(() => dispatch(clearWriteFields()));
 

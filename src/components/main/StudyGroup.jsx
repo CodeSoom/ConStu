@@ -84,4 +84,4 @@ const StudyGroup = ({ group, realTime }) => {
   );
 };
 
-export default StudyGroup;
+export default React.memo(StudyGroup);

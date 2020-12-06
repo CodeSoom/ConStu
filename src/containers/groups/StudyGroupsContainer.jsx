@@ -45,4 +45,4 @@ const StudyGroupsContainer = () => {
   );
 };
 
-export default StudyGroupsContainer;
+export default React.memo(StudyGroupsContainer);
