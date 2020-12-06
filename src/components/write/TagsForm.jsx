@@ -2,9 +2,23 @@ import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import palette from '../../styles/palette';
+
 import TagList from './TagList';
 
-const TagsFormWrapper = styled.div``;
+const TagInputWrapper = styled.input`
+  height: 30px;
+  padding: 5px;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  line-height: 20px;
+  color: #5f5f5f;
+  border: 2px solid #D7E2EB;
+  &:focus, &.hover {
+    border: 2px solid ${palette.teal[5]};
+  }
+  width: 220px;
+`;
 
 const TagsForm = ({ onChange, tags }) => {
   const [tag, setTag] = useState('');
@@ -44,9 +58,8 @@ const TagsForm = ({ onChange, tags }) => {
   }, [tags]);
 
   return (
-    <TagsFormWrapper>
-      <h4>태그</h4>
-      <input
+    <div>
+      <TagInputWrapper
         type="text"
         placeholder="태그를 입력하세요"
         value={tag}
@@ -57,7 +70,7 @@ const TagsForm = ({ onChange, tags }) => {
         tags={inputTags}
         onRemove={handleRemove}
       />
-    </TagsFormWrapper>
+    </div>
   );
 };
 

@@ -43,7 +43,7 @@ describe('TagList', () => {
       tags.forEach((tag) => {
         expect(getByText(`#${tag}`)).not.toBeNull();
 
-        fireEvent.click(getByText(`#${tag}`));
+        fireEvent.click(getByText(`#${tag}`).nextElementSibling);
       });
       expect(handleRemove).toBeCalledTimes(2);
     });

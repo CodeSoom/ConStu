@@ -20,10 +20,9 @@ describe('TagsForm', () => {
 
   describe('render Tag Form Container contents text', () => {
     it('renders tag form text', () => {
-      const { getByPlaceholderText, container } = renderTagsForm([]);
+      const { getByPlaceholderText } = renderTagsForm([]);
 
       expect(getByPlaceholderText('태그를 입력하세요')).not.toBeNull();
-      expect(container).toHaveTextContent('태그');
     });
   });
 
@@ -115,7 +114,7 @@ describe('TagsForm', () => {
       const { getByText, container } = renderTagsForm(tags);
 
       tags.forEach((tag) => {
-        fireEvent.click(getByText(`#${tag}`));
+        fireEvent.click(getByText(`#${tag}`).nextElementSibling);
 
         expect(container).not.toHaveTextContent(`#${tag}`);
       });

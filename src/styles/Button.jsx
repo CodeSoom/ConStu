@@ -32,22 +32,22 @@ const ButtonWrapper = ({ warn, success }) => css`
       color: white;
       padding: 0.15rem 0.9rem;
       background: ${palette.warn[1]};
-      border: 1px solid ${palette.warn[1]};
+      border: 2px solid ${palette.warn[1]};
       &:hover {
         background: white;
         color: ${palette.warn[1]};
-        border: 1px solid ${palette.warn[1]};
+        border: 2px solid ${palette.warn[1]};
       }
   `}
 
   ${success && css`
     color: white;
     background: ${palette.teal[5]};
-    border: 1px solid ${palette.teal[5]};
+    border: 2px solid ${palette.teal[5]};
     &:hover {
       background: white;
       color: ${palette.teal[5]};
-      border: 1px solid ${palette.teal[5]};
+      border: 2px solid ${palette.teal[5]};
     }
   `}
 `;

@@ -1,8 +1,9 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
-
 import { Link } from 'react-router-dom';
+
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 import palette from '../../styles/palette';
 
@@ -10,7 +11,7 @@ const TagsWrapper = styled.div`
   margin-top: 1rem;
 `;
 
-const TagStyledLink = styled(Link)`
+const TagStyledWrapper = ({ div }) => css`
   display: inline-flex;
   align-items: center;
   padding-left: 1em;
@@ -25,11 +26,67 @@ const TagStyledLink = styled(Link)`
   &:hover {
     color: ${palette.teal[5]};
   }
+
+  ${div && css`
+    height: 2.5em;
+    border-radius: .5em;
+    margin-right: 0.3rem;
+    &:hover {
+    color: ${palette.teal[7]};
+    }
+  `};
 `;
 
-const Tags = ({ tags }) => {
+const TagWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+`;
+
+const TagSpanWrapper = styled.span`
+  height: 2.4em;
+  margin-right: .5rem;
+  font-weight: bold;
+  color: ${palette.warn[2]};
+  cursor: pointer;
+  &:hover {
+    color: ${palette.warn[0]};
+  }
+`;
+
+const TagStyledDiv = styled.div`
+  ${TagStyledWrapper}
+`;
+const TagStyledLink = styled(Link)`
+  ${TagStyledWrapper}
+`;
+
+const Tags = ({ tags, type, onRemove }) => {
   if (!tags || !tags.length) {
     return null;
+  }
+
+  if (type === 'introduce') {
+    return (
+      <TagsWrapper>
+        {tags.map((tag) => (
+          <TagWrapper
+            key={tag}
+          >
+            <TagStyledDiv
+              div
+              className="tag"
+            >
+              {`#${tag}`}
+            </TagStyledDiv>
+            <TagSpanWrapper
+              onClick={() => onRemove(tag)}
+            >
+              x
+            </TagSpanWrapper>
+          </TagWrapper>
+        ))}
+      </TagsWrapper>
+    );
   }
 
   return (
@@ -38,7 +95,6 @@ const Tags = ({ tags }) => {
         <TagStyledLink
           key={tag}
           to={`/?tag=${tag}`}
-          className="tag"
         >
           {`#${tag}`}
         </TagStyledLink>

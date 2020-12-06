@@ -76,7 +76,7 @@ describe('App', () => {
     it('renders the study write page', () => {
       const { container } = renderApp({ path: '/write' });
 
-      expect(container).toHaveTextContent('스터디 그룹 개설하기');
+      expect(container).toHaveTextContent('내용을 작성해주세요.');
     });
   });
 

@@ -1,10 +1,6 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
-
-import TagItem from './TagItem';
-
-const TagListWrapper = styled.div``;
+import Tags from '../common/Tags';
 
 const TagList = ({ tags, onRemove }) => {
   const handleRemove = (removeTag) => {
@@ -14,15 +10,11 @@ const TagList = ({ tags, onRemove }) => {
   };
 
   return (
-    <TagListWrapper>
-      {tags.map((tag) => (
-        <TagItem
-          key={tag}
-          tag={tag}
-          onRemove={() => handleRemove(tag)}
-        />
-      ))}
-    </TagListWrapper>
+    <Tags
+      tags={tags}
+      type="introduce"
+      onRemove={handleRemove}
+    />
   );
 };
 
