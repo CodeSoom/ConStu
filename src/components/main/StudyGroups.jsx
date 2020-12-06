@@ -30,7 +30,7 @@ const StudyGroups = ({ groups, realTime, user }) => (
       )}
     </TitleHeader>
     <StudyGroupsWrapper>
-      {groups.map((group) => (
+      {groups && groups.map((group) => (
         <StudyGroup
           key={group.id}
           group={group}

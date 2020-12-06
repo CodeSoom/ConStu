@@ -137,12 +137,25 @@ describe('async actions', () => {
       store = mockStore({});
     });
 
-    it('loads study group list', async () => {
-      await store.dispatch(loadStudyGroups());
+    context('with tag', () => {
+      it('loads study group list', async () => {
+        await store.dispatch(loadStudyGroups('javascript'));
 
-      const actions = store.getActions();
+        const actions = store.getActions();
 
-      expect(actions[0]).toEqual(setStudyGroups([]));
+        expect(actions[0]).toEqual(setStudyGroups(null));
+        expect(actions[1]).toEqual(setStudyGroups([]));
+      });
+    });
+
+    context('without tag', () => {
+      it('loads study group list', async () => {
+        await store.dispatch(loadStudyGroups());
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual(setStudyGroups([]));
+      });
     });
   });
 

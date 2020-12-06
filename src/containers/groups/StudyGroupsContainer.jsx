@@ -10,10 +10,12 @@ import { getAuth, getGroup } from '../../util/utils';
 import { loadStudyGroups } from '../../reducers/groupSlice';
 
 import StudyGroups from '../../components/main/StudyGroups';
+import GroupsContentLoader from '../../components/main/GroupsContentLoader';
 
 const StudyGroupsContainer = () => {
   const { search } = useLocation();
   const [realTime, setRealTime] = useState(Date.now());
+  const [tagState, setTagState] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -29,11 +31,14 @@ const StudyGroupsContainer = () => {
       ignoreQueryPrefix: true,
     });
 
+    setTagState(tag);
     dispatch(loadStudyGroups(tag));
   }, [dispatch, search]);
 
-  if (!groups || !groups.length) {
-    return <div>스터디가 존재하지 않습니다.</div>;
+  if (!tagState && (!groups || !groups.length)) {
+    return (
+      <GroupsContentLoader />
+    );
   }
 
   return (

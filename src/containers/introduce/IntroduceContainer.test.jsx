@@ -69,7 +69,7 @@ describe('IntroduceContainer', () => {
     it('renders "loading.." text', () => {
       const { container } = renderIntroduceContainer(1);
 
-      expect(container).toHaveTextContent('로딩중..');
+      expect(container).toHaveTextContent('Loading...');
     });
   });
 
