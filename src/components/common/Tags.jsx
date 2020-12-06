@@ -103,4 +103,4 @@ const Tags = ({ tags, type, onRemove }) => {
   );
 };
 
-export default Tags;
+export default React.memo(Tags);

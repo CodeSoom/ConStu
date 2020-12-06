@@ -138,4 +138,4 @@ const StudyIntroduceForm = ({
   );
 };
 
-export default StudyIntroduceForm;
+export default React.memo(StudyIntroduceForm);

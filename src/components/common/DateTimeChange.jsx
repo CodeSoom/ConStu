@@ -68,4 +68,4 @@ const DateTimeChange = ({ group, page, time }) => {
   );
 };
 
-export default DateTimeChange;
+export default React.memo(DateTimeChange);

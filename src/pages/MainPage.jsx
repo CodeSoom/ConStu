@@ -10,4 +10,4 @@ const MainPage = () => (
   </Responsive>
 );
 
-export default MainPage;
+export default React.memo(MainPage);

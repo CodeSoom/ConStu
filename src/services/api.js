@@ -6,8 +6,8 @@ const branchGetGroups = (tag) => {
   if (tag) {
     return db
       .collection('groups')
-      .orderBy('applyEndDate', 'asc')
       .where('tags', 'array-contains', tag)
+      .orderBy('applyEndDate', 'asc')
       .get();
   }
 
