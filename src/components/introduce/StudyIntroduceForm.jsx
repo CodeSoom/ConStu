@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import Moment from 'react-moment';
 
-import { isCheckedTimeStatus } from '../../util/utils';
+import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
@@ -44,10 +44,20 @@ const IntroduceReferenceWrapper = styled.div`
 `;
 
 const ModeratorWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
   font-size: 1.2rem;
   font-weight: bold;
   color: ${palette.gray[6]};
+  span {
+    margin-right: 1rem;
+  }
+  time {
+    font-size: 1rem;
+    font-weight: normal;
+    color: ${palette.gray[6]};
+  }
 `;
 
 const IntroduceReference = styled.div`
@@ -78,10 +88,10 @@ const StudyIntroduceForm = ({
   group, realTime, onApply, user,
 }) => {
   const {
-    title, contents, tags, moderatorId, personnel, participants, applyEndDate,
+    title, contents, tags, moderatorId, personnel, participants, applyEndDate, createDate,
   } = group;
 
-  const applyEndTime = new Date(applyEndDate).getTime();
+  const applyEndTime = changeDateToTime(applyEndDate);
 
   return (
     <StudyIntroduceWrapper>
@@ -97,7 +107,10 @@ const StudyIntroduceForm = ({
         )}
       </IntroduceHeaderWrapper>
       <ModeratorWrapper>
-        {`🙋‍♂️ ${moderatorId}`}
+        <span>
+          {`🙋‍♂️ ${moderatorId}`}
+        </span>
+        <Moment interval={0} format="YYYY년 MM월 DD일">{changeDateToTime(createDate)}</Moment>
       </ModeratorWrapper>
       <IntroduceReferenceWrapper>
         <IntroduceReference>

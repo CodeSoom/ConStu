@@ -91,10 +91,7 @@ export const loadStudyGroup = (id) => async (dispatch) => {
 
   const group = await getStudyGroup(id);
 
-  dispatch(setStudyGroup({
-    ...group,
-    id,
-  }));
+  dispatch(setStudyGroup(group));
 };
 
 export const writeStudyGroup = () => async (dispatch, getState) => {

@@ -19,6 +19,12 @@ describe('StudyIntroduceForm', () => {
     </MemoryRouter>
   ));
 
+  it('renders createDate text', () => {
+    const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
+
+    expect(container).toHaveTextContent('2020년 12월 06일');
+  });
+
   it('renders study group title and contents', () => {
     const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
 

@@ -13,3 +13,17 @@ export const isCheckedTimeStatus = ({
 const checkTrim = (value) => value.trim();
 
 export const isCheckValidate = (values) => values.map(checkTrim).includes('');
+
+export const changeDateToTime = (date) => new Date(date).getTime();
+
+export const applyDateToString = (response) => response
+  .data()
+  .applyEndDate
+  .toDate()
+  .toString();
+
+export const createDateToString = (response) => response
+  .data()
+  .createDate
+  .toDate()
+  .toString();

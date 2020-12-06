@@ -1,32 +1,14 @@
-import { db, auth } from './firebase';
+import { auth } from './firebase';
 
 import {
-  postStudyGroup,
   postUserRegister,
   postUserLogin,
   postUserLogout,
 } from './api';
 
-import STUDY_GROUP from '../../fixtures/study-group';
-
 describe('api', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-  });
-
-  describe('postStudyGroup', () => {
-    const add = jest.fn((group) => group);
-    const collection = jest.spyOn(
-      db, 'collection',
-    ).mockReturnValue({ add });
-
-    it('write a study recruitment article', async () => {
-      await postStudyGroup(STUDY_GROUP);
-
-      expect(collection).toHaveBeenCalledWith('groups');
-
-      expect(add).toHaveBeenCalledWith(STUDY_GROUP);
-    });
   });
 
   describe('postUserRegister', () => {
