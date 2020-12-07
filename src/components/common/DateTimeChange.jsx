@@ -33,7 +33,10 @@ const DateTimeChange = ({ group, page, time }) => {
     }
 
     return (
-      <DateTimeStatus status="mainRecruit">모집중</DateTimeStatus>
+      <DateTimeStatus status="mainRecruit">
+        <Moment fromNow style={{ fontFamily: 'Gamja Flower, cursive' }}>{applyEndTime}</Moment>
+        &nbsp;모집 마감
+      </DateTimeStatus>
     );
   };
 

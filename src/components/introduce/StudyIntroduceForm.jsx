@@ -23,6 +23,14 @@ const IntroduceReferenceWrapper = styled.div`
     font-weight: bold;
     margin-right: .7rem;
   }
+  @media (max-width: 1024px) {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: auto;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ModeratorWrapper = styled.div`

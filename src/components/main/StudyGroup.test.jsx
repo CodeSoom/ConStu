@@ -16,11 +16,16 @@ describe('StudyGroup', () => {
   ));
 
   describe('renders study group text contents', () => {
+    const nowDate = new Date();
+    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+    const tomorrowDate = new Date(tomorrow);
+    const dateFormat = `${tomorrowDate.getFullYear()}년 ${tomorrowDate.getMonth() + 1}월 ${tomorrowDate.getDate() < 10 && '0'}${tomorrowDate.getDate()}일`;
+
     const group = {
       id: 1,
       title: '스터디를 소개합니다.2',
       moderatorId: 'user2',
-      applyEndDate: '2020-12-23',
+      applyEndDate: tomorrowDate,
       participants: [
         'user2',
       ],
@@ -39,19 +44,19 @@ describe('StudyGroup', () => {
       group.tags.forEach((tag) => {
         expect(container).toHaveTextContent(`#${tag}`);
       });
-      expect(container).toHaveTextContent('2020년 12월 23일');
+      expect(container).toHaveTextContent(dateFormat);
     });
 
     it('renders changed applyEndDate format', () => {
       const { container } = renderStudyGroup({ group });
 
-      expect(container).toHaveTextContent('2020년 12월 23일');
+      expect(container).toHaveTextContent(dateFormat);
     });
 
     it('renders study status is Recruiting', () => {
       const { container } = renderStudyGroup({ group });
 
-      expect(container).toHaveTextContent('모집중');
+      expect(container).toHaveTextContent('하루 후 모집 마감');
     });
   });
 });

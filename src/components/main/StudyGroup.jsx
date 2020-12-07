@@ -25,7 +25,7 @@ const StudyGroupWrapper = styled.div`
 const HeaderLink = styled(Link)`
   display: flex;
   justify-content: center;
-  padding: 1.4rem 0 0.8rem 0;
+  padding: 1.4rem 1rem 0.8rem 1rem;
   font-size: 2.3rem;
   font-weight: 500;
   font-family: 'Nanum Pen Script', cursive;
