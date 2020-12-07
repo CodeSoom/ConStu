@@ -38,9 +38,10 @@ describe('DateTimeChange', () => {
       it('renders Recruiting text', () => {
         const nowDate = new Date();
         const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+        const tomorrowDate = new Date(tomorrow);
 
         const group = {
-          applyEndTime: tomorrow,
+          applyEndDate: tomorrowDate,
           participants: [
             'user2',
           ],
@@ -49,7 +50,7 @@ describe('DateTimeChange', () => {
 
         const { container } = renderDateTimeChange({ group, page, time });
 
-        expect(container).toHaveTextContent('모집중');
+        expect(container).toHaveTextContent('하루 후 모집 마감');
       });
     });
 

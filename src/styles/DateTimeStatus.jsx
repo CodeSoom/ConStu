@@ -8,12 +8,12 @@ import palette from './palette';
 const DateTimeStatusWrapper = styled.div`
   margin-left: 1.5rem;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-family: 'Gamja Flower', cursive;
-  padding: .1rem .5rem .1rem .5rem;
+  padding: .2rem .6rem .2rem .6rem;
   display: inline-flex;
   color: white;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
   margin-top: 1rem;
   margin-bottom: 1rem;    
 
@@ -44,6 +44,8 @@ const DateTimeStatusWrapper = styled.div`
       margin: 0 auto;
       padding: .5rem 50px .5rem 50px;
       background: white;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
       align-items: center;
       color: ${palette.orange[4]};
       border: 1.5px solid ${palette.orange[4]};
