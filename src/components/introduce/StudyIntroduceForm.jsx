@@ -4,29 +4,11 @@ import styled from '@emotion/styled';
 
 import Moment from 'react-moment';
 
-import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
+import { changeDateToTime } from '../../util/utils';
 
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
-import ApplyStatusButton from './ApplyStatusButton';
-
-const StudyIntroduceWrapper = styled.div`
-  margin-top: 6em;
-`;
-
-const IntroduceHeaderWrapper = styled.div`
-  border-bottom: 2px solid ${palette.gray[4]};
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: space-between;
-  h1 {
-    font-size: 2.3rem;
-    line-height: 1.5;
-    margin: 0;
-  }
-`;
 
 const IntroduceReferenceWrapper = styled.div`
   display: flex;
@@ -85,27 +67,16 @@ const IntroduceContent = styled.div`
 `;
 
 const StudyIntroduceForm = ({
-  group, realTime, onApply, user,
+  group, realTime,
 }) => {
   const {
-    title, contents, tags, moderatorId, personnel, participants, applyEndDate, createDate,
+    contents, tags, moderatorId, personnel, participants, applyEndDate, createDate,
   } = group;
 
   const applyEndTime = changeDateToTime(applyEndDate);
 
   return (
-    <StudyIntroduceWrapper>
-      <IntroduceHeaderWrapper>
-        <h1>{title}</h1>
-        {moderatorId !== user && (
-          <ApplyStatusButton
-            user={user}
-            onApply={onApply}
-            applyStatus={participants.includes(user)}
-            timeStatus={isCheckedTimeStatus({ ...group, time: realTime, applyEndTime })}
-          />
-        )}
-      </IntroduceHeaderWrapper>
+    <>
       <ModeratorWrapper>
         <span>
           {`🙋‍♂️ ${moderatorId}`}
@@ -134,7 +105,7 @@ const StudyIntroduceForm = ({
       </IntroduceContentTitle>
       <IntroduceContent dangerouslySetInnerHTML={{ __html: contents }} />
       <Tags tags={tags} />
-    </StudyIntroduceWrapper>
+    </>
   );
 };
 

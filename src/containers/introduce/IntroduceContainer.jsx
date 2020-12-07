@@ -8,6 +8,7 @@ import { loadStudyGroup, updateStudyGroup } from '../../reducers/groupSlice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 import GroupContentLoader from '../../components/introduce/GroupsContentLoader';
+import IntroduceHeader from '../../components/introduce/IntroduceHeader';
 
 const IntroduceContainer = ({ groupId }) => {
   const [realTime, setRealTime] = useState(Date.now());
@@ -26,10 +27,8 @@ const IntroduceContainer = ({ groupId }) => {
   }, 1000);
 
   const onApplyStudy = useCallback(() => {
-    if (user) {
-      dispatch(updateStudyGroup());
-    }
-  }, [dispatch, user]);
+    dispatch(updateStudyGroup());
+  }, [dispatch]);
 
   if (!group) {
     return (
@@ -38,12 +37,18 @@ const IntroduceContainer = ({ groupId }) => {
   }
 
   return (
-    <StudyIntroduceForm
-      user={user}
-      group={group}
-      realTime={realTime}
-      onApply={onApplyStudy}
-    />
+    <>
+      <IntroduceHeader
+        user={user}
+        group={group}
+        realTime={realTime}
+        onApply={onApplyStudy}
+      />
+      <StudyIntroduceForm
+        group={group}
+        realTime={realTime}
+      />
+    </>
   );
 };
 

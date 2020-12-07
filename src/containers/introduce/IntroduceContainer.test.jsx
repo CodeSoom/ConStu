@@ -73,7 +73,7 @@ describe('IntroduceContainer', () => {
     });
   });
 
-  context('with user', () => {
+  describe('with user', () => {
     given('group', () => (STUDY_GROUP));
     given('user', () => ('user'));
 
@@ -87,23 +87,6 @@ describe('IntroduceContainer', () => {
       fireEvent.click(button);
 
       expect(dispatch).toBeCalledTimes(2);
-    });
-  });
-
-  context('without user', () => {
-    given('group', () => (STUDY_GROUP));
-    given('user', () => (null));
-
-    it("click event doesn't dispatches action call updateStudyGroup", () => {
-      const { getByText } = renderIntroduceContainer(1);
-
-      const button = getByText('로그인 후 신청 가능합니다.');
-
-      expect(button).not.toBeNull();
-
-      fireEvent.click(button);
-
-      expect(dispatch).toBeCalledTimes(1);
     });
   });
 });

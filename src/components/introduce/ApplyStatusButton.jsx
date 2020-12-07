@@ -44,7 +44,7 @@ const ApplyStatusButtonWrapper = styled.button`
 `;
 
 const ApplyStatusButton = ({
-  timeStatus, onApply, user, applyStatus,
+  timeStatus, onApply, applyStatus,
 }) => {
   if (applyStatus) {
     return (
@@ -64,17 +64,6 @@ const ApplyStatusButton = ({
         className="deadline"
       >
         모집 마감
-      </ApplyStatusButtonWrapper>
-    );
-  }
-
-  if (!user) {
-    return (
-      <ApplyStatusButtonWrapper
-        type="button"
-        className="no-login"
-      >
-        로그인 후 신청 가능합니다.
       </ApplyStatusButtonWrapper>
     );
   }

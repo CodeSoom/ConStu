@@ -10,13 +10,11 @@ describe('ApplyStatusButton', () => {
   const renderApplyStatusButton = ({
     applyStatus = false,
     timeStatus = false,
-    user = true,
   }) => render((
     <ApplyStatusButton
       applyStatus={applyStatus}
       onApply={handleApply}
       timeStatus={timeStatus}
-      user={user}
     />
   ));
 
@@ -33,14 +31,6 @@ describe('ApplyStatusButton', () => {
       const { container } = renderApplyStatusButton({ timeStatus: true });
 
       expect(container).toHaveTextContent('모집 마감');
-    });
-  });
-
-  context('When not log in', () => {
-    it('renders "You can apply after logging in." text', () => {
-      const { container } = renderApplyStatusButton({ user: false });
-
-      expect(container).toHaveTextContent('로그인 후 신청 가능합니다.');
     });
   });
 
