@@ -8,6 +8,7 @@ import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 import ApplyStatusButton from './ApplyStatusButton';
 import AskLoginModal from './modals/AskLoginModal';
 import AskApplyCancelModal from './modals/AskApplyCancelModal';
+import ApplicationFormModal from './modals/ApplicationFormModal';
 
 const IntroduceHeaderWrapper = styled.div`
   border-bottom: 2px solid ${palette.gray[4]};
@@ -27,6 +28,7 @@ const IntroduceHeader = ({
 }) => {
   const [loginCheckModal, setLoginCheckModal] = useState(false);
   const [applyCancelModal, setApplyCancelModal] = useState(false);
+  const [modalForm, setModalForm] = useState(false);
 
   const {
     title, moderatorId, participants, applyEndDate,
@@ -57,7 +59,16 @@ const IntroduceHeader = ({
       return;
     }
 
+    setModalForm(true);
+  };
+
+  const handleFormSubmit = () => {
+    setModalForm(false);
     onApply();
+  };
+
+  const handleFormCancel = () => {
+    setModalForm(false);
   };
 
   return (
@@ -80,6 +91,11 @@ const IntroduceHeader = ({
             visible={applyCancelModal}
             onCancel={handleApplyCancel}
             onConfirm={handleApplyCancelConfirm}
+          />
+          <ApplicationFormModal
+            visible={modalForm}
+            onCancel={handleFormCancel}
+            onConfirm={handleFormSubmit}
           />
         </>
       )}
