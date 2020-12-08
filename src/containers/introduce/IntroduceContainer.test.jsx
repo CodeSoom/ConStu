@@ -63,7 +63,7 @@ describe('IntroduceContainer', () => {
     });
   });
 
-  context('without group', () => {
+  context('without group ', () => {
     given('group', () => (null));
 
     it('renders "loading.." text', () => {
@@ -73,14 +73,49 @@ describe('IntroduceContainer', () => {
     });
   });
 
-  describe('with user', () => {
+  context('with group & user', () => {
     given('group', () => (STUDY_GROUP));
     given('user', () => ('user'));
 
-    it('click event dispatches action call updateStudyGroup', () => {
+    it('click event dispatches action call updateParticipant', () => {
       const { getByText } = renderIntroduceContainer(1);
 
+      expect(dispatch).toBeCalledTimes(1);
+
       const button = getByText('신청하기');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.click(button);
+
+      expect(dispatch).toBeCalledTimes(2);
+    });
+  });
+
+  describe(`When the application date is earlier than the deadline 
+    date and the application deadline is not reached`, () => {
+    const nowDate = new Date();
+    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+    const group = {
+      ...STUDY_GROUP,
+      applyEndDate: tomorrow,
+      participants: [
+        'user2',
+        'user',
+      ],
+      personnel: 3,
+    };
+
+    given('group', () => (group));
+    given('user', () => ('user'));
+
+    it('click event dispatches action call deleteParticipant', () => {
+      const { getByText } = renderIntroduceContainer(1);
+
+      expect(dispatch).toBeCalledTimes(1);
+
+      const button = getByText('신청 취소');
 
       expect(button).not.toBeNull();
 

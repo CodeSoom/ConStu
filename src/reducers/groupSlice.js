@@ -6,7 +6,8 @@ import {
   getStudyGroup,
   getStudyGroups,
   postStudyGroup,
-  updateParticipants,
+  updatePostParticipant,
+  deletePostParticipant,
 } from '../services/api';
 
 const writeInitialState = {
@@ -112,14 +113,33 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
   dispatch(clearWriteFields());
 };
 
-export const updateStudyGroup = () => async (dispatch, getState) => {
-  const { groupReducer, authReducer } = getState();
+export const updateParticipant = () => async (dispatch, getState) => {
+  const { groupReducer: { group }, authReducer: { user } } = getState();
 
-  const newGroup = produce(groupReducer.group, (draft) => {
-    draft.participants.push(authReducer.user);
+  const newGroup = produce(group, (draft) => {
+    draft.participants.push(user);
   });
 
-  await updateParticipants(newGroup);
+  await updatePostParticipant({
+    user,
+    id: group.id,
+  });
+
+  dispatch(setStudyGroup(newGroup));
+};
+
+export const deleteParticipant = () => async (dispatch, getState) => {
+  const { groupReducer: { group }, authReducer: { user } } = getState();
+
+  const newGroup = {
+    ...group,
+    participants: group.participants.filter((participant) => participant !== user),
+  };
+
+  await deletePostParticipant({
+    user,
+    id: group.id,
+  });
 
   dispatch(setStudyGroup(newGroup));
 };

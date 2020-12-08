@@ -22,7 +22,7 @@ const IntroduceHeaderWrapper = styled.div`
 `;
 
 const IntroduceHeader = ({
-  group, onApply, user, realTime,
+  group, onApply, user, realTime, onApplyCancel,
 }) => {
   const [modal, setModal] = useState(false);
 
@@ -56,6 +56,7 @@ const IntroduceHeader = ({
         <>
           <ApplyStatusButton
             user={user}
+            onCancel={onApplyCancel}
             onApply={handleApply}
             applyStatus={participants.includes(user)}
             timeStatus={isCheckedTimeStatus({ ...group, time: realTime, applyEndTime })}

@@ -10,4 +10,6 @@ export const postUserLogin = jest.fn();
 
 export const postUserLogout = jest.fn();
 
-export const updateParticipants = jest.fn();
+export const updatePostParticipant = jest.fn();
+
+export const deletePostParticipant = jest.fn();

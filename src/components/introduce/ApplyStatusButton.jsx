@@ -22,6 +22,15 @@ const ApplyStatusButtonWrapper = styled.button`
     color: ${palette.gray[5]};
   }
 
+  &.apply-cancel {
+    cursor: pointer;
+    background: ${palette.orange[4]};
+    color: white;
+    &:hover {
+      background: ${palette.orange[3]};
+    }
+  }
+
   &.apply-complete {
     background: ${palette.gray[1]};
     border: 2px solid #a5d8ff;
@@ -32,20 +41,27 @@ const ApplyStatusButtonWrapper = styled.button`
     color: white;
     cursor: pointer;
     background: ${palette.teal[5]};
-    &:hover{
+    &:hover {
       background: ${palette.teal[4]};
     }
-  }
-
-  &.no-login{
-    cursor: not-allowed;
-    color: ${palette.gray[5]};
   }
 `;
 
 const ApplyStatusButton = ({
-  timeStatus, onApply, applyStatus,
+  timeStatus, onApply, applyStatus, onCancel,
 }) => {
+  if (!timeStatus && applyStatus) {
+    return (
+      <ApplyStatusButtonWrapper
+        type="button"
+        className="apply-cancel"
+        onClick={onCancel}
+      >
+        신청 취소
+      </ApplyStatusButtonWrapper>
+    );
+  }
+
   if (applyStatus) {
     return (
       <ApplyStatusButtonWrapper

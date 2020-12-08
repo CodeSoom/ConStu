@@ -8,6 +8,7 @@ import STUDY_GROUP from '../../../fixtures/study-group';
 
 describe('IntroduceHeader', () => {
   const handleApply = jest.fn();
+  const handleApplyCancel = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -19,6 +20,7 @@ describe('IntroduceHeader', () => {
       group={group}
       realTime={time}
       onApply={handleApply}
+      onApplyCancel={handleApplyCancel}
     />
   ));
 
@@ -26,6 +28,36 @@ describe('IntroduceHeader', () => {
     const { container } = renderIntroduceHeader({ group: STUDY_GROUP });
 
     expect(container).toHaveTextContent('스터디를 소개합니다.2');
+  });
+
+  context(`When the application date is earlier than the 
+    deadline date and the application deadline is not reached`, () => {
+    const time = Date.now();
+
+    const nowDate = new Date();
+    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+    const group = {
+      ...STUDY_GROUP,
+      applyEndDate: tomorrow,
+      participants: [
+        'user2',
+        'user',
+      ],
+      personnel: 3,
+    };
+
+    it('Call the cancel application button.', () => {
+      const { getByText } = renderIntroduceHeader({ group, user: 'user', time });
+
+      const button = getByText('신청 취소');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.click(button);
+
+      expect(handleApplyCancel).toBeCalled();
+    });
   });
 
   context('When the author and the logged-in user have the same ID', () => {

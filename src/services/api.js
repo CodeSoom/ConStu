@@ -63,12 +63,20 @@ export const postStudyGroup = async (group) => {
   return id;
 };
 
-export const updateParticipants = async (group) => {
-  const { id, participants } = group;
-
+export const updatePostParticipant = async ({ id, user }) => {
   const groups = db.collection('groups').doc(id);
 
-  await groups.update({ participants });
+  await groups.update({
+    participants: fireStore.FieldValue.arrayUnion(user),
+  });
+};
+
+export const deletePostParticipant = async ({ id, user }) => {
+  const groups = db.collection('groups').doc(id);
+
+  await groups.update({
+    participants: fireStore.FieldValue.arrayRemove(user),
+  });
 };
 
 export const postUserRegister = async ({ userEmail, password }) => {
