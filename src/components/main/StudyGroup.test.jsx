@@ -19,7 +19,7 @@ describe('StudyGroup', () => {
     const nowDate = new Date();
     const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
     const tomorrowDate = new Date(tomorrow);
-    const dateFormat = `${tomorrowDate.getFullYear()}년 ${tomorrowDate.getMonth() + 1}월 ${tomorrowDate.getDate() < 10 && '0'}${tomorrowDate.getDate()}일`;
+    const dateFormat = `${tomorrowDate.getFullYear()}년 ${tomorrowDate.getMonth() + 1}월 ${tomorrowDate.getDate() < 10 ? '0' : ''}${tomorrowDate.getDate()}일`;
 
     const group = {
       id: 1,
