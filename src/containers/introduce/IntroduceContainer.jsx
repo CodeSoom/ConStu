@@ -4,7 +4,7 @@ import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
-import { loadStudyGroup, updateStudyGroup } from '../../reducers/groupSlice';
+import { loadStudyGroup, updateParticipant } from '../../reducers/groupSlice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 import GroupContentLoader from '../../components/introduce/GroupsContentLoader';
@@ -27,7 +27,7 @@ const IntroduceContainer = ({ groupId }) => {
   }, 1000);
 
   const onApplyStudy = useCallback(() => {
-    dispatch(updateStudyGroup());
+    dispatch(updateParticipant());
   }, [dispatch]);
 
   if (!group) {

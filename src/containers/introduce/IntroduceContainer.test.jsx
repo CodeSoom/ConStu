@@ -77,7 +77,7 @@ describe('IntroduceContainer', () => {
     given('group', () => (STUDY_GROUP));
     given('user', () => ('user'));
 
-    it('click event dispatches action call updateStudyGroup', () => {
+    it('click event dispatches action call updateParticipant', () => {
       const { getByText } = renderIntroduceContainer(1);
 
       const button = getByText('신청하기');

@@ -12,7 +12,8 @@ import reducer, {
   writeStudyGroup,
   clearWriteFields,
   successWrite,
-  updateStudyGroup,
+  updateParticipant,
+  deleteParticipant,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -196,7 +197,7 @@ describe('async actions', () => {
     });
   });
 
-  describe('updateStudyGroup', () => {
+  describe('updateParticipant', () => {
     beforeEach(() => {
       store = mockStore({
         groupReducer: {
@@ -209,13 +210,46 @@ describe('async actions', () => {
     });
 
     it('dispatches setStudyGroup', async () => {
-      await store.dispatch(updateStudyGroup());
+      await store.dispatch(updateParticipant());
 
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setStudyGroup({
         ...STUDY_GROUP,
         participants: [...STUDY_GROUP.participants, 'example'],
+      }));
+    });
+  });
+
+  describe('deleteParticipant', () => {
+    const group = {
+      id: 1,
+      participants: [
+        'user2',
+        'example',
+      ],
+    };
+    const user = 'example';
+
+    beforeEach(() => {
+      store = mockStore({
+        groupReducer: {
+          group,
+        },
+        authReducer: {
+          user,
+        },
+      });
+    });
+
+    it('dispatches setStudyGroup', async () => {
+      await store.dispatch(deleteParticipant());
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(setStudyGroup({
+        ...group,
+        participants: group.participants.filter((participant) => participant !== user),
       }));
     });
   });
