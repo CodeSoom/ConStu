@@ -212,6 +212,9 @@ describe('IntroduceHeader', () => {
 
         fireEvent.click(button);
 
+        // TODO: 이 부분은 추후 변경해야된다 현재 스터디 참여 신청서 모달창이 나타남.
+        fireEvent.click(getByText('확인'));
+
         expect(handleApply).toBeCalled();
 
         expect(container).not.toHaveTextContent('로그인 후 신청 가능합니다.');
