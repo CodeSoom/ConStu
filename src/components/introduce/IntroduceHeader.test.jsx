@@ -47,16 +47,36 @@ describe('IntroduceHeader', () => {
       personnel: 3,
     };
 
-    it('Call the cancel application button.', () => {
-      const { getByText } = renderIntroduceHeader({ group, user: 'user', time });
+    context('click confirm', () => {
+      it('Call the cancel application button.', () => {
+        const { getByText } = renderIntroduceHeader({ group, user: 'user', time });
 
-      const button = getByText('신청 취소');
+        const button = getByText('신청 취소');
 
-      expect(button).not.toBeNull();
+        expect(button).not.toBeNull();
 
-      fireEvent.click(button);
+        fireEvent.click(button);
 
-      expect(handleApplyCancel).toBeCalled();
+        fireEvent.click(getByText('확인'));
+
+        expect(handleApplyCancel).toBeCalled();
+      });
+    });
+
+    context('click cancel', () => {
+      it("doesn't call the cancel application button.", () => {
+        const { getByText } = renderIntroduceHeader({ group, user: 'user', time });
+
+        const button = getByText('신청 취소');
+
+        expect(button).not.toBeNull();
+
+        fireEvent.click(button);
+
+        fireEvent.click(getByText('취소'));
+
+        expect(handleApplyCancel).not.toBeCalled();
+      });
     });
   });
 
