@@ -31,10 +31,8 @@ const IntroduceContainer = ({ groupId }) => {
   }, [dispatch]);
 
   const onApplyCancel = useCallback(() => {
-    if (user) {
-      dispatch(deleteParticipant());
-    }
-  }, [dispatch, user]);
+    dispatch(deleteParticipant());
+  }, [dispatch]);
 
   if (!group) {
     return (
