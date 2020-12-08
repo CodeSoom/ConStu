@@ -7,6 +7,7 @@ import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import ApplyStatusButton from './ApplyStatusButton';
 import AskLoginModal from './modals/AskLoginModal';
+import AskApplyCancelModal from './modals/AskApplyCancelModal';
 
 const IntroduceHeaderWrapper = styled.div`
   border-bottom: 2px solid ${palette.gray[4]};
@@ -24,7 +25,8 @@ const IntroduceHeaderWrapper = styled.div`
 const IntroduceHeader = ({
   group, onApply, user, realTime, onApplyCancel,
 }) => {
-  const [modal, setModal] = useState(false);
+  const [loginCheckModal, setLoginCheckModal] = useState(false);
+  const [applyCancelModal, setApplyCancelModal] = useState(false);
 
   const {
     title, moderatorId, participants, applyEndDate,
@@ -32,17 +34,26 @@ const IntroduceHeader = ({
 
   const applyEndTime = changeDateToTime(applyEndDate);
 
-  const onApplyClick = () => {
-    setModal(true);
+  const handleApplyCancelConfirmClick = () => {
+    setApplyCancelModal(true);
   };
 
-  const handleCancel = () => {
-    setModal(false);
+  const handleLoginCheckCancel = () => {
+    setLoginCheckModal(false);
+  };
+
+  const handleApplyCancel = () => {
+    setApplyCancelModal(false);
+  };
+
+  const handleApplyCancelConfirm = () => {
+    setApplyCancelModal(false);
+    onApplyCancel();
   };
 
   const handleApply = () => {
     if (!user) {
-      onApplyClick();
+      setLoginCheckModal(true);
       return;
     }
 
@@ -56,12 +67,20 @@ const IntroduceHeader = ({
         <>
           <ApplyStatusButton
             user={user}
-            onCancel={onApplyCancel}
             onApply={handleApply}
+            onCancel={handleApplyCancelConfirmClick}
             applyStatus={participants.includes(user)}
             timeStatus={isCheckedTimeStatus({ ...group, time: realTime, applyEndTime })}
           />
-          <AskLoginModal visible={modal} onCancel={handleCancel} />
+          <AskLoginModal
+            visible={loginCheckModal}
+            onCancel={handleLoginCheckCancel}
+          />
+          <AskApplyCancelModal
+            visible={applyCancelModal}
+            onCancel={handleApplyCancel}
+            onConfirm={handleApplyCancelConfirm}
+          />
         </>
       )}
     </IntroduceHeaderWrapper>

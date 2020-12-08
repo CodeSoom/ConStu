@@ -110,18 +110,40 @@ describe('IntroduceContainer', () => {
     given('group', () => (group));
     given('user', () => ('user'));
 
-    it('click event dispatches action call deleteParticipant', () => {
-      const { getByText } = renderIntroduceContainer(1);
+    context('click confirm', () => {
+      it('click event dispatches action call deleteParticipant', () => {
+        const { getByText } = renderIntroduceContainer(1);
 
-      expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).toBeCalledTimes(1);
 
-      const button = getByText('신청 취소');
+        const button = getByText('신청 취소');
 
-      expect(button).not.toBeNull();
+        expect(button).not.toBeNull();
 
-      fireEvent.click(button);
+        fireEvent.click(button);
 
-      expect(dispatch).toBeCalledTimes(2);
+        fireEvent.click(getByText('확인'));
+
+        expect(dispatch).toBeCalledTimes(2);
+      });
+    });
+
+    context('click cancel', () => {
+      it("doesn't click event dispatches action call deleteParticipant", () => {
+        const { getByText } = renderIntroduceContainer(1);
+
+        expect(dispatch).toBeCalledTimes(1);
+
+        const button = getByText('신청 취소');
+
+        expect(button).not.toBeNull();
+
+        fireEvent.click(button);
+
+        fireEvent.click(getByText('취소'));
+
+        expect(dispatch).toBeCalledTimes(1);
+      });
     });
   });
 });
