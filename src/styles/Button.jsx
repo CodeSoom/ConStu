@@ -17,7 +17,7 @@ const ButtonWrapper = ({ warn, success }) => css`
   color: ${palette.gray[7]};
   outline: none;
   cursor: pointer;
-  border: 1px solid ${palette.gray[7]};
+  border: 2px solid ${palette.gray[6]};
   background: white;
   transition-duration: 0.08s;
   transition-property: all;
@@ -25,6 +25,7 @@ const ButtonWrapper = ({ warn, success }) => css`
   transition-delay: initial;
   &:hover {
     color: white;
+    border: 2px solid ${palette.gray[7]};
     background: ${palette.gray[7]};
   }
 

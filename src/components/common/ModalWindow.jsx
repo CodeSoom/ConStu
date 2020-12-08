@@ -3,8 +3,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { css } from '@emotion/react';
+
 import Button from '../../styles/Button';
-import palette from '../../styles/palette';
 
 const ModalWindowWrapper = styled.div`
   position: fixed;
@@ -61,10 +61,6 @@ const StyledButton = styled(Button)`
   &:last-of-type {
     margin-left: .7rem;
   }
-
-  ${(props) => props.cancel && css`
-    border: 2px solid ${palette.gray[7]};
-  `}
 `;
 
 const ModalWindow = ({
@@ -86,7 +82,7 @@ const ModalWindow = ({
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="buttons">
-          <StyledButton cancel onClick={onCancel}>{cancelText}</StyledButton>
+          <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
           {onConfirm && (
             <StyledButton success onClick={onConfirm}>{confirmText}</StyledButton>
           )}
