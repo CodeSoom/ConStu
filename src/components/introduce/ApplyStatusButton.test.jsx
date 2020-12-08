@@ -18,9 +18,17 @@ describe('ApplyStatusButton', () => {
     />
   ));
 
+  context('When the applicant applies before the application deadline', () => {
+    it('renders Cancel application', () => {
+      const { container } = renderApplyStatusButton({ applyStatus: true });
+
+      expect(container).toHaveTextContent('신청 취소');
+    });
+  });
+
   context('When the study application is completed', () => {
     it('renders application completed', () => {
-      const { container } = renderApplyStatusButton({ applyStatus: true });
+      const { container } = renderApplyStatusButton({ applyStatus: true, timeStatus: true });
 
       expect(container).toHaveTextContent('신청 완료');
     });

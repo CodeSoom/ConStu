@@ -44,7 +44,7 @@ const DateTimeChange = ({ group, page, time }) => {
     if (isCheckedTimeStatus(valid)) {
       return (
         <DateTimeStatus status="introduceDeadline">
-          모집마감
+          모집 마감
         </DateTimeStatus>
       );
     }
