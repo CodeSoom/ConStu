@@ -4,7 +4,7 @@ const studyGroup = {
   moderatorId: 'user2',
   applyEndDate: '2020-12-23',
   participants: [
-    'user2',
+    { id: 'user2' },
   ],
   personnel: 2,
   contents: '우리는 이것저것 합니다.2',

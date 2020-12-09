@@ -64,7 +64,7 @@ const IntroduceHeader = ({
 
   const handleFormSubmit = () => {
     setModalForm(false);
-    onApply();
+    onApply(applyFields);
   };
 
   const handleFormCancel = () => {
@@ -80,7 +80,7 @@ const IntroduceHeader = ({
             user={user}
             onApply={handleApply}
             onCancel={handleApplyCancelConfirmClick}
-            applyStatus={participants.includes(user)}
+            applyStatus={participants.some(({ id }) => id === user)}
             timeStatus={isCheckedTimeStatus({ ...group, time: realTime, applyEndTime })}
           />
           <AskLoginModal

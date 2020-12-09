@@ -42,8 +42,8 @@ describe('IntroduceHeader', () => {
       ...STUDY_GROUP,
       applyEndDate: tomorrow,
       participants: [
-        'user2',
-        'user',
+        { id: 'user2' },
+        { id: 'user' },
       ],
       personnel: 3,
     };
@@ -100,7 +100,7 @@ describe('IntroduceHeader', () => {
         ...STUDY_GROUP,
         applyEndDate: yesterday,
         participants: [
-          'user2',
+          { id: 'user2' },
         ],
         personnel: 2,
       };
@@ -120,8 +120,8 @@ describe('IntroduceHeader', () => {
         ...STUDY_GROUP,
         applyEndDate: tomorrow,
         participants: [
-          'user2',
-          'user3',
+          { id: 'user2' },
+          { id: 'user3' },
         ],
         personnel: 2,
       };
@@ -141,7 +141,7 @@ describe('IntroduceHeader', () => {
         ...STUDY_GROUP,
         applyEndDate: tomorrow,
         participants: [
-          'user2',
+          { id: 'user2' },
         ],
         personnel: 2,
       };
@@ -178,7 +178,7 @@ describe('IntroduceHeader', () => {
         ...STUDY_GROUP,
         applyEndDate: tomorrow,
         participants: [
-          'user2',
+          { id: 'user2' },
         ],
         personnel: 2,
       };
@@ -199,7 +199,7 @@ describe('IntroduceHeader', () => {
         ...STUDY_GROUP,
         applyEndDate: tomorrow,
         participants: [
-          'user2',
+          { id: 'user2' },
         ],
         personnel: 2,
       };

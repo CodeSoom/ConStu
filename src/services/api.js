@@ -71,11 +71,11 @@ export const updatePostParticipant = async ({ id, user }) => {
   });
 };
 
-export const deletePostParticipant = async ({ id, user }) => {
+export const deletePostParticipant = async ({ id, participants }) => {
   const groups = db.collection('groups').doc(id);
 
   await groups.update({
-    participants: fireStore.FieldValue.arrayRemove(user),
+    participants,
   });
 };
 
