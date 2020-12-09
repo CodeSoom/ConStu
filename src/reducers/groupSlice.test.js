@@ -15,6 +15,7 @@ import reducer, {
   updateParticipant,
   deleteParticipant,
   changeApplyFields,
+  clearApplyFields,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -151,6 +152,24 @@ describe('reducer', () => {
       expect(state.applyFields.reason).toBe('참여합니다.');
     });
   });
+
+  describe('clearApplyFields', () => {
+    const initialState = {
+      applyFields: {
+        reason: '타이틀',
+        wantToGet: '내용',
+      },
+    };
+
+    it('clears fields of application', () => {
+      const state = reducer(initialState, clearApplyFields());
+
+      const { applyFields: { reason, wantToGet } } = state;
+
+      expect(reason).toBe('');
+      expect(wantToGet).toBe('');
+    });
+  });
 });
 
 describe('async actions', () => {
@@ -237,7 +256,7 @@ describe('async actions', () => {
       wantToGet: '원하는 것',
     };
 
-    it('dispatches setStudyGroup', async () => {
+    it('dispatches setStudyGroup and clearApplyFields', async () => {
       await store.dispatch(updateParticipant(applyFields));
 
       const actions = store.getActions();
@@ -250,6 +269,7 @@ describe('async actions', () => {
           confirm: false,
         }],
       }));
+      expect(actions[1]).toEqual(clearApplyFields());
     });
   });
 

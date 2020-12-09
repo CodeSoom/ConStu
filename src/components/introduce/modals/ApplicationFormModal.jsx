@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -96,6 +96,13 @@ const ContentTextareaWrapper = styled.textarea`
   &:focus {
     border: 2px solid ${palette.teal[5]};
   }
+
+  ${({ error }) => error && css`
+    &::placeholder {
+      color: ${palette.warn[1]};
+    }
+    border: 2px solid ${palette.warn[1]};
+  `};
 `;
 
 const StyledButton = styled(Button)`
@@ -107,12 +114,35 @@ const StyledButton = styled(Button)`
 const ApplicationFormModal = ({
   visible, onCancel, onConfirm, onChangeApply, fields,
 }) => {
+  const [error, setError] = useState(null);
+
   const { reason, wantToGet } = fields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+    setError(null);
     onChangeApply({ name, value });
+  };
+
+  const handleCancel = () => {
+    setError(null);
+    onCancel();
+  };
+
+  const handleConfirm = () => {
+    if (!reason.trim()) {
+      setError('reason');
+      return;
+    }
+
+    if (!wantToGet.trim()) {
+      setError('wantToGet');
+      return;
+    }
+
+    setError(null);
+    onConfirm();
   };
 
   if (!visible) {
@@ -126,6 +156,7 @@ const ApplicationFormModal = ({
         <ContentBoxWrapper>
           <label htmlFor="apply-reason">신청하게 된 이유</label>
           <ContentTextareaWrapper
+            error={error && error === 'reason'}
             rows="10"
             id="apply-reason"
             name="reason"
@@ -137,6 +168,7 @@ const ApplicationFormModal = ({
         <ContentBoxWrapper>
           <label htmlFor="study-want">스터디를 통해 얻고 싶은 것은 무엇인가요?</label>
           <ContentTextareaWrapper
+            error={error && error === 'wantToGet'}
             rows="10"
             id="study-want"
             name="wantToGet"
@@ -146,8 +178,8 @@ const ApplicationFormModal = ({
           />
         </ContentBoxWrapper>
         <div className="buttons">
-          <StyledButton onClick={onCancel}>취소</StyledButton>
-          <StyledButton success onClick={onConfirm}>확인</StyledButton>
+          <StyledButton onClick={handleCancel}>취소</StyledButton>
+          <StyledButton success onClick={handleConfirm}>확인</StyledButton>
         </div>
       </ModalBoxWrapper>
     </ApplicationFormModalWrapper>

@@ -76,6 +76,13 @@ const { actions, reducer } = createSlice({
         draft.applyFields[name] = value;
       });
     },
+
+    clearApplyFields(state) {
+      return {
+        ...state,
+        applyFields: applyInitialState,
+      };
+    },
   },
 });
 
@@ -86,6 +93,7 @@ export const {
   clearWriteFields,
   successWrite,
   changeApplyFields,
+  clearApplyFields,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
@@ -142,6 +150,7 @@ export const updateParticipant = ({ reason, wantToGet }) => async (dispatch, get
   });
 
   dispatch(setStudyGroup(newGroup));
+  dispatch(clearApplyFields());
 };
 
 export const deleteParticipant = () => async (dispatch, getState) => {

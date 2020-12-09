@@ -9,6 +9,7 @@ import STUDY_GROUP from '../../../fixtures/study-group';
 describe('IntroduceHeader', () => {
   const handleApply = jest.fn();
   const handleApplyCancel = jest.fn();
+  const handleClearForm = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -18,10 +19,11 @@ describe('IntroduceHeader', () => {
     <IntroduceHeader
       user={user}
       group={group}
-      applyFields={{ reason: '', wantToGet: '' }}
+      applyFields={{ reason: 'reason', wantToGet: 'reason' }}
       realTime={time}
       onApply={handleApply}
       onApplyCancel={handleApplyCancel}
+      clearForm={handleClearForm}
     />
   ));
 
@@ -214,7 +216,6 @@ describe('IntroduceHeader', () => {
 
           fireEvent.click(button);
 
-          // TODO: 이 부분은 추후 변경해야된다 현재 스터디 참여 신청서 모달창이 나타남.
           fireEvent.click(getByText('확인'));
 
           expect(handleApply).toBeCalled();
