@@ -18,6 +18,7 @@ describe('IntroduceHeader', () => {
     <IntroduceHeader
       user={user}
       group={group}
+      applyFields={{ reason: '', wantToGet: '' }}
       realTime={time}
       onApply={handleApply}
       onApplyCancel={handleApplyCancel}
@@ -203,21 +204,39 @@ describe('IntroduceHeader', () => {
         personnel: 2,
       };
 
-      it('renders modal window appears and application failure message', () => {
-        const { container, getByText } = renderIntroduceHeader({ group, time, user: 'user' });
+      context('Click confirm Study participation application', () => {
+        it('renders modal window appears and application failure message', () => {
+          const { container, getByText } = renderIntroduceHeader({ group, time, user: 'user' });
 
-        const button = getByText('신청하기');
+          const button = getByText('신청하기');
 
-        expect(button).not.toBeNull();
+          expect(button).not.toBeNull();
 
-        fireEvent.click(button);
+          fireEvent.click(button);
 
-        // TODO: 이 부분은 추후 변경해야된다 현재 스터디 참여 신청서 모달창이 나타남.
-        fireEvent.click(getByText('확인'));
+          // TODO: 이 부분은 추후 변경해야된다 현재 스터디 참여 신청서 모달창이 나타남.
+          fireEvent.click(getByText('확인'));
 
-        expect(handleApply).toBeCalled();
+          expect(handleApply).toBeCalled();
 
-        expect(container).not.toHaveTextContent('로그인 후 신청 가능합니다.');
+          expect(container).not.toHaveTextContent('로그인 후 신청 가능합니다.');
+        });
+      });
+
+      context('Click cancel Study participation application', () => {
+        it('renders modal window appears and application failure message', () => {
+          const { getByText } = renderIntroduceHeader({ group, time, user: 'user' });
+
+          const button = getByText('신청하기');
+
+          expect(button).not.toBeNull();
+
+          fireEvent.click(button);
+
+          fireEvent.click(getByText('취소'));
+
+          expect(handleApply).not.toBeCalled();
+        });
       });
     });
   });

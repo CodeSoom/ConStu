@@ -7,10 +7,13 @@ import ApplicationFormModal from './ApplicationFormModal';
 describe('ApplicationFormModal', () => {
   const handleCancel = jest.fn();
   const handleConfirm = jest.fn();
+  const handleChange = jest.fn();
 
-  const renderApplicationFormModal = ({ visible }) => render((
+  const renderApplicationFormModal = ({ visible, fields }) => render((
     <ApplicationFormModal
       visible={visible}
+      fields={fields}
+      onChangeApply={handleChange}
       onConfirm={handleConfirm}
       onCancel={handleCancel}
     />
@@ -19,6 +22,10 @@ describe('ApplicationFormModal', () => {
   context('with visible', () => {
     const modal = {
       visible: true,
+      fields: {
+        reason: '',
+        wantToGet: '',
+      },
     };
 
     it('renders Modal text', () => {
@@ -48,11 +55,25 @@ describe('ApplicationFormModal', () => {
 
       expect(handleCancel).toBeCalled();
     });
+
+    it('change apply form fields', () => {
+      const { getByLabelText } = renderApplicationFormModal(modal);
+
+      const input = getByLabelText('신청하게 된 이유');
+
+      fireEvent.change(input, { target: { name: 'reason', value: '내용' } });
+
+      expect(handleChange).toBeCalled();
+    });
   });
 
   context('without visible', () => {
     const modal = {
       visible: false,
+      fields: {
+        reason: '',
+        wantToGet: '',
+      },
     };
 
     it("doesn't renders Modal text", () => {

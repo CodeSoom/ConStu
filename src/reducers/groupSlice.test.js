@@ -14,6 +14,7 @@ import reducer, {
   successWrite,
   updateParticipant,
   deleteParticipant,
+  changeApplyFields,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -39,6 +40,10 @@ describe('reducer', () => {
         participants: [],
         personnel: '1',
         tags: [],
+      },
+      applyFields: {
+        reason: '',
+        wantToGet: '',
       },
     };
 
@@ -126,6 +131,24 @@ describe('reducer', () => {
       const state = reducer(initialState, successWrite('1'));
 
       expect(state.groupId).toBe('1');
+    });
+  });
+
+  describe('changeApplyFields', () => {
+    it('changes a field of study participation application form', () => {
+      const initialState = {
+        applyFields: {
+          reason: '',
+          wantToGet: '',
+        },
+      };
+
+      const state = reducer(
+        initialState,
+        changeApplyFields({ name: 'reason', value: '참여합니다.' }),
+      );
+
+      expect(state.applyFields.reason).toBe('참여합니다.');
     });
   });
 });

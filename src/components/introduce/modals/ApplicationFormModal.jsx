@@ -40,7 +40,7 @@ const ApplicationFormModalWrapper = styled.div`
 const ModalBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 570px;
+  height: 575px;
   width: 400px;
   background: white;
   padding: 1.5rem;
@@ -84,13 +84,17 @@ const ContentTextareaWrapper = styled.textarea`
   padding: 5px;
   resize: none;
   outline: none;
-  border: 1px solid ${palette.gray[3]};
+  border: 2px solid #D7E2EB;
   border-radius: 3px;
   font-weight: bold;
   color: rgb(33, 37, 41);
   margin-bottom: 0.7rem;
-  &:hover, &:focus {
-    border: 2px solid ${palette.gray[4]};
+  transition-duration: 0.08s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  transition-delay: initial;
+  &:focus {
+    border: 2px solid ${palette.teal[5]};
   }
 `;
 
@@ -100,7 +104,17 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const ApplicationFormModal = ({ visible, onCancel, onConfirm }) => {
+const ApplicationFormModal = ({
+  visible, onCancel, onConfirm, onChangeApply, fields,
+}) => {
+  const { reason, wantToGet } = fields;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    onChangeApply({ name, value });
+  };
+
   if (!visible) {
     return null;
   }
@@ -111,11 +125,25 @@ const ApplicationFormModal = ({ visible, onCancel, onConfirm }) => {
         <h2>스터디 참여 신청서 📚</h2>
         <ContentBoxWrapper>
           <label htmlFor="apply-reason">신청하게 된 이유</label>
-          <ContentTextareaWrapper placeholder="내용을 입력해주세요." id="apply-reason" rows="10" />
+          <ContentTextareaWrapper
+            rows="10"
+            id="apply-reason"
+            name="reason"
+            placeholder="내용을 입력해주세요."
+            value={reason}
+            onChange={handleChange}
+          />
         </ContentBoxWrapper>
         <ContentBoxWrapper>
-          <label htmlFor="apply-reason">스터디를 통해 얻고 싶은 것은 무엇인가요?</label>
-          <ContentTextareaWrapper placeholder="내용을 입력해주세요." id="study-want" rows="10" />
+          <label htmlFor="study-want">스터디를 통해 얻고 싶은 것은 무엇인가요?</label>
+          <ContentTextareaWrapper
+            rows="10"
+            id="study-want"
+            name="wantToGet"
+            placeholder="내용을 입력해주세요."
+            value={wantToGet}
+            onChange={handleChange}
+          />
         </ContentBoxWrapper>
         <div className="buttons">
           <StyledButton onClick={onCancel}>취소</StyledButton>

@@ -20,6 +20,11 @@ const writeInitialState = {
   tags: [],
 };
 
+const applyInitialState = {
+  reason: '',
+  wantToGet: '',
+};
+
 const { actions, reducer } = createSlice({
   name: 'group',
   initialState: {
@@ -27,6 +32,7 @@ const { actions, reducer } = createSlice({
     group: null,
     groupId: null,
     writeField: writeInitialState,
+    applyFields: applyInitialState,
   },
 
   reducers: {
@@ -45,15 +51,9 @@ const { actions, reducer } = createSlice({
     },
 
     changeWriteField(state, { payload: { name, value } }) {
-      const { writeField } = state;
-
-      return {
-        ...state,
-        writeField: {
-          ...writeField,
-          [name]: value,
-        },
-      };
+      return produce(state, (draft) => {
+        draft.writeField[name] = value;
+      });
     },
 
     clearWriteFields(state) {
@@ -70,6 +70,12 @@ const { actions, reducer } = createSlice({
         groupId,
       };
     },
+
+    changeApplyFields(state, { payload: { name, value } }) {
+      return produce(state, (draft) => {
+        draft.applyFields[name] = value;
+      });
+    },
   },
 });
 
@@ -79,6 +85,7 @@ export const {
   changeWriteField,
   clearWriteFields,
   successWrite,
+  changeApplyFields,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
