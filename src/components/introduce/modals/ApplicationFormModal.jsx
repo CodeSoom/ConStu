@@ -131,12 +131,12 @@ const ApplicationFormModal = ({
   };
 
   const handleConfirm = () => {
-    if (!reason) {
+    if (!reason.trim()) {
       setError('reason');
       return;
     }
 
-    if (!wantToGet) {
+    if (!wantToGet.trim()) {
       setError('wantToGet');
       return;
     }
