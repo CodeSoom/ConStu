@@ -4,7 +4,9 @@ import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
-import { deleteParticipant, loadStudyGroup, updateParticipant } from '../../reducers/groupSlice';
+import {
+  changeApplyFields, deleteParticipant, loadStudyGroup, updateParticipant,
+} from '../../reducers/groupSlice';
 
 import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
 import GroupContentLoader from '../../components/introduce/GroupsContentLoader';
@@ -15,6 +17,7 @@ const IntroduceContainer = ({ groupId }) => {
 
   const dispatch = useDispatch();
 
+  const applyFields = useSelector(getGroup('applyFields'));
   const group = useSelector(getGroup('group'));
   const user = useSelector(getAuth('user'));
 
@@ -34,6 +37,10 @@ const IntroduceContainer = ({ groupId }) => {
     dispatch(deleteParticipant());
   }, [dispatch]);
 
+  const onChangeApplyFields = useCallback(({ name, value }) => {
+    dispatch(changeApplyFields({ name, value }));
+  }, [dispatch]);
+
   if (!group) {
     return (
       <GroupContentLoader />
@@ -46,8 +53,10 @@ const IntroduceContainer = ({ groupId }) => {
         user={user}
         group={group}
         realTime={realTime}
+        applyFields={applyFields}
         onApply={onApplyStudy}
         onApplyCancel={onApplyCancel}
+        onChangeApplyFields={onChangeApplyFields}
       />
       <StudyIntroduceForm
         group={group}

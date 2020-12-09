@@ -24,6 +24,7 @@ describe('IntroduceContainer', () => {
       },
       groupReducer: {
         group: given.group,
+        applyFields: given.applyFields,
       },
     }));
   });
@@ -48,6 +49,10 @@ describe('IntroduceContainer', () => {
         'Algorithm',
       ],
     }));
+    given('applyFields', () => ({
+      reason: '',
+      wantToGet: '',
+    }));
 
     it('renders study group title and contents', () => {
       const { container } = renderIntroduceContainer(1);
@@ -65,6 +70,10 @@ describe('IntroduceContainer', () => {
 
   context('without group ', () => {
     given('group', () => (null));
+    given('applyFields', () => ({
+      reason: '',
+      wantToGet: '',
+    }));
 
     it('renders "loading.." text', () => {
       const { container } = renderIntroduceContainer(1);
@@ -76,6 +85,10 @@ describe('IntroduceContainer', () => {
   context('with group & user', () => {
     given('group', () => (STUDY_GROUP));
     given('user', () => ('user'));
+    given('applyFields', () => ({
+      reason: '',
+      wantToGet: '',
+    }));
 
     it('click event dispatches action call updateParticipant', () => {
       const { getByText } = renderIntroduceContainer(1);
@@ -92,6 +105,30 @@ describe('IntroduceContainer', () => {
       fireEvent.click(getByText('확인'));
 
       expect(dispatch).toBeCalledTimes(2);
+    });
+
+    it('dispatches action calls changeApplyFields', () => {
+      const form = {
+        name: 'reason',
+        value: '내용',
+      };
+
+      const { getByText, getByLabelText } = renderIntroduceContainer(1);
+
+      expect(dispatch).toBeCalledTimes(1);
+
+      const button = getByText('신청하기');
+
+      fireEvent.click(button);
+
+      const input = getByLabelText('신청하게 된 이유');
+
+      fireEvent.change(input, { target: form });
+
+      expect(dispatch).toBeCalledWith({
+        type: 'group/changeApplyFields',
+        payload: form,
+      });
     });
   });
 
@@ -112,6 +149,10 @@ describe('IntroduceContainer', () => {
 
     given('group', () => (group));
     given('user', () => ('user'));
+    given('applyFields', () => ({
+      reason: '',
+      wantToGet: '',
+    }));
 
     context('click confirm', () => {
       it('click event dispatches action call deleteParticipant', () => {

@@ -30,6 +30,10 @@ describe('App', () => {
         writeField: {
           tags: [],
         },
+        applyFields: {
+          reason: '',
+          wantToGet: '',
+        },
       },
       authReducer: {
         register: {

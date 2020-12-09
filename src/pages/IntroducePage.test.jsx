@@ -28,6 +28,10 @@ describe('IntroducePage', () => {
             'Algorithm',
           ],
         },
+        applyFields: {
+          reason: '',
+          wantToGet: '',
+        },
       },
       authReducer: {},
     }));
