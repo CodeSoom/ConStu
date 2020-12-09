@@ -141,8 +141,8 @@ describe('IntroduceContainer', () => {
       ...STUDY_GROUP,
       applyEndDate: tomorrow,
       participants: [
-        'user2',
-        'user',
+        { id: 'user2' },
+        { id: 'user' },
       ],
       personnel: 3,
     };
