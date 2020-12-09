@@ -64,7 +64,7 @@ const IntroduceHeader = ({
 
   const handleFormSubmit = () => {
     setModalForm(false);
-    onApply();
+    onApply(applyFields);
   };
 
   const handleFormCancel = () => {

@@ -232,14 +232,23 @@ describe('async actions', () => {
       });
     });
 
+    const applyFields = {
+      reason: '이유',
+      wantToGet: '원하는 것',
+    };
+
     it('dispatches setStudyGroup', async () => {
-      await store.dispatch(updateParticipant());
+      await store.dispatch(updateParticipant(applyFields));
 
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setStudyGroup({
         ...STUDY_GROUP,
-        participants: [...STUDY_GROUP.participants, 'example'],
+        participants: [...STUDY_GROUP.participants, {
+          ...applyFields,
+          id: 'example',
+          confirm: false,
+        }],
       }));
     });
   });
@@ -248,8 +257,8 @@ describe('async actions', () => {
     const group = {
       id: 1,
       participants: [
-        'user2',
-        'example',
+        { id: 'user2' },
+        { id: 'example' },
       ],
     };
     const user = 'example';
@@ -272,7 +281,7 @@ describe('async actions', () => {
 
       expect(actions[0]).toEqual(setStudyGroup({
         ...group,
-        participants: group.participants.filter((participant) => participant !== user),
+        participants: group.participants.filter(({ id }) => id !== user),
       }));
     });
   });

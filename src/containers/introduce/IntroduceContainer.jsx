@@ -29,8 +29,8 @@ const IntroduceContainer = ({ groupId }) => {
     setRealTime(Date.now());
   }, 1000);
 
-  const onApplyStudy = useCallback(() => {
-    dispatch(updateParticipant());
+  const onApplyStudy = useCallback(({ reason, wantToGet }) => {
+    dispatch(updateParticipant({ reason, wantToGet }));
   }, [dispatch]);
 
   const onApplyCancel = useCallback(() => {

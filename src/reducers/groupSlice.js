@@ -113,22 +113,31 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
 
   const groupId = await postStudyGroup(produce(groupReducer.writeField, (draft) => {
     draft.moderatorId = user;
-    draft.participants.push(user);
+    draft.participants.push({
+      id: user,
+    });
   }));
 
   dispatch(successWrite(groupId));
   dispatch(clearWriteFields());
 };
 
-export const updateParticipant = () => async (dispatch, getState) => {
+export const updateParticipant = ({ reason, wantToGet }) => async (dispatch, getState) => {
   const { groupReducer: { group }, authReducer: { user } } = getState();
 
+  const userInfo = {
+    id: user,
+    reason,
+    wantToGet,
+    confirm: false,
+  };
+
   const newGroup = produce(group, (draft) => {
-    draft.participants.push(user);
+    draft.participants.push(userInfo);
   });
 
   await updatePostParticipant({
-    user,
+    user: userInfo,
     id: group.id,
   });
 
@@ -138,13 +147,15 @@ export const updateParticipant = () => async (dispatch, getState) => {
 export const deleteParticipant = () => async (dispatch, getState) => {
   const { groupReducer: { group }, authReducer: { user } } = getState();
 
+  const participants = group.participants.filter(({ id }) => id !== user);
+
   const newGroup = {
     ...group,
-    participants: group.participants.filter((participant) => participant !== user),
+    participants,
   };
 
   await deletePostParticipant({
-    user,
+    participants,
     id: group.id,
   });
 
