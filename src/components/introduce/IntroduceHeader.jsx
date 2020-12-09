@@ -24,7 +24,7 @@ const IntroduceHeaderWrapper = styled.div`
 `;
 
 const IntroduceHeader = ({
-  group, onApply, user, realTime, onApplyCancel, onChangeApplyFields, applyFields,
+  group, onApply, user, realTime, onApplyCancel, onChangeApplyFields, applyFields, clearForm,
 }) => {
   const [loginCheckModal, setLoginCheckModal] = useState(false);
   const [applyCancelModal, setApplyCancelModal] = useState(false);
@@ -69,6 +69,7 @@ const IntroduceHeader = ({
 
   const handleFormCancel = () => {
     setModalForm(false);
+    clearForm();
   };
 
   return (

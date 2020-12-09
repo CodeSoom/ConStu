@@ -9,6 +9,10 @@ describe('ApplicationFormModal', () => {
   const handleConfirm = jest.fn();
   const handleChange = jest.fn();
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   const renderApplicationFormModal = ({ visible, fields }) => render((
     <ApplicationFormModal
       visible={visible}
@@ -20,50 +24,94 @@ describe('ApplicationFormModal', () => {
   ));
 
   context('with visible', () => {
-    const modal = {
-      visible: true,
-      fields: {
-        reason: '',
-        wantToGet: '',
-      },
-    };
+    context('with applyFields value', () => {
+      const modal = {
+        visible: true,
+        fields: {
+          reason: 'reason',
+          wantToGet: 'wantToGet',
+        },
+      };
 
-    it('renders Modal text', () => {
-      const { container } = renderApplicationFormModal(modal);
+      it('renders Modal text', () => {
+        const { container } = renderApplicationFormModal(modal);
 
-      expect(container).toHaveTextContent('스터디 참여 신청서 📚');
-      expect(container).toHaveTextContent('신청하게 된 이유');
-      expect(container).toHaveTextContent('스터디를 통해 얻고 싶은 것은 무엇인가요?');
+        expect(container).toHaveTextContent('스터디 참여 신청서 📚');
+        expect(container).toHaveTextContent('신청하게 된 이유');
+        expect(container).toHaveTextContent('스터디를 통해 얻고 싶은 것은 무엇인가요?');
+      });
+
+      it('calls confirm event action', () => {
+        const { getByText } = renderApplicationFormModal(modal);
+
+        const button = getByText('확인');
+
+        fireEvent.click(button);
+
+        expect(handleConfirm).toBeCalled();
+      });
+
+      it('calls cancel event action', () => {
+        const { getByText } = renderApplicationFormModal(modal);
+
+        const button = getByText('취소');
+
+        fireEvent.click(button);
+
+        expect(handleCancel).toBeCalled();
+      });
+
+      it('change apply form fields', () => {
+        const { getByLabelText } = renderApplicationFormModal(modal);
+
+        const input = getByLabelText('신청하게 된 이유');
+
+        fireEvent.change(input, { target: { name: 'reason', value: '내용' } });
+
+        expect(handleChange).toBeCalled();
+      });
     });
 
-    it('calls confirm event action', () => {
-      const { getByText } = renderApplicationFormModal(modal);
+    context('without applyFields value', () => {
+      it("doesn't reason value", () => {
+        const modal = {
+          visible: true,
+          fields: {
+            reason: '',
+            wantToGet: 'wantToGet',
+          },
+        };
 
-      const button = getByText('확인');
+        const { getByText, getByLabelText } = renderApplicationFormModal(modal);
 
-      fireEvent.click(button);
+        const button = getByText('확인');
 
-      expect(handleConfirm).toBeCalled();
-    });
+        fireEvent.click(button);
 
-    it('calls cancel event action', () => {
-      const { getByText } = renderApplicationFormModal(modal);
+        expect(handleConfirm).not.toBeCalled();
 
-      const button = getByText('취소');
+        expect(getByLabelText('신청하게 된 이유')).toHaveStyle('border: 2px solid #ff8787;');
+      });
 
-      fireEvent.click(button);
+      it("doesn't wantToGet value", () => {
+        const modal = {
+          visible: true,
+          fields: {
+            reason: 'reason',
+            wantToGet: '',
+          },
+        };
 
-      expect(handleCancel).toBeCalled();
-    });
+        const { getByText, getByLabelText } = renderApplicationFormModal(modal);
 
-    it('change apply form fields', () => {
-      const { getByLabelText } = renderApplicationFormModal(modal);
+        const button = getByText('확인');
 
-      const input = getByLabelText('신청하게 된 이유');
+        fireEvent.click(button);
 
-      fireEvent.change(input, { target: { name: 'reason', value: '내용' } });
+        expect(handleConfirm).not.toBeCalled();
 
-      expect(handleChange).toBeCalled();
+        expect(getByLabelText('스터디를 통해 얻고 싶은 것은 무엇인가요?')).toHaveStyle('border: 2px solid #ff8787;');
+      });
     });
   });
 

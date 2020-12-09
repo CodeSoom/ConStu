@@ -86,8 +86,8 @@ describe('IntroduceContainer', () => {
     given('group', () => (STUDY_GROUP));
     given('user', () => ('user'));
     given('applyFields', () => ({
-      reason: '',
-      wantToGet: '',
+      reason: 'reason',
+      wantToGet: 'wantToGet',
     }));
 
     it('click event dispatches action call updateParticipant', () => {
@@ -101,7 +101,6 @@ describe('IntroduceContainer', () => {
 
       fireEvent.click(button);
 
-      // TODO: 이 부분은 추후 수정해야된다. 현재 스터디 참여 신청서 모달창으로 인해 테스트 fail되기 때문에 변경해놈
       fireEvent.click(getByText('확인'));
 
       expect(dispatch).toBeCalledTimes(2);
