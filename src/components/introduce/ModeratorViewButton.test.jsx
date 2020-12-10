@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import ModeratorViewButton from './ModeratorViewButton';
 
@@ -31,12 +31,42 @@ describe('ModeratorViewButton', () => {
     const group = {
       ...STUDY_GROUP,
       moderatorId: 'user',
+      participants: [
+        {
+          confirm: true,
+          id: 'test1',
+        },
+        {
+          confirm: false,
+          id: 'test2',
+        },
+      ],
     };
 
-    it('nothing renders', () => {
+    it('renders button', () => {
       const { container } = renderModeratorViewButton({ group, user: 'user' });
 
       expect(container).toHaveTextContent('스터디 참여 승인하기');
+    });
+
+    it('click button and renders List of study applicants', () => {
+      const { getByText, container } = renderModeratorViewButton({ group, user: 'user' });
+      const button = getByText('스터디 참여 승인하기');
+
+      fireEvent.click(button);
+
+      expect(container).toHaveTextContent('스터디 신청자 목록');
+    });
+
+    it('Clicking the close button closes the modal window.', () => {
+      const { getByText, container } = renderModeratorViewButton({ group, user: 'user' });
+      const button = getByText('스터디 참여 승인하기');
+
+      fireEvent.click(button);
+
+      fireEvent.click(getByText('닫기'));
+
+      expect(container).not.toHaveTextContent('스터디 신청자 목록');
     });
   });
 });
