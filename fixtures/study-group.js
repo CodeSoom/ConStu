@@ -3,9 +3,7 @@ const studyGroup = {
   title: '스터디를 소개합니다.2',
   moderatorId: 'user2',
   applyEndDate: '2020-12-23',
-  participants: [
-    { id: 'user2' },
-  ],
+  participants: [],
   personnel: 2,
   contents: '우리는 이것저것 합니다.2',
   tags: [

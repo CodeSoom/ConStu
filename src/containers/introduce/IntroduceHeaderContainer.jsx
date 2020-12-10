@@ -1,29 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
 import {
-  changeApplyFields, clearApplyFields, deleteParticipant, loadStudyGroup, updateParticipant,
+  changeApplyFields, clearApplyFields, deleteParticipant, updateParticipant,
 } from '../../reducers/groupSlice';
 
-import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
-import GroupContentLoader from '../../components/introduce/GroupsContentLoader';
 import IntroduceHeader from '../../components/introduce/IntroduceHeader';
+import ApplicantViewButton from '../../components/introduce/ApplicantViewButton';
+import ModeratorViewButton from '../../components/introduce/ModeratorViewButton';
+import GroupContentLoader from '../../components/introduce/GroupsContentLoader';
 
-const IntroduceContainer = ({ groupId }) => {
+const IntroduceHeaderContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
 
   const dispatch = useDispatch();
 
-  const applyFields = useSelector(getGroup('applyFields'));
-  const group = useSelector(getGroup('group'));
   const user = useSelector(getAuth('user'));
-
-  useEffect(() => {
-    dispatch(loadStudyGroup(groupId));
-  }, [dispatch, groupId]);
+  const group = useSelector(getGroup('group'));
+  const applyFields = useSelector(getGroup('applyFields'));
 
   useInterval(() => {
     setRealTime(Date.now());
@@ -52,8 +49,8 @@ const IntroduceContainer = ({ groupId }) => {
   }
 
   return (
-    <>
-      <IntroduceHeader
+    <IntroduceHeader group={group}>
+      <ApplicantViewButton
         user={user}
         group={group}
         realTime={realTime}
@@ -63,12 +60,12 @@ const IntroduceContainer = ({ groupId }) => {
         clearForm={clearApplyForm}
         onChangeApplyFields={onChangeApplyFields}
       />
-      <StudyIntroduceForm
+      <ModeratorViewButton
+        user={user}
         group={group}
-        realTime={realTime}
       />
-    </>
+    </IntroduceHeader>
   );
 };
 
-export default React.memo(IntroduceContainer);
+export default React.memo(IntroduceHeaderContainer);

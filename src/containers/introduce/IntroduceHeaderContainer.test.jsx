@@ -1,16 +1,15 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { MemoryRouter } from 'react-router-dom';
-
 import STUDY_GROUP from '../../../fixtures/study-group';
 
-import IntroduceContainer from './IntroduceContainer';
+import IntroduceHeaderContainer from './IntroduceHeaderContainer';
 
-describe('IntroduceContainer', () => {
+describe('IntroduceHeaderContainer', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => {
@@ -29,9 +28,9 @@ describe('IntroduceContainer', () => {
     }));
   });
 
-  const renderIntroduceContainer = ({ id }) => render((
+  const renderIntroduceContainer = () => render((
     <MemoryRouter>
-      <IntroduceContainer groupId={id} />
+      <IntroduceHeaderContainer />
     </MemoryRouter>
   ));
 
@@ -54,17 +53,10 @@ describe('IntroduceContainer', () => {
       wantToGet: '',
     }));
 
-    it('renders study group title and contents', () => {
-      const { container } = renderIntroduceContainer(1);
+    it('renders study group title', () => {
+      const { container } = renderIntroduceContainer();
 
       expect(container).toHaveTextContent('스터디를 소개합니다. 1');
-      expect(container).toHaveTextContent('우리는 이것저것 합니다.1');
-    });
-
-    it('call dispatch actions', () => {
-      renderIntroduceContainer(1);
-
-      expect(dispatch).toBeCalled();
     });
   });
 
@@ -76,7 +68,7 @@ describe('IntroduceContainer', () => {
     }));
 
     it('renders "loading.." text', () => {
-      const { container } = renderIntroduceContainer(1);
+      const { container } = renderIntroduceContainer();
 
       expect(container).toHaveTextContent('Loading...');
     });
@@ -91,9 +83,7 @@ describe('IntroduceContainer', () => {
     }));
 
     it('click event dispatches action call updateParticipant', () => {
-      const { getByText } = renderIntroduceContainer(1);
-
-      expect(dispatch).toBeCalledTimes(1);
+      const { getByText } = renderIntroduceContainer();
 
       const button = getByText('신청하기');
 
@@ -103,7 +93,7 @@ describe('IntroduceContainer', () => {
 
       fireEvent.click(getByText('확인'));
 
-      expect(dispatch).toBeCalledTimes(2);
+      expect(dispatch).toBeCalledTimes(1);
     });
 
     it('dispatches action calls changeApplyFields', () => {
@@ -112,9 +102,7 @@ describe('IntroduceContainer', () => {
         value: '내용',
       };
 
-      const { getByText, getByLabelText } = renderIntroduceContainer(1);
-
-      expect(dispatch).toBeCalledTimes(1);
+      const { getByText, getByLabelText } = renderIntroduceContainer();
 
       const button = getByText('신청하기');
 
@@ -127,6 +115,22 @@ describe('IntroduceContainer', () => {
       expect(dispatch).toBeCalledWith({
         type: 'group/changeApplyFields',
         payload: form,
+      });
+    });
+
+    it('click cancel dispatches call action clearApplyFields', () => {
+      const { getByText } = renderIntroduceContainer();
+
+      const button = getByText('신청하기');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.click(button);
+
+      fireEvent.click(getByText('취소'));
+
+      expect(dispatch).toBeCalledWith({
+        type: 'group/clearApplyFields',
       });
     });
   });
@@ -155,9 +159,7 @@ describe('IntroduceContainer', () => {
 
     context('click confirm', () => {
       it('click event dispatches action call deleteParticipant', () => {
-        const { getByText } = renderIntroduceContainer(1);
-
-        expect(dispatch).toBeCalledTimes(1);
+        const { getByText } = renderIntroduceContainer();
 
         const button = getByText('신청 취소');
 
@@ -167,15 +169,13 @@ describe('IntroduceContainer', () => {
 
         fireEvent.click(getByText('확인'));
 
-        expect(dispatch).toBeCalledTimes(2);
+        expect(dispatch).toBeCalledTimes(1);
       });
     });
 
     context('click cancel', () => {
       it("doesn't click event dispatches action call deleteParticipant", () => {
-        const { getByText } = renderIntroduceContainer(1);
-
-        expect(dispatch).toBeCalledTimes(1);
+        const { getByText } = renderIntroduceContainer();
 
         const button = getByText('신청 취소');
 
@@ -185,7 +185,7 @@ describe('IntroduceContainer', () => {
 
         fireEvent.click(getByText('취소'));
 
-        expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).not.toBeCalled();
       });
     });
   });
