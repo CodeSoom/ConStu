@@ -8,8 +8,10 @@ import { render } from '@testing-library/react';
 import IntroducePage from './IntroducePage';
 
 describe('IntroducePage', () => {
+  const dispatch = jest.fn();
+
   beforeEach(() => {
-    const dispatch = jest.fn();
+    dispatch.mockClear();
 
     useDispatch.mockImplementation(() => dispatch);
 
@@ -47,6 +49,8 @@ describe('IntroducePage', () => {
         </MemoryRouter>
       ));
 
+      expect(dispatch).toBeCalledTimes(1);
+
       expect(container).toHaveTextContent('스터디를 소개합니다. 1');
     });
   });
@@ -58,6 +62,8 @@ describe('IntroducePage', () => {
           <IntroducePage />
         </MemoryRouter>,
       );
+
+      expect(dispatch).toBeCalledTimes(1);
 
       expect(container).toHaveTextContent('스터디를 소개합니다. 1');
     });

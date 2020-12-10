@@ -119,12 +119,14 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
 
   const { user } = authReducer;
 
-  const groupId = await postStudyGroup(produce(groupReducer.writeField, (draft) => {
-    draft.moderatorId = user;
-    draft.participants.push({
-      id: user,
-    });
-  }));
+  const groupId = await postStudyGroup(
+    produce(groupReducer.writeField, (draft) => {
+      draft.moderatorId = user;
+      draft.participants.push({
+        id: user,
+      });
+    }),
+  );
 
   dispatch(successWrite(groupId));
   dispatch(clearWriteFields());
