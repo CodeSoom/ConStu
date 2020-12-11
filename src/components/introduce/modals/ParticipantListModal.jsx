@@ -88,7 +88,9 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const ParticipantListModal = ({ visible, onClose, participants }) => {
+const ParticipantListModal = ({
+  visible, onClose, participants, onUpdate,
+}) => {
   if (!visible) {
     return null;
   }
@@ -107,6 +109,7 @@ const ParticipantListModal = ({ visible, onClose, participants }) => {
             <ParticipantList
               key={participant.id}
               participant={participant}
+              onUpdate={() => onUpdate(participant.id)}
             />
           ))}
         </ParticipantListWrapper>

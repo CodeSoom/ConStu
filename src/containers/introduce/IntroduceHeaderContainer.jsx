@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
 import {
-  changeApplyFields, clearApplyFields, deleteParticipant, updateParticipant,
+  changeApplyFields,
+  clearApplyFields,
+  deleteParticipant,
+  updateConfirmParticipant,
+  updateParticipant,
 } from '../../reducers/groupSlice';
 
 import IntroduceHeader from '../../components/introduce/IntroduceHeader';
@@ -42,6 +46,10 @@ const IntroduceHeaderContainer = () => {
     dispatch(clearApplyFields());
   }, [dispatch]);
 
+  const onUpdateConfirmParticipant = useCallback((id) => {
+    dispatch(updateConfirmParticipant(id));
+  }, [dispatch]);
+
   if (!group) {
     return (
       <GroupContentLoader />
@@ -61,6 +69,7 @@ const IntroduceHeaderContainer = () => {
         onChangeApplyFields={onChangeApplyFields}
       />
       <ModeratorViewButton
+        onUpdateConfirm={onUpdateConfirmParticipant}
         user={user}
         group={group}
       />

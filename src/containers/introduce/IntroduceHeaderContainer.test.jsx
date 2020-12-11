@@ -74,94 +74,19 @@ describe('IntroduceHeaderContainer', () => {
     });
   });
 
-  context('with group & user', () => {
-    given('group', () => (STUDY_GROUP));
-    given('user', () => ('user'));
-    given('applyFields', () => ({
-      reason: 'reason',
-      wantToGet: 'wantToGet',
-    }));
+  context('When the logged-in user is not the author', () => {
+    context('with group & user', () => {
+      given('group', () => (STUDY_GROUP));
+      given('user', () => ('user'));
+      given('applyFields', () => ({
+        reason: 'reason',
+        wantToGet: 'wantToGet',
+      }));
 
-    it('click event dispatches action call updateParticipant', () => {
-      const { getByText } = renderIntroduceContainer();
-
-      const button = getByText('신청하기');
-
-      expect(button).not.toBeNull();
-
-      fireEvent.click(button);
-
-      fireEvent.click(getByText('확인'));
-
-      expect(dispatch).toBeCalledTimes(1);
-    });
-
-    it('dispatches action calls changeApplyFields', () => {
-      const form = {
-        name: 'reason',
-        value: '내용',
-      };
-
-      const { getByText, getByLabelText } = renderIntroduceContainer();
-
-      const button = getByText('신청하기');
-
-      fireEvent.click(button);
-
-      const input = getByLabelText('신청하게 된 이유');
-
-      fireEvent.change(input, { target: form });
-
-      expect(dispatch).toBeCalledWith({
-        type: 'group/changeApplyFields',
-        payload: form,
-      });
-    });
-
-    it('click cancel dispatches call action clearApplyFields', () => {
-      const { getByText } = renderIntroduceContainer();
-
-      const button = getByText('신청하기');
-
-      expect(button).not.toBeNull();
-
-      fireEvent.click(button);
-
-      fireEvent.click(getByText('취소'));
-
-      expect(dispatch).toBeCalledWith({
-        type: 'group/clearApplyFields',
-      });
-    });
-  });
-
-  describe(`When the application date is earlier than the deadline 
-    date and the application deadline is not reached`, () => {
-    const nowDate = new Date();
-    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
-
-    const group = {
-      ...STUDY_GROUP,
-      applyEndDate: tomorrow,
-      participants: [
-        { id: 'user2' },
-        { id: 'user' },
-      ],
-      personnel: 3,
-    };
-
-    given('group', () => (group));
-    given('user', () => ('user'));
-    given('applyFields', () => ({
-      reason: '',
-      wantToGet: '',
-    }));
-
-    context('click confirm', () => {
-      it('click event dispatches action call deleteParticipant', () => {
+      it('click event dispatches action call updateParticipant', () => {
         const { getByText } = renderIntroduceContainer();
 
-        const button = getByText('신청 취소');
+        const button = getByText('신청하기');
 
         expect(button).not.toBeNull();
 
@@ -171,13 +96,33 @@ describe('IntroduceHeaderContainer', () => {
 
         expect(dispatch).toBeCalledTimes(1);
       });
-    });
 
-    context('click cancel', () => {
-      it("doesn't click event dispatches action call deleteParticipant", () => {
+      it('dispatches action calls changeApplyFields', () => {
+        const form = {
+          name: 'reason',
+          value: '내용',
+        };
+
+        const { getByText, getByLabelText } = renderIntroduceContainer();
+
+        const button = getByText('신청하기');
+
+        fireEvent.click(button);
+
+        const input = getByLabelText('신청하게 된 이유');
+
+        fireEvent.change(input, { target: form });
+
+        expect(dispatch).toBeCalledWith({
+          type: 'group/changeApplyFields',
+          payload: form,
+        });
+      });
+
+      it('click cancel dispatches call action clearApplyFields', () => {
         const { getByText } = renderIntroduceContainer();
 
-        const button = getByText('신청 취소');
+        const button = getByText('신청하기');
 
         expect(button).not.toBeNull();
 
@@ -185,7 +130,101 @@ describe('IntroduceHeaderContainer', () => {
 
         fireEvent.click(getByText('취소'));
 
-        expect(dispatch).not.toBeCalled();
+        expect(dispatch).toBeCalledWith({
+          type: 'group/clearApplyFields',
+        });
+      });
+    });
+
+    describe(`When the application date is earlier than the deadline 
+      date and the application deadline is not reached`, () => {
+      const nowDate = new Date();
+      const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+      const group = {
+        ...STUDY_GROUP,
+        applyEndDate: tomorrow,
+        participants: [
+          { id: 'user2' },
+          { id: 'user' },
+        ],
+        personnel: 3,
+      };
+
+      given('group', () => (group));
+      given('user', () => ('user'));
+      given('applyFields', () => ({
+        reason: '',
+        wantToGet: '',
+      }));
+
+      context('click confirm', () => {
+        it('click event dispatches action call deleteParticipant', () => {
+          const { getByText } = renderIntroduceContainer();
+
+          const button = getByText('신청 취소');
+
+          expect(button).not.toBeNull();
+
+          fireEvent.click(button);
+
+          fireEvent.click(getByText('확인'));
+
+          expect(dispatch).toBeCalledTimes(1);
+        });
+      });
+
+      context('click cancel', () => {
+        it("doesn't click event dispatches action call deleteParticipant", () => {
+          const { getByText } = renderIntroduceContainer();
+
+          const button = getByText('신청 취소');
+
+          expect(button).not.toBeNull();
+
+          fireEvent.click(button);
+
+          fireEvent.click(getByText('취소'));
+
+          expect(dispatch).not.toBeCalled();
+        });
+      });
+    });
+  });
+
+  context('When the logged-in user is the author', () => {
+    given('group', () => ({
+      ...STUDY_GROUP,
+      participants: [
+        {
+          confirm: true,
+          id: 'test1',
+        },
+        {
+          confirm: false,
+          id: 'test2',
+        },
+      ],
+    }));
+    given('user', () => ('user2'));
+    given('applyFields', () => ({
+      reason: '',
+      wantToGet: '',
+    }));
+
+    describe('Click "Approve to participate in the study" button and then click "Approve" button', () => {
+      it('dispatches call action "updateConfirmParticipant"', () => {
+        const { getByText } = renderIntroduceContainer();
+
+        const button = getByText('스터디 참여 승인하기');
+
+        expect(button).not.toBeNull();
+
+        fireEvent.click(button);
+
+        fireEvent.click(getByText('승인하기'));
+
+        expect(dispatch).toBeCalled();
       });
     });
   });

@@ -5,9 +5,16 @@ import { fireEvent, render } from '@testing-library/react';
 import ParticipantList from './ParticipantList';
 
 describe('ParticipantList', () => {
+  const handleUpdate = jest.fn();
+
+  beforeEach(() => {
+    handleUpdate.mockClear();
+  });
+
   const renderParticipantList = (participant) => render((
     <ParticipantList
       participant={participant}
+      onUpdate={handleUpdate}
     />
   ));
 
@@ -23,6 +30,16 @@ describe('ParticipantList', () => {
       expect(container).toHaveTextContent(props.id);
       expect(container).toHaveTextContent('취소하기');
     });
+
+    it('click cancel button', () => {
+      const { getByText } = renderParticipantList(props);
+
+      const button = getByText('취소하기');
+
+      fireEvent.click(button);
+
+      expect(handleUpdate).toBeCalled();
+    });
   });
 
   context('without confirm', () => {
@@ -36,6 +53,16 @@ describe('ParticipantList', () => {
 
       expect(container).toHaveTextContent(props.id);
       expect(container).toHaveTextContent('승인하기');
+    });
+
+    it('click confirm button', () => {
+      const { getByText } = renderParticipantList(props);
+
+      const button = getByText('승인하기');
+
+      fireEvent.click(button);
+
+      expect(handleUpdate).toBeCalled();
     });
   });
 
