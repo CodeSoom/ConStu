@@ -6,6 +6,7 @@ import { css } from '@emotion/react';
 
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
+import ParticipantList from './ParticipantList';
 
 const ParticipantListModalWrapper = styled.div`
   position: fixed;
@@ -81,67 +82,10 @@ const ParticipantListWrapper = styled.div`
   overflow-y: auto;
 `;
 
-const ParticipantListBlock = styled.div`
-  display: grid;
-  grid-template-columns: 260px 186px 148px;
-  justify-items: center;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  min-height: 0;
-  min-width: 0;
-`;
-
 const StyledButton = styled(Button)`
   &:last-of-type {
     margin-left: .7rem;
   }
-`;
-
-const ConfirmButton = styled.button`
-  transition-duration: 0.08s;
-  transition-property: all;
-  transition-timing-function: ease-in-out;
-  transition-delay: initial;
-  font-size: 0.8rem;
-  padding: 0.15rem 0.7rem;
-  font-weight: bold;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  background: none;
-  font-family: 'Noto Sans KR', sans-serif;
-  border-radius: 4px;
-  color: white;
-
-  ${({ sky }) => sky && css`
-    background: #74c0fc;
-    border-bottom: 2px solid #4dabf7;
-    box-shadow: 0px 2px 4px #4dabf7;
-    &:hover{
-      box-shadow: none;
-      border-bottom: 2px solid #74c0fc;
-    }
-  `};
-
-  ${({ confirm }) => confirm && css`
-    background: ${palette.teal[5]};
-    border-bottom: 2px solid ${palette.teal[6]};
-    box-shadow: 0px 2px 4px ${palette.teal[6]};
-    &:hover{
-      box-shadow: none;
-      border-bottom: 2px solid ${palette.teal[5]};
-    }
-  `};
-
-  ${({ cancel }) => cancel && css`
-    background: ${palette.warn[1]};
-    border-bottom: 2px solid ${palette.warn[2]};
-    box-shadow: 0px 2px 4px ${palette.warn[2]};
-    &:hover{
-      box-shadow: none;
-      border-bottom: 2px solid ${palette.warn[1]};
-    }
-  `};
 `;
 
 const ParticipantListModal = ({ visible, onClose, participants }) => {
@@ -160,24 +104,12 @@ const ParticipantListModal = ({ visible, onClose, participants }) => {
         </ParticipantTitleWrapper>
         <ParticipantListWrapper>
           {participants.length && participants.map(({ id, confirm }) => (
-            <ParticipantListBlock key={id}>
-              <div>{id}</div>
-              <div>
-                <ConfirmButton sky>
-                  신청서 보기
-                </ConfirmButton>
-              </div>
-              <div>
-                {confirm === true ? (
-                  <ConfirmButton cancel>취소하기</ConfirmButton>
-                ) : (
-                  <ConfirmButton confirm>승인하기</ConfirmButton>
-                )}
-              </div>
-            </ParticipantListBlock>
+            <ParticipantList
+              key={id}
+              id={id}
+              confirm={confirm}
+            />
           ))}
-          <>
-          </>
         </ParticipantListWrapper>
         <div className="buttons">
           <StyledButton onClick={onClose}>닫기</StyledButton>
