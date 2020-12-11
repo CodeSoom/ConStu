@@ -103,11 +103,10 @@ const ParticipantListModal = ({ visible, onClose, participants }) => {
           <div>승인 여부</div>
         </ParticipantTitleWrapper>
         <ParticipantListWrapper>
-          {participants.length && participants.map(({ id, confirm }) => (
+          {participants.length && participants.map((participant) => (
             <ParticipantList
-              key={id}
-              id={id}
-              confirm={confirm}
+              key={participant.id}
+              participant={participant}
             />
           ))}
         </ParticipantListWrapper>
