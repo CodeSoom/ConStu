@@ -7,7 +7,7 @@ import { css } from '@emotion/react';
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
 
-const ApplicationFormModalWrapper = styled.div`
+const ApplicationViewModalWrapper = styled.div`
   position: fixed;
   z-index: 101;
   top: 0;
@@ -69,7 +69,7 @@ const ContentBoxWrapper = styled.div`
   }
 `;
 
-const ContentTextareaWrapper = styled.textarea`
+const ContentViewerWrapper = styled.textarea`
   display: block;
   padding: 5px;
   resize: none;
@@ -105,12 +105,12 @@ const ApplicationViewModal = ({
   }
 
   return (
-    <ApplicationFormModalWrapper visible className="animation">
+    <ApplicationViewModalWrapper visible className="animation">
       <ModalBoxWrapper>
         <h2>{`${id} 신청서 📚`}</h2>
         <ContentBoxWrapper>
           <label htmlFor="apply-reason">신청하게 된 이유</label>
-          <ContentTextareaWrapper
+          <ContentViewerWrapper
             rows="10"
             id="apply-reason"
             value={reason}
@@ -119,7 +119,7 @@ const ApplicationViewModal = ({
         </ContentBoxWrapper>
         <ContentBoxWrapper>
           <label htmlFor="study-want">스터디를 통해 얻고 싶은 것은 무엇인가요?</label>
-          <ContentTextareaWrapper
+          <ContentViewerWrapper
             rows="10"
             id="study-want"
             value={wantToGet}
@@ -130,7 +130,7 @@ const ApplicationViewModal = ({
           <StyledButton onClick={onClose}>닫기</StyledButton>
         </div>
       </ModalBoxWrapper>
-    </ApplicationFormModalWrapper>
+    </ApplicationViewModalWrapper>
   );
 };
 
