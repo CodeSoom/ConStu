@@ -13,3 +13,5 @@ export const postUserLogout = jest.fn();
 export const updatePostParticipant = jest.fn();
 
 export const deletePostParticipant = jest.fn();
+
+export const updateConfirmPostParticipant = jest.fn();

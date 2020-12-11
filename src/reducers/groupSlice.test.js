@@ -16,6 +16,7 @@ import reducer, {
   deleteParticipant,
   changeApplyFields,
   clearApplyFields,
+  updateConfirmParticipant,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -303,6 +304,68 @@ describe('async actions', () => {
         ...group,
         participants: group.participants.filter(({ id }) => id !== user),
       }));
+    });
+  });
+
+  describe('updateConfirmParticipant', () => {
+    context('When confirm is false ', () => {
+      beforeEach(() => {
+        store = mockStore({
+          groupReducer: {
+            group: {
+              ...STUDY_GROUP,
+              participants: [
+                { id: 'test' },
+                { id: 'test@test.com', confirm: false },
+              ],
+            },
+          },
+        });
+      });
+
+      it('dispatches setStudyGroup', async () => {
+        await store.dispatch(updateConfirmParticipant('test@test.com'));
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual(setStudyGroup({
+          ...STUDY_GROUP,
+          participants: [
+            { id: 'test' },
+            { id: 'test@test.com', confirm: true },
+          ],
+        }));
+      });
+    });
+
+    context('When confirm is true ', () => {
+      beforeEach(() => {
+        store = mockStore({
+          groupReducer: {
+            group: {
+              ...STUDY_GROUP,
+              participants: [
+                { id: 'test' },
+                { id: 'test@test.com', confirm: true },
+              ],
+            },
+          },
+        });
+      });
+
+      it('dispatches setStudyGroup', async () => {
+        await store.dispatch(updateConfirmParticipant('test@test.com'));
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual(setStudyGroup({
+          ...STUDY_GROUP,
+          participants: [
+            { id: 'test' },
+            { id: 'test@test.com', confirm: false },
+          ],
+        }));
+      });
     });
   });
 });

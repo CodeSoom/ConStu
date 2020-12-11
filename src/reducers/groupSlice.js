@@ -8,6 +8,7 @@ import {
   postStudyGroup,
   updatePostParticipant,
   deletePostParticipant,
+  updateConfirmPostParticipant,
 } from '../services/api';
 
 const writeInitialState = {
@@ -171,6 +172,36 @@ export const deleteParticipant = () => async (dispatch, getState) => {
   });
 
   dispatch(setStudyGroup(newGroup));
+};
+
+export const updateConfirmParticipant = (userEmail) => async (dispatch, getState) => {
+  const { groupReducer: { group } } = getState();
+
+  const { participants, id } = group;
+
+  const newParticipants = participants.reduce((users, user) => {
+    if (user.id === userEmail) {
+      return [
+        ...users,
+        {
+          ...user,
+          confirm: !user.confirm,
+        },
+      ];
+    }
+
+    return [...users, user];
+  }, []);
+
+  await updateConfirmPostParticipant({
+    id,
+    participants: newParticipants,
+  });
+
+  dispatch(setStudyGroup({
+    ...group,
+    participants: newParticipants,
+  }));
 };
 
 export default reducer;

@@ -79,6 +79,14 @@ export const deletePostParticipant = async ({ id, participants }) => {
   });
 };
 
+export const updateConfirmPostParticipant = async ({ id, participants }) => {
+  const groups = db.collection('groups').doc(id);
+
+  await groups.update({
+    participants,
+  });
+};
+
 export const postUserRegister = async ({ userEmail, password }) => {
   const response = await auth
     .createUserWithEmailAndPassword(userEmail, password);
