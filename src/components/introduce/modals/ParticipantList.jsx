@@ -10,12 +10,12 @@ const ParticipantListWrapper = styled.div`
   grid-template-columns: 260px 186px 148px;
   justify-items: center;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
   min-height: 0;
   min-width: 0;
 `;
 
-const ParticipantList = ({ participant }) => {
+const ParticipantList = ({ participant, onUpdate }) => {
   const [viewApplyModal, setViewApplyModal] = useState(false);
 
   const { id, confirm } = participant;
@@ -42,11 +42,17 @@ const ParticipantList = ({ participant }) => {
         </div>
         <div>
           {confirm === true ? (
-            <ParticipantListButton cancel>
+            <ParticipantListButton
+              cancel
+              onClick={onUpdate}
+            >
               취소하기
             </ParticipantListButton>
           ) : (
-            <ParticipantListButton confirm>
+            <ParticipantListButton
+              confirm
+              onClick={onUpdate}
+            >
               승인하기
             </ParticipantListButton>
           )}

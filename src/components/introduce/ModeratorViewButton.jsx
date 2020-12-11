@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
 import ParticipantListModal from './modals/ParticipantListModal';
 
-const ModeratorViewButton = ({ group, user }) => {
+const ModeratorViewButton = ({ group, user, onUpdateConfirm }) => {
   const [ListModal, setListModal] = useState(false);
 
   const { moderatorId, participants } = group;
@@ -32,6 +32,7 @@ const ModeratorViewButton = ({ group, user }) => {
       <ParticipantListModal
         visible={ListModal}
         onClose={handelClose}
+        onUpdate={onUpdateConfirm}
         participants={participants.filter((_, index) => index !== 0)}
       />
     </>
