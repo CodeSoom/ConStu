@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
 import ParticipantListButton from '../../../styles/ParticipantListButton';
+import ApplicationViewModal from './ApplicationViewModal';
 
 const ParticipantListWrapper = styled.div`
   display: grid;
@@ -14,26 +15,50 @@ const ParticipantListWrapper = styled.div`
   min-width: 0;
 `;
 
-const ParticipantList = ({ id, confirm }) => (
-  <ParticipantListWrapper>
-    <div>{id}</div>
-    <div>
-      <ParticipantListButton sky>
-        신청서 보기
-      </ParticipantListButton>
-    </div>
-    <div>
-      {confirm === true ? (
-        <ParticipantListButton cancel>
-          취소하기
-        </ParticipantListButton>
-      ) : (
-        <ParticipantListButton confirm>
-          승인하기
-        </ParticipantListButton>
-      )}
-    </div>
-  </ParticipantListWrapper>
-);
+const ParticipantList = ({ participant }) => {
+  const [viewApplyModal, setViewApplyModal] = useState(false);
+
+  const { id, confirm } = participant;
+
+  const handleApplyFormClick = () => {
+    setViewApplyModal(true);
+  };
+
+  const handelApplyFormClose = () => {
+    setViewApplyModal(false);
+  };
+
+  return (
+    <>
+      <ParticipantListWrapper>
+        <div>{id}</div>
+        <div>
+          <ParticipantListButton
+            sky
+            onClick={handleApplyFormClick}
+          >
+            신청서 보기
+          </ParticipantListButton>
+        </div>
+        <div>
+          {confirm === true ? (
+            <ParticipantListButton cancel>
+              취소하기
+            </ParticipantListButton>
+          ) : (
+            <ParticipantListButton confirm>
+              승인하기
+            </ParticipantListButton>
+          )}
+        </div>
+      </ParticipantListWrapper>
+      <ApplicationViewModal
+        visible={viewApplyModal}
+        onClose={handelApplyFormClose}
+        participant={participant}
+      />
+    </>
+  );
+};
 
 export default ParticipantList;
