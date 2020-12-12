@@ -4,7 +4,7 @@ import ApproveStatus from '../../styles/ApproveStatus';
 
 import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
 
-const checkConfirm = (confirm) => confirm === true;
+const checkConfirm = (user) => user.confirm && user.confirm === true;
 
 const ApplyStatusButton = ({
   timeStatus, onApply, userStatus, onCancel,
@@ -21,7 +21,18 @@ const ApplyStatusButton = ({
     );
   }
 
-  if (!timeStatus && !checkConfirm(userStatus.confirm)) {
+  if (timeStatus && !userStatus) {
+    return (
+      <StyledApplyStatusButton
+        type="button"
+        className="deadline"
+      >
+        모집 마감
+      </StyledApplyStatusButton>
+    );
+  }
+
+  if (!timeStatus && !checkConfirm(userStatus)) {
     return (
       <>
         <ApproveStatus load>
@@ -38,7 +49,7 @@ const ApplyStatusButton = ({
     );
   }
 
-  if (!timeStatus && checkConfirm(userStatus.confirm)) {
+  if (!timeStatus && checkConfirm(userStatus)) {
     return (
       <>
         <ApproveStatus approve>
@@ -55,13 +66,13 @@ const ApplyStatusButton = ({
     );
   }
 
-  if (timeStatus && checkConfirm(userStatus.confirm)) {
+  if (timeStatus && !checkConfirm(userStatus)) {
     return (
       <StyledApplyStatusButton
         type="button"
-        className="apply-complete"
+        className="apply-reject"
       >
-        신청 완료
+        승인 거절
       </StyledApplyStatusButton>
     );
   }
@@ -69,9 +80,9 @@ const ApplyStatusButton = ({
   return (
     <StyledApplyStatusButton
       type="button"
-      className="deadline"
+      className="apply-complete"
     >
-      모집 마감
+      신청 완료
     </StyledApplyStatusButton>
   );
 };

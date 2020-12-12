@@ -32,6 +32,12 @@ const StyledApplyStatusButtonWrapper = styled.button`
     }
   }
 
+  &.apply-reject {
+    background: ${palette.gray[1]};
+    border: 2px solid ${palette.warn[0]};
+    color: ${palette.warn[1]};
+  }
+
   &.apply-complete {
     background: ${palette.gray[1]};
     border: 2px solid #a5d8ff;
