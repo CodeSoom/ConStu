@@ -30,7 +30,7 @@ describe('DateTimeChange', () => {
 
       const { container } = renderDateTimeChange({ group, page, time });
 
-      expect(container).toHaveTextContent(`모집 인원: ${participants.length} / ${personnel}`);
+      expect(container).toHaveTextContent(`신청 현황: ${participants.length} / ${personnel}`);
     });
 
     describe(`current time is before the recruitment deadline
