@@ -47,7 +47,8 @@
     "react-use": "^15.3.4",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "sanitize-html": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

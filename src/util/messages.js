@@ -6,6 +6,10 @@ export const ERROR_MESSAGE = {
   FAILURE_REGISTER: '회원가입에 실패하였습니다.',
   FAILURE_LOGIN: '로그인에 실패하였습니다.',
   NO_LOGGED_IN: '로그인 후 이용하세요.',
+  NO_CONTENTS: '내용을 입력해주세요.',
+  NO_TITLE: '제목을 입력해주세요.',
+  NO_APPLY_DATE: '모집 마감 일자를 입력해주세요.',
+  ERROR_PERSONNEL: '참여 인원 수를 입력하지 않았거나, 잘못된 값을 입력하였습니다.',
 };
 
 export const FIREBASE_AUTH_ERROR_MESSAGE = {
