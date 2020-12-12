@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import Moment from 'react-moment';
 
-import { changeDateToTime } from '../../util/utils';
+import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
@@ -74,7 +74,7 @@ const IntroduceContent = styled.div`
   padding: 1.5rem;
 `;
 
-const StudyIntroduceForm = ({
+const IntroduceForm = ({
   group, realTime,
 }) => {
   const {
@@ -95,7 +95,7 @@ const StudyIntroduceForm = ({
         <IntroduceReference>
           <label htmlFor="application-status">신청 현황 :</label>
           <span id="application-status">
-            {`${participants.length} / ${personnel}`}
+            {`${authorizedUsersNumber(participants)} / ${personnel}`}
           </span>
         </IntroduceReference>
         <IntroduceReference>
@@ -117,4 +117,4 @@ const StudyIntroduceForm = ({
   );
 };
 
-export default React.memo(StudyIntroduceForm);
+export default React.memo(IntroduceForm);

@@ -4,14 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render } from '@testing-library/react';
 
-import StudyIntroduceForm from './StudyIntroduceForm';
+import IntroduceForm from './IntroduceForm';
 
 import STUDY_GROUP from '../../../fixtures/study-group';
 
-describe('StudyIntroduceForm', () => {
-  const renderStudyIntroduceForm = ({ group, time }) => render((
+describe('IntroduceForm', () => {
+  const renderIntroduceForm = ({ group, time }) => render((
     <MemoryRouter>
-      <StudyIntroduceForm
+      <IntroduceForm
         group={group}
         realTime={time}
       />
@@ -19,13 +19,14 @@ describe('StudyIntroduceForm', () => {
   ));
 
   it('renders createDate text', () => {
-    const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
+    const { container } = renderIntroduceForm({ group: STUDY_GROUP });
 
     expect(container).toHaveTextContent('2020년 12월 06일');
+    expect(container).toHaveTextContent('1 / 2');
   });
 
   it('renders links of tags', () => {
-    const { container } = renderStudyIntroduceForm({ group: STUDY_GROUP });
+    const { container } = renderIntroduceForm({ group: STUDY_GROUP });
 
     expect(container.innerHTML).toContain('<a ');
   });

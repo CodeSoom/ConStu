@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 import { getGroup } from '../../util/utils';
 
-import StudyIntroduceForm from '../../components/introduce/StudyIntroduceForm';
+import IntroduceForm from '../../components/introduce/IntroduceForm';
 
 const IntroduceFormContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
@@ -21,7 +21,7 @@ const IntroduceFormContainer = () => {
   }
 
   return (
-    <StudyIntroduceForm
+    <IntroduceForm
       group={group}
       realTime={realTime}
     />
