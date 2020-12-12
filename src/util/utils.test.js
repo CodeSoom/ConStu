@@ -1,5 +1,11 @@
 import {
-  getAuth, getGroup, equal, changeDateToTime, applyDateToString, createDateToString,
+  getAuth,
+  getGroup,
+  equal,
+  changeDateToTime,
+  applyDateToString,
+  createDateToString,
+  authorizedUsersNumber,
 } from './utils';
 
 test('getAuth', () => {
@@ -75,4 +81,15 @@ test('createDateToString', () => {
 
   const time = createDateToString(response);
   expect(time).toBe(date.toString());
+});
+
+test('authorizedUsersNumber', () => {
+  const participants = [
+    { id: 'test1', confirm: false },
+    { id: 'test2', confirm: true },
+    { id: 'test3' },
+  ];
+
+  const length = authorizedUsersNumber(participants);
+  expect(length).toBe(2);
 });

@@ -18,6 +18,10 @@ export const isCheckValidate = (values) => values.map(checkTrim).includes('');
 
 export const changeDateToTime = (date) => new Date(date).getTime();
 
+export const authorizedUsersNumber = (participants) => participants
+  .filter(({ confirm }) => confirm && confirm === true)
+  .length + 1;
+
 export const applyDateToString = (response) => response
   .data()
   .applyEndDate
