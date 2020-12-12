@@ -1,6 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
+import { ImCheckmark } from 'react-icons/im';
+
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import palette from './palette';
@@ -11,8 +14,15 @@ const ApproveStatusWrapper = styled.div`
   font-weight: bold;
   line-height: 0;
   font-size: 1rem;
-  color: ${palette.violet[4]};
   padding: 0.8rem 1rem;
+
+  ${({ load }) => load && css`
+    color: ${palette.violet[4]};
+  `};
+
+  ${({ approve }) => approve && css`
+    color:#40c057;
+  `};
 `;
 
 const LoadingContent = styled.span`
@@ -32,11 +42,16 @@ const LoadingContent = styled.span`
   }
 `;
 
-const ApproveStatus = ({ children, ...props }) => (
-  <ApproveStatusWrapper {...props}>
-    {children}
-    <LoadingContent />
-  </ApproveStatusWrapper>
-);
+const ApproveStatus = ({ children, ...props }) => {
+  const { load, approve } = props;
+
+  return (
+    <ApproveStatusWrapper {...props}>
+      {children}
+      {load && <LoadingContent />}
+      {approve && <ImCheckmark style={{ marginLeft: 4 }} /> }
+    </ApproveStatusWrapper>
+  );
+};
 
 export default ApproveStatus;
