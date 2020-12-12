@@ -82,6 +82,13 @@ const ParticipantListWrapper = styled.div`
   overflow-y: auto;
 `;
 
+const NoExistListWrapper = styled.div`
+  color: ${palette.gray[6]};
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: bold;
+`;
+
 const StyledButton = styled(Button)`
   &:last-of-type {
     margin-left: .7rem;
@@ -105,13 +112,17 @@ const ParticipantListModal = ({
           <div>승인 여부</div>
         </ParticipantTitleWrapper>
         <ParticipantListWrapper>
-          {participants.length && participants.map((participant) => (
+          {participants.length ? participants.map((participant) => (
             <ParticipantList
               key={participant.id}
               participant={participant}
               onUpdate={() => onUpdate(participant.id)}
             />
-          ))}
+          )) : (
+            <NoExistListWrapper>
+              신청자가 존재하지 않습니다.
+            </NoExistListWrapper>
+          )}
         </ParticipantListWrapper>
         <div className="buttons">
           <StyledButton onClick={onClose}>닫기</StyledButton>
