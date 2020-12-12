@@ -7,29 +7,46 @@ import ModeratorViewButton from './ModeratorViewButton';
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 describe('ModeratorViewButton', () => {
-  const renderModeratorViewButton = ({ group, user }) => render((
+  const renderModeratorViewButton = ({ group, user, realTime }) => render((
     <ModeratorViewButton
       user={user}
       group={group}
+      realTime={realTime}
     />
   ));
 
   context('When the organizer and the logged-in user are different', () => {
+    const realTime = Date.now();
+
+    const nowDate = new Date();
+    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+    const user = 'user';
+
     const group = {
       ...STUDY_GROUP,
-      moderatorId: 'user',
+      moderatorId: 'user2',
+      applyEndDate: tomorrow,
     };
 
     it('nothing renders', () => {
-      const { container } = renderModeratorViewButton({ group, user: 'user1' });
+      const { container } = renderModeratorViewButton({
+        group,
+        user,
+        realTime,
+      });
 
       expect(container).toBeEmptyDOMElement();
     });
   });
 
   context('When the host and logged in user are the same', () => {
-    const group = {
+    const user = 'user';
+    const realTime = Date.now();
+
+    const applyEndDateSettings = (applyEndDate) => ({
       ...STUDY_GROUP,
+      applyEndDate,
       moderatorId: 'user',
       participants: [
         {
@@ -41,32 +58,52 @@ describe('ModeratorViewButton', () => {
           id: 'test2',
         },
       ],
-    };
-
-    it('renders button', () => {
-      const { container } = renderModeratorViewButton({ group, user: 'user' });
-
-      expect(container).toHaveTextContent('스터디 참여 승인하기');
     });
 
-    it('click button and renders List of study applicants', () => {
-      const { getByText, container } = renderModeratorViewButton({ group, user: 'user' });
-      const button = getByText('스터디 참여 승인하기');
+    context('When the current date is before the deadline', () => {
+      const nowDate = new Date();
+      const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
 
-      fireEvent.click(button);
+      const group = applyEndDateSettings(tomorrow);
 
-      expect(container).toHaveTextContent('스터디 신청자 목록');
+      it('renders button', () => {
+        const { container } = renderModeratorViewButton({ group, user, realTime });
+
+        expect(container).toHaveTextContent('스터디 참여 승인하기');
+      });
+
+      it('click button and renders List of study applicants', () => {
+        const { getByText, container } = renderModeratorViewButton({ group, user, realTime });
+        const button = getByText('스터디 참여 승인하기');
+
+        fireEvent.click(button);
+
+        expect(container).toHaveTextContent('스터디 신청자 목록');
+      });
+
+      it('Clicking the close button closes the modal window.', () => {
+        const { getByText, container } = renderModeratorViewButton({ group, user, realTime });
+        const button = getByText('스터디 참여 승인하기');
+
+        fireEvent.click(button);
+
+        fireEvent.click(getByText('닫기'));
+
+        expect(container).not.toHaveTextContent('스터디 신청자 목록');
+      });
     });
 
-    it('Clicking the close button closes the modal window.', () => {
-      const { getByText, container } = renderModeratorViewButton({ group, user: 'user' });
-      const button = getByText('스터디 참여 승인하기');
+    context('When the current date is after the deadline', () => {
+      const nowDate = new Date();
+      const yesterday = nowDate.setDate(nowDate.getDate() - 1);
 
-      fireEvent.click(button);
+      const group = applyEndDateSettings(yesterday);
 
-      fireEvent.click(getByText('닫기'));
+      it('renders "Please proceed with the study!" status message', () => {
+        const { container } = renderModeratorViewButton({ group, user, realTime });
 
-      expect(container).not.toHaveTextContent('스터디 신청자 목록');
+        expect(container).toHaveTextContent('스터디를 진행해주세요!');
+      });
     });
   });
 });

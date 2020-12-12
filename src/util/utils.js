@@ -10,6 +10,8 @@ export const isCheckedTimeStatus = ({
   time, applyEndTime, participants, personnel,
 }) => (!!((time - applyEndTime >= 0 || participants.length === parseInt(personnel, 10))));
 
+export const isCheckedOnlyTimeStatus = ({ time, applyEndTime }) => (time - applyEndTime >= 0);
+
 const checkTrim = (value) => value.trim();
 
 export const isCheckValidate = (values) => values.map(checkTrim).includes('');

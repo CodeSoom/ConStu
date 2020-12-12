@@ -193,8 +193,12 @@ describe('IntroduceHeaderContainer', () => {
   });
 
   context('When the logged-in user is the author', () => {
+    const nowDate = new Date();
+    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
     given('group', () => ({
       ...STUDY_GROUP,
+      applyEndDate: tomorrow,
       participants: [
         {
           confirm: true,
