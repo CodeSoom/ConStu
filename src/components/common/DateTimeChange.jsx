@@ -6,7 +6,7 @@ import 'moment/locale/ko';
 import moment from 'moment';
 import Moment from 'react-moment';
 
-import { isCheckedTimeStatus } from '../../util/utils';
+import { authorizedUsersNumber, isCheckedTimeStatus } from '../../util/utils';
 
 import DateTimeStatus from '../../styles/DateTimeStatus';
 
@@ -63,7 +63,7 @@ const DateTimeChange = ({ group, page, time }) => {
         ? introduceTimeStatus()
         : (
           <>
-            {`모집 인원: ${participants.length} / ${personnel}`}
+            {`신청 현황: ${authorizedUsersNumber(participants)} / ${personnel}`}
             {mainTimeStatus()}
           </>
         )}
