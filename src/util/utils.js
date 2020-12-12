@@ -6,9 +6,16 @@ export function equal(key, value) {
   return (obj) => obj[key] === value;
 }
 
+export const authorizedUsersNumber = (participants) => participants
+  .filter(({ confirm }) => confirm && confirm === true)
+  .length + 1;
+
 export const isCheckedTimeStatus = ({
   time, applyEndTime, participants, personnel,
-}) => (!!((time - applyEndTime >= 0 || participants.length === parseInt(personnel, 10))));
+}) => (!!((
+  time - applyEndTime >= 0
+  || authorizedUsersNumber(participants) >= parseInt(personnel, 10)
+)));
 
 export const isCheckedOnlyTimeStatus = ({ time, applyEndTime }) => (time - applyEndTime >= 0);
 
@@ -17,10 +24,6 @@ const checkTrim = (value) => value.trim();
 export const isCheckValidate = (values) => values.map(checkTrim).includes('');
 
 export const changeDateToTime = (date) => new Date(date).getTime();
-
-export const authorizedUsersNumber = (participants) => participants
-  .filter(({ confirm }) => confirm && confirm === true)
-  .length + 1;
 
 export const applyDateToString = (response) => response
   .data()

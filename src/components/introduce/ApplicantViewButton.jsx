@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 
+import styled from '@emotion/styled';
+
 import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import ApplyStatusButton from './ApplyStatusButton';
 import ApplicationFormModal from './modals/ApplicationFormModal';
 import AskApplyCancelModal from './modals/AskApplyCancelModal';
 import AskLoginModal from './modals/AskLoginModal';
+
+const ParticipantsStatus = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const ApplicantViewButton = ({
   group, onApply, user, realTime, onApplyCancel, onChangeApplyFields, applyFields, clearForm,
@@ -54,19 +61,30 @@ const ApplicantViewButton = ({
     clearForm();
   };
 
+  const isCheckedUserStatus = (applicant) => (userEmail) => applicant
+    .find(({ id }) => id === userEmail);
+
+  const status = {
+    ...group,
+    time: realTime,
+    applyEndTime,
+  };
+
   if (moderatorId === user) {
     return null;
   }
 
   return (
     <>
-      <ApplyStatusButton
-        user={user}
-        onApply={handleApply}
-        onCancel={handleApplyCancelConfirmClick}
-        applyStatus={participants.some(({ id }) => id === user)}
-        timeStatus={isCheckedTimeStatus({ ...group, time: realTime, applyEndTime })}
-      />
+      <ParticipantsStatus>
+        <ApplyStatusButton
+          user={user}
+          onApply={handleApply}
+          onCancel={handleApplyCancelConfirmClick}
+          userStatus={isCheckedUserStatus(participants)(user)}
+          timeStatus={isCheckedTimeStatus(status)}
+        />
+      </ParticipantsStatus>
       <AskLoginModal
         visible={loginCheckModal}
         onCancel={handleLoginCheckCancel}

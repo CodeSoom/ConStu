@@ -8,27 +8,46 @@ describe('ApplyStatusButton', () => {
   const handleApply = jest.fn();
 
   const renderApplyStatusButton = ({
-    applyStatus = false,
+    userStatus,
     timeStatus = false,
   }) => render((
     <ApplyStatusButton
-      applyStatus={applyStatus}
+      userStatus={userStatus}
       onApply={handleApply}
       timeStatus={timeStatus}
     />
   ));
 
   context('When the applicant applies before the application deadline', () => {
-    it('renders Cancel application', () => {
-      const { container } = renderApplyStatusButton({ applyStatus: true });
+    context('Before approval', () => {
+      it('renders cancel application and Pending approval', () => {
+        const { container } = renderApplyStatusButton({
+          userStatus: { confirm: false },
+        });
 
-      expect(container).toHaveTextContent('신청 취소');
+        expect(container).toHaveTextContent('신청 취소');
+        expect(container).toHaveTextContent('승인 대기중..');
+      });
+    });
+
+    context('After approval', () => {
+      it('renders Cancel application and Approved', () => {
+        const { container } = renderApplyStatusButton({
+          userStatus: { confirm: true },
+        });
+
+        expect(container).toHaveTextContent('신청 취소');
+        expect(container).toHaveTextContent('승인 완료!');
+      });
     });
   });
 
   context('When the study application is completed', () => {
     it('renders application completed', () => {
-      const { container } = renderApplyStatusButton({ applyStatus: true, timeStatus: true });
+      const { container } = renderApplyStatusButton({
+        userStatus: { confirm: true },
+        timeStatus: true,
+      });
 
       expect(container).toHaveTextContent('신청 완료');
     });
@@ -36,7 +55,10 @@ describe('ApplyStatusButton', () => {
 
   context('When the study application deadline', () => {
     it('renders application deadline', () => {
-      const { container } = renderApplyStatusButton({ timeStatus: true });
+      const { container } = renderApplyStatusButton({
+        userStatus: { confirm: false },
+        timeStatus: true,
+      });
 
       expect(container).toHaveTextContent('모집 마감');
     });

@@ -146,7 +146,7 @@ describe('IntroduceHeaderContainer', () => {
         applyEndDate: tomorrow,
         participants: [
           { id: 'user2' },
-          { id: 'user' },
+          { id: 'user', confirm: false },
         ],
         personnel: 3,
       };
