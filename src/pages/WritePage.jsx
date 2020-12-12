@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Helmet } from 'react-helmet';
+
 import styled from '@emotion/styled';
 
 import Responsive from '../styles/Responsive';
@@ -14,11 +16,17 @@ const WritePageWrapper = styled(Responsive)`
 `;
 
 const IntroducePage = () => (
-  <WritePageWrapper>
-    <WriteFormContainer />
-    <WriteEditorContainer />
-    <TagFormContainer />
-    <WriteButtonsContainer />
-  </WritePageWrapper>
+  <>
+    <Helmet>
+      <title>스터디 소개글 작성</title>
+    </Helmet>
+    <WritePageWrapper>
+      <WriteFormContainer />
+      <WriteEditorContainer />
+      <TagFormContainer />
+      <WriteButtonsContainer />
+    </WritePageWrapper>
+  </>
+
 );
 export default IntroducePage;
