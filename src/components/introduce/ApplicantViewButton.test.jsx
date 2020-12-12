@@ -53,7 +53,7 @@ describe('ApplicantViewButton', () => {
         applyEndDate: tomorrow,
         participants: [
           { id: 'user2' },
-          { id: 'user' },
+          { id: 'user', confirm: false },
         ],
         personnel: 3,
       };
@@ -110,13 +110,13 @@ describe('ApplicantViewButton', () => {
           ...STUDY_GROUP,
           applyEndDate: yesterday,
           participants: [
-            { id: 'user2' },
+            { id: 'user1', confirm: false },
           ],
           personnel: 2,
         };
 
         it('renders recruitment closed text', () => {
-          const { container } = renderApplicantViewButton({ group, time });
+          const { container } = renderApplicantViewButton({ group, time, user: 'user1' });
 
           expect(container).toHaveTextContent('모집 마감');
         });
@@ -131,13 +131,13 @@ describe('ApplicantViewButton', () => {
           applyEndDate: tomorrow,
           participants: [
             { id: 'user2' },
-            { id: 'user3' },
+            { id: 'user3', confirm: false },
           ],
-          personnel: 2,
+          personnel: 1,
         };
 
         it('renders recruitment closed text', () => {
-          const { container } = renderApplicantViewButton({ group, time });
+          const { container } = renderApplicantViewButton({ group, time, user: 'user3' });
 
           expect(container).toHaveTextContent('모집 마감');
         });

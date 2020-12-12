@@ -1,23 +1,61 @@
 import React from 'react';
 
+import ApproveStatus from '../../styles/ApproveStatus';
+
 import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
 
+const checkConfirm = (confirm) => confirm === true;
+
 const ApplyStatusButton = ({
-  timeStatus, onApply, applyStatus, onCancel,
+  timeStatus, onApply, userStatus, onCancel,
 }) => {
-  if (!timeStatus && applyStatus) {
+  if (!timeStatus && !userStatus) {
     return (
       <StyledApplyStatusButton
         type="button"
-        className="apply-cancel"
-        onClick={onCancel}
+        className="apply"
+        onClick={onApply}
       >
-        신청 취소
+        신청하기
       </StyledApplyStatusButton>
     );
   }
 
-  if (applyStatus) {
+  if (!timeStatus && !checkConfirm(userStatus.confirm)) {
+    return (
+      <>
+        <ApproveStatus>
+          승인 대기중..
+        </ApproveStatus>
+        <StyledApplyStatusButton
+          type="button"
+          className="apply-cancel"
+          onClick={onCancel}
+        >
+          신청 취소
+        </StyledApplyStatusButton>
+      </>
+    );
+  }
+
+  if (!timeStatus && checkConfirm(userStatus.confirm)) {
+    return (
+      <>
+        <ApproveStatus>
+          승인 완료!
+        </ApproveStatus>
+        <StyledApplyStatusButton
+          type="button"
+          className="apply-cancel"
+          onClick={onCancel}
+        >
+          신청 취소
+        </StyledApplyStatusButton>
+      </>
+    );
+  }
+
+  if (timeStatus && checkConfirm(userStatus.confirm)) {
     return (
       <StyledApplyStatusButton
         type="button"
@@ -28,24 +66,12 @@ const ApplyStatusButton = ({
     );
   }
 
-  if (timeStatus) {
-    return (
-      <StyledApplyStatusButton
-        type="button"
-        className="deadline"
-      >
-        모집 마감
-      </StyledApplyStatusButton>
-    );
-  }
-
   return (
     <StyledApplyStatusButton
       type="button"
-      className="apply"
-      onClick={onApply}
+      className="deadline"
     >
-      신청하기
+      모집 마감
     </StyledApplyStatusButton>
   );
 };
