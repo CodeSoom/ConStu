@@ -118,7 +118,7 @@ describe('ApplicantViewButton', () => {
         it('renders recruitment closed text', () => {
           const { container } = renderApplicantViewButton({ group, time, user: 'user1' });
 
-          expect(container).toHaveTextContent('모집 마감');
+          expect(container).toHaveTextContent('승인 거절');
         });
       });
 
@@ -137,41 +137,9 @@ describe('ApplicantViewButton', () => {
         };
 
         it('renders recruitment closed text', () => {
-          const { container } = renderApplicantViewButton({ group, time, user: 'user3' });
+          const { container } = renderApplicantViewButton({ group, time, user: 'user4' });
 
           expect(container).toHaveTextContent('모집 마감');
-        });
-      });
-
-      describe('When the user clicks the Apply button without logging in', () => {
-        const nowDate = new Date();
-        const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
-
-        const group = {
-          ...STUDY_GROUP,
-          applyEndDate: tomorrow,
-          participants: [
-            { id: 'user2' },
-          ],
-          personnel: 2,
-        };
-
-        it('renders modal window appears and application failure message', () => {
-          const { container, getByText } = renderApplicantViewButton({ group, time });
-
-          const button = getByText('신청하기');
-
-          expect(button).not.toBeNull();
-
-          fireEvent.click(button);
-
-          expect(handleApply).not.toBeCalled();
-
-          expect(container).toHaveTextContent('로그인 후 신청 가능합니다.');
-
-          fireEvent.click(getByText('확인'));
-
-          expect(container).not.toHaveTextContent('로그인 후 신청 가능합니다.');
         });
       });
     });
@@ -246,6 +214,38 @@ describe('ApplicantViewButton', () => {
 
             expect(handleApply).not.toBeCalled();
           });
+        });
+      });
+
+      describe('When the user clicks the Apply button without logging in', () => {
+        const nowDate = new Date();
+        const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+        const group = {
+          ...STUDY_GROUP,
+          applyEndDate: tomorrow,
+          participants: [
+            { id: 'user2' },
+          ],
+          personnel: 2,
+        };
+
+        it('renders modal window appears and application failure message', () => {
+          const { container, getByText } = renderApplicantViewButton({ group, time });
+
+          const button = getByText('신청하기');
+
+          expect(button).not.toBeNull();
+
+          fireEvent.click(button);
+
+          expect(handleApply).not.toBeCalled();
+
+          expect(container).toHaveTextContent('로그인 후 신청 가능합니다.');
+
+          fireEvent.click(getByText('확인'));
+
+          expect(container).not.toHaveTextContent('로그인 후 신청 가능합니다.');
         });
       });
     });

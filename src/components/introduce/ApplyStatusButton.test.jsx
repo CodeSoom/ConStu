@@ -43,7 +43,7 @@ describe('ApplyStatusButton', () => {
   });
 
   context('When the study application is completed', () => {
-    it('renders application completed', () => {
+    it('renders "application completed"', () => {
       const { container } = renderApplyStatusButton({
         userStatus: { confirm: true },
         timeStatus: true,
@@ -54,9 +54,17 @@ describe('ApplyStatusButton', () => {
   });
 
   context('When the study application deadline', () => {
-    it('renders application deadline', () => {
+    it('renders "Rejection of approval"', () => {
       const { container } = renderApplyStatusButton({
         userStatus: { confirm: false },
+        timeStatus: true,
+      });
+
+      expect(container).toHaveTextContent('승인 거절');
+    });
+
+    it('renders "Application deadline"', () => {
+      const { container } = renderApplyStatusButton({
         timeStatus: true,
       });
 
