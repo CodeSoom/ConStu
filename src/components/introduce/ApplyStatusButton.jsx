@@ -24,7 +24,7 @@ const ApplyStatusButton = ({
   if (!timeStatus && !checkConfirm(userStatus.confirm)) {
     return (
       <>
-        <ApproveStatus>
+        <ApproveStatus load>
           승인 대기중..
         </ApproveStatus>
         <StyledApplyStatusButton
@@ -41,7 +41,7 @@ const ApplyStatusButton = ({
   if (!timeStatus && checkConfirm(userStatus.confirm)) {
     return (
       <>
-        <ApproveStatus>
+        <ApproveStatus approve>
           승인 완료!
         </ApproveStatus>
         <StyledApplyStatusButton
