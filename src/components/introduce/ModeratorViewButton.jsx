@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 
-import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
-import ParticipantListModal from './modals/ParticipantListModal';
+import { changeDateToTime, isCheckedOnlyTimeStatus } from '../../util/utils';
 
-const ModeratorViewButton = ({ group, user, onUpdateConfirm }) => {
+import ParticipantListModal from './modals/ParticipantListModal';
+import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
+
+const ModeratorViewButton = ({
+  group, user, onUpdateConfirm, realTime,
+}) => {
   const [ListModal, setListModal] = useState(false);
 
-  const { moderatorId, participants } = group;
+  const { moderatorId, participants, applyEndDate } = group;
+
+  const applyEndTime = changeDateToTime(applyEndDate);
+
+  const checkTime = {
+    time: realTime,
+    applyEndTime,
+  };
 
   const handleClick = () => {
     setListModal(true);
@@ -18,6 +29,17 @@ const ModeratorViewButton = ({ group, user, onUpdateConfirm }) => {
 
   if (moderatorId !== user) {
     return null;
+  }
+
+  if (isCheckedOnlyTimeStatus(checkTime)) {
+    return (
+      <StyledApplyStatusButton
+        type="button"
+        className="apply-complete"
+      >
+        스터디를 진행해주세요!
+      </StyledApplyStatusButton>
+    );
   }
 
   return (
@@ -39,4 +61,4 @@ const ModeratorViewButton = ({ group, user, onUpdateConfirm }) => {
   );
 };
 
-export default ModeratorViewButton;
+export default React.memo(ModeratorViewButton);

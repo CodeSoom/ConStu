@@ -69,9 +69,10 @@ const IntroduceHeaderContainer = () => {
         onChangeApplyFields={onChangeApplyFields}
       />
       <ModeratorViewButton
-        onUpdateConfirm={onUpdateConfirmParticipant}
         user={user}
         group={group}
+        realTime={realTime}
+        onUpdateConfirm={onUpdateConfirmParticipant}
       />
     </IntroduceHeader>
   );

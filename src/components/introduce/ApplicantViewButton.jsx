@@ -14,9 +14,7 @@ const ApplicantViewButton = ({
   const [applyCancelModal, setApplyCancelModal] = useState(false);
   const [modalForm, setModalForm] = useState(false);
 
-  const {
-    moderatorId, participants, applyEndDate,
-  } = group;
+  const { moderatorId, participants, applyEndDate } = group;
 
   const applyEndTime = changeDateToTime(applyEndDate);
 
