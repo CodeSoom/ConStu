@@ -1,7 +1,5 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
-
 import 'moment/locale/ko';
 import moment from 'moment';
 import Moment from 'react-moment';
@@ -11,10 +9,6 @@ import { authorizedUsersNumber, isCheckedTimeStatus } from '../../util/utils';
 import DateTimeStatus from '../../styles/DateTimeStatus';
 
 moment.locale('ko');
-
-const DateTimeChangeWrapper = styled.div`
-  margin-top: .2rem;
-`;
 
 const DateTimeChange = ({ group, page, time }) => {
   const { participants, personnel, applyEndDate } = group;
@@ -58,7 +52,7 @@ const DateTimeChange = ({ group, page, time }) => {
   };
 
   return (
-    <DateTimeChangeWrapper>
+    <>
       {page === 'introduce'
         ? introduceTimeStatus()
         : (
@@ -67,7 +61,7 @@ const DateTimeChange = ({ group, page, time }) => {
             {mainTimeStatus()}
           </>
         )}
-    </DateTimeChangeWrapper>
+    </>
   );
 };
 
