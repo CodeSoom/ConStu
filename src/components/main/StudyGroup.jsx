@@ -26,7 +26,7 @@ const StudyGroupWrapper = styled.div`
 
 const HeaderLink = styled(Link)`
   display: block;
-  padding: 0.8rem 1rem 0.8rem 1rem;
+  padding: 1.5rem 1.2rem 0.8rem 1rem;
   h4 {
     text-align: center;
     margin: 0px 0px 0.25rem;
@@ -35,9 +35,8 @@ const HeaderLink = styled(Link)`
     white-space: nowrap;
     overflow: hidden;
     color: ${palette.gray[8]};
-    font-size: 2.3rem;
-    font-weight: 500;
-    font-family: 'Nanum Pen Script', cursive;
+    font-size: 1.7rem;
+    font-family: 'Sunflower', sans-serif;
     &:hover {
       color: ${palette.gray[6]};
     }

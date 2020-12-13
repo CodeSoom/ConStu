@@ -6,6 +6,9 @@ font-family: 'Nanum Pen Script', cursive;
 @import url('//cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-full.css');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 /* font-family: 'Noto Sans KR', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Sunflower:wght@500&display=swap');
+/* font-family: 'Jua', sans-serif; */
+/* font-family: 'Sunflower', sans-serif; */
 
 * {
   box-sizing: inherit;

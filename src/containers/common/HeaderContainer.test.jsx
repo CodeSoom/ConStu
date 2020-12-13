@@ -34,7 +34,7 @@ describe('HeaderContainer', () => {
     it('renders Header text', () => {
       const { container } = renderHeaderContainer();
 
-      expect(container).toHaveTextContent('제목(미정)');
+      expect(container).toHaveTextContent('ConStu');
       expect(container).toHaveTextContent('로그아웃');
     });
 
@@ -57,7 +57,7 @@ describe('HeaderContainer', () => {
     it('renders Header text', () => {
       const { container } = renderHeaderContainer();
 
-      expect(container).toHaveTextContent('제목(미정)');
+      expect(container).toHaveTextContent('ConStu');
       expect(container).toHaveTextContent('로그인');
       expect(container).toHaveTextContent('회원가입');
     });

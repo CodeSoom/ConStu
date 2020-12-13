@@ -9,7 +9,7 @@ import StudyGroupsContainer from '../containers/groups/StudyGroupsContainer';
 const MainPage = () => (
   <>
     <Helmet>
-      <title>제목(미정)</title>
+      <title>ConStu</title>
     </Helmet>
     <Responsive>
       <StudyGroupsContainer />

@@ -11,8 +11,8 @@ import Button from '../../styles/Button';
 const HeaderWrapper = styled.div`
   position: fixed;
   width: 100%;
-  background: white;
-  box-shadow: 0px 2px 4px ${palette.teal[2]};
+  background: ${palette.gray[1]};
+  box-shadow: 0px 2px 4px ${palette.gray[4]};
   z-index: 100;
 `;
 
@@ -30,8 +30,8 @@ const UserStatusWrapper = styled.div`
 `;
 
 const TitleWrapper = styled(Link)`
-  font-weight: bold;
-  font-size: 1.8rem;
+  font-family: 'Jua', sans-serif;
+  font-size: 2.3rem;
 `;
 
 const Spacer = styled.div`
@@ -42,7 +42,7 @@ const Header = ({ user, onLogout }) => (
   <>
     <HeaderWrapper>
       <Wrapper>
-        <TitleWrapper to="/">제목(미정)</TitleWrapper>
+        <TitleWrapper to="/">ConStu</TitleWrapper>
         {user ? (
           <UserStatusWrapper>
             <span>{user}</span>
