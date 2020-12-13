@@ -43,8 +43,8 @@ const DateTimeStatusWrapper = styled.div`
 
   ${(props) => props.status === 'introduceRecruit'
     && css`
-      margin: 0 auto;
-      padding: .5rem 50px .5rem 50px;
+      margin: 0;
+      padding: .2rem 40px .2rem 40px;
       background: white;
       font-size: 1.1rem;
       border-radius: 0.5rem;
@@ -67,8 +67,9 @@ const DateTimeStatusWrapper = styled.div`
 
   ${(props) => props.status === 'introduceDeadline'
     && css`
-      margin: 0 auto;
-      padding: .5rem 50px .5rem 50px;
+      margin: 0;
+      font-size: 1.1rem;
+      padding: 0 40px 0 40px;
       align-items: center;
       background: white;
       color: #ff6b6b;
