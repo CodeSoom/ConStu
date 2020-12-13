@@ -57,6 +57,7 @@ const StyledApplyStatusButtonWrapper = styled.button`
 
   &.confirm {
     cursor: pointer;
+    padding: 0.25rem 2.5rem;
     color: white;
     background: #4dabf7;
     

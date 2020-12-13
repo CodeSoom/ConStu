@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 
+import styled from '@emotion/styled';
+
 import { changeDateToTime, isCheckedOnlyTimeStatus } from '../../util/utils';
 
+import ApproveStatus from '../../styles/ApproveStatus';
 import ParticipantListModal from './modals/ParticipantListModal';
 import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
+
+const OrganizerStatus = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const organizerRemove = (applicant) => applicant.filter((_, index) => index !== 0);
+
+const approveParticipantsNumber = (approveUsers) => organizerRemove(approveUsers)
+  .filter(({ confirm }) => confirm === false)
+  .length;
 
 const ModeratorViewButton = ({
   group, user, onUpdateConfirm, realTime,
@@ -13,6 +27,8 @@ const ModeratorViewButton = ({
   const { moderatorId, participants, applyEndDate } = group;
 
   const applyEndTime = changeDateToTime(applyEndDate);
+
+  const approveUsersCount = approveParticipantsNumber(participants);
 
   const checkTime = {
     time: realTime,
@@ -44,18 +60,25 @@ const ModeratorViewButton = ({
 
   return (
     <>
-      <StyledApplyStatusButton
-        type="button"
-        className="confirm"
-        onClick={handleClick}
-      >
-        스터디 참여 승인하기
-      </StyledApplyStatusButton>
+      <OrganizerStatus>
+        {approveUsersCount !== 0 && (
+          <ApproveStatus wait>
+            {`${approveUsersCount}명이 승인을 기다리고 있습니다!`}
+          </ApproveStatus>
+        )}
+        <StyledApplyStatusButton
+          type="button"
+          className="confirm"
+          onClick={handleClick}
+        >
+          스터디 참여 승인하기
+        </StyledApplyStatusButton>
+      </OrganizerStatus>
       <ParticipantListModal
         visible={ListModal}
         onClose={handelClose}
         onUpdate={onUpdateConfirm}
-        participants={participants.filter((_, index) => index !== 0)}
+        participants={organizerRemove(participants)}
       />
     </>
   );
