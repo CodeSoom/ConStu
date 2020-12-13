@@ -1,5 +1,5 @@
-# 🌈 project-react-2-saseungmin (이름 미정)
-
+# 🌈 ConStu
+- Connect to Study (스터디를 잇다)
 ### 🚀 Hosting URL
 https://sweet-1cfff.web.app/
 
