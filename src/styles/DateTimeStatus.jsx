@@ -19,6 +19,7 @@ const DateTimeStatusWrapper = styled.div`
 
   ${(props) => props.status === 'mainRecruit'
     && css`
+      margin-bottom: 0.5rem;
       background: ${palette.cyan[4]};
       animation: blink-animation 1.5s steps(5, start) infinite;
       -webkit-animation: blink-animation 1.5s steps(5, start) infinite;
@@ -36,6 +37,7 @@ const DateTimeStatusWrapper = styled.div`
 
   ${(props) => props.status === 'mainDeadline'
     && css`
+      margin-bottom: 0.5rem;
       background: #ff6b6b;
   `}
 

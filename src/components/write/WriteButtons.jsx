@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import sanitizeHtml from 'sanitize-html';
+import sanitize from 'sanitize-html';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -50,7 +50,7 @@ const {
 } = ERROR_MESSAGE;
 
 const isCheckApplyEndDate = (applyDate) => Date.now() - applyDate >= 0;
-const removeHtml = (body) => sanitizeHtml(body, { allowedTags: [] }).trim();
+const removeHtml = (body) => sanitize(body, { allowedTags: [] }).trim();
 const isCheckPersonnel = (personnel) => !Number.isInteger(personnel) || personnel < 1;
 
 const WriteButtons = ({ fields, onSubmit, onCancel }) => {
