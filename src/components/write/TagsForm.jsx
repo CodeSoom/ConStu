@@ -7,17 +7,18 @@ import palette from '../../styles/palette';
 import TagList from './TagList';
 
 const TagInputWrapper = styled.input`
+  font-size: 1rem;
   height: 30px;
   padding: 5px;
   border-radius: 0.25rem;
-  font-size: 1rem;
-  line-height: 20px;
-  color: #5f5f5f;
   border: 2px solid #D7E2EB;
+  line-height: 20px;
+  width: 220px;
+  color: #5f5f5f;
+
   &:focus, &.hover {
     border: 2px solid ${palette.teal[5]};
   }
-  width: 220px;
 `;
 
 const TagsForm = ({ onChange, tags }) => {

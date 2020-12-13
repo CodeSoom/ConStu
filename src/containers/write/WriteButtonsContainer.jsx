@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
 import { writeStudyGroup } from '../../reducers/groupSlice';

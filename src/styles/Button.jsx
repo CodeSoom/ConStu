@@ -9,46 +9,49 @@ import { css } from '@emotion/react';
 import palette from './palette';
 
 const ButtonWrapper = ({ warn, success }) => css`
-  border-radius: 4px;
+  cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
   font-family: 'Noto Sans KR', sans-serif;
-  padding: 0.25rem 1rem;
-  color: ${palette.gray[7]};
   outline: none;
-  cursor: pointer;
+  padding: 0.25rem 1rem;
+  border-radius: 4px;
   border: 2px solid ${palette.gray[6]};
   background: white;
+  color: ${palette.gray[7]};
   transition-duration: 0.08s;
   transition-property: all;
   transition-timing-function: ease-in-out;
   transition-delay: initial;
+
   &:hover {
-    color: white;
     border: 2px solid ${palette.gray[7]};
+    color: white;
     background: ${palette.gray[7]};
   }
 
   ${warn && css`
-      color: white;
       padding: 0.15rem 0.9rem;
-      background: ${palette.warn[1]};
       border: 2px solid ${palette.warn[1]};
+      color: white;
+      background: ${palette.warn[1]};
+
       &:hover {
+        border: 2px solid ${palette.warn[1]};
         background: white;
         color: ${palette.warn[1]};
-        border: 2px solid ${palette.warn[1]};
       }
   `}
 
   ${success && css`
+    border: 2px solid ${palette.teal[5]};
     color: white;
     background: ${palette.teal[5]};
-    border: 2px solid ${palette.teal[5]};
+
     &:hover {
+      border: 2px solid ${palette.teal[5]};
       background: white;
       color: ${palette.teal[5]};
-      border: 2px solid ${palette.teal[5]};
     }
   `}
 `;

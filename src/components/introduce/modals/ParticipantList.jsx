@@ -7,9 +7,9 @@ import ApplicationViewModal from './ApplicationViewModal';
 
 const ParticipantListWrapper = styled.div`
   display: grid;
-  grid-template-columns: 260px 186px 148px;
   justify-items: center;
   align-items: center;
+  grid-template-columns: 260px 186px 148px;
   margin-bottom: 0.7rem;
   min-height: 0;
   min-width: 0;

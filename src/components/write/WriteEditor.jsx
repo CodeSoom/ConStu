@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw } from 'draft-js';
 
 import palette from '../../styles/palette';
 
@@ -12,6 +12,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const WriteEditorWrapper = styled.div`
   margin-top: 1rem;
+
   .toolbar {
     padding: 6px 5px;
     box-shadow: rgba(0, 0, 0, 0.04) 0px 0px 5px 0px;
@@ -23,12 +24,12 @@ const WriteEditorWrapper = styled.div`
 `;
 
 const SpaceBlock = styled.div`
-  background: ${palette.gray[3]};
-  height: 2px;
   width: 100%;
+  height: 2px;
   margin-top: 1rem;
   margin-bottom: 1rem;
   border-radius: 1px;
+  background: ${palette.gray[3]};
 `;
 
 const WriteEditor = ({ onChange }) => {

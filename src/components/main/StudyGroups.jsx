@@ -13,8 +13,8 @@ const StudyGroupsWrapper = styled.div`
 
 const TitleHeader = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const StudyGroups = ({ groups, realTime, user }) => (

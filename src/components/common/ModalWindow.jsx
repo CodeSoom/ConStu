@@ -1,28 +1,27 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
-
 import { css } from '@emotion/react';
 
 import Button from '../../styles/Button';
 
 const ModalWindowWrapper = styled.div`
-  position: fixed;
-  z-index: 101;
   top: 0;
   left: 0;
+  position: fixed;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.25);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   ${(props) => props.visible && css`
     &.animation {
       animation-name: fade-in;
-      animation-fill-mode: both;
       animation-duration: 0.3s;
+      animation-fill-mode: both;
     }
   
     @keyframes fade-in {
@@ -40,17 +39,20 @@ const ModalBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 320px;
-  background: white;
   padding: 1.5rem;
   border-radius: 6px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  background: white;
+
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
   }
+
   p {
     margin-bottom: 2rem;
   }
+  
   .buttons {
     display: flex;
     justify-content: flex-end;
