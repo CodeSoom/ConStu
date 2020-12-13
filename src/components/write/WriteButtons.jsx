@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import sanitize from 'sanitize-html';
-
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+
+import sanitize from 'sanitize-html';
 
 import palette from '../../styles/palette';
 import { ERROR_MESSAGE } from '../../util/messages';
@@ -25,9 +25,9 @@ const ButtonWrapper = styled.div`
 `;
 
 const ErrorWrapper = styled.div`
-  margin-top: 2rem;
   font-weight: bold;
   font-size: 1rem;
+  margin-top: 2rem;
   color: ${palette.warn[2]};
 `;
 
@@ -35,6 +35,7 @@ const CancelButton = styled(Button)`
   padding: 0.45rem 1rem;
   background: white;
   color: ${palette.warn[1]};
+  
   &:hover {
     color: white;
     background: ${palette.warn[1]};

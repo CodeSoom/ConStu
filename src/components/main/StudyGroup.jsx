@@ -14,29 +14,31 @@ import DateTimeChange from '../common/DateTimeChange';
 
 const StudyGroupWrapper = styled.div`
   display: flex;
-  overflow: hidden;
   flex-direction: column;
-  width: 19rem;
+  overflow: hidden;
   margin: 1rem;
-  border: 2px solid ${palette.gray[4]};
   border-radius: 4px;
-  background: rgb(248, 249, 250);
+  border: 2px solid ${palette.gray[4]};
+  width: 19rem;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
+  background: rgb(248, 249, 250);
 `;
 
 const HeaderLink = styled(Link)`
   display: block;
   padding: 1.5rem 1.2rem 0.8rem 1rem;
+
   h4 {
-    text-align: center;
-    margin: 0px 0px 0.25rem;
-    line-height: 1.5;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    color: ${palette.gray[8]};
     font-size: 1.7rem;
     font-family: 'Sunflower', sans-serif;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0px 0px 0.25rem;
+    line-height: 1.5;
+    overflow: hidden;
+    color: ${palette.gray[8]};
+
     &:hover {
       color: ${palette.gray[6]};
     }
@@ -54,17 +56,20 @@ const StudyInfoWrapper = styled.div`
   display: flex;
   flex: 1 1 0%;
   flex-direction: column;
+
   .moderator{
-    color: ${palette.gray[5]};
     font-weight: bold;
+    color: ${palette.gray[5]};
   }
 `;
 
 const StudyContentWrapper = styled.div`
-  display: block;
   padding: 0 1rem 0 1rem;
+  display: block;
   flex: 1 1 0%;
+
   p {
+    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -73,7 +78,6 @@ const StudyContentWrapper = styled.div`
     line-height: 1.5;
     height: 3rem;
     overflow: hidden;
-    text-overflow: ellipsis;
     color: ${palette.gray[7]};
   }
 `;

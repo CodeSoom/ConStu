@@ -9,12 +9,12 @@ import styled from '@emotion/styled';
 import palette from './palette';
 
 const ApproveStatusWrapper = styled.div`
+  font-size: 1rem;
+  font-weight: bold;
   display: inline-flex;
   align-items: center;
-  font-weight: bold;
-  line-height: 0;
-  font-size: 1rem;
   padding: 0.8rem 1rem;
+  line-height: 0;
 
   ${({ load }) => load && css`
     color: ${palette.violet[4]};
@@ -27,18 +27,23 @@ const ApproveStatusWrapper = styled.div`
 
 const LoadingContent = styled.span`
   margin-left: .3rem;
-  width: 12px;
-  height: 12px;
+  border-radius: 100%;
   border-top: 3px solid ${palette.violet[2]};
   border-bottom: 3px solid ${palette.violet[2]};
   border-right: 3px solid ${palette.violet[4]};
   border-left: 3px solid ${palette.violet[4]};
+  width: 12px;
+  height: 12px;
   animation: load  0.75s ease infinite;
-  border-radius: 100%;
 
   @keyframes load {
-    0% { transform: rotate( 0deg ); }
-    100% { transform: rotate(180deg); }
+    0% { 
+      transform: rotate( 0deg ); 
+    }
+    
+    100% { 
+      transform: rotate(180deg); 
+    }
   }
 `;
 

@@ -4,9 +4,9 @@ import { useUnmount } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getGroup } from '../../util/utils';
-import WriteForm from '../../components/write/WriteForm';
-
 import { changeWriteField, clearWriteFields } from '../../reducers/groupSlice';
+
+import WriteForm from '../../components/write/WriteForm';
 
 const WriteFormContainer = () => {
   const dispatch = useDispatch();

@@ -11,16 +11,16 @@ import Button from '../../styles/Button';
 const HeaderWrapper = styled.div`
   position: fixed;
   width: 100%;
-  background: ${palette.gray[1]};
-  box-shadow: 0px 2px 4px ${palette.gray[4]};
   z-index: 100;
+  box-shadow: 0px 2px 4px ${palette.gray[4]};
+  background: ${palette.gray[1]};
 `;
 
 const Wrapper = styled(Responsive)`
-  height: 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 5rem;
 `;
 
 const UserStatusWrapper = styled.div`
@@ -30,8 +30,8 @@ const UserStatusWrapper = styled.div`
 `;
 
 const TitleWrapper = styled(Link)`
-  font-family: 'Jua', sans-serif;
   font-size: 2.3rem;
+  font-family: 'Jua', sans-serif;
 `;
 
 const Spacer = styled.div`

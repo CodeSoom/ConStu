@@ -10,42 +10,44 @@ const WriteFormWrapper = styled.div`
 `;
 
 const WriteTitleInputWrapper = styled.input`
-  width: 100%;
   font-size: 2.75rem;
   font-weight: bold;
-  color: ${palette.gray[7]};
+  width: 100%;
   line-height: 1.5;
+  color: ${palette.gray[7]};
 `;
 
 const DateInputWrapper = styled.input`
+  font-size: 1rem;
   margin-left: 0.5rem;
   padding: 0.5rem;
   border-bottom: 2px solid ${palette.gray[5]};
-  font-size: 1rem;
   width: fit-content;
-  &:focus, &:hover{
+
+  &:focus, &:hover {
     border-bottom: 2px solid ${palette.gray[7]};
   }
 `;
 
 const NumberInputWrapper = styled.input`
+  font-size: 1rem;
   margin-left: 0.5rem;
   padding: 0.5rem;
   border-bottom: 2px solid ${palette.gray[5]};
-  font-size: 1rem;
   width: 50px;
-  &:focus, &:hover{
+
+  &:focus, &:hover {
     border-bottom: 2px solid ${palette.gray[7]};
   }
 `;
 
 const SpaceWrapper = styled.div`
-  background: ${palette.violet[3]};
-  height: 6px;
   width: 8rem;
+  height: 6px;
   margin-top: 1rem;
   margin-bottom: 1rem;
   border-radius: 1px;
+  background: ${palette.violet[3]};
 `;
 
 const LabelWrapper = styled.label`
@@ -53,15 +55,16 @@ const LabelWrapper = styled.label`
   font-weight: bold;
   margin-right: 1rem;
   color: ${palette.gray[7]};
+
   ::before {
     content: '*';
+    font-weight: 400;
+    font-size: 1.25rem;
     display: inline-block;
     vertical-align: top;
-    font-weight: 400;
-    color: ${palette.warn[1]};
     margin: 0 0.125rem 0 0;
-    font-size: 1.25rem;
     line-height: 1.25rem;
+    color: ${palette.warn[1]};
   }
 `;
 

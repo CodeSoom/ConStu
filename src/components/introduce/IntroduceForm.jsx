@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
-
 import Moment from 'react-moment';
+
+import styled from '@emotion/styled';
 
 import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 
@@ -11,38 +11,43 @@ import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
 
 const IntroduceReferenceWrapper = styled.div`
+  font-size: 1.1rem;
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 1.5rem;
   padding: 1rem;
   border-radius: 0.75rem;
   background-color: ${palette.gray[1]};
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
+
   label {
-    line-height: 3rem;
     font-weight: bold;
+    line-height: 3rem;
     margin-right: .7rem;
   }
+
   @media (max-width: 1024px) {
-    padding: 0.5rem;
     font-size: 1rem;
+    padding: 0.5rem;
     width: auto;
   }
+
   @media (max-width: 768px) {
     width: 100%;
   }
 `;
 
 const ModeratorWrapper = styled.div`
+  font-size: 1.2rem;
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.5rem;
-  font-size: 1.2rem;
-  font-weight: bold;
   color: ${palette.gray[6]};
+
   span {
     margin-right: 1rem;
   }
+
   time {
     font-size: 1rem;
     font-weight: normal;
@@ -56,14 +61,14 @@ const IntroduceReference = styled.div`
 `;
 
 const IntroduceContentTitle = styled.div`
-  padding: 7px 2rem 7px 2rem;
-  width: 17%;
-  text-align: center;
+  font-size: 1.4rem;
   font-weight: bold;
+  text-align: center;
   margin-bottom: 0;
   margin-top: 1rem;
+  padding: 7px 2rem 7px 2rem;
   border-bottom: 2px solid ${palette.violet[3]};
-  font-size: 1.4rem;
+  width: 17%;
 `;
 
 const IntroduceContent = styled.div`

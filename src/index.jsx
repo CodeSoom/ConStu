@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import './index.css';
-
 import App from './App';
 
 import store from './reducers/store';
+
+import './index.css';
 
 ReactDOM.render(
   (

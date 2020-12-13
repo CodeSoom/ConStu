@@ -12,17 +12,18 @@ const TagsWrapper = styled.div`
 `;
 
 const TagStyledWrapper = ({ div }) => css`
+  font-size: .8em;
+  font-weight: bold;
   display: inline-flex;
   align-items: center;
+  margin-right: 0.5rem;
   padding-left: 1em;
   padding-right: 1em;
-  height: 3em;
-  font-weight: bold;
-  font-size: .8em;
   border-radius: .8em;
-  margin-right: 0.5rem;
+  height: 3em;
   color: ${palette.teal[7]};
   background:${palette.gray[2]};
+
   &:hover {
     color: ${palette.teal[5]};
   }
@@ -31,8 +32,9 @@ const TagStyledWrapper = ({ div }) => css`
     height: 2.5em;
     border-radius: .5em;
     margin-right: 0.3rem;
+
     &:hover {
-    color: ${palette.teal[7]};
+      color: ${palette.teal[7]};
     }
   `};
 `;
@@ -43,11 +45,12 @@ const TagWrapper = styled.div`
 `;
 
 const TagSpanWrapper = styled.span`
+  font-weight: bold;
   height: 2.4em;
   margin-right: .5rem;
-  font-weight: bold;
-  color: ${palette.warn[2]};
   cursor: pointer;
+  color: ${palette.warn[2]};
+  
   &:hover {
     color: ${palette.warn[0]};
   }

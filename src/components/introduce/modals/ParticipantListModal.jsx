@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
-
 import { css } from '@emotion/react';
 
 import Button from '../../../styles/Button';
@@ -10,21 +9,21 @@ import ParticipantList from './ParticipantList';
 
 const ParticipantListModalWrapper = styled.div`
   position: fixed;
-  z-index: 101;
   top: 0;
   left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.25);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   ${(props) => props.visible && css`
     &.animation {
       animation-name: fade-in;
-      animation-fill-mode: both;
       animation-duration: 0.3s;
+      animation-fill-mode: both;
     }
   
     @keyframes fade-in {
@@ -41,17 +40,19 @@ const ParticipantListModalWrapper = styled.div`
 const ModalBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 550px;
-  width: 600px;
-  background: white;
   padding: 1.5rem;
   border-radius: 6px;
+  height: 550px;
+  width: 600px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  background: white;
+
   h2 {
+    text-align: center;
     margin-top: 0;
     margin-bottom: 1rem;
-    text-align: center;
   }
+
   .buttons {
     display: flex;
     justify-content: flex-end;
@@ -60,9 +61,9 @@ const ModalBoxWrapper = styled.div`
 
 const ParticipantTitleWrapper = styled.div`
   display: grid;
-  grid-template-columns: 260px 190px 145px;
   justify-items: center;
   align-items: center;
+  grid-template-columns: 260px 190px 145px;
   margin: 0.5rem 0 0.3rem 0;
 
   div {
@@ -73,20 +74,20 @@ const ParticipantTitleWrapper = styled.div`
 `;
 
 const ParticipantListWrapper = styled.div`
-  height: 100%;
-  width: 99%;
-  border: 2px solid ${palette.gray[3]};
-  border-radius: 4px;
   margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 2px solid ${palette.gray[3]};
   padding-top: 0.5rem;
+  width: 99%;
+  height: 100%;
   overflow-y: auto;
 `;
 
 const NoExistListWrapper = styled.div`
-  color: ${palette.gray[6]};
+  font-weight: bold;
   font-size: 1.1rem;
   text-align: center;
-  font-weight: bold;
+  color: ${palette.gray[6]};
 `;
 
 const StyledButton = styled(Button)`

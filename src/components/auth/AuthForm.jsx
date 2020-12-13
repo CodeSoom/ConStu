@@ -1,73 +1,74 @@
 import React from 'react';
 
-import styled from '@emotion/styled';
-
 import { Link } from 'react-router-dom';
+
+import styled from '@emotion/styled';
 
 import Responsive from '../../styles/Responsive';
 import palette from '../../styles/palette';
 import Button from '../../styles/Button';
 
 const AuthFormWrapper = styled(Responsive)`
-  height: 400px;
-  width: 400px;
   display: flex;
-  justify-items: center;
   align-items: center;
+  justify-items: center;
   flex-direction: column;
-  background: ${palette.gray[1]};
+  width: 400px;
+  height: 400px;
+  padding: 3rem;
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
-  padding: 3rem;
-  h2{
+  background: ${palette.gray[1]};
+
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
     margin-top: 0;
     color: black;
-    font-weight: bold;
-    font-size: 2rem;
   }
 `;
 
 const FormWrapper = styled.form`
-  margin-top: 32px;
   display: grid;
-  grid-template-rows: repeat(1,1fr);
+  margin-top: 32px;
   grid-row-gap: 1rem;
+  grid-template-rows: repeat(1,1fr);
 `;
 
 const ErrorWrapper = styled.div`
-  font-weight: bold;
   font-size: 0.8rem;
-  color: ${palette.warn[2]};
+  font-weight: bold;
   text-align: center;
+  color: ${palette.warn[2]};
 `;
 
 const InputWrapper = styled.input`
-  background: white;
-  height: 40px;
-  border-radius: 0.25rem;
   font-size: 1rem;
   line-height: 24px;
-  color: #5f5f5f;
-  box-shadow: none;
+  height: 40px;
+  width: 400px;
   border: 0;
+  box-shadow: none;
+  border: 2px solid #D7E2EB;
+  padding: 8px 12px;
+  border-radius: 0.25rem;
+  color: #5f5f5f;
+  background: white;
   transition-duration: 0.08s;
   transition-property: all;
   transition-timing-function: ease-in-out;
   transition-delay: initial;
-  padding: 8px 12px;
-  border: 2px solid #D7E2EB;
   &:focus, &.hover {
     border: 2px solid ${palette.teal[5]};
   }
-  width: 400px;
 `;
 
 const Footer = styled.div`
+  display: flex;
+  justify-content: flex-end;
   margin-top: 1.5rem;
   border-top: 1px solid ${palette.gray[4]};
   padding-top: 20px;
-  display: flex;
-  justify-content: flex-end;
   
   a {
     font-weight: bold;
@@ -79,8 +80,8 @@ const Footer = styled.div`
 
   span {
     font-weight: lighter;
-    color: ${palette.gray[6]};
     margin-right: 0.75rem;
+    color: ${palette.gray[6]};
   }
 `;
 

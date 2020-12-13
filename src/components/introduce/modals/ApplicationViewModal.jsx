@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styled from '@emotion/styled';
-
 import { css } from '@emotion/react';
 
 import Button from '../../../styles/Button';
@@ -9,21 +8,21 @@ import palette from '../../../styles/palette';
 
 const ApplicationViewModalWrapper = styled.div`
   position: fixed;
-  z-index: 101;
   top: 0;
   left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
+  z-index: 101;
   background: rgba(0, 0, 0, 0.25);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   ${(props) => props.visible && css`
     &.animation {
       animation-name: fade-in;
-      animation-fill-mode: both;
       animation-duration: 0.3s;
+      animation-fill-mode: both;
     }
   
     @keyframes fade-in {
@@ -40,17 +39,19 @@ const ApplicationViewModalWrapper = styled.div`
 const ModalBoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: auto;
-  width: 400px;
-  background: white;
   padding: 1.5rem;
   border-radius: 6px;
+  width: 400px;
+  height: auto;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+  background: white;
+
   h2 {
+    text-align: center;
     margin-top: 0;
     margin-bottom: 1rem;
-    text-align: center;
   }
+
   .buttons {
     display: flex;
     justify-content: flex-end;
@@ -70,20 +71,21 @@ const ContentBoxWrapper = styled.div`
 `;
 
 const ContentViewerWrapper = styled.textarea`
-  display: block;
-  padding: 5px;
+  font-weight: bold;
+  cursor: unset;
   resize: none;
   outline: none;
-  border: 2px solid #D7E2EB;
-  border-radius: 3px;
-  font-weight: bold;
-  color: rgb(33, 37, 41);
+  display: block;
   margin-bottom: 0.7rem;
-  transition-duration: 0.08s;
+  padding: 5px;
+  border-radius: 3px;
+  border: 2px solid #D7E2EB;
+  color: rgb(33, 37, 41);
   transition-property: all;
-  transition-timing-function: ease-in-out;
   transition-delay: initial;
-  cursor: unset;
+  transition-duration: 0.08s;
+  transition-timing-function: ease-in-out;
+
   &:focus {
     border: 2px solid ${palette.gray[5]};
   }

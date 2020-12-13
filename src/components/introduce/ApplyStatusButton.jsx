@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ApproveStatus from '../../styles/ApproveStatus';
-
 import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
 
 const checkConfirm = (user) => user.confirm && user.confirm === true;
