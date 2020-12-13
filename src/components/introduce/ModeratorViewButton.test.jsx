@@ -91,6 +91,33 @@ describe('ModeratorViewButton', () => {
 
         expect(container).not.toHaveTextContent('스터디 신청자 목록');
       });
+
+      context('When there is an applicant pending approval', () => {
+        it('renders "Waiting for approval!" text', () => {
+          const { container } = renderModeratorViewButton({ group, user, realTime });
+
+          expect(container).toHaveTextContent('1명이 승인을 기다리고 있습니다!');
+        });
+      });
+
+      context('When there are no applicants waiting for approval', () => {
+        const changeGroup = {
+          ...STUDY_GROUP,
+          moderatorId: 'user',
+          participants: [
+            {
+              confirm: true,
+              id: 'test1',
+            },
+          ],
+        };
+
+        it("doesn't renders 'Waiting for approval!' text", () => {
+          const { container } = renderModeratorViewButton({ group: changeGroup, user, realTime });
+
+          expect(container).not.toHaveTextContent('1명이 승인을 기달리고 있습니다!');
+        });
+      });
     });
 
     context('When the current date is after the deadline', () => {
