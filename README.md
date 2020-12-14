@@ -3,9 +3,13 @@
 ### 🚀 Hosting URL
 https://sweet-1cfff.web.app/
 
-### 🎈 사용 목적
+### 🎈 사용 목적 및 소개
+- 네? 뭐라고요??🙋‍♂️ 스터디를 찾고 있다구요?🤔 스터디에 관한 정보는 모두 여기에!! 🌈 Get started right now! 🚀
 - 개발과 관련한 또는 IT와 관련된 스터디를 찾고 같이 공부하고 소통하고 싶을 때 사용합니다.
 
+### 🎯 개발 기간
+- 2020.11.16 ~ 2020.12.13 (1달)
+- 계속해서 기능 추가해 볼 예정 [링크](https://github.com/CodeSoom/project-react-2-saseungmin/issues/115)
 ### 🚀 프로젝트 주 차별 계획 및 회고
 #### 🎯 1 주차
 - [1주차 계획](https://github.com/CodeSoom/project-react-2-saseungmin/issues/1)
@@ -21,6 +25,7 @@ https://sweet-1cfff.web.app/
 
 #### 🎯 4 주차 (마지막 주차)
 - [4주차 계획](https://github.com/CodeSoom/project-react-2-saseungmin/issues/77)
+- [4주차 회고](https://github.com/saseungmin/codesoom_code_review_repository/tree/master/week_12)
 
 ### 📚 Project Settings
 
