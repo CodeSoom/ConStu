@@ -79,6 +79,12 @@ export const deletePostParticipant = async ({ id, participants }) => {
   });
 };
 
+export const deletePostGroup = async (id) => {
+  const groups = db.collection('groups').doc(id);
+
+  await groups.delete();
+};
+
 export const updateConfirmPostParticipant = async ({ id, participants }) => {
   const groups = db.collection('groups').doc(id);
 

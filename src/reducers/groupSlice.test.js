@@ -17,6 +17,7 @@ import reducer, {
   changeApplyFields,
   clearApplyFields,
   updateConfirmParticipant,
+  deleteGroup,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -366,6 +367,22 @@ describe('async actions', () => {
           ],
         }));
       });
+    });
+  });
+
+  describe('deleteGroup', () => {
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    it('dispatches setStudyGroup', async () => {
+      const groupId = '1';
+
+      await store.dispatch(deleteGroup(groupId));
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual();
     });
   });
 });

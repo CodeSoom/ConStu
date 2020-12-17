@@ -2,18 +2,22 @@ import React from 'react';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import IntroduceForm from './IntroduceForm';
 
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 describe('IntroduceForm', () => {
-  const renderIntroduceForm = ({ group, time }) => render((
+  const handleRemove = jest.fn();
+
+  const renderIntroduceForm = ({ group, time, user = 'user2' }) => render((
     <MemoryRouter>
       <IntroduceForm
+        user={user}
         group={group}
         realTime={time}
+        onRemove={handleRemove}
       />
     </MemoryRouter>
   ));
@@ -29,5 +33,31 @@ describe('IntroduceForm', () => {
     const { container } = renderIntroduceForm({ group: STUDY_GROUP });
 
     expect(container.innerHTML).toContain('<a ');
+  });
+
+  context('with moderator', () => {
+    it('renders delete button and revise button', () => {
+      const { container } = renderIntroduceForm({ group: STUDY_GROUP });
+
+      expect(container).toHaveTextContent('수정');
+      expect(container).toHaveTextContent('삭제');
+    });
+
+    it('click to delete button call event', () => {
+      const { getByText } = renderIntroduceForm({ group: STUDY_GROUP });
+
+      fireEvent.click(getByText('삭제'));
+
+      expect(handleRemove).toBeCalled();
+    });
+  });
+
+  context('without moderator', () => {
+    it("doesn't renders delete button and revise button", () => {
+      const { container } = renderIntroduceForm({ group: STUDY_GROUP, user: 'user' });
+
+      expect(container).not.toHaveTextContent('수정');
+      expect(container).not.toHaveTextContent('삭제');
+    });
   });
 });

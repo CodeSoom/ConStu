@@ -86,13 +86,14 @@ const IntroduceFooter = styled.div`
 `;
 
 const IntroduceForm = ({
-  group, realTime,
+  user, group, realTime, onRemove,
 }) => {
   const {
-    contents, tags, moderatorId, personnel, participants, applyEndDate, createDate,
+    contents, tags, moderatorId, personnel, participants, applyEndDate, createDate, id,
   } = group;
 
   const applyEndTime = changeDateToTime(applyEndDate);
+  const isCheckOwnGroupPost = (user && user) === moderatorId;
 
   return (
     <>
@@ -125,7 +126,11 @@ const IntroduceForm = ({
       <IntroduceContent dangerouslySetInnerHTML={{ __html: contents }} />
       <IntroduceFooter>
         <Tags tags={tags} />
-        <IntroduceActionButtons />
+        {isCheckOwnGroupPost && (
+          <IntroduceActionButtons
+            onRemove={() => onRemove(id)}
+          />
+        )}
       </IntroduceFooter>
     </>
   );
