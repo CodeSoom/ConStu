@@ -9,6 +9,7 @@ import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
+import IntroduceActionButtons from './IntroduceActionButtons';
 
 const IntroduceReferenceWrapper = styled.div`
   font-size: 1.1rem;
@@ -79,6 +80,11 @@ const IntroduceContent = styled.div`
   padding: 1.5rem;
 `;
 
+const IntroduceFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const IntroduceForm = ({
   group, realTime,
 }) => {
@@ -117,7 +123,10 @@ const IntroduceForm = ({
         소개
       </IntroduceContentTitle>
       <IntroduceContent dangerouslySetInnerHTML={{ __html: contents }} />
-      <Tags tags={tags} />
+      <IntroduceFooter>
+        <Tags tags={tags} />
+        <IntroduceActionButtons />
+      </IntroduceFooter>
     </>
   );
 };
