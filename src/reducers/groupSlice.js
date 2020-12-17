@@ -9,6 +9,7 @@ import {
   updatePostParticipant,
   deletePostParticipant,
   updateConfirmPostParticipant,
+  deletePostGroup,
 } from '../services/api';
 
 const writeInitialState = {
@@ -202,6 +203,10 @@ export const updateConfirmParticipant = (userEmail) => async (dispatch, getState
     ...group,
     participants: newParticipants,
   }));
+};
+
+export const deleteGroup = (groupId) => async () => {
+  await deletePostGroup(groupId);
 };
 
 export default reducer;

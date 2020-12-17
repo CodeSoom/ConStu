@@ -37,10 +37,15 @@ const ActionButton = styled.button`
   `};
 `;
 
-const IntroduceActionButtons = () => (
+const IntroduceActionButtons = ({ onRemove }) => (
   <IntroduceActionButtonsWrapper>
     <ActionButton revise>수정</ActionButton>
-    <ActionButton remove>삭제</ActionButton>
+    <ActionButton
+      remove
+      onClick={onRemove}
+    >
+      삭제
+    </ActionButton>
   </IntroduceActionButtonsWrapper>
 );
 

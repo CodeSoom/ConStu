@@ -15,3 +15,5 @@ export const updatePostParticipant = jest.fn();
 export const deletePostParticipant = jest.fn();
 
 export const updateConfirmPostParticipant = jest.fn();
+
+export const deletePostGroup = jest.fn();
