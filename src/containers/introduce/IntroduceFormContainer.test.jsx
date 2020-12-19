@@ -73,6 +73,8 @@ describe('IntroduceFormContainer', () => {
 
       fireEvent.click(button);
 
+      fireEvent.click(getByText('확인'));
+
       expect(dispatch).toBeCalled();
 
       expect(mockPush).toBeCalledWith('/');

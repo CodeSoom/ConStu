@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import palette from '../../styles/palette';
+
+import AskArticleDeleteModal from './modals/AskArticleDeleteModal';
 
 const IntroduceActionButtonsWrapper = styled.div`
   display: flex;
@@ -37,16 +39,40 @@ const ActionButton = styled.button`
   `};
 `;
 
-const IntroduceActionButtons = ({ onRemove }) => (
-  <IntroduceActionButtonsWrapper>
-    <ActionButton revise>수정</ActionButton>
-    <ActionButton
-      remove
-      onClick={onRemove}
-    >
-      삭제
-    </ActionButton>
-  </IntroduceActionButtonsWrapper>
-);
+const IntroduceActionButtons = ({ onRemove }) => {
+  const [modal, setModal] = useState(false);
+
+  const handleConfirm = () => {
+    setModal(false);
+    onRemove();
+  };
+
+  const handleCancel = () => {
+    setModal(false);
+  };
+
+  const handleRemove = () => {
+    setModal(true);
+  };
+
+  return (
+    <>
+      <IntroduceActionButtonsWrapper>
+        <ActionButton revise>수정</ActionButton>
+        <ActionButton
+          remove
+          onClick={handleRemove}
+        >
+          삭제
+        </ActionButton>
+      </IntroduceActionButtonsWrapper>
+      <AskArticleDeleteModal
+        visible={modal}
+        onCancel={handleCancel}
+        onConfirm={handleConfirm}
+      />
+    </>
+  );
+};
 
 export default IntroduceActionButtons;
