@@ -54,7 +54,9 @@ const isCheckApplyEndDate = (applyDate) => Date.now() - applyDate >= 0;
 const removeHtml = (body) => sanitize(body, { allowedTags: [] }).trim();
 const isCheckPersonnel = (personnel) => !Number.isInteger(personnel) || personnel < 1;
 
-const WriteButtons = ({ fields, onSubmit, onCancel }) => {
+const WriteButtons = ({
+  fields, onSubmit, onCancel, isEdit,
+}) => {
   const [error, setError] = useState(null);
 
   const {
@@ -109,7 +111,7 @@ const WriteButtons = ({ fields, onSubmit, onCancel }) => {
             type="button"
             onClick={handleSubmit}
           >
-            등록하기
+            {isEdit ? '수정하기' : '등록하기'}
           </SubmitButton>
           <CancelButton
             warn

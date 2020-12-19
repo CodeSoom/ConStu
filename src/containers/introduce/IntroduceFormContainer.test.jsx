@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fireEvent, render } from '@testing-library/react';
-
-import { MemoryRouter } from 'react-router-dom';
 
 import IntroduceFormContainer from './IntroduceFormContainer';
 
@@ -43,20 +42,22 @@ describe('IntroduceFormContainer', () => {
     </MemoryRouter>
   ));
 
+  const group = {
+    id: 1,
+    moderatorId: 'user1',
+    title: '스터디를 소개합니다. 1',
+    personnel: 7,
+    participants: [],
+    contents: '우리는 이것저것 합니다.1',
+    tags: [
+      'JavaScript',
+      'React',
+      'Algorithm',
+    ],
+  };
+
   context('with group', () => {
-    given('group', () => ({
-      id: 1,
-      moderatorId: 'user1',
-      title: '스터디를 소개합니다. 1',
-      personnel: 7,
-      participants: [],
-      contents: '우리는 이것저것 합니다.1',
-      tags: [
-        'JavaScript',
-        'React',
-        'Algorithm',
-      ],
-    }));
+    given('group', () => (group));
 
     it('renders study group title and contents', () => {
       const { container } = renderIntroduceContainer(1);
@@ -78,6 +79,23 @@ describe('IntroduceFormContainer', () => {
       expect(dispatch).toBeCalled();
 
       expect(mockPush).toBeCalledWith('/');
+    });
+
+    it('click edit button call dispatch action', () => {
+      const { getByText } = renderIntroduceContainer(1);
+
+      const button = getByText('수정');
+
+      expect(button).not.toBeNull();
+
+      fireEvent.click(button);
+
+      expect(dispatch).toBeCalledWith({
+        type: 'group/setOriginalArticle',
+        payload: group,
+      });
+
+      expect(mockPush).toBeCalledWith('/write');
     });
   });
 

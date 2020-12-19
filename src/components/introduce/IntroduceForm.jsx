@@ -86,7 +86,7 @@ const IntroduceFooter = styled.div`
 `;
 
 const IntroduceForm = ({
-  user, group, realTime, onRemove,
+  user, group, realTime, onRemove, onEdit,
 }) => {
   const {
     contents, tags, moderatorId, personnel, participants, applyEndDate, createDate, id,
@@ -128,6 +128,7 @@ const IntroduceForm = ({
         <Tags tags={tags} />
         {isCheckOwnGroupPost && (
           <IntroduceActionButtons
+            onEdit={onEdit}
             onRemove={() => onRemove(id)}
           />
         )}

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAuth, getGroup } from '../../util/utils';
 
 import IntroduceForm from '../../components/introduce/IntroduceForm';
-import { deleteGroup } from '../../reducers/groupSlice';
+import { deleteGroup, setOriginalArticle } from '../../reducers/groupSlice';
 
 const IntroduceFormContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
@@ -28,6 +28,12 @@ const IntroduceFormContainer = () => {
     history.push('/');
   };
 
+  const onEdit = () => {
+    dispatch(setOriginalArticle(group));
+
+    history.push('/write');
+  };
+
   if (!group) {
     return null;
   }
@@ -37,6 +43,7 @@ const IntroduceFormContainer = () => {
       user={user}
       group={group}
       realTime={realTime}
+      onEdit={onEdit}
       onRemove={onRemove}
     />
   );

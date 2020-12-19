@@ -17,7 +17,7 @@ describe('WriteEditorContainer', () => {
     useSelector.mockImplementation((state) => state({
       groupReducer: {
         writeField: {
-          contents: '',
+          contents: given.contents,
         },
       },
     }));
@@ -27,25 +27,41 @@ describe('WriteEditorContainer', () => {
     <WriteEditorContainer />
   ));
 
-  describe('render Write Editor Container contents text', () => {
-    it('renders editor placeholder text', () => {
-      const { container } = renderWriteEditorContainer();
+  context('with contents', () => {
+    given('contents', () => ('<p>test</p>'));
 
-      expect(container).toHaveTextContent(('내용을 작성해주세요.'));
+    describe('render Write Editor Container contents text', () => {
+      it('renders initial contents', () => {
+        const { container } = renderWriteEditorContainer();
+
+        expect(container).toHaveTextContent(('test'));
+      });
+    });
+
+    describe('dispatch actions call', () => {
+      it('listens actions changeWriteField event', () => {
+        const { getByLabelText, container } = renderWriteEditorContainer();
+
+        const contents = getByLabelText('contents').querySelector('div');
+
+        fireEvent.keyPress(contents, {
+          target: { innerHTML: '안녕하세요!' },
+        });
+
+        expect(container).toHaveTextContent('안녕하세요!');
+      });
     });
   });
 
-  describe('dispatch actions call', () => {
-    it('listens actions changeWriteField event', () => {
-      const { getByLabelText, container } = renderWriteEditorContainer();
+  context('without contents', () => {
+    given('contents', () => (''));
 
-      const contents = getByLabelText('contents').querySelector('div');
+    describe('render Write Editor Container contents text', () => {
+      it('renders editor placeholder text', () => {
+        const { container } = renderWriteEditorContainer();
 
-      fireEvent.keyPress(contents, {
-        target: { innerHTML: '안녕하세요!' },
+        expect(container).toHaveTextContent(('내용을 작성해주세요.'));
       });
-
-      expect(container).toHaveTextContent('안녕하세요!');
     });
   });
 });
