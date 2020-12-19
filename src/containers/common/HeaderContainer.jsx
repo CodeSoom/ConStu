@@ -24,4 +24,4 @@ const HeaderContainer = () => {
   );
 };
 
-export default HeaderContainer;
+export default React.memo(HeaderContainer);

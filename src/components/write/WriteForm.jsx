@@ -75,9 +75,7 @@ const WriteDivBlock = styled.div`
 `;
 
 const WriteForm = ({ onChange, fields }) => {
-  const {
-    title, applyEndDate, personnel,
-  } = fields;
+  const { title, applyEndDate, personnel } = fields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
