@@ -48,6 +48,8 @@ describe('IntroduceForm', () => {
 
       fireEvent.click(getByText('삭제'));
 
+      fireEvent.click(getByText('확인'));
+
       expect(handleRemove).toBeCalled();
     });
   });
