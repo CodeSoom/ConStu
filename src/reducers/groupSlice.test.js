@@ -18,6 +18,7 @@ import reducer, {
   clearApplyFields,
   updateConfirmParticipant,
   deleteGroup,
+  setOriginalArticle,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -35,6 +36,7 @@ describe('reducer', () => {
       groups: [],
       group: null,
       groupId: null,
+      originalArticleId: null,
       writeField: {
         title: '',
         contents: '',
@@ -170,6 +172,37 @@ describe('reducer', () => {
 
       expect(reason).toBe('');
       expect(wantToGet).toBe('');
+    });
+  });
+
+  describe('setOriginalArticle', () => {
+    const initialState = {
+      originalArticleId: null,
+      writeField: {
+        title: '',
+        contents: '',
+        applyEndDate: '',
+        tags: '',
+        personnel: '',
+      },
+    };
+
+    const fields = {
+      title: 'title',
+      contents: 'contents',
+      applyEndDate: '2020-12-19',
+      tags: ['1', '2'],
+      personnel: '3',
+      id: '1',
+    };
+
+    it('writeFields to set original article', () => {
+      const state = reducer(initialState, setOriginalArticle(fields));
+
+      const { originalArticleId, writeField } = state;
+
+      expect(originalArticleId).toBe('1');
+      expect(writeField.title).toBe('title');
     });
   });
 });

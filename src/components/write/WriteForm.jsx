@@ -2,6 +2,8 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import moment from 'moment';
+
 import palette from '../../styles/palette';
 
 const WriteFormWrapper = styled.div`
@@ -74,6 +76,10 @@ const WriteDivBlock = styled.div`
   margin-top: 1rem;
 `;
 
+const toStringEndDateFormat = (endDate) => moment(new Date(endDate))
+  .format('YYYY-MM-DDTHH:mm:ss')
+  .toString();
+
 const WriteForm = ({ onChange, fields }) => {
   const { title, applyEndDate, personnel } = fields;
 
@@ -98,7 +104,7 @@ const WriteForm = ({ onChange, fields }) => {
         <DateInputWrapper
           type="datetime-local"
           name="applyEndDate"
-          value={applyEndDate}
+          value={toStringEndDateFormat(applyEndDate)}
           onChange={handleChange}
           id="application-deadline"
         />

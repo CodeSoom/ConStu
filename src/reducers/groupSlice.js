@@ -33,6 +33,7 @@ const { actions, reducer } = createSlice({
     groups: [],
     group: null,
     groupId: null,
+    originalArticleId: null,
     writeField: writeInitialState,
     applyFields: applyInitialState,
   },
@@ -85,6 +86,24 @@ const { actions, reducer } = createSlice({
         applyFields: applyInitialState,
       };
     },
+
+    setOriginalArticle(state, { payload: fields }) {
+      const {
+        title, contents, applyEndDate, tags, personnel, id,
+      } = fields;
+
+      return {
+        ...state,
+        originalArticleId: id,
+        writeField: {
+          title,
+          contents,
+          applyEndDate,
+          tags,
+          personnel,
+        },
+      };
+    },
   },
 });
 
@@ -96,6 +115,7 @@ export const {
   successWrite,
   changeApplyFields,
   clearApplyFields,
+  setOriginalArticle,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
