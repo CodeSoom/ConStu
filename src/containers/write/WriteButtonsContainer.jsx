@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
-import { writeStudyGroup } from '../../reducers/groupSlice';
+import { editStudyGroup, writeStudyGroup } from '../../reducers/groupSlice';
 
 import WriteButtons from '../../components/write/WriteButtons';
 
@@ -24,6 +24,11 @@ const WriteButtonsContainer = () => {
   }, [user, history]);
 
   const onSubmit = () => {
+    if (originalArticleId) {
+      dispatch(editStudyGroup(originalArticleId));
+      return;
+    }
+
     dispatch(writeStudyGroup());
   };
 
