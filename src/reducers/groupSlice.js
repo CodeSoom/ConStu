@@ -10,6 +10,7 @@ import {
   deletePostParticipant,
   updateConfirmPostParticipant,
   deletePostGroup,
+  editPostStudyGroup,
 } from '../services/api';
 
 const writeInitialState = {
@@ -151,6 +152,18 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
   );
 
   dispatch(successWrite(groupId));
+  dispatch(clearWriteFields());
+};
+
+export const editStudyGroup = (id) => async (dispatch, getState) => {
+  const { groupReducer } = getState();
+
+  await editPostStudyGroup({
+    ...groupReducer.writeField,
+    id,
+  });
+
+  dispatch(successWrite(id));
   dispatch(clearWriteFields());
 };
 

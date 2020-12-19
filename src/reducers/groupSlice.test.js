@@ -19,6 +19,7 @@ import reducer, {
   updateConfirmParticipant,
   deleteGroup,
   setOriginalArticle,
+  editStudyGroup,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -269,8 +270,33 @@ describe('async actions', () => {
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual(successWrite(undefined));
-      expect(actions[1]).toEqual(clearWriteFields(undefined));
+      expect(actions[0]).toEqual(successWrite());
+      expect(actions[1]).toEqual(clearWriteFields());
+    });
+  });
+
+  describe('editStudyGroup', () => {
+    beforeEach(() => {
+      store = mockStore({
+        groupReducer: {
+          writeField: WRITE_FORM,
+          originalArticleId: '1',
+        },
+      });
+    });
+
+    it('dispatches clearWriteFields and successWrite', async () => {
+      await store.dispatch(editStudyGroup('1'));
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+        payload: '1',
+        type: 'group/successWrite',
+      });
+      expect(actions[1]).toEqual({
+        type: 'group/clearWriteFields',
+      });
     });
   });
 

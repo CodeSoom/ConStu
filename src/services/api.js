@@ -63,6 +63,22 @@ export const postStudyGroup = async (group) => {
   return id;
 };
 
+export const editPostStudyGroup = async ({
+  title, applyEndDate, contents, tags, personnel, id,
+}) => {
+  const groups = db.collection('groups').doc(id);
+
+  const timeStamp = fireStore.Timestamp.fromDate(new Date(applyEndDate));
+
+  await groups.update({
+    title,
+    contents,
+    applyEndDate: timeStamp,
+    personnel,
+    tags,
+  });
+};
+
 export const updatePostParticipant = async ({ id, user }) => {
   const groups = db.collection('groups').doc(id);
 
