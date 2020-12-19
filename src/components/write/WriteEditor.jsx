@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from '@emotion/styled';
 
-import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw } from 'draft-js';
 
 import palette from '../../styles/palette';
 
@@ -32,41 +30,29 @@ const SpaceBlock = styled.div`
   background: ${palette.gray[3]};
 `;
 
-const WriteEditor = ({ onChange }) => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-  const handleChangeEditor = (state) => {
-    setEditorState(state);
-    onChange({
-      name: 'contents',
-      value: draftToHtml(convertToRaw(state.getCurrentContent())),
-    });
-  };
-
-  return (
-    <>
-      <WriteEditorWrapper>
-        <Editor
-          editorState={editorState}
-          onEditorStateChange={handleChangeEditor}
-          ariaLabel="contents"
-          placeholder="내용을 작성해주세요."
-          toolbarClassName="toolbar"
-          editorClassName="editor"
-          localization={{
-            locale: 'ko',
-          }}
-          toolbar={{
-            list: { inDropdown: true },
-            textAlign: { inDropdown: true },
-            link: { inDropdown: true },
-            history: { inDropdown: true },
-          }}
-        />
-      </WriteEditorWrapper>
-      <SpaceBlock />
-    </>
-  );
-};
+const WriteEditor = ({ editorState, onChange }) => (
+  <>
+    <WriteEditorWrapper>
+      <Editor
+        editorState={editorState}
+        onEditorStateChange={onChange}
+        ariaLabel="contents"
+        placeholder="내용을 작성해주세요."
+        toolbarClassName="toolbar"
+        editorClassName="editor"
+        localization={{
+          locale: 'ko',
+        }}
+        toolbar={{
+          list: { inDropdown: true },
+          textAlign: { inDropdown: true },
+          link: { inDropdown: true },
+          history: { inDropdown: true },
+        }}
+      />
+    </WriteEditorWrapper>
+    <SpaceBlock />
+  </>
+);
 
 export default WriteEditor;

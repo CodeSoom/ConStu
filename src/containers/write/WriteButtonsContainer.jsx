@@ -12,9 +12,10 @@ const WriteButtonsContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const writeField = useSelector(getGroup('writeField'));
-  const groupId = useSelector(getGroup('groupId'));
   const user = useSelector(getAuth('user'));
+  const groupId = useSelector(getGroup('groupId'));
+  const writeField = useSelector(getGroup('writeField'));
+  const originalArticleId = useSelector(getGroup('originalArticleId'));
 
   useEffect(() => {
     if (!user) {
@@ -41,6 +42,7 @@ const WriteButtonsContainer = () => {
       fields={writeField}
       onSubmit={onSubmit}
       onCancel={onCancel}
+      isEdit={!!originalArticleId}
     />
   );
 };

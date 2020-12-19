@@ -39,7 +39,7 @@ const ActionButton = styled.button`
   `};
 `;
 
-const IntroduceActionButtons = ({ onRemove }) => {
+const IntroduceActionButtons = ({ onRemove, onEdit }) => {
   const [modal, setModal] = useState(false);
 
   const handleConfirm = () => {
@@ -58,7 +58,12 @@ const IntroduceActionButtons = ({ onRemove }) => {
   return (
     <>
       <IntroduceActionButtonsWrapper>
-        <ActionButton revise>수정</ActionButton>
+        <ActionButton
+          revise
+          onClick={onEdit}
+        >
+          수정
+        </ActionButton>
         <ActionButton
           remove
           onClick={handleRemove}
