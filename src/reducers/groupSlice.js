@@ -205,8 +205,10 @@ export const updateConfirmParticipant = (userEmail) => async (dispatch, getState
   }));
 };
 
-export const deleteGroup = (groupId) => async () => {
+export const deleteGroup = (groupId) => async (dispatch) => {
   await deletePostGroup(groupId);
+
+  dispatch(loadStudyGroups());
 };
 
 export default reducer;
