@@ -31,6 +31,7 @@ describe('WriteButtonsContainer', () => {
       groupReducer: {
         writeField: given.writeField,
         groupId: given.groupId,
+        originalArticleId: given.originalArticleId,
       },
       authReducer: {
         user: given.user,
@@ -44,83 +45,131 @@ describe('WriteButtonsContainer', () => {
     </MemoryRouter>
   ));
 
-  it('render Write buttons', () => {
-    given('writeField', () => (WRITE_FORM));
+  context('with originalArticleId', () => {
+    given('originalArticleId', () => ('1'));
 
-    const { container } = renderWriteButtonsContainer();
+    it('renders edit button', () => {
+      given('writeField', () => (WRITE_FORM));
 
-    expect(container).toHaveTextContent('등록하기');
-    expect(container).toHaveTextContent('취소');
-  });
+      const { container } = renderWriteButtonsContainer();
 
-  describe('when click cancel button', () => {
-    given('groupId', () => (null));
-    given('writeField', () => (WRITE_FORM));
-
-    it('Go to the main page', () => {
-      const { getByText } = renderWriteButtonsContainer();
-
-      fireEvent.click(getByText('취소'));
-
-      expect(mockPush).toBeCalledWith('/');
+      expect(container).toHaveTextContent('수정하기');
+      expect(container).toHaveTextContent('취소');
     });
-  });
 
-  describe('when click submit button', () => {
-    context('with user', () => {
+    describe('when click submit button and then without input value null, so validation check success', () => {
       given('user', () => ('user'));
+      given('writeField', () => (WRITE_FORM));
 
-      context('without input value null, so validation check success', () => {
-        given('writeField', () => (WRITE_FORM));
+      context('with group', () => {
+        given('groupId', () => ('1'));
 
-        context('with group', () => {
-          given('groupId', () => ('1'));
+        it('dispatch action editStudyGroup event', () => {
+          const { getByText } = renderWriteButtonsContainer();
 
-          it('dispatch action writeStudyGroup event', () => {
-            const { getByText } = renderWriteButtonsContainer();
+          fireEvent.click(getByText('수정하기'));
 
-            fireEvent.click(getByText('등록하기'));
+          expect(dispatch).toBeCalledTimes(1);
 
-            expect(dispatch).toBeCalledTimes(1);
-
-            expect(mockPush).toBeCalledWith('/introduce/1');
-          });
+          expect(mockPush).toBeCalledWith('/introduce/1');
         });
+      });
 
-        context('without group', () => {
-          given('groupId', () => (null));
+      context('without group', () => {
+        given('groupId', () => (null));
 
-          it('dispatch action submit event', () => {
-            const { getByText } = renderWriteButtonsContainer();
+        it('dispatch action submit event', () => {
+          const { getByText } = renderWriteButtonsContainer();
 
-            fireEvent.click(getByText('등록하기'));
+          fireEvent.click(getByText('수정하기'));
 
-            expect(mockPush).not.toBeCalled();
-          });
+          expect(mockPush).not.toBeCalled();
         });
       });
     });
+  });
 
-    context('without user', () => {
-      given('user', () => (null));
+  context('without originalArticleId', () => {
+    given('originalArticleId', () => (null));
 
-      given('writeField', () => ({
-        title: '123',
-        contents: '우리는 이것저것 합니다.1',
-        moderatorId: 'user1',
-        applyEndDate: '2020-10-01',
-        participants: [],
-        personnel: '1',
-        tags: [
-          'javascript',
-          'react',
-        ],
-      }));
+    it('render Write buttons', () => {
+      given('writeField', () => (WRITE_FORM));
 
-      it('go to redirection main page', () => {
-        renderWriteButtonsContainer();
+      const { container } = renderWriteButtonsContainer();
+
+      expect(container).toHaveTextContent('등록하기');
+      expect(container).toHaveTextContent('취소');
+    });
+
+    describe('when click cancel button', () => {
+      given('groupId', () => (null));
+      given('writeField', () => (WRITE_FORM));
+
+      it('Go to the main page', () => {
+        const { getByText } = renderWriteButtonsContainer();
+
+        fireEvent.click(getByText('취소'));
 
         expect(mockPush).toBeCalledWith('/');
+      });
+    });
+
+    describe('when click submit button', () => {
+      context('with user', () => {
+        given('user', () => ('user'));
+
+        context('without input value null, so validation check success', () => {
+          given('writeField', () => (WRITE_FORM));
+
+          context('with group', () => {
+            given('groupId', () => ('1'));
+
+            it('dispatch action writeStudyGroup event', () => {
+              const { getByText } = renderWriteButtonsContainer();
+
+              fireEvent.click(getByText('등록하기'));
+
+              expect(dispatch).toBeCalledTimes(1);
+
+              expect(mockPush).toBeCalledWith('/introduce/1');
+            });
+          });
+
+          context('without group', () => {
+            given('groupId', () => (null));
+
+            it('dispatch action submit event', () => {
+              const { getByText } = renderWriteButtonsContainer();
+
+              fireEvent.click(getByText('등록하기'));
+
+              expect(mockPush).not.toBeCalled();
+            });
+          });
+        });
+      });
+
+      context('without user', () => {
+        given('user', () => (null));
+
+        given('writeField', () => ({
+          title: '123',
+          contents: '우리는 이것저것 합니다.1',
+          moderatorId: 'user1',
+          applyEndDate: '2020-10-01',
+          participants: [],
+          personnel: '1',
+          tags: [
+            'javascript',
+            'react',
+          ],
+        }));
+
+        it('go to redirection main page', () => {
+          renderWriteButtonsContainer();
+
+          expect(mockPush).toBeCalledWith('/');
+        });
       });
     });
   });
