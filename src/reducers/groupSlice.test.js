@@ -382,7 +382,12 @@ describe('async actions', () => {
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual();
+      expect(actions[0]).toEqual(
+        {
+          payload: [],
+          type: 'group/setStudyGroups',
+        },
+      );
     });
   });
 });
