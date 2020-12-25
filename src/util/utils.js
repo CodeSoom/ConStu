@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const getAuth = (key) => (obj) => obj.authReducer[key];
 
 export const getGroup = (key) => (obj) => obj.groupReducer[key];
@@ -24,6 +26,13 @@ const checkTrim = (value) => value.trim();
 export const isCheckValidate = (values) => values.map(checkTrim).includes('');
 
 export const changeDateToTime = (date) => new Date(date).getTime();
+
+const nowDate = new Date();
+export const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+
+export const toStringEndDateFormat = (endDate) => moment(new Date(endDate))
+  .format('YYYY-MM-DDTHH:mm:ss')
+  .toString();
 
 export const applyDateToString = (response) => response
   .data()
