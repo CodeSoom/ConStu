@@ -1,8 +1,10 @@
+import { tomorrow } from '../src/util/utils';
+
 const studyGroup = {
   id: 1,
   title: '스터디를 소개합니다.2',
   moderatorId: 'user2',
-  applyEndDate: '2020-12-23',
+  applyEndDate: tomorrow,
   participants: [],
   personnel: 2,
   contents: '우리는 이것저것 합니다.2',

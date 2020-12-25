@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import moment from 'moment';
+import { toStringEndDateFormat } from '../../util/utils';
 
 import palette from '../../styles/palette';
 
@@ -75,10 +75,6 @@ const WriteDivBlock = styled.div`
   flex-direction: column;
   margin-top: 1rem;
 `;
-
-const toStringEndDateFormat = (endDate) => moment(new Date(endDate))
-  .format('YYYY-MM-DDTHH:mm:ss')
-  .toString();
 
 const WriteForm = ({ onChange, fields }) => {
   const { title, applyEndDate, personnel } = fields;
