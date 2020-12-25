@@ -2,6 +2,8 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import { tomorrow, toStringEndDateFormat } from '../../util/utils';
+
 import WriteForm from './WriteForm';
 
 import WRITE_FORM from '../../../fixtures/write-form';
@@ -26,7 +28,7 @@ describe('WriteForm', () => {
     const { title, personnel } = WRITE_FORM;
 
     expect(getByPlaceholderText('제목을 입력하세요')).toHaveValue(title);
-    expect(getByLabelText('모집 마감 날짜')).toHaveValue('2020-12-24T11:00');
+    expect(getByLabelText('모집 마감 날짜')).toHaveValue(`${toStringEndDateFormat(tomorrow)}.000`);
     expect(getByLabelText('참여 인원 수')).toHaveValue(parseInt(personnel, 10));
   });
 
