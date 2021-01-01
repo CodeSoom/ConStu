@@ -5,6 +5,9 @@ import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import StudyGroup from './StudyGroup';
+import { tomorrow } from '../../util/utils';
+
+const isCheckOverTen = (calendar) => calendar < 10 && '0';
 
 describe('StudyGroup', () => {
   const renderStudyGroup = ({ group }) => render((
@@ -16,10 +19,11 @@ describe('StudyGroup', () => {
   ));
 
   describe('renders study group text contents', () => {
-    const nowDate = new Date();
-    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
     const tomorrowDate = new Date(tomorrow);
-    const dateFormat = `${tomorrowDate.getFullYear()}년 ${tomorrowDate.getMonth() + 1}월 ${tomorrowDate.getDate() < 10 ? '0' : ''}${tomorrowDate.getDate()}일`;
+    const month = tomorrowDate.getMonth();
+    const date = tomorrowDate.getDate();
+
+    const dateFormat = `${tomorrowDate.getFullYear()}년 ${isCheckOverTen(month)}${month + 1}월 ${isCheckOverTen(date)}${date}일`;
 
     const group = {
       id: 1,

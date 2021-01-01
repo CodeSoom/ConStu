@@ -29,14 +29,17 @@ https://sweet-1cfff.web.app/
 
 #### 🎯 코드숨 후기 및 전체 회고
 
-<a href="https://haranglog.tistory.com/23">
-  <img src="https://img.shields.io/badge/Tistory: 코드숨 2기 그 3달간의 여정!-f76707?style=flat-square&logo=Blogger&logoColor=white"/>
-</a>
-</br>
 <a href="https://velog.io/@saseungmin/%EC%BD%94%EB%93%9C%EC%88%A8-2%EA%B8%B0-%EA%B7%B8-3%EB%8B%AC%EA%B0%84%EC%9D%98-%EC%97%AC%EC%A0%95">
   <img src="https://img.shields.io/badge/Velog: 코드숨 2기 그 3달간의 여정!-20c997?style=flat-square&logo=Vimeo&logoColor=white"/>
 </a>
 
+</br>
+
+<a href="https://haranglog.tistory.com/23">
+  <img src="https://img.shields.io/badge/Tistory: 코드숨 2기 그 3달간의 여정!-f76707?style=flat-square&logo=Blogger&logoColor=white"/>
+</a>
+
+- [전체 회고](https://github.com/saseungmin/codesoom_code_review_retrospective)
 
 ### 📚 Project Settings
 
