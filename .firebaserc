@@ -1,6 +1,5 @@
 {
   "projects": {
-    "default": "sweet-1cfff",
-    "staging": "sweet-1cfff"
+    "default": "sweet-1cfff"
   }
 }
