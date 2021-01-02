@@ -1,5 +1,14 @@
-# 🌈 ConStu
-- Connect to Study (스터디를 잇다)
+
+# 🌈 ConStu (Connect to Study, 스터디를 잇다)
+
+<a href="https://github.com/CodeSoom/project-react-2-saseungmin/actions?query=workflow%3ACI">
+  <img src="https://img.shields.io/github/workflow/status/CodeSoom/project-react-2-saseungmin/CI?label=CI&logo=GitHub&style=flat-square" />
+</a>
+
+<a href="https://github.com/CodeSoom/project-react-2-saseungmin/actions?query=workflow%3ACD">
+  <img src="https://img.shields.io/github/workflow/status/CodeSoom/project-react-2-saseungmin/CD?label=build&logo=GitHub&style=flat-square" />
+</a>
+
 ### 🚀 Hosting URL
 https://sweet-1cfff.web.app/
 
@@ -89,17 +98,7 @@ https://sweet-1cfff.web.app/
 - [Docs](https://firebase.google.com/docs/cli?hl=ko)
 
 #### 📢 .env file
-
-```
-FIREBASE_API_KEY= "your api-key"
-FIREBASE_AUTH_DOMAIN = "your auth-domain"
-FIREBASE_DATA_BASEURL = "your data-baseurl"
-FIREBASE_PROJECT_ID = "your project-id"
-FIREBASE_STORAGE_BUCKET = "your storage-bucket"
-FIREBASE_MESSAGING_SENDER_ID = "your messaging-sender-id"
-FIREBASE_APP_ID = "your app-id"
-FIREBASE_MEASUREMENT_ID = "your measurement-id"
-```
+- 삭제 ([Firebase API 키 관리에 대한 참고 사항](https://github.com/CodeSoom/project-react-2-saseungmin/issues/133))
 
 #### 📢 Initial firebase setup
 
