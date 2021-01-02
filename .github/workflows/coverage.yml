@@ -22,7 +22,7 @@ jobs:
     - name: Install
       run: npm install
     - name: Test
-      run: npx jest --coverage
+      run: npm run coverage -s
       env:
         HEADLESS: true
     - uses: actions/upload-artifact@v1
