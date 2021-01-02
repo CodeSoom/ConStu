@@ -9,6 +9,10 @@
   <img src="https://img.shields.io/github/workflow/status/CodeSoom/project-react-2-saseungmin/CD?label=build&logo=GitHub&style=flat-square" />
 </a>
 
+<a href="https://github.com/CodeSoom/project-react-2-saseungmin/issues">
+  <img src="https://img.shields.io/github/issues/CodeSoom/project-react-2-saseungmin?style=flat-square" />
+</a>
+
 ### 🚀 Hosting URL
 https://sweet-1cfff.web.app/
 
