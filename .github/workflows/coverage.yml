@@ -26,9 +26,9 @@ jobs:
       env:
         HEADLESS: true
     - uses: actions/upload-artifact@v1
-        with:
-          name: coverage
-          path: ./coverage
+      with:
+        name: coverage
+        path: ./coverage
   codecov:
     name: Upload coverage to Codecov
     needs: test
