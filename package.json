@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress",
-    "test:unit": "jest --setupFiles dotenv/config",
+    "test:unit": "jest",
     "coverage": "npm run test:unit -- --coverage",
-    "test": "npm run test:unit -- --watch-all --setupFiles dotenv/config",
+    "test": "npm run test:unit -- --watch-all",
     "lint": "eslint --ext js,jsx .",
     "build": "cross-env NODE_ENV=production webpack --progress"
   },
