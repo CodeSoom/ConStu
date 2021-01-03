@@ -63,8 +63,9 @@ const { actions, reducer } = createSlice({
     clearWriteFields(state) {
       return {
         ...state,
-        writeField: writeInitialState,
         groupId: null,
+        originalArticleId: null,
+        writeField: writeInitialState,
       };
     },
 
