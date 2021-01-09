@@ -101,8 +101,10 @@ https://sweet-1cfff.web.app/
 - [Firebase](https://firebase.google.com/)
 - [Docs](https://firebase.google.com/docs/cli?hl=ko)
 
-#### 📢 .env file
-- 삭제 ([Firebase API 키 관리에 대한 참고 사항](https://github.com/CodeSoom/project-react-2-saseungmin/issues/133))
+#### 📢 firebase API키 관리
+- Firebase API 키 관리 전략 변경(2021. 01. 08)
+- [Firebase API 키 관리에 대한 참고 사항](https://github.com/CodeSoom/project-react-2-saseungmin/issues/133)
+- [Firebase API 키에 대해서 작성한 블로그 글](https://haranglog.tistory.com/25)
 
 #### 📢 Initial firebase setup
 
@@ -139,4 +141,4 @@ https://sweet-1cfff.web.app/
 - react-content-loader
 ### 🦄 전제적인 기능
 
-![전체 개인프로젝트 상태](img/전체%20개인프로젝트%20상태.jpg)
+![전체 개인프로젝트 상태](./assets/img/전체%20개인프로젝트%20상태.jpg)
