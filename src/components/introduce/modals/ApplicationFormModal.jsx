@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
+import Textarea from '../../../styles/Textarea';
 
 const ApplicationFormModalWrapper = styled.div`
   position: fixed;
@@ -81,34 +82,6 @@ const ContentBoxWrapper = styled.div`
   }
 `;
 
-const ContentTextareaWrapper = styled.textarea`
-  font-weight: bold;
-  resize: none;
-  outline: none;
-  display: block;
-  margin-bottom: 0.7rem;
-  padding: 5px;
-  border: 2px solid #D7E2EB;
-  border-radius: 3px;
-  color: rgb(33, 37, 41);
-  transition-property: all;
-  transition-delay: initial;
-  transition-duration: 0.08s;
-  transition-timing-function: ease-in-out;
-
-  &:focus {
-    border: 2px solid ${palette.teal[5]};
-  }
-
-  ${({ error }) => error && css`
-    border: 2px solid ${palette.warn[1]};
-
-    &::placeholder {
-      color: ${palette.warn[1]};
-    }
-  `};
-`;
-
 const StyledButton = styled(Button)`
   &:last-of-type {
     margin-left: .7rem;
@@ -159,7 +132,7 @@ const ApplicationFormModal = ({
         <h2>스터디 참여 신청서 📚</h2>
         <ContentBoxWrapper>
           <label htmlFor="apply-reason">신청하게 된 이유</label>
-          <ContentTextareaWrapper
+          <Textarea
             error={error && error === 'reason'}
             rows="10"
             id="apply-reason"
@@ -171,7 +144,7 @@ const ApplicationFormModal = ({
         </ContentBoxWrapper>
         <ContentBoxWrapper>
           <label htmlFor="study-want">스터디를 통해 얻고 싶은 것은 무엇인가요?</label>
-          <ContentTextareaWrapper
+          <Textarea
             error={error && error === 'wantToGet'}
             rows="10"
             id="study-want"
