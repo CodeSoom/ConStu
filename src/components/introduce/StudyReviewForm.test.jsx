@@ -9,10 +9,11 @@ describe('StudyReviewForm', () => {
     <StudyReviewForm />
   ));
 
-  it('renders study group title and contents', () => {
-    const { container } = renderStudyReviewForm();
+  it('renders study review form text', () => {
+    const { container, getByPlaceholderText } = renderStudyReviewForm();
 
     expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
     expect(container).toHaveTextContent('후기 등록하기');
+    expect(getByPlaceholderText('후기를 입력해주세요!')).not.toBeNull();
   });
 });
