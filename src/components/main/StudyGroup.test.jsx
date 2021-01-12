@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import StudyGroup from './StudyGroup';
 import { tomorrow } from '../../util/utils';
 
-const isCheckOverTen = (calendar) => calendar < 10 && '0';
+const isCheckOverTen = (calendar) => (calendar < 10 ? '0' : '');
 
 describe('StudyGroup', () => {
   const renderStudyGroup = ({ group }) => render((
