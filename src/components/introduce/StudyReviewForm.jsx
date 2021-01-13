@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 
 import StarRatings from 'react-star-ratings';
 
+import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
+
 import palette from '../../styles/palette';
 import Textarea from '../../styles/Textarea';
 import Button from '../../styles/Button';
@@ -39,7 +41,24 @@ const StudyReviewFormButton = styled(Button)`
   margin: 1px 0 0.8rem 0.5rem;
 `;
 
-const StudyReviewForm = () => {
+const isValidateUserInfo = (user) => (moderator) => !user || (moderator === user);
+
+const StudyReviewForm = ({ group, user, time }) => {
+  const {
+    participants, personnel, applyEndDate, moderatorId,
+  } = group;
+
+  const applyEndTime = changeDateToTime(applyEndDate);
+
+  const valid = {
+    time, applyEndTime, participants, personnel,
+  };
+
+  // TODO: 수정하자.
+  if (isValidateUserInfo(user)(moderatorId) || !isCheckedTimeStatus(valid)) {
+    return null;
+  }
+
   const [rating, setRating] = useState(0);
 
   const changeRating = (newRating) => {
