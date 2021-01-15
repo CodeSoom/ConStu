@@ -29,6 +29,7 @@ export const changeDateToTime = (date) => new Date(date).getTime();
 
 const nowDate = new Date();
 export const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
+export const yesterday = nowDate.setDate(nowDate.getDate() - 1);
 
 export const toStringEndDateFormat = (endDate) => moment(new Date(endDate))
   .format('YYYY-MM-DDTHH:mm:ss')

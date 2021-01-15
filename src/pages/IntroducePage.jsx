@@ -10,6 +10,7 @@ import { loadStudyGroup } from '../reducers/groupSlice';
 
 import IntroduceFormContainer from '../containers/introduce/IntroduceFormContainer';
 import IntroduceHeaderContainer from '../containers/introduce/IntroduceHeaderContainer';
+import StudyReviewContainer from '../containers/introduce/StudyReviewContainer';
 
 const IntroducePageWrapper = styled(Responsive)`
   margin-top: 6em;
@@ -28,6 +29,7 @@ const IntroducePage = ({ params }) => {
     <IntroducePageWrapper>
       <IntroduceHeaderContainer />
       <IntroduceFormContainer />
+      <StudyReviewContainer />
     </IntroducePageWrapper>
   );
 };

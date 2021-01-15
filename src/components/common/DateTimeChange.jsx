@@ -4,7 +4,7 @@ import 'moment/locale/ko';
 import moment from 'moment';
 import Moment from 'react-moment';
 
-import { authorizedUsersNumber, isCheckedTimeStatus } from '../../util/utils';
+import { authorizedUsersNumber, changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import DateTimeStatus from '../../styles/DateTimeStatus';
 
@@ -13,7 +13,7 @@ moment.locale('ko');
 const DateTimeChange = ({ group, page, time }) => {
   const { participants, personnel, applyEndDate } = group;
 
-  const applyEndTime = new Date(applyEndDate).getTime();
+  const applyEndTime = changeDateToTime(applyEndDate);
 
   const valid = {
     time, applyEndTime, participants, personnel,
