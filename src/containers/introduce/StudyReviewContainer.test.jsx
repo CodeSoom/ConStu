@@ -28,14 +28,20 @@ describe('StudyReviewContainer', () => {
   context('with login and group', () => {
     given('group', () => ({
       ...STUDY_GROUP,
+      participants: [{
+        id: 'user1',
+        confirm: true,
+      }],
       applyEndDate: yesterday,
     }));
     given('user', () => ('user1'));
 
-    it('renders study review form', () => {
-      const { container } = renderStudyReviewContainer();
+    describe('When you are an approved applicant', () => {
+      it('renders study review form', () => {
+        const { container } = renderStudyReviewContainer();
 
-      expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
+        expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
+      });
     });
   });
 
