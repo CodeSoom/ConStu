@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import sanitize from 'sanitize-html';
 
-import palette from '../../styles/palette';
-import { ERROR_MESSAGE } from '../../util/messages';
-
 import Button from '../../styles/Button';
+import palette from '../../styles/palette';
+import { ERROR_MESSAGE, FIREBASE_GROUP_ERROR_MESSAGE } from '../../util/messages';
 
 const WriteButtonsWrapper = styled.div`
   margin-top: 3rem;
@@ -47,7 +46,13 @@ const SubmitButton = styled(Button)`
 `;
 
 const {
-  NO_TAG, FAST_APPLY_DEADLINE, NO_CONTENTS, NO_TITLE, NO_APPLY_DATE, ERROR_PERSONNEL,
+  NO_TAG,
+  FAST_APPLY_DEADLINE,
+  NO_CONTENTS, NO_TITLE,
+  NO_APPLY_DATE,
+  ERROR_PERSONNEL,
+  FAILURE_OPEN_STUDY,
+  FAILURE_EDIT_STUDY,
 } = ERROR_MESSAGE;
 
 const isCheckApplyEndDate = (applyDate) => Date.now() - applyDate >= 0;
@@ -55,7 +60,7 @@ const removeHtml = (body) => sanitize(body, { allowedTags: [] }).trim();
 const isCheckPersonnel = (personnel) => !Number.isInteger(personnel) || personnel < 1;
 
 const WriteButtons = ({
-  fields, onSubmit, onCancel, isEdit,
+  fields, onSubmit, onCancel, isEdit, groupError,
 }) => {
   const [error, setError] = useState(null);
 
@@ -98,6 +103,15 @@ const WriteButtons = ({
 
     onSubmit();
   };
+
+  useEffect(() => {
+    if (groupError) {
+      setError(
+        FIREBASE_GROUP_ERROR_MESSAGE[groupError]
+        || (isEdit ? FAILURE_EDIT_STUDY : FAILURE_OPEN_STUDY),
+      );
+    }
+  }, [groupError]);
 
   return (
     <>

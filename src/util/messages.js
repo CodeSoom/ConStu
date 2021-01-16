@@ -10,6 +10,8 @@ export const ERROR_MESSAGE = {
   NO_TITLE: '제목을 입력해주세요.',
   NO_APPLY_DATE: '모집 마감 일자를 입력해주세요.',
   ERROR_PERSONNEL: '참여 인원 수를 입력하지 않았거나, 잘못된 값을 입력하였습니다.',
+  FAILURE_OPEN_STUDY: '스터디 개설에 실패하였습니다.',
+  FAILURE_EDIT_STUDY: '수정에 실패하였습니다.',
 };
 
 export const FIREBASE_AUTH_ERROR_MESSAGE = {
@@ -19,4 +21,8 @@ export const FIREBASE_AUTH_ERROR_MESSAGE = {
   'auth/wrong-password': '비밀번호가 일치하지 않습니다.',
   'auth/user-not-found': '가입된 사용자가 아닙니다.',
   'auth/invalid-email': '이메일 형식으로 입력하세요.',
+};
+
+export const FIREBASE_GROUP_ERROR_MESSAGE = {
+  'permission-denied': '권한이 거부되었습니다.',
 };

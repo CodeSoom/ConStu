@@ -14,12 +14,13 @@ describe('WriteButtons', () => {
     jest.clearAllMocks();
   });
 
-  const renderWriteButtons = ({ fields, originalArticleId = false }) => render((
+  const renderWriteButtons = ({ fields, originalArticleId = false, groupError }) => render((
     <WriteButtons
       fields={fields}
       isEdit={originalArticleId}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
+      groupError={groupError}
     />
   ));
 
@@ -150,6 +151,34 @@ describe('WriteButtons', () => {
         });
       });
 
+      describe('when groupError exists', () => {
+        context('When groupError is permission denied', () => {
+          it('renders error message "permission denied"', () => {
+            const { container, getByText } = renderWriteButtons({
+              fields: WRITE_FROM,
+              groupError: 'permission-denied',
+            });
+
+            fireEvent.click(getByText('등록하기'));
+
+            expect(container).toHaveTextContent('권한이 거부되었습니다.');
+          });
+        });
+
+        context('When groupError is writing an article and another error', () => {
+          it('renders error message "Failed to open the study."', () => {
+            const { container, getByText } = renderWriteButtons({
+              fields: WRITE_FROM,
+              groupError: 'error',
+            });
+
+            fireEvent.click(getByText('등록하기'));
+
+            expect(container).toHaveTextContent('스터디 개설에 실패하였습니다.');
+          });
+        });
+      });
+
       describe('When the application deadline is earlier than the current time', () => {
         const fields = {
           ...WRITE_FROM,
@@ -175,6 +204,20 @@ describe('WriteButtons', () => {
       });
 
       expect(container).toHaveTextContent('수정하기');
+    });
+
+    describe('When groupError is editing an article and another error', () => {
+      it('renders error message "Failed to open the study."', () => {
+        const { container, getByText } = renderWriteButtons({
+          fields: WRITE_FROM,
+          groupError: 'error',
+          originalArticleId: true,
+        });
+
+        fireEvent.click(getByText('수정하기'));
+
+        expect(container).toHaveTextContent('수정에 실패하였습니다.');
+      });
     });
   });
 });
