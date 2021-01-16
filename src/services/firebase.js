@@ -3,12 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import devConfig from '../../config/dev';
-import prodConfig from '../../config/prod';
-
-const config = process.env.NODE_ENV === 'production'
-  ? prodConfig
-  : devConfig;
+import config from '../../config';
 
 firebase.initializeApp(config);
 

@@ -1,8 +1,8 @@
-export const getStudyGroups = async () => [];
+export const getStudyGroups = jest.fn();
 
-export const getStudyGroup = async () => {};
+export const getStudyGroup = jest.fn();
 
-export const postStudyGroup = async () => {};
+export const postStudyGroup = jest.fn();
 
 export const postUserRegister = jest.fn();
 

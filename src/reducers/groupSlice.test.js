@@ -20,11 +20,13 @@ import reducer, {
   deleteGroup,
   setOriginalArticle,
   editStudyGroup,
+  setGroupError,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
 import STUDY_GROUP from '../../fixtures/study-group';
 import WRITE_FORM from '../../fixtures/write-form';
+import { editPostStudyGroup, postStudyGroup } from '../services/api';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -38,6 +40,7 @@ describe('reducer', () => {
       group: null,
       groupId: null,
       originalArticleId: null,
+      groupError: null,
       writeField: {
         title: '',
         contents: '',
@@ -84,6 +87,18 @@ describe('reducer', () => {
       const state = reducer(initialState, setStudyGroup(STUDY_GROUP));
 
       expect(state.group.id).toBe(1);
+    });
+  });
+
+  describe('setGroupError', () => {
+    it('when there is an error set error', () => {
+      const initialState = {
+        groupError: null,
+      };
+
+      const state = reducer(initialState, setGroupError('error'));
+
+      expect(state.groupError).toBe('error');
     });
   });
 
@@ -223,7 +238,7 @@ describe('async actions', () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual(setStudyGroups(null));
-        expect(actions[1]).toEqual(setStudyGroups([]));
+        expect(actions[1]).toEqual(setStudyGroups());
       });
     });
 
@@ -233,7 +248,7 @@ describe('async actions', () => {
 
         const actions = store.getActions();
 
-        expect(actions[0]).toEqual(setStudyGroups([]));
+        expect(actions[0]).toEqual(setStudyGroups());
       });
     });
   });
@@ -265,13 +280,33 @@ describe('async actions', () => {
       });
     });
 
-    it('dispatches clearWriteFields and successWrite', async () => {
-      await store.dispatch(writeStudyGroup());
+    context('without write study error', () => {
+      postStudyGroup.mockImplementationOnce(() => ('1'));
 
-      const actions = store.getActions();
+      it('dispatches clearWriteFields and successWrite', async () => {
+        await store.dispatch(writeStudyGroup());
 
-      expect(actions[0]).toEqual(successWrite());
-      expect(actions[1]).toEqual(clearWriteFields());
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual(successWrite('1'));
+        expect(actions[1]).toEqual(clearWriteFields());
+      });
+    });
+
+    context('with write study error', () => {
+      postStudyGroup.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('dispatches writeStudyGroup action failure to return error', async () => {
+        try {
+          await store.dispatch(writeStudyGroup());
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual(setGroupError(error));
+        }
+      });
     });
   });
 
@@ -285,17 +320,37 @@ describe('async actions', () => {
       });
     });
 
-    it('dispatches clearWriteFields and successWrite', async () => {
-      await store.dispatch(editStudyGroup('1'));
+    context('without edit to study error', () => {
+      editPostStudyGroup.mockImplementationOnce(() => (null));
 
-      const actions = store.getActions();
+      it('dispatches clearWriteFields and successWrite', async () => {
+        await store.dispatch(editStudyGroup('1'));
 
-      expect(actions[0]).toEqual({
-        payload: '1',
-        type: 'group/successWrite',
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({
+          payload: '1',
+          type: 'group/successWrite',
+        });
+        expect(actions[1]).toEqual({
+          type: 'group/clearWriteFields',
+        });
       });
-      expect(actions[1]).toEqual({
-        type: 'group/clearWriteFields',
+    });
+
+    context('with edit to study error', () => {
+      editPostStudyGroup.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('dispatches editStudyGroup action failure to return error', async () => {
+        try {
+          await store.dispatch(editStudyGroup('1'));
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[1]).toEqual(setGroupError(error));
+        }
       });
     });
   });
@@ -441,12 +496,9 @@ describe('async actions', () => {
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual(
-        {
-          payload: [],
-          type: 'group/setStudyGroups',
-        },
-      );
+      expect(actions[0]).toEqual({
+        type: 'group/setStudyGroups',
+      });
     });
   });
 });
