@@ -41,11 +41,12 @@ const StudyReviewFormButton = styled(Button)`
   margin: 1px 0 0.8rem 0.5rem;
 `;
 
-const isValidateUserInfo = (user) => (moderator) => !user || (moderator === user);
+const isValidateUserInfo = (user) => (participants) => !!participants
+  .find(({ id, confirm }) => id === user && confirm && confirm === true);
 
 const StudyReviewForm = ({ group, user, time }) => {
   const {
-    participants, personnel, applyEndDate, moderatorId,
+    participants, personnel, applyEndDate,
   } = group;
 
   const applyEndTime = changeDateToTime(applyEndDate);
@@ -54,8 +55,7 @@ const StudyReviewForm = ({ group, user, time }) => {
     time, applyEndTime, participants, personnel,
   };
 
-  // TODO: 수정하자.
-  if (isValidateUserInfo(user)(moderatorId) || !isCheckedTimeStatus(valid)) {
+  if (!isValidateUserInfo(user)(participants) || !isCheckedTimeStatus(valid)) {
     return null;
   }
 
