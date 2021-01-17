@@ -28,7 +28,7 @@ describe('WriteForm', () => {
     const { title, personnel } = WRITE_FORM;
 
     expect(getByPlaceholderText('제목을 입력하세요')).toHaveValue(title);
-    expect(getByLabelText('모집 마감 날짜')).toHaveValue(`${toStringEndDateFormat(tomorrow)}.000`);
+    expect(getByLabelText('모집 마감 날짜')).toHaveValue(`${toStringEndDateFormat(tomorrow)}`);
     expect(getByLabelText('참여 인원 수')).toHaveValue(parseInt(personnel, 10));
   });
 
