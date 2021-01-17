@@ -31,8 +31,8 @@ const nowDate = new Date();
 export const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
 export const yesterday = nowDate.setDate(nowDate.getDate() - 1);
 
-export const toStringEndDateFormat = (endDate) => moment(new Date(endDate))
-  .format('YYYY-MM-DDTHH:mm:ss')
+export const toStringEndDateFormat = (endDate) => endDate && moment(new Date(endDate))
+  .format('YYYY-MM-DDTHH:mm')
   .toString();
 
 export const applyDateToString = (response) => response

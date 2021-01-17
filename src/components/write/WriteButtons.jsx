@@ -11,6 +11,7 @@ import { ERROR_MESSAGE, FIREBASE_GROUP_ERROR_MESSAGE } from '../../util/messages
 
 const WriteButtonsWrapper = styled.div`
   margin-top: 3rem;
+  margin-bottom: 3rem;
 
   ${(props) => props.error && css`
     margin-top: 2rem;
