@@ -16,36 +16,34 @@ describe('StudyReviewForm', () => {
     />
   ));
 
-  context('with user', () => {
-    describe('User is not moderator and applyEndDate is Deadline', () => {
-      const info = {
-        group: {
-          ...STUDY_GROUP,
-          applyEndDate: yesterday,
-        },
-        time: Date.now(),
-        user: 'user1',
-      };
+  const userStatusSetting = ({ user, participants }) => ({
+    group: {
+      ...STUDY_GROUP,
+      participants,
+      applyEndDate: yesterday,
+    },
+    time: Date.now(),
+    user,
+  });
 
+  context('with user', () => {
+    describe('When the user is approved applicant and applyEndDate is Deadline', () => {
       it('renders study review form', () => {
-        const { container } = renderStudyReviewForm(info);
+        const { container } = renderStudyReviewForm(userStatusSetting({
+          participants: [{ id: 'user1', confirm: true }],
+          user: 'user1',
+        }));
 
         expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
       });
     });
 
-    describe('User is moderator', () => {
-      const info = {
-        group: {
-          ...STUDY_GROUP,
-          applyEndDate: yesterday,
-        },
-        time: Date.now(),
-        user: 'user2',
-      };
-
+    describe('When the user is not approved applicant', () => {
       it('nothing renders study review form', () => {
-        const { container } = renderStudyReviewForm(info);
+        const { container } = renderStudyReviewForm(userStatusSetting({
+          participants: [],
+          user: 'user2',
+        }));
 
         expect(container).toBeEmptyDOMElement();
       });
@@ -53,17 +51,11 @@ describe('StudyReviewForm', () => {
   });
 
   context('without user', () => {
-    const info = {
-      group: {
-        ...STUDY_GROUP,
-        applyEndDate: yesterday,
-      },
-      time: Date.now(),
-      user: null,
-    };
-
     it('nothing renders study review form', () => {
-      const { container } = renderStudyReviewForm(info);
+      const { container } = renderStudyReviewForm(userStatusSetting({
+        participants: [],
+        user: null,
+      }));
 
       expect(container).toBeEmptyDOMElement();
     });

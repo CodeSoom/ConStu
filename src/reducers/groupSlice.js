@@ -34,6 +34,7 @@ const { actions, reducer } = createSlice({
     groups: [],
     group: null,
     groupId: null,
+    groupError: null,
     originalArticleId: null,
     writeField: writeInitialState,
     applyFields: applyInitialState,
@@ -54,6 +55,13 @@ const { actions, reducer } = createSlice({
       };
     },
 
+    setGroupError(state, { payload: error }) {
+      return {
+        ...state,
+        groupError: error,
+      };
+    },
+
     changeWriteField(state, { payload: { name, value } }) {
       return produce(state, (draft) => {
         draft.writeField[name] = value;
@@ -64,6 +72,7 @@ const { actions, reducer } = createSlice({
       return {
         ...state,
         groupId: null,
+        groupError: null,
         originalArticleId: null,
         writeField: writeInitialState,
       };
@@ -112,6 +121,7 @@ const { actions, reducer } = createSlice({
 export const {
   setStudyGroups,
   setStudyGroup,
+  setGroupError,
   changeWriteField,
   clearWriteFields,
   successWrite,
@@ -143,29 +153,37 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
 
   const { user } = authReducer;
 
-  const groupId = await postStudyGroup(
-    produce(groupReducer.writeField, (draft) => {
-      draft.moderatorId = user;
-      draft.participants.push({
-        id: user,
-      });
-    }),
-  );
+  try {
+    const groupId = await postStudyGroup(
+      produce(groupReducer.writeField, (draft) => {
+        draft.moderatorId = user;
+        draft.participants.push({
+          id: user,
+        });
+      }),
+    );
 
-  dispatch(successWrite(groupId));
-  dispatch(clearWriteFields());
+    dispatch(successWrite(groupId));
+    dispatch(clearWriteFields());
+  } catch (error) {
+    dispatch(setGroupError(error.code));
+  }
 };
 
 export const editStudyGroup = (id) => async (dispatch, getState) => {
   const { groupReducer } = getState();
 
-  await editPostStudyGroup({
-    ...groupReducer.writeField,
-    id,
-  });
+  try {
+    await editPostStudyGroup({
+      ...groupReducer.writeField,
+      id,
+    });
 
-  dispatch(successWrite(id));
-  dispatch(clearWriteFields());
+    dispatch(successWrite(id));
+    dispatch(clearWriteFields());
+  } catch (error) {
+    dispatch(setGroupError(error.code));
+  }
 };
 
 export const updateParticipant = ({ reason, wantToGet }) => async (dispatch, getState) => {
