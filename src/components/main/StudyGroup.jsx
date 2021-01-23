@@ -6,23 +6,29 @@ import sanitize from 'sanitize-html';
 
 import Moment from 'react-moment';
 
+import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
 
-const StudyGroupWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin: 1rem;
-  border-radius: 4px;
-  border: 2px solid ${palette.gray[4]};
-  width: 19rem;
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
-  background: rgb(248, 249, 250);
-`;
+const mq = facepaint([
+  '@media(min-width: 767px)',
+  '@media(min-width: 1024px)',
+]);
+
+const StudyGroupWrapper = styled.div(() => mq({
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
+  margin: ['1rem 0px 0px 0px', '.5rem', '1rem'],
+  borderRadius: '4px',
+  border: `2px solid ${palette.gray[4]}`,
+  width: ['100%', 'calc(50% - 2rem)', '19rem'],
+  boxShadow: 'rgba(0, 0, 0, 0.08) 0px 4px 16px 0px',
+  background: 'rgb(248, 249, 250)',
+}));
 
 const HeaderLink = styled(Link)`
   display: block;
