@@ -3,14 +3,25 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import palette from './palette';
 
+const mq = facepaint([
+  '@media(min-width: 1024px)',
+]);
+
+const fontSizeButton = css(
+  mq({
+    fontSize: ['2vw', '1rem'],
+  }),
+);
+
 const ButtonWrapper = ({ warn, success }) => css`
   cursor: pointer;
-  font-size: 1rem;
+  ${fontSizeButton};
   font-weight: bold;
   font-family: 'Noto Sans KR', sans-serif;
   outline: none;
