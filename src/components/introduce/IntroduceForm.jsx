@@ -2,6 +2,7 @@ import React from 'react';
 
 import Moment from 'react-moment';
 
+import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
 import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
@@ -11,29 +12,29 @@ import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
 import IntroduceActionButtons from './IntroduceActionButtons';
 
+const mq = facepaint([
+  '@media(min-width: 1024px)',
+  '@media(min-width: 1150px)',
+]);
+
 const IntroduceReferenceWrapper = styled.div`
-  font-size: 1.1rem;
+
+  ${mq({
+    fontSize: ['2vw', '0.9rem', '1.1rem'],
+  })};
+
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 1.5rem;
   padding: 1rem;
   border-radius: 0.75rem;
   background-color: ${palette.gray[1]};
-
+  align-items: center;
+  
   label {
     font-weight: bold;
     line-height: 3rem;
     margin-right: .7rem;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 1rem;
-    padding: 0.5rem;
-    width: auto;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
   }
 `;
 
@@ -57,7 +58,10 @@ const ModeratorWrapper = styled.div`
 `;
 
 const IntroduceReference = styled.div`
-  padding-right: 50px;
+${mq({
+    paddingRight: ['4vw', '30px', '50px'],
+  })};
+
   border-right: 0.1rem solid ${palette.gray[3]};
 `;
 

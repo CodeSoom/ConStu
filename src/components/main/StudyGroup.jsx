@@ -14,7 +14,7 @@ import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
 
 const mq = facepaint([
-  '@media(min-width: 767px)',
+  '@media(min-width: 650px)',
   '@media(min-width: 1024px)',
 ]);
 
@@ -22,7 +22,7 @@ const StudyGroupWrapper = styled.div(() => mq({
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
-  margin: ['1rem 0px 0px 0px', '.5rem', '1rem'],
+  margin: ['1rem 0px 1rem 0px', '0.5rem', '1rem'],
   borderRadius: '4px',
   border: `2px solid ${palette.gray[4]}`,
   width: ['100%', 'calc(50% - 2rem)', '19rem'],
@@ -60,7 +60,6 @@ const ContentLink = styled(Link)`
 const StudyInfoWrapper = styled.div`
   padding: 0 1rem 1rem 1rem;
   display: flex;
-  flex: 1 1 0%;
   flex-direction: column;
 
   .moderator{
@@ -72,7 +71,6 @@ const StudyInfoWrapper = styled.div`
 const StudyContentWrapper = styled.div`
   padding: 0 1rem 0 1rem;
   display: block;
-  flex: 1 1 0%;
 
   p {
     text-overflow: ellipsis;
