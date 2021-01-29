@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import StudyReviewContainer from './StudyReviewContainer';
 
@@ -10,10 +10,20 @@ import STUDY_GROUP from '../../../fixtures/study-group';
 import { yesterday } from '../../util/utils';
 
 describe('StudyReviewContainer', () => {
+  const dispatch = jest.fn();
+
   beforeEach(() => {
+    dispatch.mockClear();
+
+    useDispatch.mockImplementation(() => dispatch);
+
     useSelector.mockImplementation((state) => state({
       groupReducer: {
         group: given.group,
+        studyReviewFields: {
+          rating: 3,
+          review: '',
+        },
       },
       authReducer: {
         user: given.user,
@@ -41,6 +51,24 @@ describe('StudyReviewContainer', () => {
         const { container } = renderStudyReviewContainer();
 
         expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
+      });
+    });
+
+    it('dispatch actions call changeStudyReviewFields', () => {
+      const form = {
+        name: 'review',
+        value: '후기입니다.',
+      };
+
+      const { getByPlaceholderText } = renderStudyReviewContainer();
+
+      const textarea = getByPlaceholderText('후기를 입력해주세요!');
+
+      fireEvent.change(textarea, { target: form });
+
+      expect(dispatch).toBeCalledWith({
+        type: 'group/changeStudyReviewFields',
+        payload: form,
       });
     });
   });

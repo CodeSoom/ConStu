@@ -34,6 +34,10 @@ describe('IntroducePage', () => {
           reason: '',
           wantToGet: '',
         },
+        studyReviewFields: {
+          rating: 3,
+          review: '',
+        },
       },
       authReducer: {},
     }));
