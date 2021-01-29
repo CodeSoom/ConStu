@@ -34,6 +34,10 @@ describe('App', () => {
           reason: '',
           wantToGet: '',
         },
+        studyReviewFields: {
+          rating: 3,
+          review: '',
+        },
       },
       authReducer: {
         register: {

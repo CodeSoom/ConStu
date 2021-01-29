@@ -28,6 +28,11 @@ const applyInitialState = {
   wantToGet: '',
 };
 
+const studyReviewInitialState = {
+  rating: 3,
+  review: '',
+};
+
 const { actions, reducer } = createSlice({
   name: 'group',
   initialState: {
@@ -38,6 +43,7 @@ const { actions, reducer } = createSlice({
     originalArticleId: null,
     writeField: writeInitialState,
     applyFields: applyInitialState,
+    studyReviewFields: studyReviewInitialState,
   },
 
   reducers: {
@@ -115,6 +121,12 @@ const { actions, reducer } = createSlice({
         },
       };
     },
+
+    changeStudyReviewFields(state, { payload: { name, value } }) {
+      return produce(state, (draft) => {
+        draft.studyReviewFields[name] = value;
+      });
+    },
   },
 });
 
@@ -128,6 +140,7 @@ export const {
   changeApplyFields,
   clearApplyFields,
   setOriginalArticle,
+  changeStudyReviewFields,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
