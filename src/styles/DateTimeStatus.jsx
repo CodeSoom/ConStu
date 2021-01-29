@@ -1,12 +1,22 @@
 import React from 'react';
 
+import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import palette from './palette';
 
+const mq = facepaint([
+  '@media(min-width: 1024px)',
+  '@media(min-width: 1150px)',
+]);
+
 const DateTimeStatusWrapper = styled.div`
-  font-size: 1rem;
+  ${mq({
+    fontSize: ['1.5vw', '0.8rem', '1.1rem'],
+    height: ['30px', '30px', '40px'],
+  })};
+
   font-weight: 600;
   font-family: 'Gamja Flower', cursive;
   display: inline-flex;
@@ -41,11 +51,14 @@ const DateTimeStatusWrapper = styled.div`
     && css`
       margin-bottom: 0.5rem;
       background: #ff6b6b;
+      ${mq({
+    fontSize: ['0.8rem', '1rem'],
+    height: ['15px', '20px'],
+  })};
   `}
 
   ${({ status }) => status === 'introduceRecruit'
     && css`
-      font-size: 1.1rem;
       align-items: center;
       margin: 0;
       padding: .2rem 40px .2rem 40px;
@@ -71,7 +84,6 @@ const DateTimeStatusWrapper = styled.div`
 
   ${({ status }) => status === 'introduceDeadline'
     && css`
-      font-size: 1.1rem;
       align-items: center;
       margin: 0;
       padding: 0 40px 0 40px;

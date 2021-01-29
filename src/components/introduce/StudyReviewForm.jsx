@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from '@emotion/styled';
 
@@ -44,10 +44,14 @@ const StudyReviewFormButton = styled(Button)`
 const isValidateUserInfo = (user) => (participants) => !!participants
   .find(({ id, confirm }) => id === user && confirm && confirm === true);
 
-const StudyReviewForm = ({ group, user, time }) => {
+const StudyReviewForm = ({
+  group, user, time, fields, onChangeReview,
+}) => {
   const {
     participants, personnel, applyEndDate,
   } = group;
+
+  const { rating, review } = fields;
 
   const applyEndTime = changeDateToTime(applyEndDate);
 
@@ -59,10 +63,20 @@ const StudyReviewForm = ({ group, user, time }) => {
     return null;
   }
 
-  const [rating, setRating] = useState(0);
+  const handleChangeRating = (newRating, name) => {
+    onChangeReview({
+      name,
+      value: newRating,
+    });
+  };
 
-  const changeRating = (newRating) => {
-    setRating(newRating);
+  const handleChangeReview = (event) => {
+    const { name, value } = event.target;
+
+    onChangeReview({
+      name,
+      value,
+    });
   };
 
   return (
@@ -76,7 +90,7 @@ const StudyReviewForm = ({ group, user, time }) => {
           starDimension="35px"
           starSpacing="0"
           starHoverColor="#ffc816"
-          changeRating={changeRating}
+          changeRating={handleChangeRating}
           name="rating"
         />
       </StudyReviewFormHeader>
@@ -84,7 +98,10 @@ const StudyReviewForm = ({ group, user, time }) => {
         <Textarea
           rows="3"
           cols="100"
+          name="review"
+          value={review}
           placeholder="후기를 입력해주세요!"
+          onChange={handleChangeReview}
         />
         <StudyReviewFormButton success>
           후기 등록하기

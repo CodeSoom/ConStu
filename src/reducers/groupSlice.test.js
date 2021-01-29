@@ -21,6 +21,7 @@ import reducer, {
   setOriginalArticle,
   editStudyGroup,
   setGroupError,
+  changeStudyReviewFields,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -53,6 +54,10 @@ describe('reducer', () => {
       applyFields: {
         reason: '',
         wantToGet: '',
+      },
+      studyReviewFields: {
+        rating: 3,
+        review: '',
       },
     };
 
@@ -219,6 +224,24 @@ describe('reducer', () => {
 
       expect(originalArticleId).toBe('1');
       expect(writeField.title).toBe('title');
+    });
+  });
+
+  describe('changeStudyReviewFields', () => {
+    it('changes a field of study review form', () => {
+      const initialState = {
+        studyReviewFields: {
+          rating: 3,
+          review: '',
+        },
+      };
+
+      const state = reducer(
+        initialState,
+        changeStudyReviewFields({ name: 'rating', value: 5 }),
+      );
+
+      expect(state.studyReviewFields.rating).toBe(5);
     });
   });
 });
