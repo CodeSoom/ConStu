@@ -66,11 +66,11 @@ export const postStudyGroup = async (group) => {
 export const editPostStudyGroup = async ({
   title, applyEndDate, contents, tags, personnel, id,
 }) => {
-  const groups = db.collection('groups').doc(id);
+  const group = db.collection('groups').doc(id);
 
   const timeStamp = fireStore.Timestamp.fromDate(new Date(applyEndDate));
 
-  await groups.update({
+  await group.update({
     title,
     contents,
     applyEndDate: timeStamp,
@@ -79,32 +79,40 @@ export const editPostStudyGroup = async ({
   });
 };
 
-export const updatePostParticipant = async ({ id, user }) => {
-  const groups = db.collection('groups').doc(id);
+export const postUpdateStudyReview = async ({ id, review }) => {
+  const group = db.collection('groups').doc(id);
 
-  await groups.update({
+  await group.set({
+    reviews: fireStore.FieldValue.arrayUnion(review),
+  }, { merge: true });
+};
+
+export const updatePostParticipant = async ({ id, user }) => {
+  const group = db.collection('groups').doc(id);
+
+  await group.update({
     participants: fireStore.FieldValue.arrayUnion(user),
   });
 };
 
 export const deletePostParticipant = async ({ id, participants }) => {
-  const groups = db.collection('groups').doc(id);
+  const group = db.collection('groups').doc(id);
 
-  await groups.update({
+  await group.update({
     participants,
   });
 };
 
 export const deletePostGroup = async (id) => {
-  const groups = db.collection('groups').doc(id);
+  const group = db.collection('groups').doc(id);
 
-  await groups.delete();
+  await group.delete();
 };
 
 export const updateConfirmPostParticipant = async ({ id, participants }) => {
-  const groups = db.collection('groups').doc(id);
+  const group = db.collection('groups').doc(id);
 
-  await groups.update({
+  await group.update({
     participants,
   });
 };
