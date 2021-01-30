@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
 import { useInterval } from 'react-use';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
+import { changeStudyReviewFields, setStudyReview } from '../../reducers/groupSlice';
 
 import StudyReviewForm from '../../components/introduce/StudyReviewForm';
-import { changeStudyReviewFields } from '../../reducers/groupSlice';
 
 const StudyReviewContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
@@ -25,6 +25,13 @@ const StudyReviewContainer = () => {
     dispatch(changeStudyReviewFields({ name, value }));
   }, [dispatch]);
 
+  const onSubmitReview = useCallback(() => {
+    dispatch(setStudyReview({
+      id: user,
+      ...studyReviewFields,
+    }));
+  }, [dispatch, user, studyReviewFields]);
+
   if (!group) {
     return null;
   }
@@ -36,6 +43,7 @@ const StudyReviewContainer = () => {
       time={realTime}
       fields={studyReviewFields}
       onChangeReview={onChangeReviewFields}
+      onSubmit={onSubmitReview}
     />
   );
 };

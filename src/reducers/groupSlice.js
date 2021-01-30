@@ -11,6 +11,7 @@ import {
   updateConfirmPostParticipant,
   deletePostGroup,
   editPostStudyGroup,
+  postUpdateStudyReview,
 } from '../services/api';
 
 const writeInitialState = {
@@ -21,6 +22,7 @@ const writeInitialState = {
   participants: [],
   personnel: '1',
   tags: [],
+  reviews: [],
 };
 
 const applyInitialState = {
@@ -127,6 +129,13 @@ const { actions, reducer } = createSlice({
         draft.studyReviewFields[name] = value;
       });
     },
+
+    clearStudyReviewFields(state) {
+      return {
+        ...state,
+        studyReviewFields: studyReviewInitialState,
+      };
+    },
   },
 });
 
@@ -141,6 +150,7 @@ export const {
   clearApplyFields,
   setOriginalArticle,
   changeStudyReviewFields,
+  clearStudyReviewFields,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
@@ -274,6 +284,18 @@ export const deleteGroup = (groupId) => async (dispatch) => {
   await deletePostGroup(groupId);
 
   dispatch(loadStudyGroups());
+};
+
+export const setStudyReview = (review) => async (dispatch, getState) => {
+  const { groupReducer: { group } } = getState();
+  const { id } = group;
+
+  await postUpdateStudyReview({
+    id,
+    review,
+  });
+
+  dispatch(clearStudyReviewFields());
 };
 
 export default reducer;
