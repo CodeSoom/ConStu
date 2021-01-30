@@ -71,6 +71,16 @@ describe('StudyReviewContainer', () => {
         payload: form,
       });
     });
+
+    describe('Click the button to submit for study review', () => {
+      it('dispatch actions call setStudyReview', () => {
+        const { getByText } = renderStudyReviewContainer();
+
+        fireEvent.click(getByText('후기 등록하기'));
+
+        expect(dispatch).toBeCalledTimes(1);
+      });
+    });
   });
 
   context('without login and group', () => {

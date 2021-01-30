@@ -45,7 +45,7 @@ const isValidateUserInfo = (user) => (participants) => !!participants
   .find(({ id, confirm }) => id === user && confirm && confirm === true);
 
 const StudyReviewForm = ({
-  group, user, time, fields, onChangeReview,
+  group, user, time, fields, onChangeReview, onSubmit,
 }) => {
   const {
     participants, personnel, applyEndDate,
@@ -103,7 +103,10 @@ const StudyReviewForm = ({
           placeholder="후기를 입력해주세요!"
           onChange={handleChangeReview}
         />
-        <StudyReviewFormButton success>
+        <StudyReviewFormButton
+          success
+          onClick={onSubmit}
+        >
           후기 등록하기
         </StudyReviewFormButton>
       </StudyReviewFormBody>

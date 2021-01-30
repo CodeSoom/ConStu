@@ -22,11 +22,14 @@ import reducer, {
   editStudyGroup,
   setGroupError,
   changeStudyReviewFields,
+  clearStudyReviewFields,
+  setStudyReview,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
 import STUDY_GROUP from '../../fixtures/study-group';
 import WRITE_FORM from '../../fixtures/write-form';
+
 import { editPostStudyGroup, postStudyGroup } from '../services/api';
 
 const middlewares = [thunk];
@@ -50,6 +53,7 @@ describe('reducer', () => {
         participants: [],
         personnel: '1',
         tags: [],
+        reviews: [],
       },
       applyFields: {
         reason: '',
@@ -242,6 +246,24 @@ describe('reducer', () => {
       );
 
       expect(state.studyReviewFields.rating).toBe(5);
+    });
+  });
+
+  describe('clearStudyReviewFields', () => {
+    const initialState = {
+      studyReviewFields: {
+        rating: 5,
+        review: 'test',
+      },
+    };
+
+    it('clears fields of study review form', () => {
+      const state = reducer(initialState, clearStudyReviewFields());
+
+      const { studyReviewFields: { rating, review } } = state;
+
+      expect(rating).toBe(3);
+      expect(review).toBe('');
     });
   });
 });
@@ -521,6 +543,30 @@ describe('async actions', () => {
 
       expect(actions[0]).toEqual({
         type: 'group/setStudyGroups',
+      });
+    });
+  });
+
+  describe('setStudyReview', () => {
+    beforeEach(() => {
+      store = mockStore({
+        groupReducer: {
+          group: { id: '1' },
+        },
+      });
+    });
+
+    it('dispatches clearStudyReviewFields', async () => {
+      await store.dispatch(setStudyReview({
+        user: 'user',
+        review: 'test',
+        rating: 5,
+      }));
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+        type: 'group/clearStudyReviewFields',
       });
     });
   });
