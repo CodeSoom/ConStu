@@ -14,6 +14,8 @@ import {
   postUpdateStudyReview,
 } from '../services/api';
 
+import { formatGroup } from '../util/utils';
+
 const writeInitialState = {
   title: '',
   contents: '',
@@ -22,7 +24,6 @@ const writeInitialState = {
   participants: [],
   personnel: '1',
   tags: [],
-  reviews: [],
 };
 
 const applyInitialState = {
@@ -158,7 +159,9 @@ export const loadStudyGroups = (tag) => async (dispatch) => {
     dispatch(setStudyGroups(null));
   }
 
-  const groups = await getStudyGroups(tag);
+  const response = await getStudyGroups(tag);
+
+  const groups = response.map((doc) => formatGroup(doc));
 
   dispatch(setStudyGroups(groups));
 };
@@ -166,9 +169,9 @@ export const loadStudyGroups = (tag) => async (dispatch) => {
 export const loadStudyGroup = (id) => async (dispatch) => {
   dispatch(setStudyGroup(null));
 
-  const group = await getStudyGroup(id);
+  const response = await getStudyGroup(id);
 
-  dispatch(setStudyGroup(group));
+  dispatch(setStudyGroup(formatGroup(response)));
 };
 
 export const writeStudyGroup = () => async (dispatch, getState) => {

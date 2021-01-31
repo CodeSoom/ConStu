@@ -1,6 +1,7 @@
 import { db, auth, fireStore } from './firebase';
 
-import { applyDateToString, createDateToString } from '../util/utils';
+const fieldValue = fireStore.FieldValue;
+const timeStamp = (dateTime) => fireStore.Timestamp.fromDate(new Date(dateTime));
 
 const branchGetGroups = (tag) => {
   if (tag) {
@@ -20,14 +21,7 @@ const branchGetGroups = (tag) => {
 export const getStudyGroups = async (tag) => {
   const response = await branchGetGroups(tag);
 
-  const groups = response.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
-    applyEndDate: applyDateToString(doc),
-    createDate: createDateToString(doc),
-  }));
-
-  return groups;
+  return response.docs;
 };
 
 export const getStudyGroup = async (id) => {
@@ -40,24 +34,16 @@ export const getStudyGroup = async (id) => {
     return null;
   }
 
-  return {
-    ...response.data(),
-    id: response.id,
-    applyEndDate: applyDateToString(response),
-    createDate: createDateToString(response),
-  };
+  return response;
 };
 
 export const postStudyGroup = async (group) => {
   const { applyEndDate } = group;
 
-  const timeStamp = fireStore.Timestamp.fromDate(new Date(applyEndDate));
-  const now = fireStore.FieldValue.serverTimestamp();
-
   const { id } = await db.collection('groups').add({
     ...group,
-    applyEndDate: timeStamp,
-    createDate: now,
+    applyEndDate: timeStamp(applyEndDate),
+    createDate: fieldValue.serverTimestamp(),
   });
 
   return id;
@@ -68,12 +54,10 @@ export const editPostStudyGroup = async ({
 }) => {
   const group = db.collection('groups').doc(id);
 
-  const timeStamp = fireStore.Timestamp.fromDate(new Date(applyEndDate));
-
   await group.update({
     title,
     contents,
-    applyEndDate: timeStamp,
+    applyEndDate: timeStamp(applyEndDate),
     personnel,
     tags,
   });
@@ -83,7 +67,10 @@ export const postUpdateStudyReview = async ({ id, review }) => {
   const group = db.collection('groups').doc(id);
 
   await group.set({
-    reviews: fireStore.FieldValue.arrayUnion(review),
+    reviews: fieldValue.arrayUnion({
+      ...review,
+      createDate: fireStore.Timestamp.now(),
+    }),
   }, { merge: true });
 };
 
@@ -91,7 +78,7 @@ export const updatePostParticipant = async ({ id, user }) => {
   const group = db.collection('groups').doc(id);
 
   await group.update({
-    participants: fireStore.FieldValue.arrayUnion(user),
+    participants: fieldValue.arrayUnion(user),
   });
 };
 

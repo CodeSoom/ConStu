@@ -3,9 +3,9 @@ import {
   getGroup,
   equal,
   changeDateToTime,
-  applyDateToString,
-  createDateToString,
   authorizedUsersNumber,
+  toStringEndDateFormat,
+  formatGroup,
 } from './utils';
 
 test('getAuth', () => {
@@ -55,34 +55,6 @@ test('changeDateToTime', () => {
   expect(time).toBe(date.getTime());
 });
 
-test('applyDateToString', () => {
-  const date = new Date('2020/12/06');
-  const response = {
-    data: jest.fn().mockReturnValue({
-      applyEndDate: {
-        toDate: jest.fn().mockReturnValue(date),
-      },
-    }),
-  };
-
-  const time = applyDateToString(response);
-  expect(time).toBe(date.toString());
-});
-
-test('createDateToString', () => {
-  const date = new Date('2020/12/06');
-  const response = {
-    data: jest.fn().mockReturnValue({
-      createDate: {
-        toDate: jest.fn().mockReturnValue(date),
-      },
-    }),
-  };
-
-  const time = createDateToString(response);
-  expect(time).toBe(date.toString());
-});
-
 test('authorizedUsersNumber', () => {
   const participants = [
     { id: 'test1', confirm: false },
@@ -92,4 +64,57 @@ test('authorizedUsersNumber', () => {
 
   const length = authorizedUsersNumber(participants);
   expect(length).toBe(2);
+});
+
+describe('toStringEndDateFormat', () => {
+  context('with endDate', () => {
+    it('formatting endDate', () => {
+      const result = toStringEndDateFormat(new Date('2020/01/01'));
+
+      expect(result).toBe('2020-01-01T00:00');
+    });
+  });
+
+  context('without endDate', () => {
+    it("doesn't formatting endDate", () => {
+      const result = toStringEndDateFormat();
+
+      expect(result).toBe();
+    });
+  });
+});
+
+test('formatGroup', () => {
+  const nowString = new Date().toString();
+
+  const date = {
+    toDate: () => new Date(),
+  };
+
+  const reviews = [
+    {
+      createDate: {
+        toDate: () => new Date(),
+      },
+    },
+  ];
+
+  const settings = {
+    id: '1',
+    data: () => ({
+      applyEndDate: date,
+      createDate: date,
+      reviews,
+    }),
+  };
+
+  const result = formatGroup(settings);
+  expect(result).toEqual({
+    id: '1',
+    applyEndDate: nowString,
+    createDate: nowString,
+    reviews: [{
+      createDate: nowString,
+    }],
+  });
 });

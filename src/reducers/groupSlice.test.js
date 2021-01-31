@@ -30,12 +30,15 @@ import STUDY_GROUPS from '../../fixtures/study-groups';
 import STUDY_GROUP from '../../fixtures/study-group';
 import WRITE_FORM from '../../fixtures/write-form';
 
-import { editPostStudyGroup, postStudyGroup } from '../services/api';
+import {
+  editPostStudyGroup, postStudyGroup, getStudyGroup, getStudyGroups,
+} from '../services/api';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 jest.mock('../services/api');
+jest.mock('../util/utils');
 
 describe('reducer', () => {
   context('when previous state is undefined', () => {
@@ -53,7 +56,6 @@ describe('reducer', () => {
         participants: [],
         personnel: '1',
         tags: [],
-        reviews: [],
       },
       applyFields: {
         reason: '',
@@ -270,10 +272,25 @@ describe('reducer', () => {
 
 describe('async actions', () => {
   let store;
-
   describe('loadStudyGroups', () => {
+    const date = new Date();
+
+    const settings = {
+      createDate: date,
+      applyEndDate: date,
+      reviews: [{
+        createDate: date,
+      }],
+    };
+
     beforeEach(() => {
       store = mockStore({});
+      const data = jest.fn().mockReturnValueOnce(settings);
+
+      getStudyGroups.mockReturnValueOnce([{
+        data,
+        id: '1',
+      }]);
     });
 
     context('with tag', () => {
@@ -283,7 +300,10 @@ describe('async actions', () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual(setStudyGroups(null));
-        expect(actions[1]).toEqual(setStudyGroups());
+        expect(actions[1]).toEqual(setStudyGroups([{
+          ...settings,
+          id: '1',
+        }]));
       });
     });
 
@@ -293,14 +313,29 @@ describe('async actions', () => {
 
         const actions = store.getActions();
 
-        expect(actions[0]).toEqual(setStudyGroups());
+        expect(actions[0]).toEqual(setStudyGroups([{
+          ...settings,
+          id: '1',
+        }]));
       });
     });
   });
 
   describe('loadStudyGroup', () => {
+    const settings = {
+      createDate: new Date(),
+      applyEndDate: new Date(),
+      reviews: [],
+    };
+
     beforeEach(() => {
+      const data = jest.fn().mockReturnValueOnce(settings);
+
       store = mockStore({});
+      getStudyGroup.mockReturnValueOnce({
+        data,
+        id: '1',
+      });
     });
 
     it('load study group detail', async () => {
@@ -309,7 +344,10 @@ describe('async actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(setStudyGroup(null));
-      expect(actions[1]).toEqual(setStudyGroup());
+      expect(actions[1]).toEqual(setStudyGroup({
+        ...settings,
+        id: '1',
+      }));
     });
   });
 
@@ -541,9 +579,7 @@ describe('async actions', () => {
 
       const actions = store.getActions();
 
-      expect(actions[0]).toEqual({
-        type: 'group/setStudyGroups',
-      });
+      expect(actions[0]).toEqual();
     });
   });
 
