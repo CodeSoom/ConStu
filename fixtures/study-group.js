@@ -13,6 +13,7 @@ const studyGroup = {
     'React',
     'Algorithm',
   ],
+  reviews: [],
   createDate: new Date('2020/12/06'),
 };
 

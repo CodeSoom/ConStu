@@ -35,14 +35,21 @@ export const toStringEndDateFormat = (endDate) => endDate && moment(new Date(end
   .format('YYYY-MM-DDTHH:mm')
   .toString();
 
-export const applyDateToString = (response) => response
-  .data()
-  .applyEndDate
-  .toDate()
-  .toString();
+const dateToString = (date) => date.toDate().toString();
 
-export const createDateToString = (response) => response
-  .data()
-  .createDate
-  .toDate()
-  .toString();
+const formatReviewDate = (reviews) => reviews.map((review) => ({
+  ...review,
+  createDate: dateToString(review.createDate),
+}));
+
+export const formatGroup = (group) => {
+  const { applyEndDate, createDate, reviews } = group.data();
+
+  return {
+    ...group.data(),
+    id: group.id,
+    applyEndDate: dateToString(applyEndDate),
+    createDate: dateToString(createDate),
+    reviews: reviews && [...formatReviewDate(reviews)],
+  };
+};
