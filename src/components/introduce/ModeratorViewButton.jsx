@@ -4,9 +4,13 @@ import styled from '@emotion/styled';
 
 import { changeDateToTime, isCheckedOnlyTimeStatus } from '../../util/utils';
 
+import { MODERATOR_STATUS } from '../../util/constants/constants';
+
 import ApproveStatus from '../../styles/ApproveStatus';
 import ParticipantListModal from './modals/ParticipantListModal';
 import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
+
+const { CONDUCT_STUDY, CONFIRM_STUDY } = MODERATOR_STATUS;
 
 const OrganizerStatus = styled.div`
   display: flex;
@@ -53,7 +57,7 @@ const ModeratorViewButton = ({
         type="button"
         className="apply-complete"
       >
-        스터디를 진행해주세요!
+        {CONDUCT_STUDY}
       </StyledApplyStatusButton>
     );
   }
@@ -71,7 +75,7 @@ const ModeratorViewButton = ({
           className="confirm"
           onClick={handleClick}
         >
-          스터디 참여 승인하기
+          {CONFIRM_STUDY}
         </StyledApplyStatusButton>
       </OrganizerStatus>
       <ParticipantListModal

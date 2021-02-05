@@ -1,9 +1,15 @@
 import React from 'react';
 
+import _ from 'lodash';
+
 import styled from '@emotion/styled';
+
+import { STUDY_GROUPS_TITLE } from '../../util/constants/constants';
 
 import StudyGroup from './StudyGroup';
 import Button from '../../styles/Button';
+
+const { HEADER, OPEN_STUDY } = STUDY_GROUPS_TITLE;
 
 const StudyGroupsWrapper = styled.div`
   display: flex;
@@ -20,17 +26,17 @@ const TitleHeader = styled.div`
 const StudyGroups = ({ groups, realTime, user }) => (
   <>
     <TitleHeader>
-      <h2>지금 바로 시작하세요!</h2>
+      <h2>{HEADER}</h2>
       {user && (
         <Button
           to="/write"
         >
-          스터디 개설하기
+          {OPEN_STUDY}
         </Button>
       )}
     </TitleHeader>
     <StudyGroupsWrapper>
-      {groups && groups.map((group) => (
+      {!_.isEmpty(groups) && groups.map((group) => (
         <StudyGroup
           key={group.id}
           group={group}

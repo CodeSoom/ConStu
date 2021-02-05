@@ -1,7 +1,7 @@
 {
-  "name": "project-react-2-saseungmin",
-  "version": "0.0.1",
-  "description": "finial project",
+  "name": "constu",
+  "version": "1.0.0",
+  "description": "Find and Recruit Study!",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress",
@@ -15,12 +15,12 @@
     "type": "git",
     "url": "git+https://github.com/saseungmin/project-react-2-saseungmin.git"
   },
-  "author": "SeungMin Sa",
+  "author": "Seungmin Sa",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/saseungmin/project-react-2-saseungmin/issues"
   },
-  "homepage": "https://github.com/saseungmin/project-react-2-saseungmin#readme",
+  "homepage": "https://sweet-1cfff.firebaseapp.com/",
   "dependencies": {
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.0.0",
@@ -34,6 +34,7 @@
     "firebase": "^8.1.1",
     "html-to-draftjs": "^1.5.0",
     "immer": "^8.0.0",
+    "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
     "qs": "^6.9.4",

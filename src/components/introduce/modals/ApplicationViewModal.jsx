@@ -3,8 +3,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import { APPLY_FORM_TITLE, BUTTON_NAME } from '../../../util/constants/constants';
+
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
+
+const { CLOSE } = BUTTON_NAME;
+const { APPLY_REASON, WANT_TO_GET } = APPLY_FORM_TITLE;
 
 const ApplicationViewModalWrapper = styled.div`
   position: fixed;
@@ -111,7 +116,7 @@ const ApplicationViewModal = ({
       <ModalBoxWrapper>
         <h2>{`${id} 신청서 📚`}</h2>
         <ContentBoxWrapper>
-          <label htmlFor="apply-reason">신청하게 된 이유</label>
+          <label htmlFor="apply-reason">{APPLY_REASON}</label>
           <ContentViewerWrapper
             rows="10"
             id="apply-reason"
@@ -120,7 +125,7 @@ const ApplicationViewModal = ({
           />
         </ContentBoxWrapper>
         <ContentBoxWrapper>
-          <label htmlFor="study-want">스터디를 통해 얻고 싶은 것은 무엇인가요?</label>
+          <label htmlFor="study-want">{WANT_TO_GET}</label>
           <ContentViewerWrapper
             rows="10"
             id="study-want"
@@ -129,7 +134,7 @@ const ApplicationViewModal = ({
           />
         </ContentBoxWrapper>
         <div className="buttons">
-          <StyledButton onClick={onClose}>닫기</StyledButton>
+          <StyledButton onClick={onClose}>{CLOSE}</StyledButton>
         </div>
       </ModalBoxWrapper>
     </ApplicationViewModalWrapper>

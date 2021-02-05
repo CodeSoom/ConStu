@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from 'react';
 
+import _ from 'lodash';
+
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import sanitize from 'sanitize-html';
 
+import { BUTTON_NAME } from '../../util/constants/constants';
+import { ERROR_MESSAGE, FIREBASE_GROUP_ERROR_MESSAGE } from '../../util/constants/messages';
+
 import Button from '../../styles/Button';
 import palette from '../../styles/palette';
-import { ERROR_MESSAGE, FIREBASE_GROUP_ERROR_MESSAGE } from '../../util/messages';
+
+const {
+  NO_TAG,
+  FAST_APPLY_DEADLINE,
+  NO_CONTENTS, NO_TITLE,
+  NO_APPLY_DATE,
+  ERROR_PERSONNEL,
+  FAILURE_OPEN_STUDY,
+  FAILURE_EDIT_STUDY,
+} = ERROR_MESSAGE;
+const { CANCEL } = BUTTON_NAME;
 
 const WriteButtonsWrapper = styled.div`
   margin-top: 3rem;
@@ -45,16 +60,6 @@ const CancelButton = styled(Button)`
 const SubmitButton = styled(Button)`
   padding: 0.45rem 5rem;
 `;
-
-const {
-  NO_TAG,
-  FAST_APPLY_DEADLINE,
-  NO_CONTENTS, NO_TITLE,
-  NO_APPLY_DATE,
-  ERROR_PERSONNEL,
-  FAILURE_OPEN_STUDY,
-  FAILURE_EDIT_STUDY,
-} = ERROR_MESSAGE;
 
 const isCheckApplyEndDate = (applyDate) => Date.now() - applyDate >= 0;
 const removeHtml = (body) => sanitize(body, { allowedTags: [] }).trim();
@@ -97,7 +102,7 @@ const WriteButtons = ({
       return;
     }
 
-    if (!tags.length) {
+    if (_.isEmpty(tags)) {
       setError(NO_TAG);
       return;
     }
@@ -133,7 +138,7 @@ const WriteButtons = ({
             type="button"
             onClick={onCancel}
           >
-            취소
+            {CANCEL}
           </CancelButton>
         </ButtonWrapper>
       </WriteButtonsWrapper>

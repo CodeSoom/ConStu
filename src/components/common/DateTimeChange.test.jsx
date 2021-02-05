@@ -69,7 +69,7 @@ describe('DateTimeChange', () => {
 
         const { container } = renderDateTimeChange({ group, page, time });
 
-        expect(container).toHaveTextContent('모집마감');
+        expect(container).toHaveTextContent('모집 마감');
       });
     });
 
@@ -89,7 +89,7 @@ describe('DateTimeChange', () => {
 
         const { container } = renderDateTimeChange({ group, page, time });
 
-        expect(container).toHaveTextContent('모집마감');
+        expect(container).toHaveTextContent('모집 마감');
       });
     });
   });

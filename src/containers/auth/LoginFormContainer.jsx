@@ -8,7 +8,7 @@ import { getAuth, isCheckValidate } from '../../util/utils';
 import {
   changeAuthField, clearAuth, clearAuthFields, requestLogin,
 } from '../../reducers/authSlice';
-import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/messages';
+import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/constants/messages';
 
 import AuthForm from '../../components/auth/AuthForm';
 

@@ -6,6 +6,8 @@ import styled from '@emotion/styled';
 
 import Responsive from '../styles/Responsive';
 
+import { WRITE_TITLE } from '../util/constants/constants';
+
 import TagFormContainer from '../containers/write/TagsFormContainer';
 import WriteButtonsContainer from '../containers/write/WriteButtonsContainer';
 import WriteEditorContainer from '../containers/write/WriteEditorContainer';
@@ -15,10 +17,10 @@ const WritePageWrapper = styled(Responsive)`
   margin-top: 4rem;
 `;
 
-const IntroducePage = () => (
+const WritePage = () => (
   <>
     <Helmet>
-      <title>스터디 소개글 작성</title>
+      <title>{WRITE_TITLE}</title>
     </Helmet>
     <WritePageWrapper>
       <WriteFormContainer />
@@ -29,4 +31,4 @@ const IntroducePage = () => (
   </>
 
 );
-export default IntroducePage;
+export default WritePage;
