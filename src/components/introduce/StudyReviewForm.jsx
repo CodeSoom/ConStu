@@ -4,11 +4,14 @@ import styled from '@emotion/styled';
 
 import StarRatings from 'react-star-ratings';
 
+import { STUDY_REVIEW_FORM } from '../../util/constants/constants';
 import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import palette from '../../styles/palette';
 import Textarea from '../../styles/Textarea';
 import Button from '../../styles/Button';
+
+const { FORM_TITLE, REVIEW_SUBMIT } = STUDY_REVIEW_FORM;
 
 const StudyReviewFormWrapper = styled.div`
   display: flex;
@@ -82,7 +85,7 @@ const StudyReviewForm = ({
   return (
     <StudyReviewFormWrapper>
       <StudyReviewFormHeader>
-        <h2>스터디 후기를 작성해주세요!</h2>
+        <h2>{FORM_TITLE}</h2>
         <StarRatings
           rating={rating}
           starRatedColor="#ffc816"
@@ -107,7 +110,7 @@ const StudyReviewForm = ({
           success
           onClick={onSubmit}
         >
-          후기 등록하기
+          {REVIEW_SUBMIT}
         </StudyReviewFormButton>
       </StudyReviewFormBody>
     </StudyReviewFormWrapper>

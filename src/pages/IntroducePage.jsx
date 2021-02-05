@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
-import Responsive from '../styles/Responsive';
 import { loadStudyGroup } from '../reducers/groupSlice';
 
+import Responsive from '../styles/Responsive';
 import IntroduceFormContainer from '../containers/introduce/IntroduceFormContainer';
 import IntroduceHeaderContainer from '../containers/introduce/IntroduceHeaderContainer';
 import StudyReviewContainer from '../containers/introduce/StudyReviewContainer';

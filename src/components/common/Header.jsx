@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import Responsive from '../../styles/Responsive';
 import palette from '../../styles/palette';
 import Button from '../../styles/Button';
+import { LOGOUT, LOGIN, REGISTER } from '../../util/constants/constants';
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -50,13 +51,13 @@ const Header = ({ user, onLogout }) => (
               warn
               onClick={onLogout}
             >
-              로그아웃
+              {LOGOUT}
             </Button>
           </UserStatusWrapper>
         ) : (
           <div>
-            <Button to="/login" style={{ marginRight: '0.5rem' }}>로그인</Button>
-            <Button to="/register" success>회원가입</Button>
+            <Button to="/login" style={{ marginRight: '0.5rem' }}>{LOGIN}</Button>
+            <Button to="/register" success>{REGISTER}</Button>
           </div>
         )}
       </Wrapper>

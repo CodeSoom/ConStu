@@ -2,9 +2,12 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { toStringEndDateFormat } from '../../util/utils';
-
 import palette from '../../styles/palette';
+
+import { toStringEndDateFormat } from '../../util/utils';
+import { WRITE_FORM } from '../../util/constants/constants';
+
+const { APPLICATION_DEADLINE_DATE, PARTICIPANTS_NUMBER } = WRITE_FORM;
 
 const WriteFormWrapper = styled.div`
   display: flex;
@@ -96,7 +99,9 @@ const WriteForm = ({ onChange, fields }) => {
       />
       <SpaceWrapper />
       <WriteDivBlock>
-        <LabelWrapper htmlFor="application-deadline">모집 마감 날짜</LabelWrapper>
+        <LabelWrapper htmlFor="application-deadline">
+          {APPLICATION_DEADLINE_DATE}
+        </LabelWrapper>
         <DateInputWrapper
           type="datetime-local"
           name="applyEndDate"
@@ -106,7 +111,9 @@ const WriteForm = ({ onChange, fields }) => {
         />
       </WriteDivBlock>
       <WriteDivBlock>
-        <LabelWrapper htmlFor="participants-number">참여 인원 수</LabelWrapper>
+        <LabelWrapper htmlFor="participants-number">
+          {PARTICIPANTS_NUMBER}
+        </LabelWrapper>
         <NumberInputWrapper
           min="1"
           type="number"

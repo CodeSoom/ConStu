@@ -19,16 +19,14 @@ const WriteEditorContainer = () => {
   const { contents } = useSelector(getGroup('writeField'));
 
   const onChangeContent = useCallback((state) => {
+    const value = draftToHtml(convertToRaw(state.getCurrentContent()));
+
     setEditorState(state);
 
     dispatch(
       changeWriteField({
         name: 'contents',
-        value: draftToHtml(
-          convertToRaw(
-            state.getCurrentContent(),
-          ),
-        ),
+        value,
       }),
     );
   }, [dispatch]);

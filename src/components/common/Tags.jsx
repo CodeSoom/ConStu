@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import _ from 'lodash';
+
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
@@ -64,7 +66,7 @@ const TagStyledLink = styled(Link)`
 `;
 
 const Tags = ({ tags, type, onRemove }) => {
-  if (!tags || !tags.length) {
+  if (_.isEmpty(tags)) {
     return null;
   }
 

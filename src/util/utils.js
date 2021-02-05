@@ -1,4 +1,5 @@
 import moment from 'moment';
+import _ from 'lodash';
 
 export const getAuth = (key) => (obj) => obj.authReducer[key];
 
@@ -21,7 +22,7 @@ export const isCheckedTimeStatus = ({
 
 export const isCheckedOnlyTimeStatus = ({ time, applyEndTime }) => (time - applyEndTime >= 0);
 
-const checkTrim = (value) => value.trim();
+const checkTrim = (value) => _.trim(value);
 
 export const isCheckValidate = (values) => values.map(checkTrim).includes('');
 

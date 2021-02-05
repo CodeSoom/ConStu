@@ -1,9 +1,15 @@
 import React from 'react';
 
+import { APPLY_STATUS } from '../../util/constants/constants';
+
 import ApproveStatus from '../../styles/ApproveStatus';
 import StyledApplyStatusButton from '../../styles/StyledApplyStatusButton';
 
-const checkConfirm = (user) => user.confirm && user.confirm === true;
+const {
+  DEAD_LINE, WAIT, APPLY, CANCEL, CONFIRM, REJECT, COMPLETE,
+} = APPLY_STATUS;
+
+const checkConfirm = (user) => user.confirm && (user.confirm === true);
 
 const ApplyStatusButton = ({
   timeStatus, onApply, userStatus, onCancel,
@@ -15,7 +21,7 @@ const ApplyStatusButton = ({
         className="apply"
         onClick={onApply}
       >
-        신청하기
+        {APPLY}
       </StyledApplyStatusButton>
     );
   }
@@ -26,7 +32,7 @@ const ApplyStatusButton = ({
         type="button"
         className="deadline"
       >
-        모집 마감
+        {DEAD_LINE}
       </StyledApplyStatusButton>
     );
   }
@@ -35,14 +41,14 @@ const ApplyStatusButton = ({
     return (
       <>
         <ApproveStatus load>
-          승인 대기중..
+          {WAIT}
         </ApproveStatus>
         <StyledApplyStatusButton
           type="button"
           className="apply-cancel"
           onClick={onCancel}
         >
-          신청 취소
+          {CANCEL}
         </StyledApplyStatusButton>
       </>
     );
@@ -52,14 +58,14 @@ const ApplyStatusButton = ({
     return (
       <>
         <ApproveStatus approve>
-          승인 완료!
+          {CONFIRM}
         </ApproveStatus>
         <StyledApplyStatusButton
           type="button"
           className="apply-cancel"
           onClick={onCancel}
         >
-          신청 취소
+          {CANCEL}
         </StyledApplyStatusButton>
       </>
     );
@@ -71,7 +77,7 @@ const ApplyStatusButton = ({
         type="button"
         className="apply-reject"
       >
-        승인 거절
+        {REJECT}
       </StyledApplyStatusButton>
     );
   }
@@ -81,7 +87,7 @@ const ApplyStatusButton = ({
       type="button"
       className="apply-complete"
     >
-      신청 완료
+      {COMPLETE}
     </StyledApplyStatusButton>
   );
 };

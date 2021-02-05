@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import qs from 'qs';
 
+import _ from 'lodash';
+
 import { getAuth, getGroup } from '../../util/utils';
 import { loadStudyGroups } from '../../reducers/groupSlice';
 
@@ -35,7 +37,7 @@ const StudyGroupsContainer = () => {
     dispatch(loadStudyGroups(tag));
   }, [dispatch, search]);
 
-  if (!tagState && (!groups || !groups.length)) {
+  if (!tagState && _.isEmpty(groups)) {
     return (
       <GroupsContentLoader />
     );
