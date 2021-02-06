@@ -1,17 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
+import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
 import palette from './palette';
 
+const mq = facepaint([
+  '@media(min-width: 1024px)',
+]);
+
 const StyledApplyStatusButtonWrapper = styled.button`
+  ${mq({
+    fontSize: ['2.7vw', '1.5rem'],
+    padding: ['0.25rem 10vw', '0.25rem 5rem'],
+  })};
+  height: 33px;
   font-family: 'Gamja Flower', cursive;
-  font-size: 1.5em;
   display: inline-flex;
   align-items: center;
   margin: .5rem 0 .5rem 0;
-  padding: 0.25rem 5rem;
   border: none;
   border-radius: 0.4rem;
   outline: none;
@@ -56,8 +64,11 @@ const StyledApplyStatusButtonWrapper = styled.button`
   }
 
   &.confirm {
+  ${mq({
+    fontSize: ['2.7vw', '1.5rem'],
+    padding: ['0.25rem 5vw', '0.25rem 2.5rem'],
+  })};
     cursor: pointer;
-    padding: 0.25rem 2.5rem;
     color: white;
     background: #4dabf7;
     

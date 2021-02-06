@@ -2,28 +2,37 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
 import { NOT_MEMBER_YET, REGISTER, FORM_TYPE } from '../../util/constants/constants';
 
-import Responsive from '../../styles/Responsive';
 import palette from '../../styles/palette';
 import Button from '../../styles/Button';
 
-const AuthFormWrapper = styled(Responsive)`
+const mq = facepaint([
+  '@media(min-width: 1024px)',
+]);
+
+const AuthFormWrapper = styled.div`
+  ${mq({
+    width: ['calc(100% - 10rem)', '600px'],
+    height: ['calc(100% - 1rem)', '400px'],
+  })};
   display: flex;
   align-items: center;
   justify-items: center;
   flex-direction: column;
-  width: 400px;
-  height: 400px;
+  margin: 0 auto;
   padding: 3rem;
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
   background: ${palette.gray[1]};
 
   h2 {
-    font-size: 2rem;
+  ${mq({
+    fontSize: ['3.5vw', '2rem'],
+  })};
     font-weight: bold;
     margin-top: 0;
     color: black;
@@ -45,14 +54,16 @@ const ErrorWrapper = styled.div`
 `;
 
 const InputWrapper = styled.input`
+  ${mq({
+    height: ['calc(100% - 1rem)', '40px'],
+    width: ['45vw', '400px'],
+    padding: ['1vw 12px', '8px 12px'],
+  })};
   font-size: 1rem;
   line-height: 24px;
-  height: 40px;
-  width: 400px;
   border: 0;
   box-shadow: none;
   border: 2px solid #D7E2EB;
-  padding: 8px 12px;
   border-radius: 0.25rem;
   color: #5f5f5f;
   background: white;
@@ -66,6 +77,9 @@ const InputWrapper = styled.input`
 `;
 
 const Footer = styled.div`
+  ${mq({
+    fontSize: ['2vw', '1rem'],
+  })};
   display: flex;
   justify-content: flex-end;
   margin-top: 1.5rem;
@@ -92,7 +106,9 @@ const SpaceBlock = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  height: 40px;
+  ${mq({
+    height: ['100%', '40px'],
+  })};
   border: 2px solid ${palette.teal[5]};
   &:hover{
     border: 2px solid ${palette.teal[5]};
