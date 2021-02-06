@@ -14,7 +14,7 @@ const ResponsiveContainer = styled.div(() => mq({
   marginRight: 'auto',
   paddingLeft: '1rem',
   paddingRight: '1rem',
-  width: ['calc(100% - 2rem)', '680px', '1024px'],
+  width: ['calc(100% - 3rem)', '680px', '1024px'],
 }));
 
 const Responsive = ({ children, ...rest }) => (
