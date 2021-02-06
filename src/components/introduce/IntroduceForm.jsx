@@ -43,7 +43,9 @@ const IntroduceReferenceWrapper = styled.div`
 `;
 
 const ModeratorWrapper = styled.div`
-  font-size: 1.2rem;
+  ${mq({
+    fontSize: ['2vw', '1rem', '1.2rem'],
+  })};
   font-weight: bold;
   display: flex;
   justify-content: space-between;
@@ -55,7 +57,9 @@ const ModeratorWrapper = styled.div`
   }
 
   time {
-    font-size: 1rem;
+  ${mq({
+    fontSize: ['2vw', '1rem'],
+  })};
     font-weight: normal;
     color: ${palette.gray[6]};
   }

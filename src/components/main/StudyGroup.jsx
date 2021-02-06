@@ -25,7 +25,7 @@ const StudyGroupWrapper = styled.div(() => mq({
   margin: ['1rem 0px 1rem 0px', '0.5rem', '1rem'],
   borderRadius: '4px',
   border: `2px solid ${palette.gray[4]}`,
-  width: ['100%', 'calc(50% - 2rem)', '19rem'],
+  width: ['100%', 'calc(50% - 1.5rem)', '19rem'],
   boxShadow: 'rgba(0, 0, 0, 0.08) 0px 4px 16px 0px',
   background: 'rgb(248, 249, 250)',
 }));

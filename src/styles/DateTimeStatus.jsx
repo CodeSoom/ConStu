@@ -29,6 +29,10 @@ const DateTimeStatusWrapper = styled.div`
 
   ${({ status }) => status === 'mainRecruit'
     && css`
+      ${mq({
+    fontSize: ['0.8rem', '1rem'],
+    height: ['15px', '20px'],
+  })};
       margin-bottom: 0.5rem;
       background: ${palette.cyan[4]};
       animation: blink-animation 1.5s steps(5, start) infinite;

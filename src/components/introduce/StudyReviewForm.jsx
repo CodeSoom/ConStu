@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 
 import StarRatings from 'react-star-ratings';
 
+import facepaint from 'facepaint';
+
 import { STUDY_REVIEW_FORM } from '../../util/constants/constants';
 import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
@@ -13,11 +15,15 @@ import Button from '../../styles/Button';
 
 const { FORM_TITLE, REVIEW_SUBMIT } = STUDY_REVIEW_FORM;
 
+const mq = facepaint([
+  '@media(min-width: 1024px)',
+]);
+
 const StudyReviewFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 3rem 0 3rem 0;
-  padding: 20px 0 20px 0;
+  padding: 20px 20px 20px 20px;
   border: 1px solid ${palette.gray[3]};
   border-radius: 5px;
   background-color: #f8f8f8;
@@ -29,7 +35,11 @@ const StudyReviewFormHeader = styled.div`
   flex-direction: column;
   margin: 0 0 0.5rem 0;
 
+
   h2 {
+  ${mq({
+    fontSize: ['3vw', '1.5rem'],
+  })};
     margin: 0 0 0.3rem 0;
   }
 `;
