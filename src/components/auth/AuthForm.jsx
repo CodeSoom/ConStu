@@ -55,7 +55,7 @@ const ErrorWrapper = styled.div`
 
 const InputWrapper = styled.input`
   ${mq({
-    height: ['calc(100% - 1rem)', '40px'],
+    height: ['30px', '40px'],
     width: ['45vw', '400px'],
     padding: ['1vw 12px', '8px 12px'],
   })};
@@ -107,7 +107,7 @@ const SpaceBlock = styled.div`
 
 const StyledButton = styled(Button)`
   ${mq({
-    height: ['100%', '40px'],
+    height: ['3.2vh', '40px'],
   })};
   border: 2px solid ${palette.teal[5]};
   &:hover{

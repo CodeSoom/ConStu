@@ -4,6 +4,8 @@ import { useInterval } from 'react-use';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { useMediaQuery } from 'react-responsive';
+
 import qs from 'qs';
 
 import _ from 'lodash';
@@ -12,7 +14,7 @@ import { getAuth, getGroup } from '../../util/utils';
 import { loadStudyGroups } from '../../reducers/groupSlice';
 
 import StudyGroups from '../../components/main/StudyGroups';
-import GroupsContentLoader from '../../components/main/GroupsContentLoader';
+import ResponsiveGroupsContentLoader from '../../components/loader/ResponsiveGroupsContentLoader';
 
 const StudyGroupsContainer = () => {
   const { search } = useLocation();
@@ -37,9 +39,20 @@ const StudyGroupsContainer = () => {
     dispatch(loadStudyGroups(tag));
   }, [dispatch, search]);
 
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 1150px)',
+  });
+
+  const isMobile = useMediaQuery({
+    query: '(min-width: 960px)',
+  });
+
   if (!tagState && _.isEmpty(groups)) {
     return (
-      <GroupsContentLoader />
+      <ResponsiveGroupsContentLoader
+        isDesktop={isDesktop}
+        isMobile={isMobile}
+      />
     );
   }
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 import ContentLoader from 'react-content-loader';
 
-const GroupsContentLoader = (props) => (
+const DesktopGroupsContentLoader = (props) => (
   <ContentLoader
     speed={1}
     viewBox="0 0 1024 900"
@@ -11,6 +11,7 @@ const GroupsContentLoader = (props) => (
     width={1024}
     backgroundColor="#f2f2f2"
     foregroundColor="#e3e3e3"
+    title="desktop loading.."
     {...props}
   >
     <rect x="5" y="20" rx="8" ry="8" width="220" height="40" />
@@ -121,4 +122,4 @@ const GroupsContentLoader = (props) => (
   </ContentLoader>
 );
 
-export default GroupsContentLoader;
+export default DesktopGroupsContentLoader;

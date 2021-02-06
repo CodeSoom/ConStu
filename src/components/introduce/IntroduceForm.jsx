@@ -5,9 +5,8 @@ import Moment from 'react-moment';
 import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
-import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
-
 import { INTRODUCE_FORM_TITLE } from '../../util/constants/constants';
+import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
@@ -49,12 +48,9 @@ const ModeratorWrapper = styled.div`
   font-weight: bold;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
   color: ${palette.gray[6]};
-
-  span {
-    margin-right: 1rem;
-  }
 
   time {
   ${mq({
@@ -110,9 +106,9 @@ const IntroduceForm = ({
   return (
     <>
       <ModeratorWrapper>
-        <span>
-          {`🙋‍♂️ ${moderatorId}`}
-        </span>
+        <div>
+          {`🙋‍♂️${moderatorId}`}
+        </div>
         <Moment interval={0} format="YYYY년 MM월 DD일">{changeDateToTime(createDate)}</Moment>
       </ModeratorWrapper>
       <IntroduceReferenceWrapper>
