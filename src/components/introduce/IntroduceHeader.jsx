@@ -19,7 +19,7 @@ const IntroduceHeaderWrapper = styled.div`
   
   h1 {
   ${mq({
-    fontSize: ['5vw', '2.3rem'],
+    fontSize: ['4.3vw', '2.3rem'],
   })};
     margin: 0;
     line-height: 1.5;

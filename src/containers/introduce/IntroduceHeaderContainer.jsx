@@ -17,7 +17,7 @@ import {
 import IntroduceHeader from '../../components/introduce/IntroduceHeader';
 import ApplicantViewButton from '../../components/introduce/ApplicantViewButton';
 import ModeratorViewButton from '../../components/introduce/ModeratorViewButton';
-import GroupContentLoader from '../../components/introduce/GroupsContentLoader';
+import GroupContentLoader from '../../components/loader/GroupsContentLoader';
 
 const IntroduceHeaderContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());

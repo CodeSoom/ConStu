@@ -55,7 +55,7 @@ const ErrorWrapper = styled.div`
 
 const InputWrapper = styled.input`
   ${mq({
-    height: ['calc(100% - 1rem)', '40px'],
+    height: ['auto', '40px'],
     width: ['45vw', '400px'],
     padding: ['1vw 12px', '8px 12px'],
   })};
