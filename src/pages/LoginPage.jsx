@@ -2,12 +2,14 @@ import React from 'react';
 
 import { Helmet } from 'react-helmet';
 
+import { LOGIN } from '../util/constants/constants';
+
 import LoginFormContainer from '../containers/auth/LoginFormContainer';
 
 const LoginPage = () => (
   <>
     <Helmet>
-      <title>로그인</title>
+      <title>{LOGIN}</title>
     </Helmet>
     <LoginFormContainer />
   </>

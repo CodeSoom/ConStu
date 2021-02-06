@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import ParticipantListButton from '../../../styles/ParticipantListButton';
+import { PARTICIPANT_FORM } from '../../../util/constants/constants';
+
 import ApplicationViewModal from './ApplicationViewModal';
+import ParticipantListButton from '../../../styles/ParticipantListButton';
+
+const { VIEW_APPLICATION, CONFIRM, CANCEL } = PARTICIPANT_FORM;
 
 const ParticipantListWrapper = styled.div`
   display: grid;
@@ -37,7 +41,7 @@ const ParticipantList = ({ participant, onUpdate }) => {
             sky
             onClick={handleApplyFormClick}
           >
-            신청서 보기
+            {VIEW_APPLICATION}
           </ParticipantListButton>
         </div>
         <div>
@@ -46,14 +50,14 @@ const ParticipantList = ({ participant, onUpdate }) => {
               cancel
               onClick={onUpdate}
             >
-              취소하기
+              {CANCEL}
             </ParticipantListButton>
           ) : (
             <ParticipantListButton
               confirm
               onClick={onUpdate}
             >
-              승인하기
+              {CONFIRM}
             </ParticipantListButton>
           )}
         </div>

@@ -5,7 +5,11 @@ import { css } from '@emotion/react';
 
 import palette from '../../styles/palette';
 
+import { BUTTON_NAME } from '../../util/constants/constants';
+
 import AskArticleDeleteModal from './modals/AskArticleDeleteModal';
+
+const { EDIT, DELETE } = BUTTON_NAME;
 
 const IntroduceActionButtonsWrapper = styled.div`
   display: flex;
@@ -62,13 +66,13 @@ const IntroduceActionButtons = ({ onRemove, onEdit }) => {
           revise
           onClick={onEdit}
         >
-          수정
+          {EDIT}
         </ActionButton>
         <ActionButton
           remove
           onClick={handleRemove}
         >
-          삭제
+          {DELETE}
         </ActionButton>
       </IntroduceActionButtonsWrapper>
       <AskArticleDeleteModal

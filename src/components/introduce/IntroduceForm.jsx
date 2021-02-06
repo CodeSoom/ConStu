@@ -7,10 +7,14 @@ import styled from '@emotion/styled';
 
 import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 
+import { INTRODUCE_FORM_TITLE } from '../../util/constants/constants';
+
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
 import IntroduceActionButtons from './IntroduceActionButtons';
+
+const { APPLY_STATUS, DEAD_LINE_DATE, INTRODUCE } = INTRODUCE_FORM_TITLE;
 
 const mq = facepaint([
   '@media(min-width: 1024px)',
@@ -97,7 +101,7 @@ const IntroduceForm = ({
   } = group;
 
   const applyEndTime = changeDateToTime(applyEndDate);
-  const isCheckOwnGroupPost = (user && user) === moderatorId;
+  const isCheckOwnGroupPost = user && (user === moderatorId);
 
   return (
     <>
@@ -109,13 +113,13 @@ const IntroduceForm = ({
       </ModeratorWrapper>
       <IntroduceReferenceWrapper>
         <IntroduceReference>
-          <label htmlFor="application-status">신청 현황 :</label>
+          <label htmlFor="application-status">{APPLY_STATUS}</label>
           <span id="application-status">
             {`${authorizedUsersNumber(participants)} / ${personnel}`}
           </span>
         </IntroduceReference>
         <IntroduceReference>
-          <label htmlFor="apply-end">모집 마감 일자 :</label>
+          <label htmlFor="apply-end">{DEAD_LINE_DATE}</label>
           <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{applyEndTime}</Moment>
         </IntroduceReference>
         <DateTimeChange
@@ -125,7 +129,7 @@ const IntroduceForm = ({
         />
       </IntroduceReferenceWrapper>
       <IntroduceContentTitle>
-        소개
+        {INTRODUCE}
       </IntroduceContentTitle>
       <IntroduceContent dangerouslySetInnerHTML={{ __html: contents }} />
       <IntroduceFooter>

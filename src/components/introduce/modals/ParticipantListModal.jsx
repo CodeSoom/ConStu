@@ -1,11 +1,24 @@
 import React from 'react';
 
+import _ from 'lodash';
+
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+
+import { PARTICIPANT_FORM, BUTTON_NAME } from '../../../util/constants/constants';
 
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
 import ParticipantList from './ParticipantList';
+
+const {
+  FORM_TITLE,
+  PARTICIPANT_EMAIL,
+  VIEW_APPLICATION,
+  CONFIRM_YN,
+  NO_EXIST_PARTICIPANT,
+} = PARTICIPANT_FORM;
+const { CLOSE } = BUTTON_NAME;
 
 const ParticipantListModalWrapper = styled.div`
   position: fixed;
@@ -106,14 +119,14 @@ const ParticipantListModal = ({
   return (
     <ParticipantListModalWrapper visible className="animation">
       <ModalBoxWrapper>
-        <h2>스터디 신청자 목록 🙋‍♂️</h2>
+        <h2>{FORM_TITLE}</h2>
         <ParticipantTitleWrapper>
-          <div>신청자 이메일</div>
-          <div>신청서 보기</div>
-          <div>승인 여부</div>
+          <div>{PARTICIPANT_EMAIL}</div>
+          <div>{VIEW_APPLICATION}</div>
+          <div>{CONFIRM_YN}</div>
         </ParticipantTitleWrapper>
         <ParticipantListWrapper>
-          {participants.length ? participants.map((participant) => (
+          {!_.isEmpty(participants) ? participants.map((participant) => (
             <ParticipantList
               key={participant.id}
               participant={participant}
@@ -121,12 +134,12 @@ const ParticipantListModal = ({
             />
           )) : (
             <NoExistListWrapper>
-              신청자가 존재하지 않습니다.
+              {NO_EXIST_PARTICIPANT}
             </NoExistListWrapper>
           )}
         </ParticipantListWrapper>
         <div className="buttons">
-          <StyledButton onClick={onClose}>닫기</StyledButton>
+          <StyledButton onClick={onClose}>{CLOSE}</StyledButton>
         </div>
       </ModalBoxWrapper>
     </ParticipantListModalWrapper>

@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 
+import _ from 'lodash';
+
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+
+import { APPLY_FORM_TITLE, BUTTON_NAME } from '../../../util/constants/constants';
 
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
 import Textarea from '../../../styles/Textarea';
+
+const { FORM_TITLE, WANT_TO_GET, APPLY_REASON } = APPLY_FORM_TITLE;
+const { CONFIRM, CANCEL } = BUTTON_NAME;
 
 const ApplicationFormModalWrapper = styled.div`
   position: fixed;
@@ -108,12 +115,12 @@ const ApplicationFormModal = ({
   };
 
   const handleConfirm = () => {
-    if (!reason.trim()) {
+    if (!_.trim(reason)) {
       setError('reason');
       return;
     }
 
-    if (!wantToGet.trim()) {
+    if (!_.trim(wantToGet)) {
       setError('wantToGet');
       return;
     }
@@ -129,9 +136,9 @@ const ApplicationFormModal = ({
   return (
     <ApplicationFormModalWrapper visible className="animation">
       <ModalBoxWrapper>
-        <h2>스터디 참여 신청서 📚</h2>
+        <h2>{FORM_TITLE}</h2>
         <ContentBoxWrapper>
-          <label htmlFor="apply-reason">신청하게 된 이유</label>
+          <label htmlFor="apply-reason">{APPLY_REASON}</label>
           <Textarea
             error={error && error === 'reason'}
             rows="10"
@@ -143,7 +150,7 @@ const ApplicationFormModal = ({
           />
         </ContentBoxWrapper>
         <ContentBoxWrapper>
-          <label htmlFor="study-want">스터디를 통해 얻고 싶은 것은 무엇인가요?</label>
+          <label htmlFor="study-want">{WANT_TO_GET}</label>
           <Textarea
             error={error && error === 'wantToGet'}
             rows="10"
@@ -155,8 +162,8 @@ const ApplicationFormModal = ({
           />
         </ContentBoxWrapper>
         <div className="buttons">
-          <StyledButton onClick={handleCancel}>취소</StyledButton>
-          <StyledButton success onClick={handleConfirm}>확인</StyledButton>
+          <StyledButton onClick={handleCancel}>{CANCEL}</StyledButton>
+          <StyledButton success onClick={handleConfirm}>{CONFIRM}</StyledButton>
         </div>
       </ModalBoxWrapper>
     </ApplicationFormModalWrapper>

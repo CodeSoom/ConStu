@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
+import { NOT_MEMBER_YET, REGISTER, FORM_TYPE } from '../../util/constants/constants';
+
 import Responsive from '../../styles/Responsive';
 import palette from '../../styles/palette';
 import Button from '../../styles/Button';
@@ -97,11 +99,6 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const FORM_TYPE = {
-  login: '로그인',
-  register: '회원가입',
-};
-
 const AuthForm = ({
   type, fields, onChange, onSubmit, error,
 }) => {
@@ -165,12 +162,12 @@ const AuthForm = ({
           </StyledButton>
           {type === 'login' && (
             <Footer>
-              <span>아직 회원이 아니신가요?</span>
+              <span>{NOT_MEMBER_YET}</span>
               <Link
                 to="/register"
                 data-testid="sign-up-link"
               >
-                회원가입
+                {REGISTER}
               </Link>
             </Footer>
           )}
