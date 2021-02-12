@@ -1,0 +1,13 @@
+name: Codecov
+
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2 # Check out your repository
+    - run: npm i # Install dependencies
+    - run: npm run coverage # Run test
+    - run: bash <(curl -s https://codecov.io/bash) # Upload to Codecov
