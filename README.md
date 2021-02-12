@@ -9,8 +9,8 @@
   <img src="https://img.shields.io/github/workflow/status/CodeSoom/project-react-2-saseungmin/CD?label=build&logo=GitHub&style=flat-square" />
 </a>
 
-<a href="https://codecov.io/gh/saseungmin/project-react-2-saseungmin">
-  <img src="https://codecov.io/gh/saseungmin/project-react-2-saseungmin/branch/main/graph/badge.svg?token=EIRZ8Y2UFR"/>
+<a href="https://codecov.io/gh/CodeSoom/ConStu">
+  <img src="https://codecov.io/gh/CodeSoom/ConStu/branch/main/graph/badge.svg?token=RNS1FQH8O9"/>
 </a>
     
 <a href="https://github.com/CodeSoom/project-react-2-saseungmin/issues">
