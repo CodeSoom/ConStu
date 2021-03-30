@@ -28,9 +28,7 @@ const IntroduceHeaderContainer = () => {
   const group = useSelector(getGroup('group'));
   const applyFields = useSelector(getGroup('applyFields'));
 
-  useInterval(() => {
-    setRealTime(Date.now());
-  }, 1000);
+  useInterval(() => setRealTime(Date.now()), 1000);
 
   const onApplyStudy = useCallback(({ reason, wantToGet }) => {
     dispatch(updateParticipant({ reason, wantToGet }));

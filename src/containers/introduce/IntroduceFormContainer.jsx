@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth, getGroup } from '../../util/utils';
 
-import IntroduceForm from '../../components/introduce/IntroduceForm';
 import { deleteGroup, setOriginalArticle } from '../../reducers/groupSlice';
+
+import IntroduceForm from '../../components/introduce/IntroduceForm';
 
 const IntroduceFormContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
@@ -18,9 +19,7 @@ const IntroduceFormContainer = () => {
   const group = useSelector(getGroup('group'));
   const user = useSelector(getAuth('user'));
 
-  useInterval(() => {
-    setRealTime(Date.now());
-  }, 1000);
+  useInterval(() => setRealTime(Date.now()), 1000);
 
   const onRemove = (id) => {
     dispatch(deleteGroup(id));

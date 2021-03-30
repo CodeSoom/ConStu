@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import { twoSecondsLater, tomorrow } from '../../util/utils';
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 import IntroduceHeaderContainer from './IntroduceHeaderContainer';
@@ -28,7 +29,7 @@ describe('IntroduceHeaderContainer', () => {
     }));
   });
 
-  const renderIntroduceContainer = () => render((
+  const renderIntroduceHeaderContainer = () => render((
     <MemoryRouter>
       <IntroduceHeaderContainer />
     </MemoryRouter>
@@ -54,7 +55,7 @@ describe('IntroduceHeaderContainer', () => {
     }));
 
     it('renders study group title', () => {
-      const { container } = renderIntroduceContainer();
+      const { container } = renderIntroduceHeaderContainer();
 
       expect(container).toHaveTextContent('스터디를 소개합니다. 1');
     });
@@ -68,7 +69,7 @@ describe('IntroduceHeaderContainer', () => {
     }));
 
     it('renders "loading.." text', () => {
-      const { container } = renderIntroduceContainer();
+      const { container } = renderIntroduceHeaderContainer();
 
       expect(container).toHaveTextContent('Loading...');
     });
@@ -84,7 +85,7 @@ describe('IntroduceHeaderContainer', () => {
       }));
 
       it('click event dispatches action call updateParticipant', () => {
-        const { getByText } = renderIntroduceContainer();
+        const { getByText } = renderIntroduceHeaderContainer();
 
         const button = getByText('신청하기');
 
@@ -103,7 +104,7 @@ describe('IntroduceHeaderContainer', () => {
           value: '내용',
         };
 
-        const { getByText, getByLabelText } = renderIntroduceContainer();
+        const { getByText, getByLabelText } = renderIntroduceHeaderContainer();
 
         const button = getByText('신청하기');
 
@@ -120,7 +121,7 @@ describe('IntroduceHeaderContainer', () => {
       });
 
       it('click cancel dispatches call action clearApplyFields', () => {
-        const { getByText } = renderIntroduceContainer();
+        const { getByText } = renderIntroduceHeaderContainer();
 
         const button = getByText('신청하기');
 
@@ -138,9 +139,6 @@ describe('IntroduceHeaderContainer', () => {
 
     describe(`When the application date is earlier than the deadline 
       date and the application deadline is not reached`, () => {
-      const nowDate = new Date();
-      const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
-
       const group = {
         ...STUDY_GROUP,
         applyEndDate: tomorrow,
@@ -160,7 +158,7 @@ describe('IntroduceHeaderContainer', () => {
 
       context('click confirm', () => {
         it('click event dispatches action call deleteParticipant', () => {
-          const { getByText } = renderIntroduceContainer();
+          const { getByText } = renderIntroduceHeaderContainer();
 
           const button = getByText('신청 취소');
 
@@ -176,7 +174,7 @@ describe('IntroduceHeaderContainer', () => {
 
       context('click cancel', () => {
         it("doesn't click event dispatches action call deleteParticipant", () => {
-          const { getByText } = renderIntroduceContainer();
+          const { getByText } = renderIntroduceHeaderContainer();
 
           const button = getByText('신청 취소');
 
@@ -193,12 +191,9 @@ describe('IntroduceHeaderContainer', () => {
   });
 
   context('When the logged-in user is the author', () => {
-    const nowDate = new Date();
-    const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
-
     given('group', () => ({
       ...STUDY_GROUP,
-      applyEndDate: tomorrow,
+      applyEndDate: twoSecondsLater,
       participants: [
         {
           confirm: true,
@@ -218,7 +213,7 @@ describe('IntroduceHeaderContainer', () => {
 
     describe('Click "Approve to participate in the study" button and then click "Approve" button', () => {
       it('dispatches call action "updateConfirmParticipant"', () => {
-        const { getByText } = renderIntroduceContainer();
+        const { getByText } = renderIntroduceHeaderContainer();
 
         const button = getByText('스터디 참여 승인하기');
 

@@ -17,9 +17,7 @@ const StudyReviewContainer = () => {
   const group = useSelector(getGroup('group'));
   const studyReviewFields = useSelector(getGroup('studyReviewFields'));
 
-  useInterval(() => {
-    setRealTime(Date.now());
-  }, 1000);
+  useInterval(() => setRealTime(Date.now()), 1000);
 
   const onChangeReviewFields = useCallback(({ name, value }) => {
     dispatch(changeStudyReviewFields({ name, value }));

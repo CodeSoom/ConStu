@@ -13,6 +13,7 @@ export const authorizedUsersNumber = (participants) => participants
   .filter(({ confirm }) => confirm && confirm === true)
   .length + 1;
 
+// FIXME - 이 함수 수정 필요!!!
 export const isCheckedTimeStatus = ({
   time, applyEndTime, participants, personnel,
 }) => (!!((
@@ -29,8 +30,10 @@ export const isCheckValidate = (values) => values.map(checkTrim).includes('');
 export const changeDateToTime = (date) => new Date(date).getTime();
 
 const nowDate = new Date();
+
 export const tomorrow = nowDate.setDate(nowDate.getDate() + 1);
 export const yesterday = nowDate.setDate(nowDate.getDate() - 1);
+export const twoSecondsLater = nowDate.setSeconds(nowDate.getSeconds() + 2);
 
 export const toStringEndDateFormat = (endDate) => endDate && moment(new Date(endDate))
   .format('YYYY-MM-DDTHH:mm')

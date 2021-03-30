@@ -72,6 +72,7 @@ const StudyReviewForm = ({
     time, applyEndTime, participants, personnel,
   };
 
+  // FIXME - 수정 필요 isCheckedTimeStatus
   if (!isValidateUserInfo(user)(participants) || !isCheckedTimeStatus(valid)) {
     return null;
   }
