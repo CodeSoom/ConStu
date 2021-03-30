@@ -4,13 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import StudyReviewContainer from './StudyReviewContainer';
-
 import STUDY_GROUP from '../../../fixtures/study-group';
 import { yesterday } from '../../util/utils';
 
+import StudyReviewContainer from './StudyReviewContainer';
+
 describe('StudyReviewContainer', () => {
   const dispatch = jest.fn();
+
+  jest.useFakeTimers();
 
   beforeEach(() => {
     dispatch.mockClear();
@@ -29,6 +31,10 @@ describe('StudyReviewContainer', () => {
         user: given.user,
       },
     }));
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
   });
 
   const renderStudyReviewContainer = () => render((

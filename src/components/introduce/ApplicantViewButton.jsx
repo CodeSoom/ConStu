@@ -82,6 +82,7 @@ const ApplicantViewButton = ({
           onApply={handleApply}
           onCancel={handleApplyCancelConfirmClick}
           userStatus={isCheckedUserStatus(participants)(user)}
+          // FIXME - 수정 필요 isCheckedTimeStatus
           timeStatus={isCheckedTimeStatus(status)}
         />
       </ParticipantsStatus>

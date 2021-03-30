@@ -11,6 +11,7 @@ import qs from 'qs';
 import _ from 'lodash';
 
 import { getAuth, getGroup } from '../../util/utils';
+
 import { loadStudyGroups } from '../../reducers/groupSlice';
 
 import StudyGroups from '../../components/main/StudyGroups';
@@ -26,9 +27,7 @@ const StudyGroupsContainer = () => {
   const groups = useSelector(getGroup('groups'));
   const user = useSelector(getAuth('user'));
 
-  useInterval(() => {
-    setRealTime(Date.now());
-  }, 1000);
+  useInterval(() => setRealTime(Date.now()), 1000);
 
   useEffect(() => {
     const { tag } = qs.parse(search, {

@@ -1,19 +1,25 @@
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
+
+import { twoSecondsLater } from '../../util/utils';
+import studyGroup from '../../../fixtures/study-group';
 
 import StudyGroupsContainer from './StudyGroupsContainer';
 
 describe('StudyGroupsContainer', () => {
   const dispatch = jest.fn();
 
+  jest.useFakeTimers();
+
   beforeEach(() => {
     dispatch.mockClear();
-    useDispatch.mockImplementation(() => dispatch);
 
+    useDispatch.mockImplementation(() => dispatch);
     useSelector.mockImplementation((selector) => selector({
       groupReducer: {
         groups: given.groups,
@@ -24,6 +30,10 @@ describe('StudyGroupsContainer', () => {
     }));
   });
 
+  afterEach(() => {
+    jest.clearAllTimers();
+  });
+
   const renderStudyGroupsContainer = () => render((
     <MemoryRouter>
       <StudyGroupsContainer />
@@ -32,25 +42,34 @@ describe('StudyGroupsContainer', () => {
 
   context('with groups', () => {
     given('groups', () => ([{
-      id: 1,
-      moderatorId: 'user1',
-      title: '소개합니다.',
-      participants: [],
-      tags: ['JavaScript'],
+      ...studyGroup,
+      applyEndDate: twoSecondsLater,
     }]));
 
-    it('renders groups title', () => {
+    it('renders groups title', async () => {
       const { container } = renderStudyGroupsContainer();
 
-      expect(container).toHaveTextContent('소개합니다.');
+      expect(container).toHaveTextContent('스터디를 소개합니다.2');
     });
 
-    it('click event calls dispatch', () => {
+    it('click event calls dispatch', async () => {
       const { getByText } = renderStudyGroupsContainer();
 
       fireEvent.click(getByText('#JavaScript'));
 
       expect(dispatch).toBeCalled();
+    });
+
+    it('The status changes to the deadline for recruitment after 2 seconds.', async () => {
+      const { container } = renderStudyGroupsContainer();
+
+      expect(container).toHaveTextContent(/몇 초 후 모집 마감/i);
+
+      await act(async () => {
+        jest.advanceTimersByTime(2000);
+      });
+
+      expect(container).toHaveTextContent(/모집 마감/i);
     });
   });
 
