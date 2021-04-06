@@ -2,12 +2,9 @@ import React from 'react';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import StudyReviewForm from './StudyReviewForm';
+import ReviewForm from './ReviewForm';
 
-import { yesterday } from '../../util/utils';
-import STUDY_GROUP from '../../../fixtures/study-group';
-
-describe('StudyReviewForm', () => {
+describe('ReviewForm', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -15,15 +12,14 @@ describe('StudyReviewForm', () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
 
-  const reviewForm = { rating: 3, review: '' };
+  const reviewForm = { rating: 3, content: '' };
 
-  const renderStudyReviewForm = ({
-    group, time, user, fields = reviewForm,
+  const renderReviewForm = ({
+    participants, user, fields = reviewForm,
   }) => render((
-    <StudyReviewForm
+    <ReviewForm
       user={user}
-      time={time}
-      group={group}
+      participants={participants}
       fields={fields}
       onSubmit={handleSubmit}
       onChangeReview={handleChange}
@@ -31,12 +27,7 @@ describe('StudyReviewForm', () => {
   ));
 
   const userStatusSetting = ({ user, participants }) => ({
-    group: {
-      ...STUDY_GROUP,
-      participants,
-      applyEndDate: yesterday,
-    },
-    time: Date.now(),
+    participants,
     user,
   });
 
@@ -48,17 +39,17 @@ describe('StudyReviewForm', () => {
       };
 
       it('renders study review form', () => {
-        const { container } = renderStudyReviewForm(userStatusSetting(settings));
+        const { container } = renderReviewForm(userStatusSetting(settings));
         expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
       });
       it('call event change review form', () => {
-        const { getByPlaceholderText } = renderStudyReviewForm(userStatusSetting(settings));
+        const { getByPlaceholderText } = renderReviewForm(userStatusSetting(settings));
 
         const textarea = getByPlaceholderText('후기를 입력해주세요!');
 
         fireEvent.change(textarea, {
           target: {
-            name: 'review',
+            name: 'content',
             value: 'test',
           },
         });
@@ -67,7 +58,7 @@ describe('StudyReviewForm', () => {
       });
 
       it('call event click for review form', () => {
-        const { getByText } = renderStudyReviewForm(userStatusSetting(settings));
+        const { getByText } = renderReviewForm(userStatusSetting(settings));
 
         fireEvent.click(getByText('후기 등록하기'));
 
@@ -77,7 +68,7 @@ describe('StudyReviewForm', () => {
 
     describe('When the user is not approved applicant', () => {
       it('nothing renders study review form', () => {
-        const { container } = renderStudyReviewForm(userStatusSetting({
+        const { container } = renderReviewForm(userStatusSetting({
           participants: [],
           user: 'user2',
         }));
@@ -89,7 +80,7 @@ describe('StudyReviewForm', () => {
 
   context('without user', () => {
     it('nothing renders study review form', () => {
-      const { container } = renderStudyReviewForm(userStatusSetting({
+      const { container } = renderReviewForm(userStatusSetting({
         participants: [],
         user: null,
       }));
