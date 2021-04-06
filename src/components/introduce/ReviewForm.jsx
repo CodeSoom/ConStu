@@ -64,7 +64,7 @@ const StudyReviewForm = ({
     participants, personnel, applyEndDate,
   } = group;
 
-  const { rating, review } = fields;
+  const { rating, content } = fields;
 
   const applyEndTime = changeDateToTime(applyEndDate);
 
@@ -112,8 +112,8 @@ const StudyReviewForm = ({
         <Textarea
           rows="3"
           cols="100"
-          name="review"
-          value={review}
+          name="content"
+          value={content}
           placeholder="후기를 입력해주세요!"
           onChange={handleChangeReview}
         />

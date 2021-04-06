@@ -15,7 +15,7 @@ describe('ReviewForm', () => {
   const handleChange = jest.fn();
   const handleSubmit = jest.fn();
 
-  const reviewForm = { rating: 3, review: '' };
+  const reviewForm = { rating: 3, content: '' };
 
   const renderReviewForm = ({
     group, time, user, fields = reviewForm,
@@ -58,7 +58,7 @@ describe('ReviewForm', () => {
 
         fireEvent.change(textarea, {
           target: {
-            name: 'review',
+            name: 'content',
             value: 'test',
           },
         });
