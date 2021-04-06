@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAuth, getGroup } from '../../util/utils';
 import { changeStudyReviewFields, setStudyReview } from '../../reducers/groupSlice';
 
-import StudyReviewForm from '../../components/introduce/StudyReviewForm';
+import ReviewForm from '../../components/introduce/ReviewForm';
 
-const StudyReviewContainer = () => {
+const ReviewFormContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
 
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const StudyReviewContainer = () => {
   }
 
   return (
-    <StudyReviewForm
+    <ReviewForm
       user={user}
       group={group}
       time={realTime}
@@ -46,4 +46,4 @@ const StudyReviewContainer = () => {
   );
 };
 
-export default StudyReviewContainer;
+export default ReviewFormContainer;

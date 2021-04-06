@@ -7,9 +7,9 @@ import { render, fireEvent } from '@testing-library/react';
 import STUDY_GROUP from '../../../fixtures/study-group';
 import { yesterday } from '../../util/utils';
 
-import StudyReviewContainer from './StudyReviewContainer';
+import ReviewFormContainer from './ReviewFormContainer';
 
-describe('StudyReviewContainer', () => {
+describe('ReviewFormContainer', () => {
   const dispatch = jest.fn();
 
   jest.useFakeTimers();
@@ -37,8 +37,8 @@ describe('StudyReviewContainer', () => {
     jest.clearAllTimers();
   });
 
-  const renderStudyReviewContainer = () => render((
-    <StudyReviewContainer />
+  const renderReviewFormContainer = () => render((
+    <ReviewFormContainer />
   ));
 
   context('with login and group', () => {
@@ -54,7 +54,7 @@ describe('StudyReviewContainer', () => {
 
     describe('When you are an approved applicant', () => {
       it('renders study review form', () => {
-        const { container } = renderStudyReviewContainer();
+        const { container } = renderReviewFormContainer();
 
         expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
       });
@@ -66,7 +66,7 @@ describe('StudyReviewContainer', () => {
         value: '후기입니다.',
       };
 
-      const { getByPlaceholderText } = renderStudyReviewContainer();
+      const { getByPlaceholderText } = renderReviewFormContainer();
 
       const textarea = getByPlaceholderText('후기를 입력해주세요!');
 
@@ -80,7 +80,7 @@ describe('StudyReviewContainer', () => {
 
     describe('Click the button to submit for study review', () => {
       it('dispatch actions call setStudyReview', () => {
-        const { getByText } = renderStudyReviewContainer();
+        const { getByText } = renderReviewFormContainer();
 
         fireEvent.click(getByText('후기 등록하기'));
 
@@ -94,7 +94,7 @@ describe('StudyReviewContainer', () => {
     given('group', () => (null));
 
     it('nothing renders review form', () => {
-      const { container } = renderStudyReviewContainer();
+      const { container } = renderReviewFormContainer();
 
       expect(container).toBeEmptyDOMElement();
     });
