@@ -18,11 +18,21 @@ describe('ReviewList', () => {
     />
   ));
 
-  it('Render reviews', () => {
-    const { container } = renderReviewList(mockReviews);
+  context('With reviews', () => {
+    it('Render reviews', () => {
+      const { container } = renderReviewList(mockReviews);
 
-    expect(container).toHaveTextContent('review');
-    expect(container).toHaveTextContent('test@test.com');
-    expect(container).toHaveTextContent(3);
+      expect(container).toHaveTextContent('review');
+      expect(container).toHaveTextContent('test@test.com');
+      expect(container).toHaveTextContent(3);
+    });
+  });
+
+  context('Without reviews', () => {
+    it('Render nothing review message', () => {
+      const { container } = renderReviewList([]);
+
+      expect(container).toHaveTextContent('아직 리뷰가 존재하지 않습니다!');
+    });
   });
 });

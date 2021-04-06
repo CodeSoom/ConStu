@@ -3,10 +3,13 @@ import React, { useState, useCallback } from 'react';
 import { useInterval } from 'react-use';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getAuth, getGroup } from '../../util/utils';
+import {
+  getAuth, getGroup, isCheckedTimeStatus, changeDateToTime,
+} from '../../util/utils';
 import { changeStudyReviewFields, setStudyReview } from '../../reducers/groupSlice';
 
 import ReviewForm from '../../components/introduce/ReviewForm';
+import ReviewList from '../../components/introduce/ReviewList';
 
 const ReviewFormContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
@@ -34,15 +37,34 @@ const ReviewFormContainer = () => {
     return null;
   }
 
+  const {
+    participants, personnel, applyEndDate,
+  } = group;
+
+  const isApplyTime = isCheckedTimeStatus({
+    applyEndTime: changeDateToTime(applyEndDate),
+    personnel,
+    participants,
+    time: realTime,
+  });
+
+  if (!isApplyTime) {
+    return null;
+  }
+
   return (
-    <ReviewForm
-      user={user}
-      group={group}
-      time={realTime}
-      fields={studyReviewFields}
-      onChangeReview={onChangeReviewFields}
-      onSubmit={onSubmitReview}
-    />
+    <>
+      <ReviewForm
+        user={user}
+        participants={group.participants}
+        fields={studyReviewFields}
+        onChangeReview={onChangeReviewFields}
+        onSubmit={onSubmitReview}
+      />
+      <ReviewList
+        reviews={group.reviews ? group.reviews : []}
+      />
+    </>
   );
 };
 

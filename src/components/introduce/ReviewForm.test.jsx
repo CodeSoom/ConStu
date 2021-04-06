@@ -4,9 +4,6 @@ import { render, fireEvent } from '@testing-library/react';
 
 import ReviewForm from './ReviewForm';
 
-import { yesterday } from '../../util/utils';
-import STUDY_GROUP from '../../../fixtures/study-group';
-
 describe('ReviewForm', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -18,12 +15,11 @@ describe('ReviewForm', () => {
   const reviewForm = { rating: 3, content: '' };
 
   const renderReviewForm = ({
-    group, time, user, fields = reviewForm,
+    participants, user, fields = reviewForm,
   }) => render((
     <ReviewForm
       user={user}
-      time={time}
-      group={group}
+      participants={participants}
       fields={fields}
       onSubmit={handleSubmit}
       onChangeReview={handleChange}
@@ -31,12 +27,7 @@ describe('ReviewForm', () => {
   ));
 
   const userStatusSetting = ({ user, participants }) => ({
-    group: {
-      ...STUDY_GROUP,
-      participants,
-      applyEndDate: yesterday,
-    },
-    time: Date.now(),
+    participants,
     user,
   });
 

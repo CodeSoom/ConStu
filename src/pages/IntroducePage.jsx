@@ -10,7 +10,7 @@ import { loadStudyGroup } from '../reducers/groupSlice';
 import Responsive from '../styles/Responsive';
 import IntroduceFormContainer from '../containers/introduce/IntroduceFormContainer';
 import IntroduceHeaderContainer from '../containers/introduce/IntroduceHeaderContainer';
-import ReviewFormContainer from '../containers/introduce/ReviewFormContainer';
+import ReviewContainer from '../containers/introduce/ReviewContainer';
 
 const IntroducePageWrapper = styled(Responsive)`
   margin-top: 6em;
@@ -29,7 +29,7 @@ const IntroducePage = ({ params }) => {
     <IntroducePageWrapper>
       <IntroduceHeaderContainer />
       <IntroduceFormContainer />
-      <ReviewFormContainer />
+      <ReviewContainer />
     </IntroducePageWrapper>
   );
 };

@@ -13,13 +13,12 @@ export const authorizedUsersNumber = (participants) => participants
   .filter(({ confirm }) => confirm && confirm === true)
   .length + 1;
 
-// FIXME - 이 함수 수정 필요!!!
+// NOTE - 현재 시간이 마감 시간보다 지났거나, 승인된 참여자 수가 모집 인원 수보다 같거나 많을 때 true
 export const isCheckedTimeStatus = ({
   time, applyEndTime, participants, personnel,
-}) => (!!((
-  time - applyEndTime >= 0
-  || authorizedUsersNumber(participants) >= parseInt(personnel, 10)
-)));
+}) => (
+  time - applyEndTime >= 0 || authorizedUsersNumber(participants) >= parseInt(personnel, 10)
+);
 
 export const isCheckedOnlyTimeStatus = ({ time, applyEndTime }) => (time - applyEndTime >= 0);
 

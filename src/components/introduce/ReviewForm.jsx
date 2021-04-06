@@ -7,7 +7,6 @@ import StarRatings from 'react-star-ratings';
 import facepaint from 'facepaint';
 
 import { STUDY_REVIEW_FORM } from '../../util/constants/constants';
-import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import palette from '../../styles/palette';
 import Textarea from '../../styles/Textarea';
@@ -54,26 +53,15 @@ const StudyReviewFormButton = styled(Button)`
   margin: 1px 0 0.8rem 0.5rem;
 `;
 
-const isValidateUserInfo = (user) => (participants) => !!participants
+const isValidateUserInfo = (user, participants) => !!participants
   .find(({ id, confirm }) => id === user && confirm && confirm === true);
 
-const StudyReviewForm = ({
-  group, user, time, fields, onChangeReview, onSubmit,
+const ReviewForm = ({
+  participants, user, fields, onChangeReview, onSubmit,
 }) => {
-  const {
-    participants, personnel, applyEndDate,
-  } = group;
-
   const { rating, content } = fields;
 
-  const applyEndTime = changeDateToTime(applyEndDate);
-
-  const valid = {
-    time, applyEndTime, participants, personnel,
-  };
-
-  // FIXME - 수정 필요 isCheckedTimeStatus
-  if (!isValidateUserInfo(user)(participants) || !isCheckedTimeStatus(valid)) {
+  if (!isValidateUserInfo(user, participants)) {
     return null;
   }
 
@@ -128,4 +116,4 @@ const StudyReviewForm = ({
   );
 };
 
-export default StudyReviewForm;
+export default ReviewForm;

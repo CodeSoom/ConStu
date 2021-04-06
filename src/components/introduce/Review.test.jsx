@@ -9,7 +9,7 @@ describe('Review', () => {
     id: 'test@test.com',
     rating: 3,
     content: 'review',
-    createdDate: new Date(),
+    createDate: new Date(),
   };
 
   const renderReview = (review) => render((

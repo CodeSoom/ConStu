@@ -8,7 +8,7 @@ const ReviewWrapper = styled.div`
 
 const Review = ({ review }) => {
   const {
-    id, rating, content, createdDate,
+    id, rating, content, createDate,
   } = review;
 
   return (
@@ -20,7 +20,7 @@ const Review = ({ review }) => {
         {content}
       </div>
       <div>
-        {`${id} | ${createdDate}`}
+        {`${id} | ${createDate}`}
       </div>
     </ReviewWrapper>
   );
