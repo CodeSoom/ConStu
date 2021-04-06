@@ -33,7 +33,7 @@ const applyInitialState = {
 
 const studyReviewInitialState = {
   rating: 3,
-  review: '',
+  content: '',
 };
 
 const { actions, reducer } = createSlice({

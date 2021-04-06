@@ -63,7 +63,7 @@ describe('reducer', () => {
       },
       studyReviewFields: {
         rating: 3,
-        review: '',
+        content: '',
       },
     };
 
@@ -255,17 +255,17 @@ describe('reducer', () => {
     const initialState = {
       studyReviewFields: {
         rating: 5,
-        review: 'test',
+        content: 'test',
       },
     };
 
     it('clears fields of study review form', () => {
       const state = reducer(initialState, clearStudyReviewFields());
 
-      const { studyReviewFields: { rating, review } } = state;
+      const { studyReviewFields: { rating, content } } = state;
 
       expect(rating).toBe(3);
-      expect(review).toBe('');
+      expect(content).toBe('');
     });
   });
 });
