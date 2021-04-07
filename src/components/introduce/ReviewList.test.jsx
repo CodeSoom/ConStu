@@ -24,7 +24,6 @@ describe('ReviewList', () => {
 
       expect(container).toHaveTextContent('review');
       expect(container).toHaveTextContent('test@test.com');
-      expect(container).toHaveTextContent(3);
     });
   });
 

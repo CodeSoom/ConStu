@@ -37,9 +37,7 @@ const ReviewFormContainer = () => {
     return null;
   }
 
-  const {
-    participants, personnel, applyEndDate,
-  } = group;
+  const { participants, personnel, applyEndDate } = group;
 
   const isApplyTime = isCheckedTimeStatus({
     applyEndTime: changeDateToTime(applyEndDate),

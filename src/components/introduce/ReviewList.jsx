@@ -2,7 +2,13 @@ import React from 'react';
 
 import _ from 'lodash';
 
+import styled from '@emotion/styled';
+
 import Review from './Review';
+
+const ReviewWrapper = styled.div`
+  margin-bottom: 3rem;
+`;
 
 const ReviewList = ({ reviews }) => {
   if (_.isEmpty(reviews)) {
@@ -12,14 +18,14 @@ const ReviewList = ({ reviews }) => {
   }
 
   return (
-    <>
+    <ReviewWrapper>
       {reviews.map((review) => (
         <Review
           key={review.id}
           review={review}
         />
       ))}
-    </>
+    </ReviewWrapper>
   );
 };
 
