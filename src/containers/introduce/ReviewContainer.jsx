@@ -8,6 +8,8 @@ import {
 } from '../../util/utils';
 import { changeStudyReviewFields, setStudyReview } from '../../reducers/groupSlice';
 
+import SubTitle from '../../styles/SubTitle';
+
 import ReviewForm from '../../components/introduce/ReviewForm';
 import ReviewList from '../../components/introduce/ReviewList';
 
@@ -37,9 +39,7 @@ const ReviewFormContainer = () => {
     return null;
   }
 
-  const {
-    participants, personnel, applyEndDate,
-  } = group;
+  const { participants, personnel, applyEndDate } = group;
 
   const isApplyTime = isCheckedTimeStatus({
     applyEndTime: changeDateToTime(applyEndDate),
@@ -54,6 +54,7 @@ const ReviewFormContainer = () => {
 
   return (
     <>
+      <SubTitle title="후기" />
       <ReviewForm
         user={user}
         participants={group.participants}

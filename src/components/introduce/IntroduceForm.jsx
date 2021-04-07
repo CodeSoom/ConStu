@@ -8,8 +8,10 @@ import styled from '@emotion/styled';
 import { INTRODUCE_FORM_TITLE } from '../../util/constants/constants';
 import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 
-import Tags from '../common/Tags';
 import palette from '../../styles/palette';
+import SubTitle from '../../styles/SubTitle';
+
+import Tags from '../common/Tags';
 import DateTimeChange from '../common/DateTimeChange';
 import IntroduceActionButtons from './IntroduceActionButtons';
 
@@ -19,6 +21,10 @@ const mq = facepaint([
   '@media(min-width: 1024px)',
   '@media(min-width: 1150px)',
 ]);
+
+const IntroduceFormWrapper = styled.div`
+  margin-bottom: 3rem;
+`;
 
 const IntroduceReferenceWrapper = styled.div`
 
@@ -69,17 +75,6 @@ ${mq({
   border-right: 0.1rem solid ${palette.gray[3]};
 `;
 
-const IntroduceContentTitle = styled.div`
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 0;
-  margin-top: 1rem;
-  padding: 7px 2rem 7px 2rem;
-  border-bottom: 2px solid ${palette.violet[3]};
-  width: 17%;
-`;
-
 const IntroduceContent = styled.div`
   position: relative;
   margin-top: 2rem;
@@ -104,7 +99,7 @@ const IntroduceForm = ({
   const isCheckOwnGroupPost = user && (user === moderatorId);
 
   return (
-    <>
+    <IntroduceFormWrapper>
       <ModeratorWrapper>
         <div>
           {`🙋‍♂️${moderatorId}`}
@@ -128,9 +123,7 @@ const IntroduceForm = ({
           page="introduce"
         />
       </IntroduceReferenceWrapper>
-      <IntroduceContentTitle>
-        {INTRODUCE}
-      </IntroduceContentTitle>
+      <SubTitle title={INTRODUCE} />
       <IntroduceContent dangerouslySetInnerHTML={{ __html: contents }} />
       <IntroduceFooter>
         <Tags tags={tags} />
@@ -141,7 +134,7 @@ const IntroduceForm = ({
           />
         )}
       </IntroduceFooter>
-    </>
+    </IntroduceFormWrapper>
   );
 };
 
