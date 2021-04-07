@@ -48,7 +48,6 @@ const Review = ({ review }) => {
         starSpacing="0"
         starHoverColor="#ffc816"
         name="rating"
-        data-testid="star-rating"
       />
       <ReviewContent>
         {content}

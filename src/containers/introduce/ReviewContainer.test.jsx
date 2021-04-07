@@ -58,7 +58,7 @@ describe('ReviewContainer', () => {
 
     const { container } = renderReviewContainer();
 
-    expect(container).toHaveTextContent('아직 리뷰가 존재하지 않습니다!');
+    expect(container).toHaveTextContent('등록된 리뷰가 존재하지 않습니다!');
   });
 
   context('with login and group', () => {
