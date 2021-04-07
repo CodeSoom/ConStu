@@ -137,6 +137,39 @@ const { actions, reducer } = createSlice({
         studyReviewFields: studyReviewInitialState,
       };
     },
+
+    setGroupReview(state, { payload: review }) {
+      const { group } = state;
+
+      if (group.reviews) {
+        return {
+          ...state,
+          group: {
+            ...group,
+            reviews: [
+              {
+                ...review,
+                createDate: new Date().toString(),
+              },
+              ...group.reviews,
+            ],
+          },
+        };
+      }
+
+      return {
+        ...state,
+        group: {
+          ...group,
+          reviews: [
+            {
+              ...review,
+              createDate: new Date().toString(),
+            },
+          ],
+        },
+      };
+    },
   },
 });
 
@@ -152,6 +185,7 @@ export const {
   setOriginalArticle,
   changeStudyReviewFields,
   clearStudyReviewFields,
+  setGroupReview,
 } = actions;
 
 export const loadStudyGroups = (tag) => async (dispatch) => {
@@ -298,6 +332,7 @@ export const setStudyReview = (review) => async (dispatch, getState) => {
     review,
   });
 
+  dispatch(setGroupReview(review));
   dispatch(clearStudyReviewFields());
 };
 

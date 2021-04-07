@@ -24,6 +24,7 @@ import reducer, {
   changeStudyReviewFields,
   clearStudyReviewFields,
   setStudyReview,
+  setGroupReview,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -266,6 +267,46 @@ describe('reducer', () => {
 
       expect(rating).toBe(3);
       expect(content).toBe('');
+    });
+  });
+
+  describe('setGroupReview', () => {
+    const review = {
+      id: 'test',
+      content: 'test',
+      rating: 3,
+    };
+
+    context('When the group reviews field is exists', () => {
+      const initialState = {
+        group: {
+          reviews: [],
+        },
+      };
+
+      it('Set in the group review field', () => {
+        const state = reducer(initialState, setGroupReview(review));
+
+        const { group: { reviews } } = state;
+
+        expect(reviews[0].id).toBe('test');
+        expect(reviews[0].rating).toBe(3);
+      });
+    });
+
+    context("When the group reviews field isn't exists", () => {
+      const initialState = {
+        group: {},
+      };
+
+      it('Set in the group review field', () => {
+        const state = reducer(initialState, setGroupReview(review));
+
+        const { group: { reviews } } = state;
+
+        expect(reviews[0].id).toBe('test');
+        expect(reviews[0].rating).toBe(3);
+      });
     });
   });
 });
@@ -592,9 +633,9 @@ describe('async actions', () => {
       });
     });
 
-    it('dispatches clearStudyReviewFields', async () => {
+    it('dispatches setGroupReview and clearStudyReviewFields', async () => {
       await store.dispatch(setStudyReview({
-        user: 'user',
+        id: 'user',
         review: 'test',
         rating: 5,
       }));
@@ -602,6 +643,14 @@ describe('async actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual({
+        type: 'group/setGroupReview',
+        payload: {
+          rating: 5,
+          review: 'test',
+          id: 'user',
+        },
+      });
+      expect(actions[1]).toEqual({
         type: 'group/clearStudyReviewFields',
       });
     });

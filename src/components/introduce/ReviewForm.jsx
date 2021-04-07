@@ -21,7 +21,7 @@ const mq = facepaint([
 const StudyReviewFormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 3rem 0 3rem 0;
+  margin: 2rem 0 3rem 0;
   padding: 20px 20px 20px 20px;
   border: 1px solid ${palette.gray[3]};
   border-radius: 5px;

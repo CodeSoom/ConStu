@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
-import Responsive from '../../styles/Responsive';
-import palette from '../../styles/palette';
 import Button from '../../styles/Button';
+import palette from '../../styles/palette';
+import Responsive from '../../styles/Responsive';
+
 import { LOGOUT, LOGIN, REGISTER } from '../../util/constants/constants';
 
 const HeaderWrapper = styled.div`

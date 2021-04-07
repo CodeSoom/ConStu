@@ -22,7 +22,6 @@ describe('Review', () => {
     const { container } = renderReview(mockReview);
 
     expect(container).toHaveTextContent('review');
-    expect(container).toHaveTextContent(3);
     expect(container).toHaveTextContent('test@test.com');
   });
 });

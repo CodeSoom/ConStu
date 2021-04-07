@@ -22,9 +22,10 @@ describe('ReviewList', () => {
     it('Render reviews', () => {
       const { container } = renderReviewList(mockReviews);
 
+      expect(container).toHaveTextContent('스터디를 참여한 1명의 회원 평균평점');
+      expect(container).toHaveTextContent('6.0');
       expect(container).toHaveTextContent('review');
       expect(container).toHaveTextContent('test@test.com');
-      expect(container).toHaveTextContent(3);
     });
   });
 
@@ -32,7 +33,7 @@ describe('ReviewList', () => {
     it('Render nothing review message', () => {
       const { container } = renderReviewList([]);
 
-      expect(container).toHaveTextContent('아직 리뷰가 존재하지 않습니다!');
+      expect(container).toHaveTextContent('등록된 리뷰가 존재하지 않습니다!');
     });
   });
 });
