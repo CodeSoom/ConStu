@@ -277,36 +277,19 @@ describe('reducer', () => {
       rating: 3,
     };
 
-    context('When the group reviews field is exists', () => {
-      const initialState = {
-        group: {
-          reviews: [],
-        },
-      };
+    const initialState = {
+      group: {
+        reviews: [],
+      },
+    };
 
-      it('Set in the group review field', () => {
-        const state = reducer(initialState, setGroupReview(review));
+    it('Set in the group review field', () => {
+      const state = reducer(initialState, setGroupReview(review));
 
-        const { group: { reviews } } = state;
+      const { group: { reviews } } = state;
 
-        expect(reviews[0].id).toBe('test');
-        expect(reviews[0].rating).toBe(3);
-      });
-    });
-
-    context("When the group reviews field isn't exists", () => {
-      const initialState = {
-        group: {},
-      };
-
-      it('Set in the group review field', () => {
-        const state = reducer(initialState, setGroupReview(review));
-
-        const { group: { reviews } } = state;
-
-        expect(reviews[0].id).toBe('test');
-        expect(reviews[0].rating).toBe(3);
-      });
+      expect(reviews[0].id).toBe('test');
+      expect(reviews[0].rating).toBe(3);
     });
   });
 });

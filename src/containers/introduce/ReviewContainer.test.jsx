@@ -52,13 +52,14 @@ describe('ReviewContainer', () => {
           confirm: true,
         },
       ],
+      reviews: [],
       applyEndDate: yesterday,
     }));
     given('user', () => ('user1'));
 
     const { container } = renderReviewContainer();
 
-    expect(container).toHaveTextContent('등록된 리뷰가 존재하지 않습니다!');
+    expect(container).toHaveTextContent('등록된 후기가 존재하지 않습니다!');
   });
 
   context('with login and group', () => {
@@ -103,12 +104,7 @@ describe('ReviewContainer', () => {
           },
         ],
         applyEndDate: yesterday,
-        reviews: [{
-          id: 'user1',
-          rating: 3,
-          content: 'test review',
-          createdDate: new Date(),
-        }],
+        reviews: [],
       }));
 
       describe('When you are an approved applicant', () => {
@@ -144,14 +140,6 @@ describe('ReviewContainer', () => {
           fireEvent.click(getByText('후기 등록하기'));
 
           expect(dispatch).toBeCalledTimes(1);
-        });
-      });
-
-      describe('Renders Review List', () => {
-        it('Information about the study review is render', () => {
-          const { container } = renderReviewContainer();
-
-          expect(container).toHaveTextContent('test review');
         });
       });
     });

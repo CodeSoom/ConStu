@@ -57,7 +57,7 @@ const ReviewFormContainer = () => {
       <SubTitle title="후기" />
       <ReviewForm
         user={user}
-        participants={group.participants}
+        group={group}
         fields={studyReviewFields}
         onChangeReview={onChangeReviewFields}
         onSubmit={onSubmitReview}

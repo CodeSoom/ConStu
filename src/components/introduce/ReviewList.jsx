@@ -31,7 +31,7 @@ const ReviewList = ({ reviews }) => {
   if (_.isEmpty(reviews)) {
     return (
       <EmptyReviewWrapper>
-        등록된 리뷰가 존재하지 않습니다!
+        등록된 후기가 존재하지 않습니다!
       </EmptyReviewWrapper>
     );
   }

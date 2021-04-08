@@ -139,36 +139,12 @@ const { actions, reducer } = createSlice({
     },
 
     setGroupReview(state, { payload: review }) {
-      const { group } = state;
-
-      if (group.reviews) {
-        return {
-          ...state,
-          group: {
-            ...group,
-            reviews: [
-              {
-                ...review,
-                createDate: new Date().toString(),
-              },
-              ...group.reviews,
-            ],
-          },
-        };
-      }
-
-      return {
-        ...state,
-        group: {
-          ...group,
-          reviews: [
-            {
-              ...review,
-              createDate: new Date().toString(),
-            },
-          ],
-        },
-      };
+      return produce(state, (draft) => {
+        draft.group.reviews.push({
+          ...review,
+          createDate: new Date().toString(),
+        });
+      });
     },
   },
 });
@@ -217,6 +193,7 @@ export const writeStudyGroup = () => async (dispatch, getState) => {
     const groupId = await postStudyGroup(
       produce(groupReducer.writeField, (draft) => {
         draft.moderatorId = user;
+        draft.reviews = [];
         draft.participants.push({
           id: user,
         });
