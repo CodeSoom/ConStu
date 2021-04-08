@@ -53,17 +53,17 @@ const StudyReviewFormButton = styled(Button)`
   margin: 1px 0 0.8rem 0.5rem;
 `;
 
-const isValidateUserInfo = (user, participants) => !!participants
-  .find(({ id, confirm }) => id === user && confirm && confirm === true);
+const isValidateAboutUser = (user, group) => {
+  const { participants, reviews } = group;
+
+  return !participants.some(({ id, confirm }) => id === user && confirm && confirm === true)
+    || reviews.some(({ id }) => id && id === user);
+};
 
 const ReviewForm = ({
-  participants, user, fields, onChangeReview, onSubmit,
+  group, user, fields, onChangeReview, onSubmit,
 }) => {
   const { rating, content } = fields;
-
-  if (!isValidateUserInfo(user, participants)) {
-    return null;
-  }
 
   const handleChangeRating = (newRating, name) => {
     onChangeReview({
@@ -80,6 +80,10 @@ const ReviewForm = ({
       value,
     });
   };
+
+  if (isValidateAboutUser(user, group)) {
+    return null;
+  }
 
   return (
     <StudyReviewFormWrapper>

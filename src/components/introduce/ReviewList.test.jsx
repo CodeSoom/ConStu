@@ -33,7 +33,7 @@ describe('ReviewList', () => {
     it('Render nothing review message', () => {
       const { container } = renderReviewList([]);
 
-      expect(container).toHaveTextContent('등록된 리뷰가 존재하지 않습니다!');
+      expect(container).toHaveTextContent('등록된 후기가 존재하지 않습니다!');
     });
   });
 });

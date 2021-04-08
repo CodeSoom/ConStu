@@ -15,65 +15,88 @@ describe('ReviewForm', () => {
   const reviewForm = { rating: 3, content: '' };
 
   const renderReviewForm = ({
-    participants, user, fields = reviewForm,
+    group, user, fields = reviewForm,
   }) => render((
     <ReviewForm
       user={user}
-      participants={participants}
+      group={group}
       fields={fields}
       onSubmit={handleSubmit}
       onChangeReview={handleChange}
     />
   ));
 
-  const userStatusSetting = ({ user, participants }) => ({
-    participants,
+  const userStatusSetting = ({ user, group }) => ({
+    group,
     user,
   });
 
   context('with user', () => {
-    describe('When the user is approved applicant and applyEndDate is Deadline', () => {
+    context('When you have already written a review', () => {
       const settings = {
-        participants: [{ id: 'user1', confirm: true }],
+        group: {
+          participants: [{ id: 'user1', confirm: true }],
+          reviews: [{ id: 'user1', content: 'review' }],
+        },
         user: 'user1',
       };
 
-      it('renders study review form', () => {
+      it('Should be nothing renders', () => {
         const { container } = renderReviewForm(userStatusSetting(settings));
-        expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
-      });
-      it('call event change review form', () => {
-        const { getByPlaceholderText } = renderReviewForm(userStatusSetting(settings));
-
-        const textarea = getByPlaceholderText('후기를 입력해주세요!');
-
-        fireEvent.change(textarea, {
-          target: {
-            name: 'content',
-            value: 'test',
-          },
-        });
-
-        expect(handleChange).toBeCalled();
-      });
-
-      it('call event click for review form', () => {
-        const { getByText } = renderReviewForm(userStatusSetting(settings));
-
-        fireEvent.click(getByText('후기 등록하기'));
-
-        expect(handleSubmit).toBeCalled();
+        expect(container).toBeEmptyDOMElement();
       });
     });
 
-    describe('When the user is not approved applicant', () => {
-      it('nothing renders study review form', () => {
-        const { container } = renderReviewForm(userStatusSetting({
-          participants: [],
-          user: 'user2',
-        }));
+    context("When you didn't write a review", () => {
+      describe('When the user is approved applicant and applyEndDate is Deadline', () => {
+        const settings = {
+          group: {
+            participants: [{ id: 'user1', confirm: true }],
+            reviews: [],
+          },
+          user: 'user1',
+        };
 
-        expect(container).toBeEmptyDOMElement();
+        it('renders study review form', () => {
+          const { container } = renderReviewForm(userStatusSetting(settings));
+          expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
+        });
+        it('call event change review form', () => {
+          const { getByPlaceholderText } = renderReviewForm(userStatusSetting(settings));
+
+          const textarea = getByPlaceholderText('후기를 입력해주세요!');
+
+          fireEvent.change(textarea, {
+            target: {
+              name: 'content',
+              value: 'test',
+            },
+          });
+
+          expect(handleChange).toBeCalled();
+        });
+
+        it('call event click for review form', () => {
+          const { getByText } = renderReviewForm(userStatusSetting(settings));
+
+          fireEvent.click(getByText('후기 등록하기'));
+
+          expect(handleSubmit).toBeCalled();
+        });
+      });
+
+      describe('When the user is not approved applicant', () => {
+        it('nothing renders study review form', () => {
+          const { container } = renderReviewForm(userStatusSetting({
+            group: {
+              participants: [],
+              reviews: [],
+            },
+            user: 'user2',
+          }));
+
+          expect(container).toBeEmptyDOMElement();
+        });
       });
     });
   });
@@ -81,7 +104,10 @@ describe('ReviewForm', () => {
   context('without user', () => {
     it('nothing renders study review form', () => {
       const { container } = renderReviewForm(userStatusSetting({
-        participants: [],
+        group: {
+          participants: [],
+          reviews: [],
+        },
         user: null,
       }));
 
