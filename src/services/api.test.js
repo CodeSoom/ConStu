@@ -1,9 +1,13 @@
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 
 import {
   postUserRegister,
   postUserLogin,
   postUserLogout,
+  deletePostReview,
+  deletePostParticipant,
+  updateConfirmPostParticipant,
+  deletePostGroup,
 } from './api';
 
 describe('api', () => {
@@ -75,12 +79,56 @@ describe('api', () => {
   });
 
   describe('postUserLogout', () => {
+    const signOut = jest.fn();
+
     beforeEach(() => {
-      auth.signOut = jest.fn();
+      auth.signOut = signOut;
     });
 
-    it('returns true after success logout', async () => {
+    it('call postUserLogout api', async () => {
       await postUserLogout();
+
+      expect(signOut).toBeCalledTimes(1);
+    });
+  });
+
+  describe('deletePostReview', () => {
+    const update = jest.spyOn(db, 'collection');
+
+    it('call deletePostReview api', async () => {
+      await deletePostReview({ id: 'test', reviews: { id: 'test' } });
+
+      expect(update).toBeCalledTimes(1);
+    });
+  });
+
+  describe('deletePostParticipant', () => {
+    const update = jest.spyOn(db, 'collection');
+
+    it('call deletePostParticipant api', async () => {
+      await deletePostParticipant({ id: 'test', participants: {} });
+
+      expect(update).toBeCalledTimes(1);
+    });
+  });
+
+  describe('updateConfirmPostParticipant', () => {
+    const update = jest.spyOn(db, 'collection');
+
+    it('call updateConfirmPostParticipant api', async () => {
+      await updateConfirmPostParticipant({ id: 'test', participants: {} });
+
+      expect(update).toBeCalledTimes(1);
+    });
+  });
+
+  describe('deletePostGroup', () => {
+    const remove = jest.spyOn(db, 'collection');
+
+    it('call deletePostGroup api', async () => {
+      await deletePostGroup('1');
+
+      expect(remove).toBeCalledTimes(1);
     });
   });
 });
