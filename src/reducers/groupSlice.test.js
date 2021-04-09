@@ -25,6 +25,7 @@ import reducer, {
   clearStudyReviewFields,
   setStudyReview,
   setGroupReview,
+  deleteStudyReview,
 } from './groupSlice';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
@@ -635,6 +636,33 @@ describe('async actions', () => {
       });
       expect(actions[1]).toEqual({
         type: 'group/clearStudyReviewFields',
+      });
+    });
+  });
+
+  describe('deleteStudyReview', () => {
+    beforeEach(() => {
+      store = mockStore({
+        groupReducer: {
+          group: {
+            id: '1',
+            reviews: [{ id: 'test' }],
+          },
+        },
+      });
+    });
+
+    it('dispatches setStudyGroup', async () => {
+      await store.dispatch(deleteStudyReview('test'));
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+        type: 'group/setStudyGroup',
+        payload: {
+          id: '1',
+          reviews: [],
+        },
       });
     });
   });

@@ -93,53 +93,94 @@ describe('ReviewContainer', () => {
     });
 
     context('when apply end date is DeadLine', () => {
-      given('group', () => ({
-        ...STUDY_GROUP,
-        personnel: 3,
-        participants: [
-          { id: 'user2' },
-          {
+      context('When my review exists', () => {
+        given('group', () => ({
+          ...STUDY_GROUP,
+          personnel: 3,
+          participants: [
+            { id: 'user2' },
+            {
+              id: 'user1',
+              confirm: true,
+            },
+          ],
+          applyEndDate: yesterday,
+          reviews: [{
             id: 'user1',
-            confirm: true,
-          },
-        ],
-        applyEndDate: yesterday,
-        reviews: [],
-      }));
+            content: 'review',
+            rating: 3,
+            createDate: new Date(),
+          }],
+        }));
 
-      describe('When you are an approved applicant', () => {
-        it('renders study review form', () => {
-          const { container } = renderReviewContainer();
+        it('Renders review contents', () => {
+          const { container, getByTestId } = renderReviewContainer();
 
-          expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
+          expect(container).toHaveTextContent('review');
+          expect(container).toHaveTextContent('스터디를 참여한 1명의 회원 평균평점');
+          expect(getByTestId('close-icon')).not.toBeNull();
+        });
+
+        describe('When Click delete review button', () => {
+          it('dispatch deleteStudyReview calls', () => {
+            const { getByTestId } = renderReviewContainer();
+
+            fireEvent.click(getByTestId('close-icon'));
+
+            expect(dispatch).toBeCalledTimes(1);
+          });
         });
       });
 
-      it('dispatch actions call changeStudyReviewFields', () => {
-        const form = {
-          name: 'review',
-          value: '후기입니다.',
-        };
+      context("When my review isn't exists", () => {
+        given('group', () => ({
+          ...STUDY_GROUP,
+          personnel: 3,
+          participants: [
+            { id: 'user2' },
+            {
+              id: 'user1',
+              confirm: true,
+            },
+          ],
+          applyEndDate: yesterday,
+          reviews: [],
+        }));
 
-        const { getByPlaceholderText } = renderReviewContainer();
+        describe('When you are an approved applicant', () => {
+          it('renders study review form', () => {
+            const { container } = renderReviewContainer();
 
-        const textarea = getByPlaceholderText('후기를 입력해주세요!');
-
-        fireEvent.change(textarea, { target: form });
-
-        expect(dispatch).toBeCalledWith({
-          type: 'group/changeStudyReviewFields',
-          payload: form,
+            expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
+          });
         });
-      });
 
-      describe('Click the button to submit for study review', () => {
-        it('dispatch actions call setStudyReview', () => {
-          const { getByText } = renderReviewContainer();
+        it('dispatch actions call changeStudyReviewFields', () => {
+          const form = {
+            name: 'review',
+            value: '후기입니다.',
+          };
 
-          fireEvent.click(getByText('후기 등록하기'));
+          const { getByPlaceholderText } = renderReviewContainer();
 
-          expect(dispatch).toBeCalledTimes(1);
+          const textarea = getByPlaceholderText('후기를 입력해주세요!');
+
+          fireEvent.change(textarea, { target: form });
+
+          expect(dispatch).toBeCalledWith({
+            type: 'group/changeStudyReviewFields',
+            payload: form,
+          });
+        });
+
+        describe('Click the button to submit for study review', () => {
+          it('dispatch actions call setStudyReview', () => {
+            const { getByText } = renderReviewContainer();
+
+            fireEvent.click(getByText('후기 등록하기'));
+
+            expect(dispatch).toBeCalledTimes(1);
+          });
         });
       });
     });

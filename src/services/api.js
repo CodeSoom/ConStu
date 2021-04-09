@@ -82,6 +82,14 @@ export const updatePostParticipant = async ({ id, user }) => {
   });
 };
 
+export const deletePostReview = async ({ id, reviews }) => {
+  const group = db.collection('groups').doc(id);
+
+  await group.update({
+    reviews,
+  });
+};
+
 export const deletePostParticipant = async ({ id, participants }) => {
   const group = db.collection('groups').doc(id);
 

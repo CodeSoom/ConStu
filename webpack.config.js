@@ -35,12 +35,16 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpe?g|PNG|gif|svg)$/i,
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
+      {
+        test: /\.(jpe?g|PNG|gif)$/i,
         loader: 'url-loader',
         options: {
           name: '[name].[hash:8].[ext]',
           outputPath: 'static/media',
-          limit: 10000,
+          limit: 4000,
         },
       },
       {

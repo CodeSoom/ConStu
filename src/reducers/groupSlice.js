@@ -12,6 +12,7 @@ import {
   deletePostGroup,
   editPostStudyGroup,
   postUpdateStudyReview,
+  deletePostReview,
 } from '../services/api';
 
 import { formatGroup } from '../util/utils';
@@ -311,6 +312,22 @@ export const setStudyReview = (review) => async (dispatch, getState) => {
 
   dispatch(setGroupReview(review));
   dispatch(clearStudyReviewFields());
+};
+
+export const deleteStudyReview = (reviewId) => async (dispatch, getState) => {
+  const { groupReducer: { group } } = getState();
+
+  const reviews = group.reviews.filter(({ id }) => id !== reviewId);
+
+  await deletePostReview({
+    id: group.id,
+    reviews,
+  });
+
+  dispatch(setStudyGroup({
+    ...group,
+    reviews,
+  }));
 };
 
 export default reducer;
