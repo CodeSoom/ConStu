@@ -10,6 +10,8 @@ import palette from '../../styles/palette';
 
 import { changeDateToTime } from '../../util/utils';
 
+import CloseSvg from '../../assets/icons/close.svg';
+
 const ReviewWrapper = styled.div`
   background-color: #f8f8f8;
   display: flex;
@@ -33,22 +35,46 @@ const ReviewContentInfo = styled.div`
   justify-content: space-between;
 `;
 
-const Review = ({ review }) => {
+const ReviewHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const CloseIcon = styled(CloseSvg)`
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  fill: ${palette.gray[6]};
+  transition: fill .2s;
+  
+  &:hover {
+    fill: ${palette.gray[8]};
+  }
+`;
+
+const Review = ({ user, review, onClick }) => {
   const {
     id, rating, content, createDate,
   } = review;
 
   return (
     <ReviewWrapper>
-      <StarRatings
-        rating={rating}
-        starRatedColor="#ffc816"
-        numberOfStars={5}
-        starDimension="20px"
-        starSpacing="0"
-        starHoverColor="#ffc816"
-        name="rating"
-      />
+      <ReviewHeader>
+        <StarRatings
+          rating={rating}
+          starRatedColor="#ffc816"
+          numberOfStars={5}
+          starDimension="20px"
+          starSpacing="0"
+        />
+        {user === id && (
+          <CloseIcon
+            data-testid="close-icon"
+            onClick={() => onClick(id)}
+          />
+        )}
+      </ReviewHeader>
       <ReviewContent>
         {content}
       </ReviewContent>

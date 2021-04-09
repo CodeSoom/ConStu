@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import ReviewList from './ReviewList';
 
@@ -12,9 +12,13 @@ describe('ReviewList', () => {
     createdDate: new Date(),
   }];
 
+  const handleClick = jest.fn();
+
   const renderReviewList = (reviews) => render((
     <ReviewList
+      user="test@test.com"
       reviews={reviews}
+      onDelete={handleClick}
     />
   ));
 
@@ -26,6 +30,14 @@ describe('ReviewList', () => {
       expect(container).toHaveTextContent('6.0');
       expect(container).toHaveTextContent('review');
       expect(container).toHaveTextContent('test@test.com');
+    });
+
+    it('Listen delete click events', () => {
+      const { getByTestId } = renderReviewList(mockReviews);
+
+      fireEvent.click(getByTestId('close-icon'));
+
+      expect(handleClick).toBeCalledTimes(1);
     });
   });
 

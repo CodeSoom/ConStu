@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getAuth, getGroup, isCheckedTimeStatus, changeDateToTime,
 } from '../../util/utils';
-import { changeStudyReviewFields, setStudyReview } from '../../reducers/groupSlice';
+import { changeStudyReviewFields, setStudyReview, deleteStudyReview } from '../../reducers/groupSlice';
 
 import SubTitle from '../../styles/SubTitle';
 
@@ -34,6 +34,10 @@ const ReviewFormContainer = () => {
       ...studyReviewFields,
     }));
   }, [dispatch, user, studyReviewFields]);
+
+  const onDeleteReview = useCallback((reviewId) => {
+    dispatch(deleteStudyReview(reviewId));
+  }, [dispatch]);
 
   if (!group) {
     return null;
@@ -63,7 +67,9 @@ const ReviewFormContainer = () => {
         onSubmit={onSubmitReview}
       />
       <ReviewList
+        user={user}
         reviews={group.reviews ? group.reviews : []}
+        onDelete={onDeleteReview}
       />
     </>
   );

@@ -27,7 +27,7 @@ const EmptyReviewWrapper = styled.div`
   border-radius: 5px;
 `;
 
-const ReviewList = ({ reviews }) => {
+const ReviewList = ({ user, reviews, onDelete }) => {
   if (_.isEmpty(reviews)) {
     return (
       <EmptyReviewWrapper>
@@ -44,7 +44,9 @@ const ReviewList = ({ reviews }) => {
       {reviews.map((review) => (
         <Review
           key={review.id}
+          user={user}
           review={review}
+          onClick={onDelete}
         />
       ))}
     </ReviewWrapper>
