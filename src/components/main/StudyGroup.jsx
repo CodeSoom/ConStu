@@ -36,7 +36,6 @@ const HeaderLink = styled(Link)`
 
   h4 {
     font-size: 1.7rem;
-    font-family: 'Sunflower', sans-serif;
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;

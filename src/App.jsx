@@ -6,6 +6,8 @@ import { Switch, Route } from 'react-router-dom';
 import { loadItem } from './services/storage';
 import { setUser } from './reducers/authSlice';
 
+import GlobalStyles from './styles/GlobalStyles';
+
 import MainPage from './pages/MainPage';
 import WritePage from './pages/WritePage';
 import IntroducePage from './pages/IntroducePage';
@@ -28,6 +30,7 @@ const App = () => {
 
   return (
     <>
+      <GlobalStyles />
       <HeaderContainer />
       <Switch>
         <Route exact path="/" component={MainPage} />

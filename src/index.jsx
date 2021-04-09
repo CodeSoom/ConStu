@@ -8,8 +8,6 @@ import App from './App';
 
 import store from './reducers/store';
 
-import './assets/css/global.css';
-
 ReactDOM.render(
   (
     <Provider store={store}>

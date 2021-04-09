@@ -68,7 +68,7 @@ const ReviewFormContainer = () => {
       />
       <ReviewList
         user={user}
-        reviews={group.reviews ? group.reviews : []}
+        reviews={group.reviews}
         onDelete={onDeleteReview}
       />
     </>

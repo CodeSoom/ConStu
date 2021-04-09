@@ -2,12 +2,15 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 const Dotenv = require('dotenv-webpack');
 
-const DEVELOPMENT_ENV = 'development';
-const PRODUCTION_ENV = 'production';
+const DEVELOPMENT = 'development';
+const PRODUCTION = 'production';
 
-const mode = process.env.NODE_ENV || DEVELOPMENT_ENV;
+const mode = process.env.NODE_ENV || DEVELOPMENT;
 
 const appBuild = path.resolve(__dirname, 'build');
 const appSrc = path.resolve(__dirname, 'src');
@@ -20,9 +23,9 @@ module.exports = {
   entry: appIndex,
   output: {
     path: appBuild,
-    filename: mode === PRODUCTION_ENV
+    filename: mode === PRODUCTION
       ? 'static/js/[name].[contenthash:8].js'
-      : mode === DEVELOPMENT_ENV && 'static/js/bundle.js',
+      : mode === DEVELOPMENT && 'static/js/bundle.js',
     publicPath: '/',
   },
   module: {
@@ -30,8 +33,9 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
-          'css-loader',
+          mode === PRODUCTION
+            ? MiniCssExtractPlugin.loader
+            : 'style-loader', 'css-loader',
         ],
       },
       {
@@ -76,10 +80,22 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: appHtml,
       templateParameters: {
-        env: mode === DEVELOPMENT_ENV ? '(개발용)' : '',
+        env: mode === DEVELOPMENT ? '(개발용)' : '',
       },
+      minify: mode === PRODUCTION ? {
+        collapseWhitespace: true,
+        removeComments: true,
+      } : false,
     }),
     new CleanWebpackPlugin(),
+    ...(mode === PRODUCTION
+      ? [new MiniCssExtractPlugin({ filename: 'static/css/[name].[contenthash:8].css' })]
+      : []),
     new Dotenv(),
   ],
+  optimization: {
+    minimizer: mode === PRODUCTION ? [
+      new OptimizeCssAssetsPlugin(),
+    ] : [],
+  },
 };
