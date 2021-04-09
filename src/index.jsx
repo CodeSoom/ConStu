@@ -8,7 +8,7 @@ import App from './App';
 
 import store from './reducers/store';
 
-import '../assets/global.css';
+import './assets/css/global.css';
 
 ReactDOM.render(
   (
