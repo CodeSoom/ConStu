@@ -22,47 +22,43 @@ const fontSizeButton = css(
 const ButtonWrapper = ({ warn, success }) => css`
   cursor: pointer;
   ${fontSizeButton};
-  font-weight: bold;
-  font-family: 'Noto Sans KR', sans-serif;
-  outline: none;
-  padding: 0.25rem 1rem;
+  font-weight: inherit;
+  color: ${palette.gray[7]};
+  background: white;
+  transition: all .1s ease-in-out;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   border: 2px solid ${palette.gray[6]};
-  background: white;
-  color: ${palette.gray[7]};
-  transition-duration: 0.08s;
-  transition-property: all;
-  transition-timing-function: ease-in-out;
-  transition-delay: initial;
 
   &:hover {
-    border: 2px solid ${palette.gray[7]};
     color: white;
     background: ${palette.gray[7]};
+    border: 2px solid ${palette.gray[7]};
   }
 
   ${warn && css`
-      padding: 0.15rem 0.9rem;
-      border: 2px solid ${palette.warn[1]};
-      color: white;
-      background: ${palette.warn[1]};
+    font-family: 'Jua', sans-serif;
+    color: white;
+    background: ${palette.warn[1]};
+    padding: 0.3rem 1rem;
+    border: 2px solid ${palette.warn[1]};
 
-      &:hover {
-        border: 2px solid ${palette.warn[1]};
-        background: white;
-        color: ${palette.warn[1]};
-      }
+    &:hover {
+      background: white;
+      color: ${palette.warn[1]};
+      border: 2px solid ${palette.warn[1]};
+    }
   `}
 
   ${success && css`
-    border: 2px solid ${palette.teal[5]};
     color: white;
     background: ${palette.teal[5]};
+    border: 2px solid ${palette.teal[5]};
 
     &:hover {
-      border: 2px solid ${palette.teal[5]};
       background: white;
       color: ${palette.teal[5]};
+      border: 2px solid ${palette.teal[5]};
     }
   `}
 `;

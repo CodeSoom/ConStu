@@ -11,18 +11,23 @@ import palette from '../../styles/palette';
 
 const TagsWrapper = styled.div`
   margin-top: 1rem;
+
+  ${({ type }) => type && type === 'main' && css`
+    height: 2.8rem;
+    overflow: hidden;
+    margin-top: .5rem;
+  `};
 `;
 
 const TagStyledWrapper = ({ div }) => css`
   font-size: .8em;
-  font-weight: bold;
+  font-weight: inherit;
   display: inline-flex;
   align-items: center;
-  margin-right: 0.5rem;
-  padding-left: 1em;
-  padding-right: 1em;
+  margin: .2rem;
+  padding: 0 .8rem 0 .8rem;
   border-radius: .8em;
-  height: 3em;
+  height: 2.4rem;
   color: ${palette.teal[7]};
   background:${palette.gray[2]};
 
@@ -31,10 +36,6 @@ const TagStyledWrapper = ({ div }) => css`
   }
 
   ${div && css`
-    height: 2.5em;
-    border-radius: .5em;
-    margin-right: 0.3rem;
-
     &:hover {
       color: ${palette.teal[7]};
     }
@@ -95,7 +96,7 @@ const Tags = ({ tags, type, onRemove }) => {
   }
 
   return (
-    <TagsWrapper>
+    <TagsWrapper type={type}>
       {tags.map((tag) => (
         <TagStyledLink
           key={tag}

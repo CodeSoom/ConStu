@@ -32,12 +32,11 @@ const UserStatusWrapper = styled.div`
 `;
 
 const TitleWrapper = styled(Link)`
-  font-size: 2.3rem;
-  font-family: 'Jua', sans-serif;
+  font-size: 2.4rem;
 `;
 
 const Spacer = styled.div`
-  height: 6rem;
+  height: 8rem;
 `;
 
 const Header = ({ user, onLogout }) => (

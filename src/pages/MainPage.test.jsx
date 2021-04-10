@@ -37,7 +37,7 @@ describe('MainPage', () => {
     it('renders Main Page Title', () => {
       const { container } = renderMainPage();
 
-      expect(container).toHaveTextContent('지금 바로 시작하세요!');
+      expect(container).toHaveTextContent('스터디를 직접 개설하거나 참여해보세요!');
     });
 
     it('renders Main Page study group tags', () => {
