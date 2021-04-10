@@ -13,6 +13,7 @@ const setGlobalStyles = css`
 
   body {
     font-family: 'Jua', sans-serif;
+    color: #212529;
   }
 
   input {

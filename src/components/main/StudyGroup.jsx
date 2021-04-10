@@ -18,21 +18,33 @@ const mq = facepaint([
   '@media(min-width: 1024px)',
 ]);
 
-const StudyGroupWrapper = styled.div(() => mq({
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'hidden',
-  margin: ['1rem 0px 1rem 0px', '0.5rem', '1rem'],
-  borderRadius: '4px',
-  border: `2px solid ${palette.gray[4]}`,
-  width: ['100%', 'calc(50% - 1.5rem)', '19rem'],
-  boxShadow: 'rgba(0, 0, 0, 0.08) 0px 4px 16px 0px',
-  background: 'rgb(248, 249, 250)',
-}));
+const StudyGroupWrapper = styled.div`
+  ${mq({
+    margin: ['1rem 0px 1rem 0px', '0.5rem', '1rem'],
+    width: ['100%', 'calc(50% - 1.5rem)', '19rem'],
+  })};
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 2px solid ${palette.gray[4]};
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px;
+  background: #f8f9fa;
+  transition-duration: 0.25s, 0.25s;
+  transition-timing-function: ease-in, ease-in;
+  transition-delay: initial, initial;
+  transition-property: box-shadow, transform;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 12px 20px 0px;
+  }
+`;
 
 const HeaderLink = styled(Link)`
   display: block;
-  padding: 1.5rem 1.2rem 0.8rem 1rem;
+  padding: 1.5rem 1rem 0.8rem 1rem;
 
   h4 {
     font-size: 1.7rem;
@@ -57,18 +69,18 @@ const ContentLink = styled(Link)`
 `;
 
 const StudyInfoWrapper = styled.div`
-  padding: 0 1rem 1rem 1rem;
+  padding: 0 1rem .5rem 1rem;
   display: flex;
   flex-direction: column;
 
-  .moderator{
-    font-weight: bold;
+  .moderator {
     color: ${palette.gray[5]};
+    margin-bottom: .5rem;
   }
 `;
 
 const StudyContentWrapper = styled.div`
-  padding: 0 1rem 0 1rem;
+  padding: 1rem;
   display: block;
 
   p {
@@ -127,7 +139,10 @@ const StudyGroup = ({ group, realTime }) => {
           {'마감 일자: '}
           <Moment interval={0} format="YYYY년 MM월 DD일">{applyEndTime}</Moment>
         </ApplyEndDateWrapper>
-        <Tags tags={tags} />
+        <Tags
+          tags={tags}
+          type="main"
+        />
       </StudyInfoWrapper>
     </StudyGroupWrapper>
   );

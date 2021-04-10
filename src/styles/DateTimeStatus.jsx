@@ -13,28 +13,29 @@ const mq = facepaint([
 
 const DateTimeStatusWrapper = styled.div`
   ${mq({
-    fontSize: ['1.5vw', '0.8rem', '1.1rem'],
+    fontSize: ['1.5vw', '0.8rem', '1rem'],
     height: ['30px', '30px', '40px'],
   })};
 
   font-weight: 600;
-  font-family: 'Gamja Flower', cursive;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: white;
+  align-items: center;
   display: inline-flex;
   margin-top: 1rem;
   margin-bottom: 1rem;    
   margin-left: 1.5rem;
   padding: .2rem .6rem .2rem .6rem;
   border-radius: 0.3rem;
-  color: white;
 
   ${({ status }) => status === 'mainRecruit'
     && css`
       ${mq({
-    fontSize: ['0.8rem', '1rem'],
+    fontSize: ['.6rem', '0.8rem'],
     height: ['15px', '20px'],
   })};
       margin-bottom: 0.5rem;
-      background: ${palette.cyan[4]};
+      background: ${palette.teal[5]};
       animation: blink-animation 1.5s steps(5, start) infinite;
       -webkit-animation: blink-animation 1.5s steps(5, start) infinite;
 
@@ -56,7 +57,7 @@ const DateTimeStatusWrapper = styled.div`
       margin-bottom: 0.5rem;
       background: #ff6b6b;
       ${mq({
-    fontSize: ['0.8rem', '1rem'],
+    fontSize: ['0.6rem', '0.8rem'],
     height: ['15px', '20px'],
   })};
   `}

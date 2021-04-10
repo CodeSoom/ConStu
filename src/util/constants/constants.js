@@ -60,11 +60,6 @@ export const STUDY_REVIEW_FORM = {
   REVIEW_SUBMIT: '후기 등록하기',
 };
 
-export const STUDY_GROUPS_TITLE = {
-  HEADER: '지금 바로 시작하세요!',
-  OPEN_STUDY: '스터디 개설하기',
-};
-
 export const WRITE_FORM = {
   APPLICATION_DEADLINE_DATE: '모집 마감 날짜',
   PARTICIPANTS_NUMBER: '참여 인원 수',

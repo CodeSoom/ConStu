@@ -64,6 +64,10 @@ const palette = {
     '#ff8787',
     '#ff6b6b',
   ],
+  globalPaint: [
+    '#FCF6F5',
+    '#c9c3c2',
+  ],
 };
 
 export default palette;
