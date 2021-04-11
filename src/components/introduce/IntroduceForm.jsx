@@ -5,7 +5,6 @@ import Moment from 'react-moment';
 import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
-import { INTRODUCE_FORM_TITLE } from '../../util/constants/constants';
 import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 
 import palette from '../../styles/palette';
@@ -14,8 +13,6 @@ import SubTitle from '../../styles/SubTitle';
 import Tags from '../common/Tags';
 import DateTimeChange from '../common/DateTimeChange';
 import IntroduceActionButtons from './IntroduceActionButtons';
-
-const { APPLY_STATUS, DEAD_LINE_DATE, INTRODUCE } = INTRODUCE_FORM_TITLE;
 
 const mq = facepaint([
   '@media(min-width: 1024px)',
@@ -32,6 +29,8 @@ const IntroduceReferenceWrapper = styled.div`
     fontSize: ['2vw', '0.9rem', '1.1rem'],
   })};
 
+  font-weight: lighter;
+  color: ${palette.gray[7]};
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 1.5rem;
@@ -41,7 +40,6 @@ const IntroduceReferenceWrapper = styled.div`
   align-items: center;
   
   label {
-    font-weight: bold;
     line-height: 3rem;
     margin-right: .7rem;
   }
@@ -51,7 +49,8 @@ const ModeratorWrapper = styled.div`
   ${mq({
     fontSize: ['2vw', '1rem', '1.2rem'],
   })};
-  font-weight: bold;
+  
+  font-weight: lighter;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -76,11 +75,17 @@ ${mq({
 `;
 
 const IntroduceContent = styled.div`
+  
+  font-family: 'Nanum Godic', sans-serif;
   position: relative;
   margin-top: 2rem;
   border: 0.0625rem solid ${palette.gray[3]};
   border-radius: 0.75rem;
   padding: 1.5rem;
+
+  p {
+    margin: .8rem 0;
+  }
 `;
 
 const IntroduceFooter = styled.div`
@@ -108,13 +113,13 @@ const IntroduceForm = ({
       </ModeratorWrapper>
       <IntroduceReferenceWrapper>
         <IntroduceReference>
-          <label htmlFor="application-status">{APPLY_STATUS}</label>
+          <label htmlFor="application-status">신청 현황 :</label>
           <span id="application-status">
             {`${authorizedUsersNumber(participants)} / ${personnel}`}
           </span>
         </IntroduceReference>
         <IntroduceReference>
-          <label htmlFor="apply-end">{DEAD_LINE_DATE}</label>
+          <label htmlFor="apply-end">모집 마감 일자 :</label>
           <Moment interval={0} format="YYYY년 MM월 DD일 HH:mm">{applyEndTime}</Moment>
         </IntroduceReference>
         <DateTimeChange
@@ -123,7 +128,7 @@ const IntroduceForm = ({
           page="introduce"
         />
       </IntroduceReferenceWrapper>
-      <SubTitle title={INTRODUCE} />
+      <SubTitle title="소개" />
       <IntroduceContent dangerouslySetInnerHTML={{ __html: contents }} />
       <IntroduceFooter>
         <Tags tags={tags} />

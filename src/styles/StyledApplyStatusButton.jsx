@@ -12,17 +12,18 @@ const mq = facepaint([
 
 const StyledApplyStatusButtonWrapper = styled.button`
   ${mq({
-    fontSize: ['2.7vw', '1.5rem'],
+    fontSize: ['2.7vw', '1rem'],
     padding: ['0.25rem 10vw', '0.25rem 5rem'],
   })};
+
   height: 33px;
-  font-family: 'Gamja Flower', cursive;
+  font-family: 'Jua', sans-serif;
+  font-weight: lighter;
   display: inline-flex;
   align-items: center;
   margin: .5rem 0 .5rem 0;
   border: none;
   border-radius: 0.4rem;
-  outline: none;
   line-height: 0;
 
   &.deadline {
@@ -32,7 +33,6 @@ const StyledApplyStatusButtonWrapper = styled.button`
   }
 
   &.apply-cancel {
-    cursor: pointer;
     color: white;
     background: ${palette.orange[4]};
 
@@ -42,19 +42,20 @@ const StyledApplyStatusButtonWrapper = styled.button`
   }
 
   &.apply-reject {
+    cursor: not-allowed;
     border: 2px solid ${palette.warn[0]};
     color: ${palette.warn[1]};
     background: ${palette.gray[1]};
   }
 
   &.apply-complete {
+    cursor: unset;
     border: 2px solid #a5d8ff;
     color: #74c0fc;
     background: ${palette.gray[1]};
   }
 
   &.apply {
-    cursor: pointer;
     color: white;
     background: ${palette.teal[5]};
 
@@ -65,10 +66,10 @@ const StyledApplyStatusButtonWrapper = styled.button`
 
   &.confirm {
   ${mq({
-    fontSize: ['2.7vw', '1.5rem'],
+    fontSize: ['2.7vw', '1rem'],
     padding: ['0.25rem 5vw', '0.25rem 2.5rem'],
   })};
-    cursor: pointer;
+  
     color: white;
     background: #4dabf7;
     

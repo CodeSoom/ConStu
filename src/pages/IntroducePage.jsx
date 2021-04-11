@@ -13,7 +13,7 @@ import IntroduceHeaderContainer from '../containers/introduce/IntroduceHeaderCon
 import ReviewContainer from '../containers/introduce/ReviewContainer';
 
 const IntroducePageWrapper = styled(Responsive)`
-  margin-top: 6em;
+  margin-top: 2rem;
 `;
 
 const IntroducePage = ({ params }) => {

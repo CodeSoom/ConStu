@@ -30,7 +30,7 @@ const StudyGroupWrapper = styled.div`
   border-radius: 4px;
   border: 2px solid ${palette.gray[4]};
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px;
-  background: #f8f9fa;
+  background: #f5f5f5;
   transition-duration: 0.25s, 0.25s;
   transition-timing-function: ease-in, ease-in;
   transition-delay: initial, initial;
@@ -44,7 +44,7 @@ const StudyGroupWrapper = styled.div`
 
 const HeaderLink = styled(Link)`
   display: block;
-  padding: 1.5rem 1rem 0.8rem 1rem;
+  padding: 1.5rem 1rem 0 1rem;
 
   h4 {
     font-size: 1.7rem;
@@ -75,7 +75,16 @@ const StudyInfoWrapper = styled.div`
 
   .moderator {
     color: ${palette.gray[5]};
-    margin-bottom: .5rem;
+    margin: 1rem 0;
+  }
+
+  .apply-status {
+    color: ${palette.gray[7]};
+  }
+
+  .date-time-change {
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -84,6 +93,8 @@ const StudyContentWrapper = styled.div`
   display: block;
 
   p {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 1.1rem;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -91,16 +102,16 @@ const StudyContentWrapper = styled.div`
     word-break: break-word;
     overflow-wrap: break-word;
     line-height: 1.5;
-    height: 3rem;
+    height: 3.3rem;
     overflow: hidden;
     color: ${palette.gray[7]};
   }
 `;
 
 const ApplyEndDateWrapper = styled.div`
+  color: ${palette.gray[7]};
   padding-bottom: 1rem;
-  border: 50%;
-  border-bottom: 1px solid ${palette.gray[4]}; 
+  border-bottom: 1px solid ${palette.gray[4]};
 `;
 
 const removeHtml = (contents) => sanitize(contents, { allowedTags: [] });
@@ -128,7 +139,7 @@ const StudyGroup = ({ group, realTime }) => {
       </StudyContentWrapper>
       <StudyInfoWrapper>
         <div className="moderator">{moderatorId}</div>
-        <div>
+        <div className="date-time-change">
           <DateTimeChange
             group={group}
             page="main"

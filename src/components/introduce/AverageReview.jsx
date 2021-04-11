@@ -31,6 +31,7 @@ const AverageRatingWrapper = styled.div`
   line-height: 50px;
 
   em {
+    font-style: italic;
     margin-left: .5rem;
   }
 
