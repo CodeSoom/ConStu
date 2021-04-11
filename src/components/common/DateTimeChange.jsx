@@ -4,6 +4,8 @@ import 'moment/locale/ko';
 import moment from 'moment';
 import Moment from 'react-moment';
 
+import styled from '@emotion/styled';
+
 import { APPLY_STATUS } from '../../util/constants/constants';
 import { authorizedUsersNumber, changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
@@ -12,6 +14,10 @@ import DateTimeStatus from '../../styles/DateTimeStatus';
 const { DEAD_LINE } = APPLY_STATUS;
 
 moment.locale('ko');
+
+const MomentWrapper = styled(Moment)`
+  font-family: 'Nanum Gothic', sans-serif;
+`;
 
 const DateTimeChange = ({ group, page, time }) => {
   const { participants, personnel, applyEndDate } = group;
@@ -31,7 +37,7 @@ const DateTimeChange = ({ group, page, time }) => {
 
     return (
       <DateTimeStatus status="mainRecruit">
-        <Moment fromNow style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>{applyEndTime}</Moment>
+        <MomentWrapper fromNow>{applyEndTime}</MomentWrapper>
         &nbsp;
         {DEAD_LINE}
       </DateTimeStatus>
@@ -49,7 +55,7 @@ const DateTimeChange = ({ group, page, time }) => {
 
     return (
       <DateTimeStatus status="introduceRecruit">
-        <Moment fromNow style={{ fontFamily: 'Gamja Flower, cursive' }}>{applyEndTime}</Moment>
+        <MomentWrapper fromNow>{applyEndTime}</MomentWrapper>
         &nbsp;
         {DEAD_LINE}
       </DateTimeStatus>
@@ -62,7 +68,9 @@ const DateTimeChange = ({ group, page, time }) => {
         ? introduceTimeStatus()
         : (
           <>
-            {`신청 현황: ${authorizedUsersNumber(participants)} / ${personnel}`}
+            <span className="apply-status">
+              {`신청 현황: ${authorizedUsersNumber(participants)} / ${personnel}`}
+            </span>
             {mainTimeStatus()}
           </>
         )}

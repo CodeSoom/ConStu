@@ -10,7 +10,7 @@ import palette from './palette';
 
 const ApproveStatusWrapper = styled.div`
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: lighter;
   display: inline-flex;
   align-items: center;
   padding: 0.8rem 1rem;

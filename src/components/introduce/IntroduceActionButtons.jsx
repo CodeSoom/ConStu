@@ -12,21 +12,22 @@ import AskArticleDeleteModal from './modals/AskArticleDeleteModal';
 const { EDIT, DELETE } = BUTTON_NAME;
 
 const IntroduceActionButtonsWrapper = styled.div`
+  width: 20%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  align-items: end;
+  margin-top: 1.2rem;
 `;
 
 const ActionButton = styled.button`
-  font-weight: bold;
+  color: ${palette.gray[6]};
+  background: ${palette.gray[2]};
+  font-family: 'Jua', sans-serif;
   font-size: 0.875rem;
   margin-left: 0.5rem;
-  padding: 0.25rem 1rem;
+  padding: .6rem 1.2rem;
   border-radius: 4px;
   border: none;
-  outline: none;
-  cursor: pointer;
-  color: ${palette.gray[6]};
 
   ${({ revise }) => revise && css`
     &:hover {

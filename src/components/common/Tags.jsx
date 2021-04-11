@@ -10,6 +10,8 @@ import { css } from '@emotion/react';
 import palette from '../../styles/palette';
 
 const TagsWrapper = styled.div`
+  font-family: 'Nanum Godic',sans-serif;
+  font-weight: bold;
   margin-top: 1rem;
 
   ${({ type }) => type && type === 'main' && css`
@@ -21,7 +23,6 @@ const TagsWrapper = styled.div`
 
 const TagStyledWrapper = ({ div }) => css`
   font-size: .8em;
-  font-weight: inherit;
   display: inline-flex;
   align-items: center;
   margin: .2rem;
@@ -30,6 +31,7 @@ const TagStyledWrapper = ({ div }) => css`
   height: 2.4rem;
   color: ${palette.teal[7]};
   background:${palette.gray[2]};
+  transition: color .2s;
 
   &:hover {
     color: ${palette.teal[5]};
