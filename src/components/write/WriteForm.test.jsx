@@ -23,7 +23,7 @@ describe('WriteForm', () => {
   it('renders input write form text', () => {
     const { getByLabelText, getByPlaceholderText } = renderWriteForm({
       ...WRITE_FORM,
-      applyEndDate: new Date('2021-04-01'),
+      applyEndDate: new Date('2021-04-01 09:00'),
     });
 
     const { title, personnel } = WRITE_FORM;
