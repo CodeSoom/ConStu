@@ -1,8 +1,10 @@
 import React from 'react';
 
+import moment from 'moment';
+
 import { fireEvent, render } from '@testing-library/react';
 
-import { tomorrow, toStringEndDateFormat } from '../../util/utils';
+import { tomorrow } from '../../util/utils';
 
 import WriteForm from './WriteForm';
 
@@ -28,7 +30,7 @@ describe('WriteForm', () => {
     const { title, personnel } = WRITE_FORM;
 
     expect(getByPlaceholderText('제목을 입력하세요')).toHaveValue(title);
-    expect(getByLabelText('모집 마감 날짜')).toHaveValue(`${toStringEndDateFormat(tomorrow)}`);
+    expect(getByLabelText('모집 마감 날짜')).toHaveValue(moment(tomorrow).format('YYYY-MM-DD HH:mm A').toString());
     expect(getByLabelText('참여 인원 수')).toHaveValue(parseInt(personnel, 10));
   });
 
@@ -50,5 +52,16 @@ describe('WriteForm', () => {
 
       expect(handleChange).toBeCalled();
     });
+  });
+
+  it('date-picker change event', () => {
+    const { container, getByLabelText } = renderWriteForm({
+      ...WRITE_FORM,
+      applyEndDate: '',
+    });
+
+    fireEvent.click(getByLabelText('모집 마감 날짜'));
+
+    expect(container).toHaveTextContent('Time');
   });
 });

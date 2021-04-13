@@ -58,6 +58,7 @@ const CancelButton = styled(Button)`
 `;
 
 const SubmitButton = styled(Button)`
+  font-family: 'Jua', sans-serif;
   padding: 0.45rem 5rem;
 `;
 

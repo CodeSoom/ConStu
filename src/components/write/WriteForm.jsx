@@ -2,12 +2,13 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import ReactDatePicker from 'react-datepicker';
+
 import palette from '../../styles/palette';
 
-import { toStringEndDateFormat } from '../../util/utils';
-import { WRITE_FORM } from '../../util/constants/constants';
+import { yesterday } from '../../util/utils';
 
-const { APPLICATION_DEADLINE_DATE, PARTICIPANTS_NUMBER } = WRITE_FORM;
+import '../../assets/css/react-datepicker.css';
 
 const WriteFormWrapper = styled.div`
   display: flex;
@@ -17,20 +18,13 @@ const WriteFormWrapper = styled.div`
 const WriteTitleInputWrapper = styled.input`
   font-size: 2.75rem;
   font-weight: bold;
+  font-family: 'Nanum Gothic', sans-serif;
   width: 100%;
   line-height: 1.5;
-  color: ${palette.gray[7]};
-`;
+  color: ${palette.gray[8]};
 
-const DateInputWrapper = styled.input`
-  font-size: 1rem;
-  margin-left: 0.5rem;
-  padding: 0.5rem;
-  border-bottom: 2px solid ${palette.gray[5]};
-  width: fit-content;
-
-  &:focus, &:hover {
-    border-bottom: 2px solid ${palette.gray[7]};
+  &::placeholder {
+    color: ${palette.gray[6]};
   }
 `;
 
@@ -57,9 +51,10 @@ const SpaceWrapper = styled.div`
 
 const LabelWrapper = styled.label`
   font-size: 1.3rem;
-  font-weight: bold;
-  margin-right: 1rem;
+  font-weight: lighter;
+  width: fit-content;
   color: ${palette.gray[7]};
+  margin-right: 1rem;
 
   ::before {
     content: '*';
@@ -69,7 +64,7 @@ const LabelWrapper = styled.label`
     vertical-align: top;
     margin: 0 0.125rem 0 0;
     line-height: 1.25rem;
-    color: ${palette.warn[1]};
+    color: ${palette.warn[2]};
   }
 `;
 
@@ -79,14 +74,37 @@ const WriteDivBlock = styled.div`
   margin-top: 1rem;
 `;
 
+const CustomReactDatePicker = styled(ReactDatePicker)`
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 2px solid ${palette.gray[5]};
+
+  &:focus, &:hover {
+    border-bottom: 2px solid ${palette.gray[7]};
+  }
+`;
+
 const WriteForm = ({ onChange, fields }) => {
   const { title, applyEndDate, personnel } = fields;
+
+  const filterPassedTime = (time) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(time);
+
+    return currentDate.getTime() < selectedDate.getTime();
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     onChange({ name, value });
   };
+
+  const dateChange = (date) => onChange({
+    name: 'applyEndDate',
+    value: date.toString(),
+  });
 
   return (
     <WriteFormWrapper>
@@ -100,19 +118,21 @@ const WriteForm = ({ onChange, fields }) => {
       <SpaceWrapper />
       <WriteDivBlock>
         <LabelWrapper htmlFor="application-deadline">
-          {APPLICATION_DEADLINE_DATE}
+          모집 마감 날짜
         </LabelWrapper>
-        <DateInputWrapper
-          type="datetime-local"
-          name="applyEndDate"
-          value={toStringEndDateFormat(applyEndDate)}
-          onChange={handleChange}
+        <CustomReactDatePicker
+          showTimeSelect
+          minDate={yesterday}
+          onChange={(date) => dateChange(date)}
+          selected={applyEndDate ? new Date(applyEndDate) : new Date()}
+          filterTime={filterPassedTime}
           id="application-deadline"
+          dateFormat="yyyy-MM-dd hh:mm aa"
         />
       </WriteDivBlock>
       <WriteDivBlock>
         <LabelWrapper htmlFor="participants-number">
-          {PARTICIPANTS_NUMBER}
+          참여 인원 수
         </LabelWrapper>
         <NumberInputWrapper
           min="1"
