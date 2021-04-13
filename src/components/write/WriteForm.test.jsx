@@ -1,10 +1,6 @@
 import React from 'react';
 
-import moment from 'moment';
-
 import { fireEvent, render } from '@testing-library/react';
-
-import { tomorrow } from '../../util/utils';
 
 import WriteForm from './WriteForm';
 
@@ -27,13 +23,13 @@ describe('WriteForm', () => {
   it('renders input write form text', () => {
     const { getByLabelText, getByPlaceholderText } = renderWriteForm({
       ...WRITE_FORM,
-      applyEndDate: tomorrow,
+      applyEndDate: new Date('2021-04-01'),
     });
 
     const { title, personnel } = WRITE_FORM;
 
     expect(getByPlaceholderText('제목을 입력하세요')).toHaveValue(title);
-    expect(getByLabelText('모집 마감 날짜')).toHaveValue(moment(tomorrow).format('YYYY-MM-DD HH:mm A').toString());
+    expect(getByLabelText('모집 마감 날짜')).toHaveValue('2021-04-01 09:00 AM');
     expect(getByLabelText('참여 인원 수')).toHaveValue(parseInt(personnel, 10));
   });
 
