@@ -11,31 +11,31 @@ import palette from '../../styles/palette';
 import Button from '../../styles/Button';
 
 const mq = facepaint([
-  '@media(min-width: 1024px)',
+  '@media(min-width: 450px)',
+  '@media(min-width: 760px)',
 ]);
 
 const AuthFormWrapper = styled.div`
   ${mq({
-    width: ['calc(100% - 10rem)', '600px'],
-    height: ['calc(100% - 1rem)', '400px'],
+    width: ['calc(100% - 7rem)', 'calc(100% - 10rem)', '600px'],
+    height: ['280px', '350px', '380px'],
+    padding: ['2rem', '3rem'],
+    boxShadow: ['rgb(0 0 0 / 10%) 0px 4px 16px 0px', 'rgb(0 0 0 / 15%) 0px 4px 16px 0px'],
   })};
+
   display: flex;
   align-items: center;
   justify-items: center;
   flex-direction: column;
   margin: 0 auto;
-  padding: 3rem;
   border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
   background: ${palette.gray[1]};
 
   h2 {
   ${mq({
-    fontSize: ['3.5vw', '2rem'],
+    fontSize: ['1.3rem', '1.7rem', '2rem'],
   })};
-    font-weight: bold;
     margin-top: 0;
-    color: black;
   }
 `;
 
@@ -47,19 +47,22 @@ const FormWrapper = styled.form`
 `;
 
 const ErrorWrapper = styled.div`
-  font-size: 0.8rem;
-  font-weight: bold;
+  ${mq({
+    fontSize: ['0.7rem', '0.8rem', '0.9rem'],
+  })};
+
   text-align: center;
   color: ${palette.warn[2]};
 `;
 
 const InputWrapper = styled.input`
   ${mq({
-    height: ['30px', '40px'],
-    width: ['45vw', '400px'],
-    padding: ['1vw 12px', '8px 12px'],
+    height: ['30px', '35px', '40px'],
+    width: ['230px', '60vw', '400px'],
+    padding: ['4px 12px', '8px 12px'],
+    fontSize: ['.8rem', '1rem'],
   })};
-  font-size: 1rem;
+
   line-height: 24px;
   border: 0;
   box-shadow: none;
@@ -71,6 +74,7 @@ const InputWrapper = styled.input`
   transition-property: all;
   transition-timing-function: ease-in-out;
   transition-delay: initial;
+
   &:focus, &.hover {
     border: 2px solid ${palette.teal[5]};
   }
@@ -78,19 +82,22 @@ const InputWrapper = styled.input`
 
 const Footer = styled.div`
   ${mq({
-    fontSize: ['2vw', '1rem'],
+    fontSize: ['0.7rem', '.9rem', '1rem'],
+    marginTop: ['.5rem', '1rem', '1.5rem'],
+    paddingTop: ['15px', '20px'],
   })};
+
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.5rem;
   border-top: 1px solid ${palette.gray[4]};
-  padding-top: 20px;
   
   a {
-    font-weight: bold;
     color: ${palette.teal[5]};
+
     &:hover {
-      color: ${palette.teal[3]};
+      font-weight: bold;
+      text-decoration: underline;
+      color: ${palette.teal[4]};
     }
   }
 
@@ -101,15 +108,26 @@ const Footer = styled.div`
   }
 `;
 
-const SpaceBlock = styled.div`
-  height: 11rem;
+const AuthBlock = styled.div`
+  top: 35px;
+  left: 0px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledButton = styled(Button)`
   ${mq({
-    height: ['3.2vh', '40px'],
+    height: ['17px', '25px', '35px'],
   })};
+
+  font-family: 'Jua', sans-serif;
+  font-weight: lighter;
   border: 2px solid ${palette.teal[5]};
+
   &:hover{
     border: 2px solid ${palette.teal[5]};
   }
@@ -135,8 +153,7 @@ const AuthForm = ({
   };
 
   return (
-    <>
-      <SpaceBlock />
+    <AuthBlock>
       <AuthFormWrapper>
         <h2>{formType}</h2>
         <FormWrapper onSubmit={handleSubmit}>
@@ -189,7 +206,7 @@ const AuthForm = ({
           )}
         </FormWrapper>
       </AuthFormWrapper>
-    </>
+    </AuthBlock>
   );
 };
 
