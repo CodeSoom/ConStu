@@ -14,10 +14,14 @@ const TagInputWrapper = styled.input`
   border: 2px solid #D7E2EB;
   line-height: 20px;
   width: 220px;
-  color: #5f5f5f;
+  color: ${palette.gray[8]};
 
   &:focus, &.hover {
     border: 2px solid ${palette.teal[5]};
+  }
+
+  &::placeholder {
+    color: ${palette.gray[6]};
   }
 `;
 

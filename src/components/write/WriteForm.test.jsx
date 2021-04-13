@@ -2,8 +2,6 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { tomorrow, toStringEndDateFormat } from '../../util/utils';
-
 import WriteForm from './WriteForm';
 
 import WRITE_FORM from '../../../fixtures/write-form';
@@ -23,12 +21,15 @@ describe('WriteForm', () => {
   ));
 
   it('renders input write form text', () => {
-    const { getByLabelText, getByPlaceholderText } = renderWriteForm(WRITE_FORM);
+    const { getByLabelText, getByPlaceholderText } = renderWriteForm({
+      ...WRITE_FORM,
+      applyEndDate: new Date('2021-04-01 09:00'),
+    });
 
     const { title, personnel } = WRITE_FORM;
 
     expect(getByPlaceholderText('제목을 입력하세요')).toHaveValue(title);
-    expect(getByLabelText('모집 마감 날짜')).toHaveValue(`${toStringEndDateFormat(tomorrow)}`);
+    expect(getByLabelText('모집 마감 날짜')).toHaveValue('2021-04-01 09:00 AM');
     expect(getByLabelText('참여 인원 수')).toHaveValue(parseInt(personnel, 10));
   });
 
@@ -50,5 +51,16 @@ describe('WriteForm', () => {
 
       expect(handleChange).toBeCalled();
     });
+  });
+
+  it('date-picker change event', () => {
+    const { container, getByLabelText } = renderWriteForm({
+      ...WRITE_FORM,
+      applyEndDate: '',
+    });
+
+    fireEvent.click(getByLabelText('모집 마감 날짜'));
+
+    expect(container).toHaveTextContent('Time');
   });
 });

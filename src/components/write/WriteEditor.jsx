@@ -9,6 +9,7 @@ import palette from '../../styles/palette';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const WriteEditorWrapper = styled.div`
+  font-family: 'Nanum Gothic', sans-serif;
   margin-top: 1rem;
 
   .toolbar {

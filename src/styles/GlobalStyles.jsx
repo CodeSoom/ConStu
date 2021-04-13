@@ -36,7 +36,7 @@ const setGlobalStyles = css`
     font-size: 85%;
     background-color: rgba(27, 31, 35, 0.05);
     font-family: 'D2Coding', monospace;
-    padding: 0.3rem 0.4rem;
+    padding: 0.2rem 0.4rem;
     margin: 0 .2rem 0 0;
     border-radius: 6px;
   }

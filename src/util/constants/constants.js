@@ -48,8 +48,3 @@ export const STUDY_REVIEW_FORM = {
   FORM_TITLE: '스터디 후기를 작성해주세요!',
   REVIEW_SUBMIT: '후기 등록하기',
 };
-
-export const WRITE_FORM = {
-  APPLICATION_DEADLINE_DATE: '모집 마감 날짜',
-  PARTICIPANTS_NUMBER: '참여 인원 수',
-};

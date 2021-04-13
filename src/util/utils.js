@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 import _ from 'lodash';
 
 export const getAuth = (key) => (obj) => obj.authReducer[key];
