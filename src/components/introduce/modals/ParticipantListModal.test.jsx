@@ -34,7 +34,7 @@ describe('ParticipantListModal', () => {
         it('renders Modal text', () => {
           const { container } = renderParticipantListModal({ visible, participants });
 
-          expect(container).toHaveTextContent('스터디 신청자 목록 🙋‍♂');
+          expect(container).toHaveTextContent('스터디 신청자 목록');
           expect(container).toHaveTextContent('신청서 보기');
           expect(container).toHaveTextContent('test');
         });

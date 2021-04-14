@@ -9,22 +9,21 @@ import palette from './palette';
 const ParticipantListButtonWrapper = styled.button`
   cursor: pointer;
   font-size: 0.8rem;
-  font-weight: bold;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'Jua', sans-serif;
+  color: white;
   outline: none;
-  padding: 0.15rem 0.7rem;
+  padding: 0.4rem 0.8rem 0.2rem 0.8rem;
   border: none;
   border-radius: 4px;
-  color: white;
   background: none;
-  transition-duration: 0.08s;
+  transition-duration: 0.2s;
   transition-property: all;
   transition-timing-function: ease-in-out;
   transition-delay: initial;
 
   ${({ sky }) => sky && css`
     border-bottom: 2px solid #4dabf7;
-    box-shadow: 0px 2px 4px #4dabf7;
+    box-shadow: 0px 2px 2px #4dabf7;
     background: #74c0fc;
 
     &:hover {
@@ -34,8 +33,9 @@ const ParticipantListButtonWrapper = styled.button`
   `};
 
   ${({ confirm }) => confirm && css`
+    padding: 0.5rem 0.8rem 0.1rem 0.8rem;
     border-bottom: 2px solid ${palette.teal[6]};
-    box-shadow: 0px 2px 4px ${palette.teal[6]};
+    box-shadow: 0px 2px 2px ${palette.teal[6]};
     background: ${palette.teal[5]};
 
     &:hover {
@@ -45,8 +45,9 @@ const ParticipantListButtonWrapper = styled.button`
   `};
 
   ${({ cancel }) => cancel && css`
+    padding: 0.5rem 0.8rem 0.1rem 0.8rem;
     border-bottom: 2px solid ${palette.warn[2]};
-    box-shadow: 0px 2px 4px ${palette.warn[2]};
+    box-shadow: 0px 2px 2px ${palette.warn[2]};
     background: ${palette.warn[1]};
 
     &:hover {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import _ from 'lodash';
 
@@ -7,11 +7,13 @@ import { css } from '@emotion/react';
 
 import { APPLY_FORM_TITLE, BUTTON_NAME } from '../../../util/constants/constants';
 
+import BooksSvg from '../../../assets/icons/books.svg';
+
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
 import Textarea from '../../../styles/Textarea';
 
-const { FORM_TITLE, WANT_TO_GET, APPLY_REASON } = APPLY_FORM_TITLE;
+const { WANT_TO_GET, APPLY_REASON } = APPLY_FORM_TITLE;
 const { CONFIRM, CANCEL } = BUTTON_NAME;
 
 const ApplicationFormModalWrapper = styled.div`
@@ -54,15 +56,23 @@ const ModalBoxWrapper = styled.div`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
   background: white;
 
-  h2 {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
   .buttons {
     display: flex;
     justify-content: flex-end;
+  }
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    padding-left: .5rem;
+    padding-top: .4rem;
+    font-size: 1.8rem;
   }
 `;
 
@@ -72,19 +82,18 @@ const ContentBoxWrapper = styled.div`
   margin-bottom: 0.2rem;
 
   label {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
 
     ::before {
       content: '*';
       font-weight: 400;
       font-size: 1.25rem;
       display: inline-block;
-      vertical-align: top;
+      vertical-align: super;
       line-height: 1.25rem;
       margin: 0 0.125rem 0 0;
-      color: ${palette.warn[1]};
+      color: ${palette.warn[2]};
     }
   }
 `;
@@ -93,6 +102,11 @@ const StyledButton = styled(Button)`
   &:last-of-type {
     margin-left: .7rem;
   }
+`;
+
+const BooksIcon = styled(BooksSvg)`
+  width: 25px;
+  height: 25px;
 `;
 
 const ApplicationFormModal = ({
@@ -114,7 +128,7 @@ const ApplicationFormModal = ({
     onCancel();
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = useCallback(() => {
     if (!_.trim(reason)) {
       setError('reason');
       return;
@@ -127,7 +141,7 @@ const ApplicationFormModal = ({
 
     setError(null);
     onConfirm();
-  };
+  }, [reason, wantToGet, onConfirm]);
 
   if (!visible) {
     return null;
@@ -136,7 +150,12 @@ const ApplicationFormModal = ({
   return (
     <ApplicationFormModalWrapper visible className="animation">
       <ModalBoxWrapper>
-        <h2>{FORM_TITLE}</h2>
+        <HeaderWrapper>
+          <BooksIcon />
+          <h2>
+            스터디 참여 신청서
+          </h2>
+        </HeaderWrapper>
         <ContentBoxWrapper>
           <label htmlFor="apply-reason">{APPLY_REASON}</label>
           <Textarea

@@ -20,9 +20,10 @@ const fontSizeButton = css(
 );
 
 const ButtonWrapper = ({ warn, success }) => css`
+  font-family: 'Jua', sans-serif;
+  font-weight: inherit;
   cursor: pointer;
   ${fontSizeButton};
-  font-weight: inherit;
   color: ${palette.gray[7]};
   background: white;
   transition: all .1s ease-in-out;
@@ -37,7 +38,6 @@ const ButtonWrapper = ({ warn, success }) => css`
   }
 
   ${warn && css`
-    font-family: 'Jua', sans-serif;
     color: white;
     background: ${palette.warn[1]};
     padding: 0.3rem 1rem;

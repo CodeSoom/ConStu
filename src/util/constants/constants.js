@@ -11,7 +11,6 @@ export const FORM_TYPE = {
 };
 
 export const APPLY_FORM_TITLE = {
-  FORM_TITLE: '스터디 참여 신청서 📚',
   APPLY_REASON: '신청하게 된 이유',
   WANT_TO_GET: '스터디를 통해 얻고 싶은 것은 무엇인가요?',
 };
@@ -25,7 +24,6 @@ export const BUTTON_NAME = {
 };
 
 export const PARTICIPANT_FORM = {
-  FORM_TITLE: '스터디 신청자 목록 🙋‍♂',
   PARTICIPANT_EMAIL: '신청자 이메일',
   VIEW_APPLICATION: '신청서 보기',
   CANCEL: '취소하기',
