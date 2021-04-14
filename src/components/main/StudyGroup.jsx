@@ -9,6 +9,7 @@ import Moment from 'react-moment';
 import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
+import UserSvg from '../../assets/icons/profile.svg';
 import Tags from '../common/Tags';
 import palette from '../../styles/palette';
 import DateTimeChange from '../common/DateTimeChange';
@@ -76,6 +77,14 @@ const StudyInfoWrapper = styled.div`
   .moderator {
     color: ${palette.gray[5]};
     margin: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+
+    em {
+      padding-top: .15rem;
+      padding-left: .3rem;
+    }
   }
 
   .apply-status {
@@ -114,6 +123,11 @@ const ApplyEndDateWrapper = styled.div`
   border-bottom: 1px solid ${palette.gray[4]};
 `;
 
+const UserIcon = styled(UserSvg)`
+  width: 20px;
+  height: 20px;
+`;
+
 const removeHtml = (contents) => sanitize(contents, { allowedTags: [] });
 
 const StudyGroup = ({ group, realTime }) => {
@@ -138,7 +152,10 @@ const StudyGroup = ({ group, realTime }) => {
         </p>
       </StudyContentWrapper>
       <StudyInfoWrapper>
-        <div className="moderator">{moderatorId}</div>
+        <div className="moderator">
+          <UserIcon />
+          <em>{moderatorId}</em>
+        </div>
         <div className="date-time-change">
           <DateTimeChange
             group={group}

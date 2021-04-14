@@ -7,12 +7,13 @@ import { css } from '@emotion/react';
 
 import { PARTICIPANT_FORM, BUTTON_NAME } from '../../../util/constants/constants';
 
+import ListSvg from '../../../assets/icons/list.svg';
+
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
 import ParticipantList from './ParticipantList';
 
 const {
-  FORM_TITLE,
   PARTICIPANT_EMAIL,
   VIEW_APPLICATION,
   CONFIRM_YN,
@@ -60,12 +61,6 @@ const ModalBoxWrapper = styled.div`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
   background: white;
 
-  h2 {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
   .buttons {
     display: flex;
     justify-content: flex-end;
@@ -81,7 +76,6 @@ const ParticipantTitleWrapper = styled.div`
 
   div {
     font-size: 1.1rem;
-    font-weight: bold;
     margin-bottom: 0.3rem;
   }
 `;
@@ -101,12 +95,32 @@ const NoExistListWrapper = styled.div`
   font-size: 1.1rem;
   text-align: center;
   color: ${palette.gray[6]};
+  margin-top: .8rem;
 `;
 
 const StyledButton = styled(Button)`
   &:last-of-type {
     margin-left: .7rem;
   }
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    padding-right: .5rem;
+    padding-top: .2rem;
+    font-size: 1.6rem;
+  }
+`;
+
+const ListIcon = styled(ListSvg)`
+  width: 30px;
+  height: 30px;
 `;
 
 const ParticipantListModal = ({
@@ -119,7 +133,10 @@ const ParticipantListModal = ({
   return (
     <ParticipantListModalWrapper visible className="animation">
       <ModalBoxWrapper>
-        <h2>{FORM_TITLE}</h2>
+        <HeaderWrapper>
+          <ListIcon />
+          <h2>스터디 신청자 목록</h2>
+        </HeaderWrapper>
         <ParticipantTitleWrapper>
           <div>{PARTICIPANT_EMAIL}</div>
           <div>{VIEW_APPLICATION}</div>

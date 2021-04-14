@@ -61,7 +61,7 @@ const LabelWrapper = styled.label`
     font-weight: 400;
     font-size: 1.25rem;
     display: inline-block;
-    vertical-align: top;
+    vertical-align: super;
     margin: 0 0.125rem 0 0;
     line-height: 1.25rem;
     color: ${palette.warn[2]};

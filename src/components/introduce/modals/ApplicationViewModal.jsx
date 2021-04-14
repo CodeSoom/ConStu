@@ -5,8 +5,11 @@ import { css } from '@emotion/react';
 
 import { APPLY_FORM_TITLE, BUTTON_NAME } from '../../../util/constants/constants';
 
+import ResumeSvg from '../../../assets/icons/resume.svg';
+
 import Button from '../../../styles/Button';
 import palette from '../../../styles/palette';
+import Textarea from '../../../styles/Textarea';
 
 const { CLOSE } = BUTTON_NAME;
 const { APPLY_REASON, WANT_TO_GET } = APPLY_FORM_TITLE;
@@ -51,15 +54,25 @@ const ModalBoxWrapper = styled.div`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
   background: white;
 
-  h2 {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
   .buttons {
     display: flex;
     justify-content: flex-end;
+  }
+`;
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.3rem;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    padding-left: .5rem;
+    padding-top: .2rem;
   }
 `;
 
@@ -70,26 +83,12 @@ const ContentBoxWrapper = styled.div`
 
   label {
     font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
   }
 `;
 
-const ContentViewerWrapper = styled.textarea`
-  font-weight: bold;
+const ContentViewerWrapper = styled(Textarea)`
   cursor: unset;
-  resize: none;
-  outline: none;
-  display: block;
-  margin-bottom: 0.7rem;
-  padding: 5px;
-  border-radius: 3px;
-  border: 2px solid #D7E2EB;
-  color: rgb(33, 37, 41);
-  transition-property: all;
-  transition-delay: initial;
-  transition-duration: 0.08s;
-  transition-timing-function: ease-in-out;
 
   &:focus {
     border: 2px solid ${palette.gray[5]};
@@ -100,6 +99,11 @@ const StyledButton = styled(Button)`
   &:last-of-type {
     margin-left: .7rem;
   }
+`;
+
+const ResumeIcon = styled(ResumeSvg)`
+  width: 28px;
+  height: 28px;
 `;
 
 const ApplicationViewModal = ({
@@ -114,7 +118,12 @@ const ApplicationViewModal = ({
   return (
     <ApplicationViewModalWrapper visible className="animation">
       <ModalBoxWrapper>
-        <h2>{`${id} 신청서 📚`}</h2>
+        <HeaderWrapper>
+          <ResumeIcon />
+          <h2>
+            {`${id} 신청서`}
+          </h2>
+        </HeaderWrapper>
         <ContentBoxWrapper>
           <label htmlFor="apply-reason">{APPLY_REASON}</label>
           <ContentViewerWrapper

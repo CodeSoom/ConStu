@@ -34,7 +34,7 @@ describe('ApplicationViewModal', () => {
 
       const { participant } = modal;
 
-      expect(container).toHaveTextContent(`${participant.id} 신청서 📚`);
+      expect(container).toHaveTextContent(`${participant.id} 신청서`);
       expect(container).toHaveTextContent('신청하게 된 이유');
       expect(container).toHaveTextContent('스터디를 통해 얻고 싶은 것은 무엇인가요?');
     });

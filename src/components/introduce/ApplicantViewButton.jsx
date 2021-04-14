@@ -61,7 +61,7 @@ const ApplicantViewButton = ({
     clearForm();
   };
 
-  const isCheckedUserStatus = (applicant) => (userEmail) => applicant
+  const isCheckedUserStatus = (applicant, userEmail) => applicant
     .find(({ id }) => id === userEmail);
 
   const status = {
@@ -81,8 +81,7 @@ const ApplicantViewButton = ({
           user={user}
           onApply={handleApply}
           onCancel={handleApplyCancelConfirmClick}
-          userStatus={isCheckedUserStatus(participants)(user)}
-          // FIXME - 수정 필요 isCheckedTimeStatus
+          userStatus={isCheckedUserStatus(participants, user)}
           timeStatus={isCheckedTimeStatus(status)}
         />
       </ParticipantsStatus>

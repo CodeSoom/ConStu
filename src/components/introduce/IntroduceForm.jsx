@@ -10,6 +10,7 @@ import { authorizedUsersNumber, changeDateToTime } from '../../util/utils';
 import palette from '../../styles/palette';
 import SubTitle from '../../styles/SubTitle';
 
+import WriteSvg from '../../assets/icons/writing.svg';
 import Tags from '../common/Tags';
 import DateTimeChange from '../common/DateTimeChange';
 import IntroduceActionButtons from './IntroduceActionButtons';
@@ -64,6 +65,17 @@ const ModeratorWrapper = styled.div`
     font-weight: normal;
     color: ${palette.gray[6]};
   }
+
+  .writer-info {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+
+    em {
+      padding-top: .2rem;
+      padding-left: .3rem;
+    }
+  }
 `;
 
 const IntroduceReference = styled.div`
@@ -84,13 +96,21 @@ const IntroduceContent = styled.div`
   padding: 1.5rem;
 
   p {
-    margin: .8rem 0;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    letter-spacing: -0.004em;
   }
 `;
 
 const IntroduceFooter = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const WriteIcon = styled(WriteSvg)`
+  width: 24px;
+  height: 24px;
 `;
 
 const IntroduceForm = ({
@@ -106,8 +126,9 @@ const IntroduceForm = ({
   return (
     <IntroduceFormWrapper>
       <ModeratorWrapper>
-        <div>
-          {`🙋‍♂️${moderatorId}`}
+        <div className="writer-info">
+          <WriteIcon />
+          <em>{moderatorId}</em>
         </div>
         <Moment interval={0} format="YYYY년 MM월 DD일">{changeDateToTime(createDate)}</Moment>
       </ModeratorWrapper>
