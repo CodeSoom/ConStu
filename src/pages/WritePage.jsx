@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 
 import styled from '@emotion/styled';
 
-import Responsive from '../styles/Responsive';
+import AppBlock from '../styles/AppBlock';
 
 import { WRITE_TITLE } from '../util/constants/constants';
 
@@ -13,7 +13,7 @@ import WriteButtonsContainer from '../containers/write/WriteButtonsContainer';
 import WriteEditorContainer from '../containers/write/WriteEditorContainer';
 import WriteFormContainer from '../containers/write/WriteFormContainer';
 
-const WritePageWrapper = styled(Responsive)`
+const WritePageWrapper = styled(AppBlock)`
   margin-top: 4rem;
 `;
 

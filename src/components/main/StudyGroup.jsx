@@ -6,23 +6,19 @@ import sanitize from 'sanitize-html';
 
 import Moment from 'react-moment';
 
-import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
-import UserSvg from '../../assets/icons/profile.svg';
-import Tags from '../common/Tags';
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
-import DateTimeChange from '../common/DateTimeChange';
 
-const mq = facepaint([
-  '@media(min-width: 650px)',
-  '@media(min-width: 1024px)',
-]);
+import Tags from '../common/Tags';
+import UserSvg from '../../assets/icons/profile.svg';
+import DateTimeChange from '../common/DateTimeChange';
 
 const StudyGroupWrapper = styled.div`
   ${mq({
-    margin: ['1rem 0px 1rem 0px', '0.5rem', '1rem'],
-    width: ['100%', 'calc(50% - 1.5rem)', '19rem'],
+    margin: ['1rem 0px 1rem 0px', '1rem 0px 1rem 0px', '0.5rem', '1rem'],
+    width: ['100%', '100%', 'calc(50% - 1.5rem)', '19rem'],
   })};
 
   display: flex;
