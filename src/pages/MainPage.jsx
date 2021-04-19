@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Helmet } from 'react-helmet';
 
-import Responsive from '../styles/Responsive';
+import AppBlock from '../styles/AppBlock';
 
 import StudyGroupsContainer from '../containers/groups/StudyGroupsContainer';
 
@@ -11,9 +11,9 @@ const MainPage = () => (
     <Helmet>
       <title>ConStu</title>
     </Helmet>
-    <Responsive>
+    <AppBlock>
       <StudyGroupsContainer />
-    </Responsive>
+    </AppBlock>
   </>
 );
 

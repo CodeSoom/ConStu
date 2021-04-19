@@ -4,6 +4,8 @@ import _ from 'lodash';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
+
 import StudyGroup from './StudyGroup';
 import Button from '../../styles/Button';
 
@@ -13,6 +15,10 @@ const StudyGroupsWrapper = styled.div`
   margin-top: 2rem;
 `;
 
+const headerSize = mq({
+  fontSize: ['1.3rem', '1.5rem', '1.7rem'],
+});
+
 const TitleHeader = styled.div`
   display: flex;
   align-items: center;
@@ -20,7 +26,7 @@ const TitleHeader = styled.div`
 
   h2 {
     font-weight: inherit;
-    font-size: 1.7rem;
+    ${headerSize}
   }
 `;
 

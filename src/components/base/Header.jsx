@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
 import Button from '../../styles/Button';
 import palette from '../../styles/palette';
-import Responsive from '../../styles/Responsive';
+import AppBlock from '../../styles/AppBlock';
 
-import { LOGOUT, LOGIN, REGISTER } from '../../util/constants/constants';
+import { LOGIN, REGISTER } from '../../util/constants/constants';
+
+import UserHeaderStatus from './UserHeaderStatus';
 
 const HeaderWrapper = styled.div`
   position: fixed;
@@ -18,25 +21,25 @@ const HeaderWrapper = styled.div`
   background: ${palette.gray[1]};
 `;
 
-const Wrapper = styled(Responsive)`
+const Wrapper = styled(AppBlock)`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 5rem;
-`;
-
-const UserStatusWrapper = styled.div`
-  span {
-    margin-right: 1rem;
-  }
+  ${mq({
+    height: ['4rem', '5rem'],
+  })};
 `;
 
 const TitleWrapper = styled(Link)`
-  font-size: 2.4rem;
+  ${mq({
+    fontSize: ['1.9rem', '2.2rem', '2.4rem'],
+  })};
 `;
 
 const Spacer = styled.div`
-  height: 8rem;
+  ${mq({
+    height: ['7rem', '8rem'],
+  })};
 `;
 
 const Header = ({ user, onLogout }) => (
@@ -45,15 +48,10 @@ const Header = ({ user, onLogout }) => (
       <Wrapper>
         <TitleWrapper to="/">ConStu</TitleWrapper>
         {user ? (
-          <UserStatusWrapper>
-            <span>{user}</span>
-            <Button
-              warn
-              onClick={onLogout}
-            >
-              {LOGOUT}
-            </Button>
-          </UserStatusWrapper>
+          <UserHeaderStatus
+            user={user}
+            onClick={onLogout}
+          />
         ) : (
           <div>
             <Button to="/login" style={{ marginRight: '0.5rem' }}>{LOGIN}</Button>

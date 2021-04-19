@@ -7,12 +7,12 @@ import styled from '@emotion/styled';
 
 import { loadStudyGroup } from '../reducers/groupSlice';
 
-import Responsive from '../styles/Responsive';
+import AppBlock from '../styles/AppBlock';
 import IntroduceFormContainer from '../containers/introduce/IntroduceFormContainer';
 import IntroduceHeaderContainer from '../containers/introduce/IntroduceHeaderContainer';
 import ReviewContainer from '../containers/introduce/ReviewContainer';
 
-const IntroducePageWrapper = styled(Responsive)`
+const IntroducePageWrapper = styled(AppBlock)`
   margin-top: 2rem;
 `;
 

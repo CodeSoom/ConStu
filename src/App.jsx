@@ -13,7 +13,7 @@ import WritePage from './pages/WritePage';
 import IntroducePage from './pages/IntroducePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import HeaderContainer from './containers/common/HeaderContainer';
+import HeaderContainer from './containers/base/HeaderContainer';
 
 const App = () => {
   const dispatch = useDispatch();
