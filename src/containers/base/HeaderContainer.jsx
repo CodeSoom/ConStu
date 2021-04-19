@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAuth } from '../../util/utils';
 import { requestLogout } from '../../reducers/authSlice';
 
-import Header from '../../components/common/Header';
+import Header from '../../components/base/Header';
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();

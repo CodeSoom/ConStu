@@ -10,6 +10,7 @@ import palette from '../../styles/palette';
 import AppBlock from '../../styles/AppBlock';
 
 import { LOGIN, REGISTER } from '../../util/constants/constants';
+
 import UserHeaderStatus from './UserHeaderStatus';
 
 const HeaderWrapper = styled.div`
