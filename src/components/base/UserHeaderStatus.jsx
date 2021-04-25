@@ -16,7 +16,6 @@ import palette from '../../styles/palette';
 import { LOGOUT } from '../../util/constants/constants';
 
 import UserSvg from '../../assets/icons/profile-user.svg';
-
 import DropDown from './DropDown';
 
 const UserHeaderStatusWrapper = styled.div`
@@ -37,17 +36,13 @@ const UserIcon = styled(UserSvg)`
   }
 `;
 
-const isMobileLoggedIn = (isMobile) => (user) => !!(isMobile && user);
-
 const UserHeaderStatus = ({ user, onClick }) => {
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
 
   const [isVisible, setVisible] = useState(false);
   const userIconRef = useRef();
 
-  const isLoggedIn = isMobileLoggedIn(isMobileScreen);
-
-  const handleClickOutside = useCallback((e) => {
+  const handleDropdownOutside = useCallback((e) => {
     if (!userIconRef.current) {
       return;
     }
@@ -59,16 +54,18 @@ const UserHeaderStatus = ({ user, onClick }) => {
     setVisible(false);
   }, [userIconRef]);
 
+  const addEventDropdown = useCallback((event) => {
+    document.addEventListener(event, handleDropdownOutside);
+  }, [handleDropdownOutside]);
+
   useEffect(() => {
-    if (isLoggedIn(user)) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-  }, [user, handleClickOutside]);
+    addEventDropdown('scroll');
+    addEventDropdown('mousedown');
+  }, [addEventDropdown]);
 
   useUnmount(() => {
-    if (isLoggedIn(user)) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    addEventDropdown('scroll');
+    addEventDropdown('mousedown');
   });
 
   if (isMobileScreen) {
