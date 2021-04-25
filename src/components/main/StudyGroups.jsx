@@ -2,17 +2,24 @@ import React from 'react';
 
 import _ from 'lodash';
 
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { useMediaQuery } from 'react-responsive';
 
 import mq from '../../styles/responsive';
 
 import StudyGroup from './StudyGroup';
-import Button from '../../styles/Button';
+import EstablishStudy from './EstablishStudy';
 
 const StudyGroupsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
+
+  ${({ isMobile }) => isMobile && css`
+    margin-top: 1rem;
+  `};
 `;
 
 const headerSize = mq({
@@ -24,35 +31,43 @@ const TitleHeader = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  ${({ isMobile }) => isMobile && css`
+    flex-direction: column;
+
+    .plus-icon {
+      margin-top: 1.5rem;
+    }
+  `};
+
   h2 {
     font-weight: inherit;
+    margin-bottom: .5rem;
     ${headerSize}
   }
 `;
 
-const StudyGroups = ({ groups, realTime, user }) => (
-  <>
-    <TitleHeader>
-      <h2>스터디를 직접 개설하거나 참여해보세요!</h2>
-      {user && (
-        <Button
-          to="/write"
-          style={{ padding: '0.6rem 1rem' }}
-        >
-          스터디 개설하기
-        </Button>
-      )}
-    </TitleHeader>
-    <StudyGroupsWrapper>
-      {!_.isEmpty(groups) && groups.map((group) => (
-        <StudyGroup
-          key={group.id}
-          group={group}
-          realTime={realTime}
-        />
-      ))}
-    </StudyGroupsWrapper>
-  </>
-);
+const StudyGroups = ({ groups, realTime, user }) => {
+  const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
+
+  return (
+    <>
+      <TitleHeader isMobile={isMobileScreen}>
+        <h2>스터디를 직접 개설하거나 참여해보세요!</h2>
+        {user && (
+          <EstablishStudy isMobile={isMobileScreen} />
+        )}
+      </TitleHeader>
+      <StudyGroupsWrapper isMobile={isMobileScreen}>
+        {!_.isEmpty(groups) && groups.map((group) => (
+          <StudyGroup
+            key={group.id}
+            group={group}
+            realTime={realTime}
+          />
+        ))}
+      </StudyGroupsWrapper>
+    </>
+  );
+};
 
 export default React.memo(StudyGroups);
