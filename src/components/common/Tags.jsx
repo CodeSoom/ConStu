@@ -7,7 +7,12 @@ import _ from 'lodash';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
+
+const tagHeight = mq({
+  height: ['2.4rem', '2.8rem'],
+});
 
 const TagsWrapper = styled.div`
   font-family: 'Nanum Godic',sans-serif;
@@ -15,20 +20,23 @@ const TagsWrapper = styled.div`
   margin-top: 1rem;
 
   ${({ type }) => type && type === 'main' && css`
-    height: 2.8rem;
+    ${tagHeight}
     overflow: hidden;
     margin-top: .5rem;
   `};
 `;
 
 const TagStyledWrapper = ({ div }) => css`
-  font-size: .8em;
+  ${mq({
+    fontSize: ['.7rem', '.8rem'],
+    padding: ['0 .6rem', '0 .6rem'],
+    height: ['2rem', '2.4rem'],
+  })};
+
   display: inline-flex;
   align-items: center;
   margin: .2rem;
-  padding: 0 .8rem 0 .8rem;
   border-radius: .8em;
-  height: 2.4rem;
   color: ${palette.teal[7]};
   background:${palette.gray[2]};
   transition: color .2s;
@@ -50,8 +58,11 @@ const TagWrapper = styled.div`
 `;
 
 const TagSpanWrapper = styled.span`
+  ${mq({
+    height: ['2rem', '2.4rem'],
+  })};
+
   font-weight: bold;
-  height: 2.4em;
   margin-right: .5rem;
   cursor: pointer;
   color: ${palette.warn[2]};

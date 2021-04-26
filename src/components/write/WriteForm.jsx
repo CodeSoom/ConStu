@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 import ReactDatePicker from 'react-datepicker';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
 import { yesterday } from '../../util/utils';
@@ -16,7 +17,10 @@ const WriteFormWrapper = styled.div`
 `;
 
 const WriteTitleInputWrapper = styled.input`
-  font-size: 2.75rem;
+  ${mq({
+    fontSize: ['2.3rem', '2.75rem'],
+  })};
+
   font-weight: bold;
   font-family: 'Nanum Gothic', sans-serif;
   width: 100%;
@@ -41,25 +45,34 @@ const NumberInputWrapper = styled.input`
 `;
 
 const SpaceWrapper = styled.div`
-  width: 8rem;
-  height: 6px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  ${mq({
+    width: ['6rem', '8rem'],
+    height: ['5px', '6px'],
+    margin: ['0.7rem 0', '1rem 0'],
+  })};
+
   border-radius: 1px;
   background: ${palette.violet[3]};
 `;
 
+const labelBeforeFontSize = mq({
+  fontSize: ['1.1rem', '1.25rem'],
+});
+
 const LabelWrapper = styled.label`
-  font-size: 1.3rem;
+  ${mq({
+    fontSize: ['1.2rem', '1.3rem'],
+  })};
+
   font-weight: lighter;
   width: fit-content;
   color: ${palette.gray[7]};
   margin-right: 1rem;
 
   ::before {
+    ${labelBeforeFontSize}
     content: '*';
     font-weight: 400;
-    font-size: 1.25rem;
     display: inline-block;
     vertical-align: super;
     margin: 0 0.125rem 0 0;
@@ -137,6 +150,8 @@ const WriteForm = ({ onChange, fields }) => {
         <NumberInputWrapper
           min="1"
           type="number"
+          inputMode="numeric"
+          pattern="[0-9]*"
           name="personnel"
           value={personnel}
           onChange={handleChange}

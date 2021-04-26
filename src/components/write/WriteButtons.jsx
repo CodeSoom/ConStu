@@ -10,6 +10,7 @@ import sanitize from 'sanitize-html';
 import { BUTTON_NAME } from '../../util/constants/constants';
 import { ERROR_MESSAGE, FIREBASE_GROUP_ERROR_MESSAGE } from '../../util/constants/messages';
 
+import mq from '../../styles/responsive';
 import Button from '../../styles/Button';
 import palette from '../../styles/palette';
 
@@ -25,7 +26,10 @@ const {
 const { CANCEL } = BUTTON_NAME;
 
 const WriteButtonsWrapper = styled.div`
-  margin-top: 3rem;
+  ${mq({
+    marginTop: ['2rem', '3rem'],
+  })};
+
   margin-bottom: 3rem;
 
   ${(props) => props.error && css`
@@ -36,18 +40,27 @@ const WriteButtonsWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 `;
 
 const ErrorWrapper = styled.div`
-  font-weight: bold;
   font-size: 1rem;
   margin-top: 2rem;
   color: ${palette.warn[2]};
+
+  @keyframes shake {
+      0% { left: -5px; }
+      100% { right: -5px; }
+  };
+
+  position: relative;
+  animation: shake .1s linear;
+  animation-iteration-count: 3;
 `;
 
 const CancelButton = styled(Button)`
-  padding: 0.45rem 1rem;
+  padding: 0.4rem 1rem;
   background: white;
   color: ${palette.warn[1]};
   
@@ -58,8 +71,11 @@ const CancelButton = styled(Button)`
 `;
 
 const SubmitButton = styled(Button)`
+  ${mq({
+    padding: ['.4rem 4rem', '.4rem 5rem'],
+  })};
+
   font-family: 'Jua', sans-serif;
-  padding: 0.45rem 5rem;
 `;
 
 const isCheckApplyEndDate = (applyDate) => Date.now() - applyDate >= 0;

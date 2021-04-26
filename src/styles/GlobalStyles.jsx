@@ -13,6 +13,7 @@ const setGlobalStyles = css`
 
   body {
     font-family: 'Jua', sans-serif;
+    transition: all 0.25s linear 0s;
     color: #212529;
   }
 

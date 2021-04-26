@@ -1,41 +1,67 @@
 import React, { useEffect, useState } from 'react';
 
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
 import TagList from './TagList';
 
 const TagInputWrapper = styled.input`
-  font-size: 1rem;
-  height: 30px;
+  ${mq({
+    fontSize: ['.8rem', '1rem'],
+    height: ['24px', '30px'],
+    width: ['200px', '220px'],
+  })};
+
   padding: 5px;
   border-radius: 0.25rem;
   border: 2px solid #D7E2EB;
   line-height: 20px;
-  width: 220px;
   color: ${palette.gray[8]};
 
-  &:focus, &.hover {
-    border: 2px solid ${palette.teal[5]};
-  }
+  @keyframes shake {
+      0% { left: -5px; }
+      100% { right: -5px; }
+  };
 
-  &::placeholder {
-    color: ${palette.gray[6]};
-  }
+  ${({ error }) => error && css`
+    position: relative;
+    border: 2px solid ${palette.warn[2]};
+    animation: shake .1s linear;
+    animation-iteration-count: 3;
+
+    &::placeholder {
+      color: ${palette.warn[2]};
+    }
+  `};
+
+  ${({ error }) => !error && css`
+    &:focus, &.hover {
+      border: 2px solid ${palette.teal[5]};
+    }
+
+    &::placeholder {
+      color: ${palette.gray[6]};
+    }
+  `};
 `;
 
 const TagsForm = ({ onChange, tags }) => {
   const [tag, setTag] = useState('');
   const [inputTags, setInputTags] = useState([]);
+  const [error, setError] = useState(false);
 
   const validateInput = (value) => {
     if (!value || inputTags.includes(value)) {
+      setError(true);
       return;
     }
 
     const resultTags = [...inputTags, value];
 
+    setError(false);
     setInputTags(resultTags);
     onChange(resultTags);
   };
@@ -43,6 +69,7 @@ const TagsForm = ({ onChange, tags }) => {
   const handleChange = (e) => {
     const { value } = e.target;
 
+    setError(false);
     setTag(value);
   };
 
@@ -68,6 +95,8 @@ const TagsForm = ({ onChange, tags }) => {
         type="text"
         placeholder="태그를 입력하세요"
         value={tag}
+        error={error}
+        onBlur={() => setError(false)}
         onChange={handleChange}
         onKeyPress={handleSubmit}
       />
