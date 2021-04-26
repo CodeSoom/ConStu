@@ -59,6 +59,22 @@ describe('TagsForm', () => {
 
           expect(handleChange).not.toBeCalled();
         });
+
+        describe('Press enter, the error state is true', () => {
+          it('The border color should change to red.', () => {
+            const { getByPlaceholderText } = renderTagsForm(tags);
+
+            const input = getByPlaceholderText('태그를 입력하세요');
+
+            fireEvent.keyPress(input, { key: 'Enter', code: 13, charCode: 13 });
+
+            expect(input).toHaveStyle('border: 2px solid #ff6b6b;');
+
+            fireEvent.blur(input);
+
+            expect(input).toHaveStyle('border: 2px solid #D7E2EB;');
+          });
+        });
       });
 
       describe('It is not executed because the current tag value is included.', () => {

@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 
 import styled from '@emotion/styled';
 
+import mq from '../styles/responsive';
 import AppBlock from '../styles/AppBlock';
 
 import { WRITE_TITLE } from '../util/constants/constants';
@@ -14,7 +15,9 @@ import WriteEditorContainer from '../containers/write/WriteEditorContainer';
 import WriteFormContainer from '../containers/write/WriteFormContainer';
 
 const WritePageWrapper = styled(AppBlock)`
-  margin-top: 4rem;
+  ${mq({
+    marginTop: ['1rem', '2rem', '3rem', '4rem'],
+  })};
 `;
 
 const WritePage = () => (
