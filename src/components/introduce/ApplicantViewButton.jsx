@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
+
 import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import ApplyStatusButton from './ApplyStatusButton';
 import ApplicationFormModal from './modals/ApplicationFormModal';
 import AskApplyCancelModal from './modals/AskApplyCancelModal';
 import AskLoginModal from './modals/AskLoginModal';
-import mq from '../../styles/responsive';
 
 const ParticipantsStatus = styled.div`
   ${mq({
