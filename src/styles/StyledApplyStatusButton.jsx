@@ -1,27 +1,23 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 
-import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
+import mq from './responsive';
 import palette from './palette';
-
-const mq = facepaint([
-  '@media(min-width: 1024px)',
-]);
 
 const StyledApplyStatusButtonWrapper = styled.button`
   ${mq({
-    fontSize: ['2.7vw', '1rem'],
-    padding: ['0.25rem 10vw', '0.25rem 5rem'],
+    fontSize: ['.8rem', '1rem'],
+    height: ['25px', '30px', '33px'],
+    padding: ['0.2rem 2rem', '0.25rem 5rem'],
+    margin: [0, '.5rem 0 .5rem 0'],
   })};
 
-  height: 33px;
   font-family: 'Jua', sans-serif;
   font-weight: lighter;
   display: inline-flex;
   align-items: center;
-  margin: .5rem 0 .5rem 0;
   border: none;
   border-radius: 0.4rem;
   line-height: 0;
@@ -49,6 +45,10 @@ const StyledApplyStatusButtonWrapper = styled.button`
   }
 
   &.apply-complete {
+  ${mq({
+    padding: ['0.2rem 1rem', '0.25rem 2rem', '0.25rem 3rem', '0.25rem 5rem'],
+  })};
+    
     cursor: unset;
     border: 2px solid #a5d8ff;
     color: #74c0fc;
@@ -66,8 +66,7 @@ const StyledApplyStatusButtonWrapper = styled.button`
 
   &.confirm {
   ${mq({
-    fontSize: ['2.7vw', '1rem'],
-    padding: ['0.25rem 5vw', '0.25rem 2.5rem'],
+    padding: ['0.2rem 1rem', '0.25rem 2rem', '0.25rem 3rem', '0.25rem 4rem'],
   })};
   
     color: white;

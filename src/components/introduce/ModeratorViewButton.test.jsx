@@ -2,17 +2,23 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import { Context as ResponsiveContext } from 'react-responsive';
+
 import ModeratorViewButton from './ModeratorViewButton';
 
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 describe('ModeratorViewButton', () => {
-  const renderModeratorViewButton = ({ group, user, realTime }) => render((
-    <ModeratorViewButton
-      user={user}
-      group={group}
-      realTime={realTime}
-    />
+  const renderModeratorViewButton = ({
+    group, user, realTime, width = 700,
+  }) => render((
+    <ResponsiveContext.Provider value={{ width }}>
+      <ModeratorViewButton
+        user={user}
+        group={group}
+        realTime={realTime}
+      />
+    </ResponsiveContext.Provider>
   ));
 
   context('When the organizer and the logged-in user are different', () => {
@@ -92,30 +98,44 @@ describe('ModeratorViewButton', () => {
         expect(container).not.toHaveTextContent('스터디 신청자 목록');
       });
 
-      context('When there is an applicant pending approval', () => {
-        it('renders "Waiting for approval!" text', () => {
-          const { container } = renderModeratorViewButton({ group, user, realTime });
+      context('When Mobile screen', () => {
+        describe('When there is an applicant pending approval', () => {
+          it('renders "Waiting for approval!" text', () => {
+            const { container } = renderModeratorViewButton({
+              group, user, realTime, width: 400,
+            });
 
-          expect(container).toHaveTextContent('1명이 승인을 기다리고 있습니다!');
+            expect(container).toHaveTextContent('1명이 승인을 대기 중..');
+          });
         });
       });
 
-      context('When there are no applicants waiting for approval', () => {
-        const changeGroup = {
-          ...STUDY_GROUP,
-          moderatorId: 'user',
-          participants: [
-            {
-              confirm: true,
-              id: 'test1',
-            },
-          ],
-        };
+      context('When desktop screen', () => {
+        describe('When there is an applicant pending approval', () => {
+          it('renders "Waiting for approval!" text', () => {
+            const { container } = renderModeratorViewButton({ group, user, realTime });
 
-        it("doesn't renders 'Waiting for approval!' text", () => {
-          const { container } = renderModeratorViewButton({ group: changeGroup, user, realTime });
+            expect(container).toHaveTextContent('1명이 승인을 기다리고 있습니다!');
+          });
+        });
 
-          expect(container).not.toHaveTextContent('1명이 승인을 기달리고 있습니다!');
+        context('When there are no applicants waiting for approval', () => {
+          const changeGroup = {
+            ...STUDY_GROUP,
+            moderatorId: 'user',
+            participants: [
+              {
+                confirm: true,
+                id: 'test1',
+              },
+            ],
+          };
+
+          it("doesn't renders 'Waiting for approval!' text", () => {
+            const { container } = renderModeratorViewButton({ group: changeGroup, user, realTime });
+
+            expect(container).not.toHaveTextContent('1명이 승인을 기달리고 있습니다!');
+          });
         });
       });
     });

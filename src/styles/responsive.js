@@ -6,4 +6,8 @@ const mq = facepaint([
   '@media(min-width: 1050px)',
 ]);
 
+export const mq2 = facepaint([
+  '@media(min-width: 1050px)',
+]);
+
 export default mq;

@@ -16,24 +16,30 @@ const ApplyStatusButton = ({
 }) => {
   if (!timeStatus && !userStatus) {
     return (
-      <StyledApplyStatusButton
-        type="button"
-        className="apply"
-        onClick={onApply}
-      >
-        {APPLY}
-      </StyledApplyStatusButton>
+      <>
+        <div />
+        <StyledApplyStatusButton
+          type="button"
+          className="apply"
+          onClick={onApply}
+        >
+          {APPLY}
+        </StyledApplyStatusButton>
+      </>
     );
   }
 
   if (timeStatus && !userStatus) {
     return (
-      <StyledApplyStatusButton
-        type="button"
-        className="deadline"
-      >
-        {DEAD_LINE}
-      </StyledApplyStatusButton>
+      <>
+        <div />
+        <StyledApplyStatusButton
+          type="button"
+          className="deadline"
+        >
+          {DEAD_LINE}
+        </StyledApplyStatusButton>
+      </>
     );
   }
 
@@ -73,22 +79,28 @@ const ApplyStatusButton = ({
 
   if (timeStatus && !checkConfirm(userStatus)) {
     return (
-      <StyledApplyStatusButton
-        type="button"
-        className="apply-reject"
-      >
-        {REJECT}
-      </StyledApplyStatusButton>
+      <>
+        <div />
+        <StyledApplyStatusButton
+          type="button"
+          className="apply-reject"
+        >
+          {REJECT}
+        </StyledApplyStatusButton>
+      </>
     );
   }
 
   return (
-    <StyledApplyStatusButton
-      type="button"
-      className="apply-complete"
-    >
-      {COMPLETE}
-    </StyledApplyStatusButton>
+    <>
+      <div />
+      <StyledApplyStatusButton
+        type="button"
+        className="apply-complete"
+      >
+        {COMPLETE}
+      </StyledApplyStatusButton>
+    </>
   );
 };
 

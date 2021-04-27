@@ -7,13 +7,22 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import palette from './palette';
+import mq, { mq2 } from './responsive';
+
+const ImCheckMark = styled(ImCheckmark)`
+  margin-bottom: 4px;
+  margin-left: 4px;
+`;
 
 const ApproveStatusWrapper = styled.div`
-  font-size: 1rem;
+  ${mq({
+    fontSize: ['.9rem', '1rem'],
+    padding: [0, 0, 0, '0.8rem 1rem'],
+  })};
+
   font-weight: lighter;
   display: inline-flex;
   align-items: center;
-  padding: 0.8rem 1rem;
   line-height: 0;
 
   ${({ load }) => load && css`
@@ -21,6 +30,7 @@ const ApproveStatusWrapper = styled.div`
   `};
 
   ${({ approve }) => approve && css`
+    margin-bottom: -4px;
     color: #40c057;
   `};
 
@@ -30,14 +40,18 @@ const ApproveStatusWrapper = styled.div`
 `;
 
 const LoadingContent = styled.span`
+  ${mq2({
+    width: ['8px', '12px'],
+    height: ['8px', '12px'],
+  })};
+
+  margin-bottom: .1rem;
   margin-left: .3rem;
   border-radius: 100%;
   border-top: 3px solid ${palette.violet[2]};
   border-bottom: 3px solid ${palette.violet[2]};
   border-right: 3px solid ${palette.violet[4]};
   border-left: 3px solid ${palette.violet[4]};
-  width: 12px;
-  height: 12px;
   animation: load  0.75s ease infinite;
 
   @keyframes load {
@@ -52,14 +66,18 @@ const LoadingContent = styled.span`
 `;
 
 const WaitApprovalContent = styled.span`
+  ${mq2({
+    width: ['8px', '12px'],
+    height: ['8px', '12px'],
+  })};
+
+  margin-bottom: .1rem;
   margin-left: .3rem;
   border-radius: 100%;
   border-top: 3px solid #fcc2d7;
   border-bottom: 3px solid #fcc2d7;
   border-right: 3px solid #f783ac;
   border-left: 3px solid #f783ac;
-  width: 12px;
-  height: 12px;
   animation: load  0.75s ease infinite;
 
   @keyframes load {
@@ -81,7 +99,7 @@ const ApproveStatus = ({ children, ...props }) => {
       {children}
       {wait && <WaitApprovalContent />}
       {load && <LoadingContent />}
-      {approve && <ImCheckmark style={{ marginLeft: 4 }} /> }
+      {approve && <ImCheckMark /> }
     </ApproveStatusWrapper>
   );
 };
