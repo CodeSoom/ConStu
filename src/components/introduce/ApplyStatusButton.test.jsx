@@ -26,7 +26,7 @@ describe('ApplyStatusButton', () => {
         });
 
         expect(container).toHaveTextContent('신청 취소');
-        expect(container).toHaveTextContent('승인 대기중..');
+        expect(container).toHaveTextContent('승인 대기 중..');
       });
     });
 

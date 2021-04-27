@@ -34,7 +34,7 @@ export const PARTICIPANT_FORM = {
 export const APPLY_STATUS = {
   DEAD_LINE: '모집 마감',
   APPLY: '신청하기',
-  WAIT: '승인 대기중..',
+  WAIT: '승인 대기 중..',
   CANCEL: '신청 취소',
   CONFIRM: '승인 완료!',
   REJECT: '승인 거절',

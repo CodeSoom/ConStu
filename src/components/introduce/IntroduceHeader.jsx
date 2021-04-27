@@ -1,15 +1,15 @@
 import React from 'react';
 
-import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
-const mq = facepaint([
-  '@media(min-width: 1024px)',
-]);
-
 const IntroduceHeaderWrapper = styled.div`
+  ${mq({
+    flexDirection: ['column', 'row'],
+  })};
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,10 +19,14 @@ const IntroduceHeaderWrapper = styled.div`
   
   h1 {
   ${mq({
-    fontSize: ['4.3vw', '2.3rem'],
+    fontSize: ['1.5rem', '1.8rem', '2rem', '2.3rem'],
+    width: ['100%', '50%'],
   })};
-    margin: 0;
+  
+    word-break: keep-all;
+    overflow-wrap: break-word;
     line-height: 1.5;
+    margin: 0;
   }
 `;
 

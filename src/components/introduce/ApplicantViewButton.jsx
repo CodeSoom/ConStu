@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
+
 import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
 import ApplyStatusButton from './ApplyStatusButton';
@@ -10,8 +12,15 @@ import AskApplyCancelModal from './modals/AskApplyCancelModal';
 import AskLoginModal from './modals/AskLoginModal';
 
 const ParticipantsStatus = styled.div`
+  ${mq({
+    flexDirection: ['row', 'column', 'column', 'row'],
+    alignItems: ['center', 'flex-end', 'flex-end', 'unset'],
+    width: ['100%', 'unset'],
+    justifyContent: ['space-between', 'unset'],
+    marginTop: ['1.5rem', '0rem'],
+  })};
+
   display: flex;
-  flex-direction: row;
 `;
 
 const ApplicantViewButton = ({
