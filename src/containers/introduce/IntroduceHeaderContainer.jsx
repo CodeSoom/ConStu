@@ -59,7 +59,7 @@ const IntroduceHeaderContainer = () => {
   return (
     <>
       <Helmet>
-        <title>{group.title}</title>
+        <title>{`ConStu | ${group.title}`}</title>
       </Helmet>
       <IntroduceHeader group={group}>
         <ApplicantViewButton

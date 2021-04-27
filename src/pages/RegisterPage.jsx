@@ -9,7 +9,7 @@ import RegisterFormContainer from '../containers/auth/RegisterFormContainer';
 const RegisterPage = () => (
   <>
     <Helmet>
-      <title>{REGISTER}</title>
+      <title>{`ConStu | ${REGISTER}`}</title>
     </Helmet>
     <RegisterFormContainer />
   </>

@@ -7,8 +7,6 @@ import styled from '@emotion/styled';
 import mq from '../styles/responsive';
 import AppBlock from '../styles/AppBlock';
 
-import { WRITE_TITLE } from '../util/constants/constants';
-
 import TagFormContainer from '../containers/write/TagsFormContainer';
 import WriteButtonsContainer from '../containers/write/WriteButtonsContainer';
 import WriteEditorContainer from '../containers/write/WriteEditorContainer';
@@ -23,7 +21,7 @@ const WritePageWrapper = styled(AppBlock)`
 const WritePage = () => (
   <>
     <Helmet>
-      <title>{WRITE_TITLE}</title>
+      <title>ConStu | 스터디 개설하기</title>
     </Helmet>
     <WritePageWrapper>
       <WriteFormContainer />

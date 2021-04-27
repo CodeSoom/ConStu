@@ -9,7 +9,7 @@ import LoginFormContainer from '../containers/auth/LoginFormContainer';
 const LoginPage = () => (
   <>
     <Helmet>
-      <title>{LOGIN}</title>
+      <title>{`ConStu | ${LOGIN}`}</title>
     </Helmet>
     <LoginFormContainer />
   </>
