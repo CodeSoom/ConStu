@@ -3,7 +3,6 @@ export const NOT_MEMBER_YET = '아직 회원이 아니신가요?';
 export const REGISTER = '회원가입';
 export const LOGIN = '로그인';
 export const LOGOUT = '로그아웃';
-export const WRITE_TITLE = '스터디 소개글 작성';
 
 export const FORM_TYPE = {
   login: '로그인',
