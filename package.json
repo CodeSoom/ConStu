@@ -1,7 +1,7 @@
 {
   "name": "constu",
   "version": "1.0.0",
-  "description": "Find and Recruit Study!",
+  "description": "스터디를 직접 개설하거나 참여해보세요!",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/saseungmin/project-react-2-saseungmin.git"
+    "url": "git+https://github.com/CodeSoom/ConStu.git"
   },
   "author": "Seungmin Sa",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/saseungmin/project-react-2-saseungmin/issues"
+    "url": "https://github.com/CodeSoom/ConStu/issues"
   },
   "homepage": "https://sweet-1cfff.firebaseapp.com/",
   "dependencies": {
@@ -68,6 +68,7 @@
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.1",
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.4.1",
     "cross-env": "^7.0.2",
     "css-loader": "^5.0.1",
     "dotenv": "^8.2.0",
@@ -89,6 +90,7 @@
     "redux-mock-store": "^1.5.4",
     "start-server-and-test": "^1.11.5",
     "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^4.2.3",
     "url-loader": "^4.1.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
