@@ -1,5 +1,9 @@
+const webpack = require('webpack');
+
 const path = require('path');
 
+const CopyPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -16,6 +20,7 @@ const appBuild = path.resolve(__dirname, 'build');
 const appSrc = path.resolve(__dirname, 'src');
 const appIndex = path.resolve(__dirname, 'src', 'index.jsx');
 const appHtml = path.resolve(__dirname, 'public', 'index.html');
+const favicon = path.resolve(__dirname, 'public', 'favicon.ico');
 
 module.exports = {
   mode,
@@ -77,6 +82,13 @@ module.exports = {
     hot: true,
   },
   plugins: [
+    new webpack.BannerPlugin({
+      banner: `
+        Build Date: ${new Date().toLocaleString()}
+        Author: Seungmin Sa
+        Author-Email: dbd02169@naver.com
+      `,
+    }),
     new HtmlWebpackPlugin({
       template: appHtml,
       templateParameters: {
@@ -86,16 +98,33 @@ module.exports = {
         collapseWhitespace: true,
         removeComments: true,
       } : false,
+      favicon,
     }),
     new CleanWebpackPlugin(),
     ...(mode === PRODUCTION
       ? [new MiniCssExtractPlugin({ filename: 'static/css/[name].[contenthash:8].css' })]
       : []),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './public/assets',
+          to: './assets',
+        },
+      ],
+
+    }),
     new Dotenv(),
   ],
   optimization: {
     minimizer: mode === PRODUCTION ? [
       new OptimizeCssAssetsPlugin(),
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
     ] : [],
   },
 };
