@@ -6,6 +6,7 @@ import StarRatings from 'react-star-ratings';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
 import { changeDateToTime } from '../../util/utils';
@@ -13,17 +14,27 @@ import { changeDateToTime } from '../../util/utils';
 import CloseSvg from '../../assets/icons/close.svg';
 
 const ReviewWrapper = styled.div`
+  ${mq({
+    padding: ['20px', '20px 35px 20px 35px'],
+  })};
+
   background-color: #f8f8f8;
   display: flex;
   flex-direction: column;
   margin: 1rem 0 1rem 0;
-  padding: 20px 35px 20px 35px;
   border: 1px solid ${palette.gray[3]};
   border-radius: 5px;
 `;
 
-const ReviewContent = styled.div`
-  font-size: 1.1rem;
+const ReviewContent = styled.p`
+  ${mq({
+    fontSize: ['.9rem', '1rem', '1.1rem'],
+  })};
+
+  font-family: 'Nanum Gothic', sans-serif;
+  line-height: 21px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   color: ${palette.gray[8]};
   margin: .7rem 0 .8rem 0;
 `;

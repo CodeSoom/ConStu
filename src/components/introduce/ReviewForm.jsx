@@ -4,24 +4,25 @@ import styled from '@emotion/styled';
 
 import StarRatings from 'react-star-ratings';
 
-import facepaint from 'facepaint';
+import { useMediaQuery } from 'react-responsive';
 
 import { STUDY_REVIEW_FORM } from '../../util/constants/constants';
 
+import mq from '../../styles/responsive';
+import Button from '../../styles/Button';
 import palette from '../../styles/palette';
 import Textarea from '../../styles/Textarea';
-import Button from '../../styles/Button';
 
 const { FORM_TITLE, REVIEW_SUBMIT } = STUDY_REVIEW_FORM;
 
-const mq = facepaint([
-  '@media(min-width: 1024px)',
-]);
-
 const StudyReviewFormWrapper = styled.div`
+  ${mq({
+    margin: ['1rem 0 2rem 0', '2rem 0 3rem 0'],
+    padding: ['20px', '20px'],
+  })};
+
   display: flex;
   flex-direction: column;
-  margin: 2rem 0 3rem 0;
   padding: 20px 20px 20px 20px;
   border: 1px solid ${palette.gray[3]};
   border-radius: 5px;
@@ -37,20 +38,25 @@ const StudyReviewFormHeader = styled.div`
 
   h2 {
   ${mq({
-    fontSize: ['3vw', '1.5rem'],
+    fontSize: ['1.1rem', '1.3rem', '1.5rem'],
   })};
     margin: 0 0 0.3rem 0;
   }
 `;
 
 const StudyReviewFormBody = styled.div`
+  ${mq({
+    flexDirection: ['column', 'column', 'row'],
+  })};
+
   display: flex;
-  flex-direction: row;
   justify-content: center;
 `;
 
 const StudyReviewFormButton = styled(Button)`
-  margin: 1px 0 0.8rem 0.5rem;
+  ${mq({
+    margin: [0, 0, '1px 0 0.8rem 0.5rem'],
+  })};
 `;
 
 const isValidateAboutUser = (user, group) => {
@@ -65,12 +71,12 @@ const ReviewForm = ({
 }) => {
   const { rating, content } = fields;
 
-  const handleChangeRating = (newRating, name) => {
-    onChangeReview({
-      name,
-      value: newRating,
-    });
-  };
+  const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
+
+  const handleChangeRating = (newRating, name) => onChangeReview({
+    name,
+    value: newRating,
+  });
 
   const handleChangeReview = (event) => {
     const { name, value } = event.target;
@@ -93,7 +99,7 @@ const ReviewForm = ({
           rating={rating}
           starRatedColor="#ffc816"
           numberOfStars={5}
-          starDimension="35px"
+          starDimension={isMobileScreen ? '30px' : '40px'}
           starSpacing="0"
           starHoverColor="#ffc816"
           changeRating={handleChangeRating}

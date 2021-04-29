@@ -1,4 +1,4 @@
-import { auth, db } from './firebase';
+import { auth, db, fireStore } from './firebase';
 
 import {
   postUserRegister,
@@ -94,11 +94,19 @@ describe('api', () => {
 
   describe('deletePostReview', () => {
     const update = jest.spyOn(db, 'collection');
+    const fromDate = jest.fn();
+
+    beforeEach(() => {
+      fireStore.Timestamp = {
+        fromDate,
+      };
+    });
 
     it('call deletePostReview api', async () => {
-      await deletePostReview({ id: 'test', reviews: { id: 'test' } });
+      await deletePostReview({ id: 'test', reviews: [{ id: 'test', createDate: Date.now() }] });
 
       expect(update).toBeCalledTimes(1);
+      expect(fromDate).toBeCalledTimes(1);
     });
   });
 

@@ -4,25 +4,31 @@ import _ from 'lodash';
 
 import styled from '@emotion/styled';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
 import Review from './Review';
 import AverageReview from './AverageReview';
 
 const ReviewWrapper = styled.div`
-  margin: 2rem 0 3rem 0;
+  ${mq({
+    margin: ['1rem 0 2rem 0', '2rem 0 3rem 0'],
+  })};
 `;
 
 const EmptyReviewWrapper = styled.div`
+  ${mq({
+    fontSize: ['1rem', '1.1rem'],
+    fontWeight: ['lighter', 'bold'],
+    padding: ['35px', '45px'],
+    margin: ['1rem 0 2rem 0', '2rem 0 3rem 0'],
+  })};
+
   background-color: #f8f8f8;
-  font-size: 1.1rem;
-  font-weight: bold;
   color: ${palette.gray[6]};
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 2rem 0 3rem 0;
-  padding: 45px;
   border: 1px solid ${palette.gray[3]};
   border-radius: 5px;
 `;

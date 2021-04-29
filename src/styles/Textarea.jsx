@@ -9,6 +9,7 @@ import palette from './palette';
 const TextareaWrapper = styled.textarea`
   font-family: 'Nanum Gothic', sans-serif;
   font-size: .9rem;
+  color: ${palette.gray[8]};
   resize: none;
   outline: none;
   line-height: 17px;
@@ -17,7 +18,6 @@ const TextareaWrapper = styled.textarea`
   padding: 6px;
   border: 2px solid #D7E2EB;
   border-radius: 3px;
-  color: ${palette.gray[8]};
   transition-property: all;
   transition-delay: initial;
   transition-duration: 0.08s;
