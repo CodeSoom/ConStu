@@ -1,23 +1,19 @@
 import React from 'react';
 
-import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import { mq2 } from './responsive';
 import palette from './palette';
 
-const mq = facepaint([
-  '@media(min-width: 1024px)',
-  '@media(min-width: 1150px)',
-]);
-
-const mainDateTimeStatus = css(mq({
+const mainDateTimeStatus = css(mq2({
   fontSize: ['.6rem', '0.8rem'],
   height: ['15px', '20px'],
 }));
 
-const introduceDateTimeStatus = css(mq({
+const introduceDateTimeStatus = css(mq2({
   fontSize: ['0.8rem', '0.9rem'],
+  padding: ['.2rem 30px .2rem 30px', '.2rem 40px .2rem 40px'],
   height: ['25px', '30px'],
 }));
 
@@ -59,7 +55,6 @@ const DateTimeStatusWrapper = styled.div`
     ${introduceDateTimeStatus}
     align-items: center;
     margin: 0;
-    padding: .2rem 40px .2rem 40px;
     border-radius: 0.5rem;
     border: 2px solid ${palette.teal[7]};
     background: #FCF6F5;
@@ -84,7 +79,6 @@ const DateTimeStatusWrapper = styled.div`
     ${introduceDateTimeStatus}
     align-items: center;
     margin: 0;
-    padding: 0 40px 0 40px;
     border: 2px solid #ed6f63;
     color: #ed6f63;
     background: #FCF6F5;

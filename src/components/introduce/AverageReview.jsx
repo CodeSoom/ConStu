@@ -1,34 +1,49 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import StarRatings from 'react-star-ratings';
 
 import styled from '@emotion/styled';
 
+import { useMediaQuery } from 'react-responsive';
+
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
 const AverageReviewWrapper = styled.div`
+  ${mq({
+    padding: ['1rem 0rem', '1.5rem 0 1rem 0'],
+  })};
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5rem 0 1rem 0;
   border: 1px solid ${palette.gray[3]};
   border-radius: 5px;
 `;
 
 const AverageReviewTitle = styled.div`
+  ${mq({
+    fontSize: ['1.1rem', '1.3rem', '1.6rem'],
+  })};
+
   line-height: 40px;
   color: ${palette.gray[7]};
-  font-size: 1.6rem;
   font-weight: bold;
 
   span {
-    font-size: 1.8rem;
+    ${mq({ fontSize: ['1.3rem', '1.5rem', '1.8rem'] })};
     color: ${palette.teal[5]};
   }
 `;
 
 const AverageRatingWrapper = styled.div`
-  line-height: 50px;
+  ${mq({
+    flexDirection: ['column', 'row'],
+    alignItems: ['center', 'unset'],
+    lineHeight: ['25px', '46px'],
+  })};
+
+  display: flex;
 
   em {
     font-style: italic;
@@ -36,13 +51,19 @@ const AverageRatingWrapper = styled.div`
   }
 
   .average-rating {
-    font-size: 2rem;
+  ${mq({
+    fontSize: ['1.4rem', '1.6rem', '2rem'],
+  })};
+
     font-weight: bold;
     color: ${palette.gray[7]};
   }
 
   .total-rating {
-    font-size: 1.5rem;
+  ${mq({
+    fontSize: ['.9rem', '1.1rem', '1.5rem'],
+  })};
+
     font-weight: bold;
     color: ${palette.gray[5]};
   }
@@ -60,7 +81,9 @@ const convertToRating = (rating) => {
 };
 
 const AverageReview = ({ reviews }) => {
-  const averageRating = averageReviews(reviews);
+  const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
+
+  const averageRating = useCallback(averageReviews(reviews), [reviews]);
 
   return (
     <AverageReviewWrapper>
@@ -76,16 +99,18 @@ const AverageReview = ({ reviews }) => {
           rating={averageRating / 2}
           starRatedColor="#ffc816"
           numberOfStars={5}
-          starDimension="40px"
+          starDimension={isMobileScreen ? '32px' : '40px'}
           starSpacing="0"
           name="rating"
         />
-        <em className="average-rating">
-          {convertToRating(averageRating)}
-        </em>
-        <em className="total-rating">
-          / 10.0
-        </em>
+        <div>
+          <em className="average-rating">
+            {convertToRating(averageRating)}
+          </em>
+          <em className="total-rating">
+            / 10.0
+          </em>
+        </div>
       </AverageRatingWrapper>
     </AverageReviewWrapper>
   );

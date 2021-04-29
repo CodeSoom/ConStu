@@ -10,7 +10,7 @@ const StyledApplyStatusButtonWrapper = styled.button`
   ${mq({
     fontSize: ['.8rem', '1rem'],
     height: ['25px', '30px', '33px'],
-    padding: ['0.2rem 2rem', '0.25rem 5rem'],
+    padding: ['0.2rem 1rem', '0.25rem 2rem', '0.25rem 3rem', '0.25rem 5rem'],
     margin: [0, '.5rem 0 .5rem 0'],
   })};
 
@@ -44,11 +44,7 @@ const StyledApplyStatusButtonWrapper = styled.button`
     background: ${palette.gray[1]};
   }
 
-  &.apply-complete {
-  ${mq({
-    padding: ['0.2rem 1rem', '0.25rem 2rem', '0.25rem 3rem', '0.25rem 5rem'],
-  })};
-    
+  &.apply-complete { 
     cursor: unset;
     border: 2px solid #a5d8ff;
     color: #74c0fc;
@@ -64,11 +60,7 @@ const StyledApplyStatusButtonWrapper = styled.button`
     }
   }
 
-  &.confirm {
-  ${mq({
-    padding: ['0.2rem 1rem', '0.25rem 2rem', '0.25rem 3rem', '0.25rem 4rem'],
-  })};
-  
+  &.confirm { 
     color: white;
     background: #4dabf7;
     

@@ -86,7 +86,10 @@ export const deletePostReview = async ({ id, reviews }) => {
   const group = db.collection('groups').doc(id);
 
   await group.update({
-    reviews,
+    reviews: reviews.map((review) => ({
+      ...review,
+      createDate: timeStamp(review.createDate),
+    })),
   });
 };
 

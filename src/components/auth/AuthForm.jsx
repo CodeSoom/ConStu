@@ -61,12 +61,11 @@ const InputWrapper = styled.input`
     width: ['230px', '60vw', '400px'],
     padding: ['4px 12px', '8px 12px'],
     fontSize: ['.8rem', '1rem'],
+    border: ['1px solid #D7E2EB', '2px solid #D7E2EB'],
   })};
 
   line-height: 24px;
-  border: 0;
   box-shadow: none;
-  border: 2px solid #D7E2EB;
   border-radius: 0.25rem;
   color: #5f5f5f;
   background: white;
@@ -76,7 +75,9 @@ const InputWrapper = styled.input`
   transition-delay: initial;
 
   &:focus, &.hover {
-    border: 2px solid ${palette.teal[5]};
+  ${mq({
+    border: [`1px solid ${palette.teal[5]}`, `2px solid ${palette.teal[5]}`],
+  })};
   }
 `;
 

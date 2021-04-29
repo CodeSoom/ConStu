@@ -4,6 +4,8 @@ import emotionReset from 'emotion-reset';
 
 import { Global, css } from '@emotion/react';
 
+import mq from './responsive';
+
 const setGlobalStyles = css`
   ${emotionReset}
 
@@ -43,12 +45,15 @@ const setGlobalStyles = css`
   }
 
   pre {
+  ${mq({
+    padding: ['.7rem 1rem', '1rem 1.5rem'],
+  })};
+
     background: #f4f4f4;
     color: #666;
     page-break-inside: avoid;
     font-family: 'D2Coding', monospace;
     word-wrap: break-word;
-    font-size: 15px;
     line-height: 1.6;
     max-width: 100%;
     overflow: auto;
@@ -56,7 +61,6 @@ const setGlobalStyles = css`
     border: 1px solid #ddd;
     border-left: 3px solid #38d9a9;
     margin: 1rem 0;    
-    padding: 1em 1.5em;
   }
 `;
 
