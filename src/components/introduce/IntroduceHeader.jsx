@@ -8,18 +8,18 @@ import palette from '../../styles/palette';
 const IntroduceHeaderWrapper = styled.div`
   ${mq({
     flexDirection: ['column', 'row'],
+    paddingBottom: ['1rem', '1.5rem'],
+    marginBottom: ['1rem', '2rem'],
   })};
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
   border-bottom: 2px solid ${palette.gray[4]};
   
   h1 {
   ${mq({
-    fontSize: ['1.5rem', '1.8rem', '2rem', '2.3rem'],
+    fontSize: ['1.7rem', '1.8rem', '2rem', '2.3rem'],
     width: ['100%', '50%'],
   })};
   

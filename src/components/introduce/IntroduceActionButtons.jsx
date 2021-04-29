@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import mq from '../../styles/responsive';
 import palette from '../../styles/palette';
 
 import { BUTTON_NAME } from '../../util/constants/constants';
@@ -12,20 +13,28 @@ import AskArticleDeleteModal from './modals/AskArticleDeleteModal';
 const { EDIT, DELETE } = BUTTON_NAME;
 
 const IntroduceActionButtonsWrapper = styled.div`
-  width: 20%;
+  ${mq({
+    width: ['unset', 'unset', '30%'],
+    marginTop: ['1rem', '1rem', '1.2rem'],
+    borderTop: [`1px solid ${palette.gray[3]}`, `1px solid ${palette.gray[3]}`, 0],
+    paddingTop: ['1rem', '1rem', 0],
+  })};
+
   display: flex;
   justify-content: flex-end;
-  align-items: end;
-  margin-top: 1.2rem;
+  align-items: flex-start;
 `;
 
 const ActionButton = styled.button`
+  ${mq({
+    padding: ['.5rem 1rem', '.6rem 1.2rem'],
+    fontSize: ['.8rem', '.875rem'],
+  })};
+
   color: ${palette.gray[6]};
   background: ${palette.gray[2]};
   font-family: 'Jua', sans-serif;
-  font-size: 0.875rem;
   margin-left: 0.5rem;
-  padding: .6rem 1.2rem;
   border-radius: 4px;
   border: none;
 

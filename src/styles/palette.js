@@ -68,6 +68,9 @@ const palette = {
     '#FCF6F5',
     '#c9c3c2',
   ],
+  fontColor: [
+    '#222426',
+  ],
 };
 
 export default palette;

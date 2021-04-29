@@ -76,13 +76,16 @@ const ModeratorViewButton = ({
   return (
     <>
       <OrganizerStatus>
-        {approveUsersCount !== 0 && (
-          <ApproveStatus wait>
-            {isMobileScreen
-              ? `${approveUsersCount}명이 승인을 대기 중..`
-              : `${approveUsersCount}명이 승인을 기다리고 있습니다!`}
-          </ApproveStatus>
-        )}
+        <div>
+          {approveUsersCount !== 0 && (
+            <ApproveStatus wait>
+              {isMobileScreen
+                ? `${approveUsersCount}명이 승인을 대기 중..`
+                : `${approveUsersCount}명이 승인을 기다리고 있습니다!`}
+            </ApproveStatus>
+          )}
+          <div />
+        </div>
         <StyledApplyStatusButton
           type="button"
           className="confirm"

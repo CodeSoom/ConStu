@@ -3,9 +3,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import palette from './palette';
+import mq from './responsive';
 
 const SubTitleWrapper = styled.div`
-  font-size: 1.4rem;
+  ${mq({
+    fontSize: ['1.2rem', '1.3rem', '1.4rem'],
+  })};
+
   font-weight: bold;
   text-align: center;
   margin-bottom: 0;
