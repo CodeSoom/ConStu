@@ -9,8 +9,9 @@ import { useMediaQuery } from 'react-responsive';
 import { STUDY_REVIEW_FORM } from '../../util/constants/constants';
 
 import mq from '../../styles/responsive';
-import Button from '../../styles/Button';
 import palette from '../../styles/palette';
+
+import Button from '../../styles/Button';
 import Textarea from '../../styles/Textarea';
 
 const { FORM_TITLE, REVIEW_SUBMIT } = STUDY_REVIEW_FORM;

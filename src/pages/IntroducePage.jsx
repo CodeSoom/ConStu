@@ -7,16 +7,15 @@ import styled from '@emotion/styled';
 
 import { loadStudyGroup } from '../reducers/groupSlice';
 
+import mq from '../styles/responsive';
+
 import AppBlock from '../styles/AppBlock';
 import IntroduceFormContainer from '../containers/introduce/IntroduceFormContainer';
 import IntroduceHeaderContainer from '../containers/introduce/IntroduceHeaderContainer';
 import ReviewContainer from '../containers/introduce/ReviewContainer';
-import mq from '../styles/responsive';
 
 const IntroducePageWrapper = styled(AppBlock)`
-  ${mq({
-    marginTop: ['1rem', '2rem'],
-  })}
+  ${mq({ marginTop: ['1rem', '2rem'] })};
 `;
 
 const IntroducePage = ({ params }) => {
