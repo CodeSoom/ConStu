@@ -8,13 +8,135 @@ import {
   deletePostParticipant,
   updateConfirmPostParticipant,
   deletePostGroup,
+  getStudyGroups,
+  getStudyGroup,
+  postStudyGroup,
+  editPostStudyGroup,
+  postUpdateStudyReview,
+  updatePostParticipant,
 } from './api';
 
+import STUDY_GROUP from '../../fixtures/study-group';
+
 describe('api', () => {
+  const fromDate = jest.fn();
+  const now = jest.fn();
+  const serverTimestamp = jest.fn().mockReturnValue(Date.now());
+  const arrayUnion = jest.fn();
+
   beforeEach(() => {
     jest.clearAllMocks();
+
+    fireStore.Timestamp = {
+      now,
+      fromDate,
+    };
+
+    fireStore.FieldValue = {
+      serverTimestamp,
+      arrayUnion,
+    };
   });
 
+  describe('getStudyGroups', () => {
+    context('With tag', () => {
+      it('Should return groups', async () => {
+        const response = await getStudyGroups('tags');
+
+        expect(response).toEqual([]);
+      });
+    });
+
+    context('Without tag', () => {
+      it('Should return groups', async () => {
+        const response = await getStudyGroups();
+
+        expect(response).toEqual([]);
+      });
+    });
+  });
+
+  describe('getStudyGroup', () => {
+    const setData = (id) => jest.spyOn(db, 'collection').mockImplementationOnce(() => ({
+      doc: jest.fn().mockImplementationOnce(() => ({
+        get: jest.fn().mockReturnValueOnce({
+          exists: id,
+        }),
+      })),
+    }));
+
+    it('should return group', async () => {
+      const mockResponse = setData('id');
+
+      const response = await getStudyGroup('id');
+
+      expect(mockResponse).toBeCalledTimes(1);
+      expect(response).toEqual({
+        exists: 'id',
+      });
+    });
+
+    describe('response exists is not Exists', () => {
+      it('should return null', async () => {
+        const mockResponse = setData('');
+
+        const response = await getStudyGroup('id');
+
+        expect(mockResponse).toBeCalledTimes(1);
+        expect(response).toBeNull();
+      });
+    });
+  });
+
+  describe('postStudyGroup', () => {
+    const group = {
+      applyEndDate: new Date(),
+    };
+
+    it('should returns group id', async () => {
+      const response = await postStudyGroup(group);
+
+      expect(response).toBe('id');
+    });
+  });
+
+  describe('editPostStudyGroup', () => {
+    const update = jest.spyOn(db, 'collection');
+
+    it('should calls collection api', async () => {
+      await editPostStudyGroup(STUDY_GROUP);
+
+      expect(update).toBeCalledTimes(1);
+    });
+  });
+
+  describe('postUpdateStudyReview', () => {
+    const set = jest.spyOn(db, 'collection');
+
+    it('should calls collection api', async () => {
+      await postUpdateStudyReview(STUDY_GROUP);
+
+      expect(arrayUnion).toBeCalledTimes(1);
+      expect(set).toBeCalledTimes(1);
+      expect(now).toBeCalledTimes(1);
+    });
+  });
+
+  describe('updatePostParticipant', () => {
+    const update = jest.spyOn(db, 'collection');
+
+    const studyGroup = {
+      ...STUDY_GROUP,
+      user: 'user',
+    };
+
+    it('should calls collection api', async () => {
+      await updatePostParticipant(studyGroup);
+
+      expect(arrayUnion).toBeCalledTimes(1);
+      expect(update).toBeCalledTimes(1);
+    });
+  });
   describe('postUserRegister', () => {
     const register = {
       user: {
@@ -94,13 +216,6 @@ describe('api', () => {
 
   describe('deletePostReview', () => {
     const update = jest.spyOn(db, 'collection');
-    const fromDate = jest.fn();
-
-    beforeEach(() => {
-      fireStore.Timestamp = {
-        fromDate,
-      };
-    });
 
     it('call deletePostReview api', async () => {
       await deletePostReview({ id: 'test', reviews: [{ id: 'test', createDate: Date.now() }] });

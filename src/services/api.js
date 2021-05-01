@@ -1,6 +1,5 @@
 import { db, auth, fireStore } from './firebase';
 
-const fieldValue = fireStore.FieldValue;
 const timeStamp = (dateTime) => fireStore.Timestamp.fromDate(new Date(dateTime));
 
 const branchGetGroups = (tag) => {
@@ -43,7 +42,7 @@ export const postStudyGroup = async (group) => {
   const { id } = await db.collection('groups').add({
     ...group,
     applyEndDate: timeStamp(applyEndDate),
-    createDate: fieldValue.serverTimestamp(),
+    createDate: fireStore.FieldValue.serverTimestamp(),
   });
 
   return id;
@@ -67,7 +66,7 @@ export const postUpdateStudyReview = async ({ id, review }) => {
   const group = db.collection('groups').doc(id);
 
   await group.set({
-    reviews: fieldValue.arrayUnion({
+    reviews: fireStore.FieldValue.arrayUnion({
       ...review,
       createDate: fireStore.Timestamp.now(),
     }),
@@ -78,7 +77,7 @@ export const updatePostParticipant = async ({ id, user }) => {
   const group = db.collection('groups').doc(id);
 
   await group.update({
-    participants: fieldValue.arrayUnion(user),
+    participants: fireStore.FieldValue.arrayUnion(user),
   });
 };
 
