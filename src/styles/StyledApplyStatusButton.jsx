@@ -61,6 +61,7 @@ const StyledApplyStatusButtonWrapper = styled.button`
   }
 
   &.confirm { 
+    ${mq({ padding: ['0.2rem 1rem', '0.25rem 2rem', '0.25rem 3rem', '0.25rem 4rem'] })};
     color: white;
     background: #4dabf7;
     

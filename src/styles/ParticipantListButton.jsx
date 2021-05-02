@@ -12,7 +12,7 @@ const ParticipantListButtonWrapper = styled.button`
   font-family: 'Jua', sans-serif;
   color: white;
   outline: none;
-  padding: 0.4rem 0.8rem 0.2rem 0.8rem;
+  padding: 5px 0.8rem 3px 0.8rem;
   border: none;
   border-radius: 4px;
   background: none;
@@ -23,7 +23,7 @@ const ParticipantListButtonWrapper = styled.button`
 
   ${({ sky }) => sky && css`
     border-bottom: 2px solid #4dabf7;
-    box-shadow: 0px 2px 2px #4dabf7;
+    box-shadow: 0px 1px 2px #4dabf7;
     background: #74c0fc;
 
     &:hover {
@@ -33,9 +33,8 @@ const ParticipantListButtonWrapper = styled.button`
   `};
 
   ${({ confirm }) => confirm && css`
-    padding: 0.5rem 0.8rem 0.1rem 0.8rem;
     border-bottom: 2px solid ${palette.teal[6]};
-    box-shadow: 0px 2px 2px ${palette.teal[6]};
+    box-shadow: 0px 1px 2px ${palette.teal[6]};
     background: ${palette.teal[5]};
 
     &:hover {
@@ -45,9 +44,8 @@ const ParticipantListButtonWrapper = styled.button`
   `};
 
   ${({ cancel }) => cancel && css`
-    padding: 0.5rem 0.8rem 0.1rem 0.8rem;
     border-bottom: 2px solid ${palette.warn[2]};
-    box-shadow: 0px 2px 2px ${palette.warn[2]};
+    box-shadow: 0px 1px 2px ${palette.warn[2]};
     background: ${palette.warn[1]};
 
     &:hover {

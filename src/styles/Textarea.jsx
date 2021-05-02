@@ -4,9 +4,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import mq from './responsive';
 import palette from './palette';
 
 const TextareaWrapper = styled.textarea`
+  ${mq({ border: ['1px solid #D7E2EB', '2px solid #D7E2EB'] })};
+
   font-family: 'Nanum Gothic', sans-serif;
   font-size: .9rem;
   color: ${palette.gray[8]};
@@ -16,7 +19,6 @@ const TextareaWrapper = styled.textarea`
   display: block;
   margin-bottom: 0.7rem;
   padding: 6px;
-  border: 2px solid #D7E2EB;
   border-radius: 3px;
   transition-property: all;
   transition-delay: initial;
@@ -25,7 +27,7 @@ const TextareaWrapper = styled.textarea`
 
   &:focus {
     ${({ error }) => !error && css`
-      border: 2px solid ${palette.teal[5]};
+      ${mq({ border: [`1px solid ${palette.teal[5]}`, `2px solid ${palette.teal[5]}`] })};
     `};
   }
 
@@ -34,9 +36,9 @@ const TextareaWrapper = styled.textarea`
         0% { left: -5px; }
         100% { right: -5px; }
     };
+    ${mq({ border: [`1px solid ${palette.warn[1]}`, `2px solid ${palette.warn[1]}`] })};
 
     position: relative;
-    border: 2px solid ${palette.warn[1]};
     animation: shake .1s linear;
     animation-iteration-count: 3;
     

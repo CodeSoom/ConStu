@@ -5,11 +5,14 @@ import { css } from '@emotion/react';
 
 import { APPLY_FORM_TITLE, BUTTON_NAME } from '../../../util/constants/constants';
 
-import ResumeSvg from '../../../assets/icons/resume.svg';
+import palette from '../../../styles/palette';
+import mq from '../../../styles/responsive';
 
 import Button from '../../../styles/Button';
-import palette from '../../../styles/palette';
 import Textarea from '../../../styles/Textarea';
+import ResumeSvg from '../../../assets/icons/resume.svg';
+import ReasonSvg from '../../../assets/icons/reason.svg';
+import GetSvg from '../../../assets/icons/get.svg';
 
 const { CLOSE } = BUTTON_NAME;
 const { APPLY_REASON, WANT_TO_GET } = APPLY_FORM_TITLE;
@@ -45,11 +48,14 @@ const ApplicationViewModalWrapper = styled.div`
 `;
 
 const ModalBoxWrapper = styled.div`
+  ${mq({
+    width: ['300px', '400px'],
+  })};
+
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
   border-radius: 6px;
-  width: 400px;
   height: auto;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
   background: white;
@@ -69,7 +75,7 @@ const HeaderWrapper = styled.div`
 
   h2 {
     font-size: 1.3rem;
-    word-break: break-all;
+    word-break: keep-all;
     overflow-wrap: break-word;
     padding-left: .5rem;
     padding-top: .2rem;
@@ -82,17 +88,25 @@ const ContentBoxWrapper = styled.div`
   margin-bottom: 0.2rem;
 
   label {
-    font-size: 1.1rem;
-    margin-bottom: 0.4rem;
+    ${mq({ fontSize: ['1rem', '1.1rem'] })};
+    margin-left: .3rem;
   }
 `;
 
 const ContentViewerWrapper = styled(Textarea)`
   cursor: unset;
+  margin-bottom: 1rem;
 
   &:focus {
-    border: 2px solid ${palette.gray[5]};
+    ${mq({ border: [`1px solid ${palette.gray[5]}`, `2px solid ${palette.gray[5]}`] })};
   }
+`;
+
+const SubTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0.4rem;
 `;
 
 const StyledButton = styled(Button)`
@@ -104,6 +118,19 @@ const StyledButton = styled(Button)`
 const ResumeIcon = styled(ResumeSvg)`
   width: 28px;
   height: 28px;
+`;
+
+const iconCss = mq({
+  width: ['20px', '22px'],
+  height: ['20px', '22px'],
+});
+
+const ReasonIcon = styled(ReasonSvg)`
+  ${iconCss}
+`;
+
+const GetIcon = styled(GetSvg)`
+  ${iconCss}
 `;
 
 const ApplicationViewModal = ({
@@ -125,7 +152,12 @@ const ApplicationViewModal = ({
           </h2>
         </HeaderWrapper>
         <ContentBoxWrapper>
-          <label htmlFor="apply-reason">{APPLY_REASON}</label>
+          <SubTitleWrapper>
+            <ReasonIcon />
+            <label htmlFor="apply-reason">
+              {APPLY_REASON}
+            </label>
+          </SubTitleWrapper>
           <ContentViewerWrapper
             rows="10"
             id="apply-reason"
@@ -134,7 +166,10 @@ const ApplicationViewModal = ({
           />
         </ContentBoxWrapper>
         <ContentBoxWrapper>
-          <label htmlFor="study-want">{WANT_TO_GET}</label>
+          <SubTitleWrapper>
+            <GetIcon />
+            <label htmlFor="study-want">{WANT_TO_GET}</label>
+          </SubTitleWrapper>
           <ContentViewerWrapper
             rows="10"
             id="study-want"

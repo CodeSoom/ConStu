@@ -15,8 +15,8 @@ const OrganizerStatus = styled.div`
   ${mq({
     width: ['100%', 'unset'],
     marginTop: ['1.5rem', 0],
-    flexDirection: ['row', 'column', 'column', 'row'],
-    alignItems: ['center', 'flex-end', 'flex-end', 'unset'],
+    flexDirection: ['row', 'column', 'column', 'column'],
+    alignItems: ['center', 'flex-end', 'flex-end', 'flex-end'],
     justifyContent: ['space-between', 'unset'],
   })};
   
