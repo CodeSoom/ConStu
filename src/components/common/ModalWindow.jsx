@@ -3,6 +3,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+import mq from '../../styles/responsive';
+
 import Button from '../../styles/Button';
 
 const ModalWindowWrapper = styled.div`
@@ -36,20 +38,27 @@ const ModalWindowWrapper = styled.div`
 `;
 
 const ModalBoxWrapper = styled.div`
+  ${mq({
+    width: ['300px', '320px'],
+  })};
+
   display: flex;
   flex-direction: column;
-  width: 320px;
   padding: 1.5rem;
   border-radius: 6px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
   background: white;
 
   h2 {
+    ${mq({ fontSize: ['1.2rem', '1.4rem'] })};
+
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 
   p {
+    font-size: 1rem;
+    font-family: 'Nanum-Gothic', sans-serif;
     margin-bottom: 2rem;
   }
   
@@ -60,6 +69,8 @@ const ModalBoxWrapper = styled.div`
 `;
 
 const StyledButton = styled(Button)`
+  padding: 0.4rem 1rem;
+
   &:last-of-type {
     margin-left: .7rem;
   }

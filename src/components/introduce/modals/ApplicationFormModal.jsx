@@ -7,11 +7,12 @@ import { css } from '@emotion/react';
 
 import { APPLY_FORM_TITLE, BUTTON_NAME } from '../../../util/constants/constants';
 
-import BooksSvg from '../../../assets/icons/books.svg';
+import mq from '../../../styles/responsive';
+import palette from '../../../styles/palette';
 
 import Button from '../../../styles/Button';
-import palette from '../../../styles/palette';
 import Textarea from '../../../styles/Textarea';
+import BooksSvg from '../../../assets/icons/books.svg';
 
 const { WANT_TO_GET, APPLY_REASON } = APPLY_FORM_TITLE;
 const { CONFIRM, CANCEL } = BUTTON_NAME;
@@ -47,10 +48,13 @@ const ApplicationFormModalWrapper = styled.div`
 `;
 
 const ModalBoxWrapper = styled.div`
+  ${mq({
+    width: ['300px', '400px'],
+    height: ['540px', '575px'],
+  })};
+
   display: flex;
   flex-direction: column;
-  width: 400px;
-  height: 575px;
   padding: 1.5rem;
   border-radius: 6px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
@@ -63,16 +67,20 @@ const ModalBoxWrapper = styled.div`
 `;
 
 const HeaderWrapper = styled.div`
+  ${mq({
+    marginBottom: ['1rem', '2rem'],
+  })};
+
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
 
   h2 {
+    ${mq({ fontSize: ['1.5rem', '1.8rem'] })};
+
     padding-left: .5rem;
     padding-top: .4rem;
-    font-size: 1.8rem;
   }
 `;
 
@@ -82,13 +90,15 @@ const ContentBoxWrapper = styled.div`
   margin-bottom: 0.2rem;
 
   label {
-    font-size: 1.2rem;
+    ${mq({ fontSize: ['1rem', '1.2rem'] })};
+
     margin-bottom: 0.5rem;
 
     ::before {
+      ${mq({ fontSize: ['1rem', '1.25rem'] })};
+
       content: '*';
       font-weight: 400;
-      font-size: 1.25rem;
       display: inline-block;
       vertical-align: super;
       line-height: 1.25rem;
@@ -105,8 +115,10 @@ const StyledButton = styled(Button)`
 `;
 
 const BooksIcon = styled(BooksSvg)`
-  width: 25px;
-  height: 25px;
+  ${mq({
+    width: ['21px', '25px'],
+    height: ['21px', '25px'],
+  })};
 `;
 
 const ApplicationFormModal = ({

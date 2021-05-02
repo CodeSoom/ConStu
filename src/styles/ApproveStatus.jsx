@@ -17,7 +17,7 @@ const ImCheckMark = styled(ImCheckmark)`
 const ApproveStatusWrapper = styled.div`
   ${mq({
     fontSize: ['.9rem', '1rem'],
-    padding: [0, 0, 0, '0.8rem 1rem'],
+    padding: [0, 0, 0, '0rem 1rem'],
   })};
 
   font-weight: lighter;

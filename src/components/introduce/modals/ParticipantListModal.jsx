@@ -7,11 +7,12 @@ import { css } from '@emotion/react';
 
 import { PARTICIPANT_FORM, BUTTON_NAME } from '../../../util/constants/constants';
 
-import ListSvg from '../../../assets/icons/list.svg';
+import palette from '../../../styles/palette';
+import { mq4 } from '../../../styles/responsive';
 
 import Button from '../../../styles/Button';
-import palette from '../../../styles/palette';
 import ParticipantList from './ParticipantList';
+import ListSvg from '../../../assets/icons/list.svg';
 
 const {
   PARTICIPANT_EMAIL,
@@ -45,19 +46,22 @@ const ParticipantListModalWrapper = styled.div`
         opacity: 0;
       }
       100% {
-          opacity: 1;
+        opacity: 1;
       }
     }
   `};
 `;
 
 const ModalBoxWrapper = styled.div`
+  ${mq4({
+    width: ['300px', 'calc(100% - 4rem)', '600px'],
+  })};
+
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
   border-radius: 6px;
   height: 550px;
-  width: 600px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
   background: white;
 
@@ -68,15 +72,33 @@ const ModalBoxWrapper = styled.div`
 `;
 
 const ParticipantTitleWrapper = styled.div`
-  display: grid;
+  ${mq4({
+    display: ['flex', 'flex', 'grid'],
+    flexDirection: ['row', 'row', 'unset'],
+    gridTemplateColumns: ['unset', 'unset', '260px 190px 145px'],
+    justifyContent: ['space-around', 'space-around', 'unset'],
+  })};
+
+  text-align: center;
   justify-items: center;
   align-items: center;
-  grid-template-columns: 260px 190px 145px;
   margin: 0.5rem 0 0.3rem 0;
 
   div {
-    font-size: 1.1rem;
+    ${mq4({ fontSize: ['1.rem', '1.1rem'] })};
     margin-bottom: 0.3rem;
+  }
+
+  div:nth-child(1) {
+    ${mq4({ width: ['unset', '50%', 'unset'] })};
+  }
+
+  div:nth-child(2) {
+    ${mq4({ width: ['unset', '30%', 'unset'] })};
+  }
+
+  div:nth-child(3) {
+    ${mq4({ width: ['unset', '20%', 'unset'] })};
   }
 `;
 
@@ -87,7 +109,7 @@ const ParticipantListWrapper = styled.div`
   padding-top: 0.5rem;
   width: 99%;
   height: 100%;
-  overflow-y: auto;
+  overflow: auto;
 `;
 
 const NoExistListWrapper = styled.div`
@@ -112,15 +134,18 @@ const HeaderWrapper = styled.div`
   margin-bottom: 2rem;
 
   h2 {
+    ${mq4({ fontSize: ['1.4rem', '1.6rem'] })};
+
     padding-right: .5rem;
     padding-top: .2rem;
-    font-size: 1.6rem;
   }
 `;
 
 const ListIcon = styled(ListSvg)`
-  width: 30px;
-  height: 30px;
+  ${mq4({
+    width: ['25px', '30px'],
+    height: ['25px', '30px'],
+  })};
 `;
 
 const ParticipantListModal = ({

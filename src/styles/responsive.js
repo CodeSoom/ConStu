@@ -17,4 +17,9 @@ export const mq3 = facepaint([
   '@media(min-width: 1050px)',
 ]);
 
+export const mq4 = facepaint([
+  '@media(min-width: 450px)',
+  '@media(min-width: 700px)',
+]);
+
 export default mq;
