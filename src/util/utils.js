@@ -2,13 +2,25 @@ import moment from 'moment';
 
 import _ from 'lodash';
 
+import { DARK, LIGHT } from './constants/theme';
+
 export const getAuth = (key) => (obj) => obj.authReducer[key];
 
 export const getGroup = (key) => (obj) => obj.groupReducer[key];
 
+export const getCommon = (key) => (obj) => obj.commonReducer[key];
+
 export function equal(key, value) {
   return (obj) => obj[key] === value;
 }
+
+export const getTheme = (theme) => {
+  if (theme === DARK) {
+    return DARK;
+  }
+
+  return LIGHT;
+};
 
 export const authorizedUsersNumber = (participants) => participants
   .filter(({ confirm }) => confirm && confirm === true)
