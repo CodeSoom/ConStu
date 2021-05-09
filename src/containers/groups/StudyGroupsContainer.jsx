@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { useInterval } from 'react-use';
 import { useLocation } from 'react-router-dom';
@@ -10,8 +10,9 @@ import qs from 'qs';
 
 import _ from 'lodash';
 
-import { getAuth, getGroup } from '../../util/utils';
+import { getAuth, getGroup, getCommon } from '../../util/utils';
 
+import { changeTheme } from '../../reducers/commonSlice';
 import { loadStudyGroups } from '../../reducers/groupSlice';
 
 import StudyGroups from '../../components/main/StudyGroups';
@@ -26,6 +27,7 @@ const StudyGroupsContainer = () => {
 
   const groups = useSelector(getGroup('groups'));
   const user = useSelector(getAuth('user'));
+  const theme = useSelector(getCommon('theme'));
 
   useInterval(() => setRealTime(Date.now()), 1000);
 
@@ -37,6 +39,10 @@ const StudyGroupsContainer = () => {
     setTagState(tag);
     dispatch(loadStudyGroups(tag));
   }, [dispatch, search]);
+
+  const onChangeTheme = useCallback(() => {
+    dispatch(changeTheme());
+  }, [dispatch]);
 
   const isDesktop = useMediaQuery({
     query: '(min-width: 1150px)',
@@ -58,8 +64,10 @@ const StudyGroupsContainer = () => {
   return (
     <StudyGroups
       user={user}
+      theme={theme}
       groups={groups}
       realTime={realTime}
+      onChangeTheme={onChangeTheme}
     />
   );
 };

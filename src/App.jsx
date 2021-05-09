@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
-import { loadItem } from './services/storage';
+import { ThemeProvider } from '@emotion/react';
+
+import { getCommon } from './util/utils';
 import { setUser } from './reducers/authSlice';
+import { loadItem } from './services/storage';
 
 import GlobalStyles from './styles/GlobalStyles';
+import { lightTheme, darkTheme } from './styles/theme';
 
 import MainPage from './pages/MainPage';
 import WritePage from './pages/WritePage';
@@ -18,6 +22,7 @@ import HeaderContainer from './containers/base/HeaderContainer';
 const App = () => {
   const dispatch = useDispatch();
 
+  const theme = useSelector(getCommon('theme'));
   const user = loadItem('user');
 
   useEffect(() => {
@@ -29,7 +34,7 @@ const App = () => {
   }, [dispatch, user]);
 
   return (
-    <>
+    <ThemeProvider theme={theme ? darkTheme : lightTheme}>
       <GlobalStyles />
       <HeaderContainer />
       <Switch>
@@ -39,7 +44,7 @@ const App = () => {
         <Route component={RegisterPage} path="/register" />
         <Route path="/write" component={WritePage} />
       </Switch>
-    </>
+    </ThemeProvider>
   );
 };
 

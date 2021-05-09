@@ -89,15 +89,15 @@ const ParticipantTitleWrapper = styled.div`
     margin-bottom: 0.3rem;
   }
 
-  div:nth-child(1) {
+  div:nth-of-type(1) {
     ${mq4({ width: ['unset', '50%', 'unset'] })};
   }
 
-  div:nth-child(2) {
+  div:nth-of-type(2) {
     ${mq4({ width: ['unset', '30%', 'unset'] })};
   }
 
-  div:nth-child(3) {
+  div:nth-of-type(3) {
     ${mq4({ width: ['unset', '20%', 'unset'] })};
   }
 `;

@@ -10,6 +10,7 @@ import MoonIcon from '../assets/icons/moon.svg';
 import mq from './responsive';
 
 import 'react-toggle/style.css';
+import palette from './palette';
 
 const ToggleWrapper = styled(Toggle)`
   &.react-toggle .react-toggle-track {
@@ -39,11 +40,11 @@ const ToggleWrapper = styled(Toggle)`
     left: ['28px', '31px'],
   })};
 
-    border: 2px solid #4D4D4D;
+    border: 2px solid ${palette.gray[6]};
   }
 
   &.react-toggle--checked .react-toggle-track {
-    background-color: #4D4D4D;
+    background-color: ${palette.gray[6]};
   }
 
   &.react-toggle .react-toggle-track-check {
@@ -67,7 +68,7 @@ const ToggleWrapper = styled(Toggle)`
   }
 
   &.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-    background-color: #000000;
+    background-color: ${palette.gray[7]};
   }
 
   &.react-toggle--focus .react-toggle-thumb {

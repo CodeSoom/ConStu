@@ -38,7 +38,7 @@ const TitleWrapper = styled(Link)`
 
 const Spacer = styled.div`
   ${mq({
-    height: ['7rem', '8rem'],
+    height: ['6rem', '7rem'],
   })};
 `;
 
