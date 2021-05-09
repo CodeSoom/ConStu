@@ -11,12 +11,16 @@ import StudyGroups from './StudyGroups';
 import STUDY_GROUPS from '../../../fixtures/study-groups';
 
 describe('StudyGroups', () => {
+  const handleThemeChange = jest.fn();
+
   const renderStudyGroups = ({ groups, width = 700, user = 'test' }) => render((
     <ResponsiveContext.Provider value={{ width }}>
       <MemoryRouter>
         <StudyGroups
           user={user}
+          theme={false}
           groups={groups}
+          onChangeTheme={handleThemeChange}
         />
       </MemoryRouter>
     </ResponsiveContext.Provider>

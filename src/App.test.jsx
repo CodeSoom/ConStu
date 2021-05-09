@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
-import App from './App';
+import { ThemeProvider } from '@emotion/react';
 
 import { loadItem } from './services/storage';
+import { lightTheme, darkTheme } from './styles/theme';
 
 import STUDY_GROUPS from '../fixtures/study-groups';
 import STUDY_GROUP from '../fixtures/study-group';
+
+import App from './App';
 
 jest.mock('react-redux');
 jest.mock('./services/storage');
@@ -51,13 +54,18 @@ describe('App', () => {
         },
         user: given.user,
       },
+      commonReducer: {
+        theme: given.theme,
+      },
     }));
   });
 
-  const renderApp = ({ path }) => render((
-    <MemoryRouter initialEntries={[path]}>
-      <App />
-    </MemoryRouter>
+  const renderApp = ({ path, theme = lightTheme }) => render((
+    <ThemeProvider theme={theme}>
+      <MemoryRouter initialEntries={[path]}>
+        <App />
+      </MemoryRouter>
+    </ThemeProvider>
   ));
 
   context('with path /', () => {
@@ -66,6 +74,28 @@ describe('App', () => {
       const { container } = renderApp({ path: '/' });
 
       expect(container).toHaveTextContent('스터디를 직접 개설하거나 참여해보세요!');
+    });
+
+    describe('Renders with theme', () => {
+      context('When theme is light', () => {
+        given('theme', () => (false));
+
+        it('Renders light toggle', () => {
+          const { getByTestId } = renderApp({ path: '/', theme: lightTheme });
+
+          expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
+        });
+      });
+
+      context('When theme is dark', () => {
+        given('theme', () => (true));
+
+        it('Renders dark toggle', () => {
+          const { getByTestId } = renderApp({ path: '/', theme: darkTheme });
+
+          expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
+        });
+      });
     });
   });
 

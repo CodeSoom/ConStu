@@ -2,11 +2,11 @@ import React from 'react';
 
 import emotionReset from 'emotion-reset';
 
-import { Global, css } from '@emotion/react';
+import { Global, css, useTheme } from '@emotion/react';
 
 import mq from './responsive';
 
-const setGlobalStyles = css`
+const setGlobalStyles = ({ baseFont, baseTone, baseShadow }) => css`
   ${emotionReset}
 
   * {
@@ -14,9 +14,11 @@ const setGlobalStyles = css`
   }
 
   body {
+    color: ${baseFont};
+    background: ${baseTone};
+    text-shadow: ${baseShadow};
     font-family: 'Jua', sans-serif;
     transition: all 0.25s linear 0s;
-    color: #212529;
   }
 
   input {
@@ -64,8 +66,12 @@ const setGlobalStyles = css`
   }
 `;
 
-const GlobalStyles = () => (
-  <Global styles={setGlobalStyles} />
-);
+const GlobalStyles = () => {
+  const theme = useTheme();
+
+  return (
+    <Global styles={setGlobalStyles(theme)} />
+  );
+};
 
 export default GlobalStyles;

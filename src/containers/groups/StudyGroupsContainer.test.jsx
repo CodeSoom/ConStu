@@ -27,11 +27,15 @@ describe('StudyGroupsContainer', () => {
       authReducer: {
         user: 'user1',
       },
+      commonReducer: {
+        theme: given.theme,
+      },
     }));
   });
 
   afterEach(() => {
     jest.clearAllTimers();
+    jest.clearAllMocks();
   });
 
   const renderStudyGroupsContainer = () => render((
@@ -45,6 +49,7 @@ describe('StudyGroupsContainer', () => {
       ...studyGroup,
       applyEndDate: twoSecondsLater,
     }]));
+    given('theme', () => false);
 
     it('renders groups title', async () => {
       const { container } = renderStudyGroupsContainer();
@@ -71,10 +76,27 @@ describe('StudyGroupsContainer', () => {
 
       expect(container).toHaveTextContent(/모집 마감/i);
     });
+
+    describe('When click theme button', () => {
+      given('theme', () => false);
+
+      it('should be calls change theme dispatch', () => {
+        const { getByTestId } = renderStudyGroupsContainer();
+
+        const button = getByTestId('theme-toggle');
+
+        fireEvent.click(button);
+
+        expect(dispatch).toBeCalledWith({
+          type: 'common/changeTheme',
+        });
+      });
+    });
   });
 
   context('without groups', () => {
     given('groups', () => ([]));
+    given('theme', () => false);
 
     it('nothing group list text message', () => {
       const { container } = renderStudyGroupsContainer();

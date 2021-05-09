@@ -24,6 +24,9 @@ describe('MainPage', () => {
       authReducer: {
         user: given.user,
       },
+      commonReducer: {
+        theme: false,
+      },
     }));
   });
 

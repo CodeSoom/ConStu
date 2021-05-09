@@ -11,14 +11,15 @@ import mq from '../../styles/responsive';
 
 import StudyGroup from './StudyGroup';
 import EstablishStudy from './EstablishStudy';
+import ThemeToggleButton from '../base/ThemeToggleButton';
 
 const StudyGroupsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin: 2rem 0;
 
   ${({ isMobile }) => isMobile && css`
-    margin-top: 1rem;
+    margin: 1rem 0;
   `};
 `;
 
@@ -46,11 +47,17 @@ const TitleHeader = styled.div`
   }
 `;
 
-const StudyGroups = ({ groups, realTime, user }) => {
+const StudyGroups = ({
+  groups, realTime, user, theme, onChangeTheme,
+}) => {
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
 
   return (
     <>
+      <ThemeToggleButton
+        theme={theme}
+        onChange={onChangeTheme}
+      />
       <TitleHeader isMobile={isMobileScreen}>
         <h2>스터디를 직접 개설하거나 참여해보세요!</h2>
         {user && (

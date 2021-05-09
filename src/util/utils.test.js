@@ -6,6 +6,8 @@ import {
   authorizedUsersNumber,
   toStringEndDateFormat,
   formatGroup,
+  getCommon,
+  getTheme,
 } from './utils';
 
 test('getAuth', () => {
@@ -36,6 +38,20 @@ test('getGroup', () => {
   expect(g(state)).toBeUndefined();
 });
 
+test('getCommon', () => {
+  const state = {
+    commonReducer: {
+      theme: false,
+    },
+  };
+
+  const f = getCommon('theme');
+  const g = getCommon('age');
+
+  expect(f(state)).toBeFalsy();
+  expect(g(state)).toBeUndefined();
+});
+
 test('equal', () => {
   const state = {
     name: '홍길동',
@@ -46,6 +62,24 @@ test('equal', () => {
 
   expect(f(state)).toBeTruthy();
   expect(g(state)).toBeFalsy();
+});
+
+describe('getTheme', () => {
+  context('theme is dark', () => {
+    it('Should be return 1', () => {
+      const result = getTheme(true);
+
+      expect(result).toBe(true);
+    });
+  });
+
+  context('theme is without dark', () => {
+    it('Should be return 0', () => {
+      const result = getTheme();
+
+      expect(result).toBe(false);
+    });
+  });
 });
 
 test('changeDateToTime', () => {
