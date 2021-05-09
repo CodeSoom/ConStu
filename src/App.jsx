@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ThemeProvider } from '@emotion/react';
 
 import { getCommon } from './util/utils';
-import { setUser } from './reducers/authSlice';
 import { loadItem } from './services/storage';
+import { setUser } from './reducers/authSlice';
 
-import GlobalStyles from './styles/GlobalStyles';
 import { lightTheme, darkTheme } from './styles/theme';
 
 import MainPage from './pages/MainPage';
 import WritePage from './pages/WritePage';
+import GlobalStyles from './styles/GlobalStyles';
 import IntroducePage from './pages/IntroducePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
