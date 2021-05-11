@@ -6,9 +6,9 @@ import { Context as ResponsiveContext } from 'react-responsive';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import StudyGroups from './StudyGroups';
-
 import STUDY_GROUPS from '../../../fixtures/study-groups';
+
+import StudyGroups from './StudyGroups';
 import MockTheme from '../common/test/MockTheme';
 
 describe('StudyGroups', () => {

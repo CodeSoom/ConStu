@@ -6,9 +6,9 @@ import { Context as ResponsiveContext } from 'react-responsive';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import IntroduceForm from './IntroduceForm';
-
 import STUDY_GROUP from '../../../fixtures/study-group';
+
+import IntroduceForm from './IntroduceForm';
 import MockTheme from '../common/test/MockTheme';
 
 describe('IntroduceForm', () => {

@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
-import Button from '../../styles/Button';
-import AppBlock from '../../styles/AppBlock';
 
 import { LOGIN, REGISTER } from '../../util/constants/constants';
 
+import Button from '../../styles/Button';
+import AppBlock from '../../styles/AppBlock';
 import UserHeaderStatus from './UserHeaderStatus';
 
 const HeaderWrapper = styled.div`
