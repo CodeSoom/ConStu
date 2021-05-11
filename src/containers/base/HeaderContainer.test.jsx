@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fireEvent, render } from '@testing-library/react';
 
 import HeaderContainer from './HeaderContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 describe('HeaderContainer', () => {
   const dispatch = jest.fn();
@@ -23,9 +24,11 @@ describe('HeaderContainer', () => {
   });
 
   const renderHeaderContainer = () => render((
-    <MemoryRouter>
-      <HeaderContainer />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <HeaderContainer />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   context('with user', () => {

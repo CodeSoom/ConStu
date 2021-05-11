@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import TagsForm from './TagsForm';
+import MockTheme from '../common/test/MockTheme';
 
 describe('TagsForm', () => {
   const handleChange = jest.fn();
@@ -12,10 +13,12 @@ describe('TagsForm', () => {
   });
 
   const renderTagsForm = (tags) => render((
-    <TagsForm
-      tags={tags}
-      onChange={handleChange}
-    />
+    <MockTheme>
+      <TagsForm
+        tags={tags}
+        onChange={handleChange}
+      />
+    </MockTheme>
   ));
 
   describe('render Tag Form Container contents text', () => {

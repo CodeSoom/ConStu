@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render } from '@testing-library/react';
 
 import IntroducePage from './IntroducePage';
+import MockTheme from '../components/common/test/MockTheme';
 
 describe('IntroducePage', () => {
   const dispatch = jest.fn();
@@ -48,9 +49,11 @@ describe('IntroducePage', () => {
       const params = { id: '1' };
 
       const { container } = render((
-        <MemoryRouter>
-          <IntroducePage params={params} />
-        </MemoryRouter>
+        <MockTheme>
+          <MemoryRouter>
+            <IntroducePage params={params} />
+          </MemoryRouter>
+        </MockTheme>
       ));
 
       expect(dispatch).toBeCalledTimes(1);
@@ -61,11 +64,13 @@ describe('IntroducePage', () => {
 
   context('without params props', () => {
     it('renders title', () => {
-      const { container } = render(
-        <MemoryRouter initialEntries={['/introduce/1']}>
-          <IntroducePage />
-        </MemoryRouter>,
-      );
+      const { container } = render((
+        <MockTheme>
+          <MemoryRouter initialEntries={['/introduce/1']}>
+            <IntroducePage />
+          </MemoryRouter>
+        </MockTheme>
+      ));
 
       expect(dispatch).toBeCalledTimes(1);
 

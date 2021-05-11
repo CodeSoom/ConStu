@@ -10,6 +10,7 @@ import { twoSecondsLater } from '../../util/utils';
 import studyGroup from '../../../fixtures/study-group';
 
 import StudyGroupsContainer from './StudyGroupsContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 describe('StudyGroupsContainer', () => {
   const dispatch = jest.fn();
@@ -39,9 +40,11 @@ describe('StudyGroupsContainer', () => {
   });
 
   const renderStudyGroupsContainer = () => render((
-    <MemoryRouter>
-      <StudyGroupsContainer />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <StudyGroupsContainer />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   context('with groups', () => {

@@ -4,18 +4,22 @@ import { render } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import StudyGroup from './StudyGroup';
 import { tomorrow } from '../../util/utils';
+
+import StudyGroup from './StudyGroup';
+import MockTheme from '../common/test/MockTheme';
 
 const isCheckOverTen = (calendar) => (calendar < 10 ? '0' : '');
 
 describe('StudyGroup', () => {
   const renderStudyGroup = ({ group }) => render((
-    <MemoryRouter>
-      <StudyGroup
-        group={group}
-      />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <StudyGroup
+          group={group}
+        />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   describe('renders study group text contents', () => {

@@ -14,7 +14,7 @@ const DropDownWrapper = styled.div`
     position: relative;
     z-index: 5;
     width: 12rem;
-    background: white;
+    background: ${({ theme }) => theme.dropDownColor[1]};
     box-shadow: rgb(0 0 0 / 20%) 0px 0px 8px;
   }
 `;
@@ -28,15 +28,15 @@ const MenuContent = styled.div`
   transition: background-color .2s;
   
   &:hover {
-    background: ${palette.gray[2]};
+    background: ${({ theme }) => theme.dropDownColor[2]};
   }
 
   &.user-id {
     cursor: unset;
-    background: #DCE2F0;
+    background: ${({ theme }) => theme.dropDownColor[0]};
 
     &:hover{
-      background: #DCE2F0;
+      background: ${({ theme }) => theme.dropDownColor[0]};
     }
   }
 `;

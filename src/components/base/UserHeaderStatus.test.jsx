@@ -5,17 +5,20 @@ import { render, fireEvent } from '@testing-library/react';
 import { Context as ResponsiveContext } from 'react-responsive';
 
 import UserHeaderStatus from './UserHeaderStatus';
+import MockTheme from '../common/test/MockTheme';
 
 describe('UserHeaderStatus', () => {
   const handleClick = jest.fn();
 
   const renderUserHeaderStatus = (width) => render((
-    <ResponsiveContext.Provider value={{ width }}>
-      <UserHeaderStatus
-        user={given.user}
-        onClick={handleClick}
-      />
-    </ResponsiveContext.Provider>
+    <MockTheme>
+      <ResponsiveContext.Provider value={{ width }}>
+        <UserHeaderStatus
+          user={given.user}
+          onClick={handleClick}
+        />
+      </ResponsiveContext.Provider>
+    </MockTheme>
   ));
 
   context('Is mobile Screen', () => {

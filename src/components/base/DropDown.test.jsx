@@ -3,16 +3,19 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
 import DropDown from './DropDown';
+import MockTheme from '../common/test/MockTheme';
 
 describe('DropDown', () => {
   const handleClick = jest.fn();
 
   const renderDropDown = (visible) => render((
-    <DropDown
-      user="test"
-      visible={visible}
-      onLogout={handleClick}
-    />
+    <MockTheme>
+      <DropDown
+        user="test"
+        visible={visible}
+        onLogout={handleClick}
+      />
+    </MockTheme>
   ));
 
   context('Is Visible', () => {
