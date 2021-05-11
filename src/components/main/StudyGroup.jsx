@@ -25,9 +25,9 @@ const StudyGroupWrapper = styled.div`
   flex-direction: column;
   overflow: hidden;
   border-radius: 4px;
-  border: 2px solid ${palette.gray[4]};
+  border: 2px solid ${({ theme }) => theme.borderTone[0]};
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px;
-  background: #f5f5f5;
+  background: ${({ theme }) => theme.subBaseTone[2]};
   transition-duration: 0.25s, 0.25s;
   transition-timing-function: ease-in, ease-in;
   transition-delay: initial, initial;
@@ -51,17 +51,12 @@ const HeaderLink = styled(Link)`
     margin: 0px 0px 0.25rem;
     line-height: 1.5;
     overflow: hidden;
-    color: ${palette.gray[8]};
+    transition: color .25s;
+    color: ${({ theme }) => theme.fontColor[0]};
 
     &:hover {
-      color: ${palette.gray[6]};
+      color: ${({ theme }) => theme.hoverFontColor[0]};
     }
-  }
-`;
-
-const ContentLink = styled(Link)`
-  &:hover {
-    color: ${palette.gray[6]};
   }
 `;
 
@@ -71,7 +66,7 @@ const StudyInfoWrapper = styled.div`
   flex-direction: column;
 
   .moderator {
-    color: ${palette.gray[5]};
+    color: ${({ theme }) => theme.fontColor[2]};
     margin: 1rem 0;
     display: flex;
     flex-direction: row;
@@ -84,7 +79,7 @@ const StudyInfoWrapper = styled.div`
   }
 
   .apply-status {
-    color: ${palette.gray[7]};
+    color: ${({ theme }) => theme.fontColor[3]};
   }
 
   .date-time-change {
@@ -104,17 +99,22 @@ const StudyContentWrapper = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    word-break: break-word;
+    word-break: break-all;
     overflow-wrap: break-word;
     line-height: 1.5;
     height: 3.3rem;
     overflow: hidden;
-    color: ${palette.gray[7]};
+    transition: color .3s;
+    color: ${({ theme }) => theme.fontColor[1]};
+
+    &:hover {
+      color: ${({ theme }) => theme.hoverFontColor[1]};
+    }
   }
 `;
 
 const ApplyEndDateWrapper = styled.div`
-  color: ${palette.gray[7]};
+  color: ${({ theme }) => theme.fontColor[3]};
   padding-bottom: 1rem;
   border-bottom: 1px solid ${palette.gray[4]};
 `;
@@ -142,9 +142,9 @@ const StudyGroup = ({ group, realTime }) => {
       </HeaderLink>
       <StudyContentWrapper>
         <p>
-          <ContentLink to={`/introduce/${id}`}>
+          <Link to={`/introduce/${id}`}>
             {removeHtml(contents)}
-          </ContentLink>
+          </Link>
         </p>
       </StudyContentWrapper>
       <StudyInfoWrapper>

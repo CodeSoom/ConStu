@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
 import Button from '../../styles/Button';
-import palette from '../../styles/palette';
 import AppBlock from '../../styles/AppBlock';
 
 import { LOGIN, REGISTER } from '../../util/constants/constants';
@@ -17,8 +16,8 @@ const HeaderWrapper = styled.div`
   position: fixed;
   width: 100%;
   z-index: 100;
-  box-shadow: 0px 2px 4px ${palette.gray[4]};
-  background: ${palette.gray[1]};
+  box-shadow: 0px 2px 4px ${({ theme }) => theme.headShadowColor};
+  background: ${({ theme }) => theme.subBaseTone[0]};
 `;
 
 const Wrapper = styled(AppBlock)`

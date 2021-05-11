@@ -26,7 +26,7 @@ const TagsWrapper = styled.div`
   `};
 `;
 
-const TagStyledWrapper = ({ div }) => css`
+const TagStyledWrapper = ({ div, theme }) => css`
   ${mq({
     fontSize: ['.7rem', '.8rem'],
     padding: ['0 .6rem', '0 .6rem'],
@@ -38,7 +38,7 @@ const TagStyledWrapper = ({ div }) => css`
   margin: .2rem;
   border-radius: .8em;
   color: ${palette.teal[7]};
-  background:${palette.gray[2]};
+  background: ${theme.tagBackGround[1]};
   transition: color .2s;
 
   &:hover {
@@ -77,6 +77,10 @@ const TagStyledDiv = styled.div`
 `;
 const TagStyledLink = styled(Link)`
   ${TagStyledWrapper}
+
+  ${({ type, theme }) => type && type === 'main' && css`
+    background: ${theme.tagBackGround[0]};
+  `};
 `;
 
 const Tags = ({ tags, type, onRemove }) => {
@@ -113,6 +117,7 @@ const Tags = ({ tags, type, onRemove }) => {
       {tags.map((tag) => (
         <TagStyledLink
           key={tag}
+          type={type}
           to={`/?tag=${tag}`}
         >
           {`#${tag}`}

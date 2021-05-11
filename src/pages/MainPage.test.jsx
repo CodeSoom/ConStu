@@ -6,8 +6,10 @@ import { render } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import MainPage from './MainPage';
 import STUDY_GROUPS from '../../fixtures/study-groups';
+
+import MainPage from './MainPage';
+import MockTheme from '../components/common/test/MockTheme';
 
 describe('MainPage', () => {
   const dispatch = jest.fn();
@@ -31,9 +33,11 @@ describe('MainPage', () => {
   });
 
   const renderMainPage = () => render((
-    <MemoryRouter initialEntries={['/?tag=JavaScript']}>
-      <MainPage />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter initialEntries={['/?tag=JavaScript']}>
+        <MainPage />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   describe('renders Main Page text contents', () => {

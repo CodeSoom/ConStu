@@ -5,6 +5,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import TagsFormContainer from './TagsFormContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 describe('TagsFormContainer', () => {
   const dispatch = jest.fn();
@@ -24,7 +25,9 @@ describe('TagsFormContainer', () => {
   });
 
   const renderTagsFormContainer = () => render((
-    <TagsFormContainer />
+    <MockTheme>
+      <TagsFormContainer />
+    </MockTheme>
   ));
 
   describe('render Tag Form Container contents text', () => {

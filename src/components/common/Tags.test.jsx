@@ -5,15 +5,18 @@ import { MemoryRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
 import Tags from './Tags';
+import MockTheme from './test/MockTheme';
 
 describe('Tags', () => {
   const renderTags = ({ tags, type }) => render((
-    <MemoryRouter>
-      <Tags
-        type={type}
-        tags={tags}
-      />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <Tags
+          type={type}
+          tags={tags}
+        />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   context('with tags', () => {

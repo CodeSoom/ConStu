@@ -9,6 +9,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { twoSecondsLater } from '../../util/utils';
 
 import IntroduceFormContainer from './IntroduceFormContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 const mockPush = jest.fn();
 
@@ -46,9 +47,11 @@ describe('IntroduceFormContainer', () => {
   });
 
   const renderIntroduceFormContainer = () => render((
-    <MemoryRouter>
-      <IntroduceFormContainer />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <IntroduceFormContainer />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   const group = {

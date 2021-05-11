@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import TagList from './TagList';
+import MockTheme from '../common/test/MockTheme';
 
 describe('TagList', () => {
   const handleRemove = jest.fn();
@@ -12,10 +13,12 @@ describe('TagList', () => {
   });
 
   const renderTagList = (tags) => render((
-    <TagList
-      tags={tags}
-      onRemove={handleRemove}
-    />
+    <MockTheme>
+      <TagList
+        tags={tags}
+        onRemove={handleRemove}
+      />
+    </MockTheme>
   ));
 
   context('without tags', () => {

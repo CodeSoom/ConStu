@@ -9,21 +9,24 @@ import { MemoryRouter } from 'react-router-dom';
 import StudyGroups from './StudyGroups';
 
 import STUDY_GROUPS from '../../../fixtures/study-groups';
+import MockTheme from '../common/test/MockTheme';
 
 describe('StudyGroups', () => {
   const handleThemeChange = jest.fn();
 
   const renderStudyGroups = ({ groups, width = 700, user = 'test' }) => render((
-    <ResponsiveContext.Provider value={{ width }}>
-      <MemoryRouter>
-        <StudyGroups
-          user={user}
-          theme={false}
-          groups={groups}
-          onChangeTheme={handleThemeChange}
-        />
-      </MemoryRouter>
-    </ResponsiveContext.Provider>
+    <MockTheme>
+      <ResponsiveContext.Provider value={{ width }}>
+        <MemoryRouter>
+          <StudyGroups
+            user={user}
+            theme={false}
+            groups={groups}
+            onChangeTheme={handleThemeChange}
+          />
+        </MemoryRouter>
+      </ResponsiveContext.Provider>
+    </MockTheme>
   ));
 
   context('When desktop screen', () => {
