@@ -7,6 +7,7 @@ export const lightTheme = {
   ],
   borderTone: [
     '#ced4da',
+    '#D7E2EB',
   ],
   baseShadow: '0 0 0.1px rgb(0 0 0 / 30%);',
   baseFont: '#212529',
@@ -30,6 +31,10 @@ export const lightTheme = {
     '#e9ecef',
     '#e9ecef',
   ],
+  authColor: [
+    '#FFFFFF',
+    '#868e96',
+  ],
 };
 
 export const darkTheme = {
@@ -41,6 +46,7 @@ export const darkTheme = {
   ],
   borderTone: [
     '#495057',
+    '#d2dae2',
   ],
   baseShadow: '0 0 0.1px hsl(0deg 0% 100% / 30%)',
   baseFont: '#eee',
@@ -63,5 +69,9 @@ export const darkTheme = {
   tagBackGround: [
     '#282c35',
     '#50555f',
+  ],
+  authColor: [
+    '#d2dae2',
+    '#a5b1c2',
   ],
 };

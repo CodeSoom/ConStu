@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, fireEvent } from '@testing-library/react';
 
 import AuthForm from './AuthForm';
+import MockTheme from '../common/test/MockTheme';
 
 describe('AuthForm', () => {
   const handleChange = jest.fn();
@@ -16,14 +17,16 @@ describe('AuthForm', () => {
   });
 
   const renderAuthForm = ({ type, fields }) => render((
-    <MemoryRouter>
-      <AuthForm
-        type={type}
-        fields={fields}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-      />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <AuthForm
+          type={type}
+          fields={fields}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+        />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   context('when type is login', () => {

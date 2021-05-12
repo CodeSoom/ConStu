@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render } from '@testing-library/react';
 
 import RegisterPage from './RegisterPage';
+import MockTheme from '../components/common/test/MockTheme';
 
 describe('RegisterPage', () => {
   const dispatch = jest.fn();
@@ -26,7 +27,9 @@ describe('RegisterPage', () => {
   });
 
   const renderRegisterPage = () => render((
-    <RegisterPage />
+    <MockTheme>
+      <RegisterPage />
+    </MockTheme>
   ));
 
   describe('renders Register page text contents', () => {
