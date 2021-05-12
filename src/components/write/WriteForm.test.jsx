@@ -2,9 +2,10 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import WriteForm from './WriteForm';
-
 import WRITE_FORM from '../../../fixtures/write-form';
+
+import WriteForm from './WriteForm';
+import MockTheme from '../common/test/MockTheme';
 
 describe('WriteForm', () => {
   const handleChange = jest.fn();
@@ -14,10 +15,12 @@ describe('WriteForm', () => {
   });
 
   const renderWriteForm = (fields) => render((
-    <WriteForm
-      fields={fields}
-      onChange={handleChange}
-    />
+    <MockTheme>
+      <WriteForm
+        fields={fields}
+        onChange={handleChange}
+      />
+    </MockTheme>
   ));
 
   it('renders input write form text', () => {

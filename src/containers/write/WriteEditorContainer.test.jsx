@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fireEvent, render } from '@testing-library/react';
 
 import WriteEditorContainer from './WriteEditorContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 describe('WriteEditorContainer', () => {
   const dispatch = jest.fn();
@@ -24,7 +25,9 @@ describe('WriteEditorContainer', () => {
   });
 
   const renderWriteEditorContainer = () => render((
-    <WriteEditorContainer />
+    <MockTheme>
+      <WriteEditorContainer />
+    </MockTheme>
   ));
 
   context('with contents', () => {

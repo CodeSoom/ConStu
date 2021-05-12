@@ -3,13 +3,16 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import WriteEditor from './WriteEditor';
+import MockTheme from '../common/test/MockTheme';
 
 describe('WriteEditor', () => {
   const handleChange = jest.fn();
   const renderWriteButtons = () => render((
-    <WriteEditor
-      onChange={handleChange}
-    />
+    <MockTheme>
+      <WriteEditor
+        onChange={handleChange}
+      />
+    </MockTheme>
   ));
 
   it('render Write Editor', () => {

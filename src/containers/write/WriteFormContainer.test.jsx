@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fireEvent, render } from '@testing-library/react';
 
 import WriteFormContainer from './WriteFormContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 describe('WriteFormContainer', () => {
   const dispatch = jest.fn();
@@ -29,7 +30,9 @@ describe('WriteFormContainer', () => {
   });
 
   const renderWriteFormContainer = () => render((
-    <WriteFormContainer />
+    <MockTheme>
+      <WriteFormContainer />
+    </MockTheme>
   ));
 
   describe('render Write Form Container contents text', () => {

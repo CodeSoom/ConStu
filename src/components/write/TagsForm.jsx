@@ -17,13 +17,14 @@ const TagInputWrapper = styled.input`
 
   padding: 5px;
   border-radius: 0.25rem;
-  border: 2px solid #D7E2EB;
+  background: ${({ theme }) => theme.tagBackGround[2]};
+  border: 2px solid ${({ theme }) => theme.borderTone[2]};
   line-height: 20px;
-  color: ${palette.gray[8]};
+  color: ${({ theme }) => theme.fontColor[0]};
 
   @keyframes shake {
-      0% { left: -5px; }
-      100% { right: -5px; }
+    0% { left: -5px; }
+    100% { right: -5px; }
   };
 
   ${({ error }) => error && css`
