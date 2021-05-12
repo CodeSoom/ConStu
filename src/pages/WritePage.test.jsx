@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render } from '@testing-library/react';
 
 import WritePage from './WritePage';
+import MockTheme from '../components/common/test/MockTheme';
 
 describe('WritePage', () => {
   const dispatch = jest.fn();
@@ -27,7 +28,9 @@ describe('WritePage', () => {
   });
 
   const renderWritePage = () => render((
-    <WritePage />
+    <MockTheme>
+      <WritePage />
+    </MockTheme>
   ));
 
   describe('render Write Page contents text', () => {

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render } from '@testing-library/react';
 
 import LoginPage from './LoginPage';
+import MockTheme from '../components/common/test/MockTheme';
 
 describe('LoginPage', () => {
   const dispatch = jest.fn();
@@ -26,9 +27,11 @@ describe('LoginPage', () => {
   });
 
   const renderLoginPage = () => render((
-    <MemoryRouter>
-      <LoginPage />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <LoginPage />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   describe('renders Login page text contents', () => {

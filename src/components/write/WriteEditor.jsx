@@ -12,7 +12,14 @@ const WriteEditorWrapper = styled.div`
   font-family: 'Nanum Gothic', sans-serif;
   margin-top: 1rem;
 
+  .wrapper-class {
+    width: 100%;
+  }
+
   .toolbar {
+    background: ${({ theme }) => theme.writeEditorColor[0]};
+    border: 1px solid ${({ theme }) => theme.writeEditorColor[1]};
+    color: #3d3d3d;
     padding: 6px 5px;
     box-shadow: rgba(0, 0, 0, 0.04) 0px 0px 5px 0px;
   }
@@ -39,6 +46,7 @@ const WriteEditor = ({ editorState, onChange }) => (
         onEditorStateChange={onChange}
         ariaLabel="contents"
         placeholder="내용을 작성해주세요."
+        wrapperClassName="wrapper-class"
         toolbarClassName="toolbar"
         editorClassName="editor"
         localization={{

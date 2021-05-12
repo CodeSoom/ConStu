@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render, fireEvent } from '@testing-library/react';
 
 import LoginFormContainer from './LoginFormContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 const mockPush = jest.fn();
 
@@ -35,9 +36,11 @@ describe('LoginFormContainer', () => {
   });
 
   const renderLoginFormContainer = () => render((
-    <MemoryRouter>
-      <LoginFormContainer />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <LoginFormContainer />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   it('renders login form text', () => {

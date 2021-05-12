@@ -7,6 +7,8 @@ export const lightTheme = {
   ],
   borderTone: [
     '#ced4da',
+    '#D7E2EB',
+    '#D7E2EB',
   ],
   baseShadow: '0 0 0.1px rgb(0 0 0 / 30%);',
   baseFont: '#212529',
@@ -29,7 +31,22 @@ export const lightTheme = {
   tagBackGround: [
     '#e9ecef',
     '#e9ecef',
+    '#FFFFFF',
   ],
+  authColor: [
+    '#FFFFFF',
+    '#868e96',
+  ],
+  writeEditorColor: [
+    '#FFFFFF',
+    '#F1F1F1',
+  ],
+  writeCaretColor: 'auto',
+  writeFontColor: [
+    '#343a40',
+    '#495057',
+  ],
+  autofillShadow: '0 0 0px 1000px #FFFFFF inset',
 };
 
 export const darkTheme = {
@@ -41,6 +58,8 @@ export const darkTheme = {
   ],
   borderTone: [
     '#495057',
+    '#d2dae2',
+    '#50555f',
   ],
   baseShadow: '0 0 0.1px hsl(0deg 0% 100% / 30%)',
   baseFont: '#eee',
@@ -63,5 +82,20 @@ export const darkTheme = {
   tagBackGround: [
     '#282c35',
     '#50555f',
+    '#50555f',
   ],
+  authColor: [
+    '#d2dae2',
+    '#a5b1c2',
+  ],
+  writeEditorColor: [
+    '#50555f',
+    '#3d3d3d',
+  ],
+  writeCaretColor: '#d1d8e0',
+  writeFontColor: [
+    '#d1d8e0',
+    '#a5b1c2',
+  ],
+  autofillShadow: '0 0 0px 1000px #282c35 inset',
 };

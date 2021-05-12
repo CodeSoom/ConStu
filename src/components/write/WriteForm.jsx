@@ -23,21 +23,35 @@ const WriteTitleInputWrapper = styled.input`
 
   font-weight: bold;
   font-family: 'Nanum Gothic', sans-serif;
-  width: 100%;
+  width: 98%;
   line-height: 1.5;
-  color: ${palette.gray[8]};
+  color: ${({ theme }) => theme.writeFontColor[0]};
+  background-color: transparent;
+  caret-color: ${({ theme }) => theme.writeCaretColor};
 
   &::placeholder {
     color: ${palette.gray[6]};
   }
+
+  &:-webkit-autofill {
+    box-shadow: ${({ theme }) => theme.autofillShadow};
+    -webkit-box-shadow: ${({ theme }) => theme.autofillShadow};
+    -webkit-text-fill-color: ${({ theme }) => theme.writeFontColor[0]};
+  }
+
+  &:-webkit-autofill::first-line {
+    ${mq({ fontSize: ['2.3rem', '2.75rem'] })};
+  }
 `;
 
 const NumberInputWrapper = styled.input`
+  width: 50px;
+  background-color: transparent;
+  color: ${({ theme }) => theme.writeFontColor[0]};
   font-size: 1rem;
   margin-left: 0.5rem;
   padding: 0.5rem;
   border-bottom: 2px solid ${palette.gray[5]};
-  width: 50px;
 
   &:focus, &:hover {
     border-bottom: 2px solid ${palette.gray[7]};
@@ -66,7 +80,7 @@ const LabelWrapper = styled.label`
 
   font-weight: lighter;
   width: fit-content;
-  color: ${palette.gray[7]};
+  color: ${({ theme }) => theme.writeFontColor[1]};;
   margin-right: 1rem;
 
   ::before {
@@ -89,6 +103,8 @@ const WriteDivBlock = styled.div`
 
 const CustomReactDatePicker = styled(ReactDatePicker)`
   font-size: 1rem;
+  background-color: transparent;
+  color: ${({ theme }) => theme.writeFontColor[0]};
   margin-left: 0.5rem;
   padding: 0.5rem;
   border-bottom: 2px solid ${palette.gray[5]};

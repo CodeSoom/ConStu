@@ -29,7 +29,7 @@ const AuthFormWrapper = styled.div`
   flex-direction: column;
   margin: 0 auto;
   border-radius: 1rem;
-  background: ${palette.gray[1]};
+  background: ${({ theme }) => theme.subBaseTone[0]};
 
   h2 {
   ${mq({
@@ -56,19 +56,19 @@ const ErrorWrapper = styled.div`
 `;
 
 const InputWrapper = styled.input`
-  ${mq({
+  ${({ theme }) => mq({
     height: ['30px', '35px', '40px'],
     width: ['230px', '60vw', '400px'],
     padding: ['4px 12px', '8px 12px'],
     fontSize: ['.8rem', '1rem'],
-    border: ['1px solid #D7E2EB', '2px solid #D7E2EB'],
+    border: [`1px solid ${theme.borderTone[1]}`, `2px solid ${theme.borderTone[1]}`],
   })};
 
   line-height: 24px;
   box-shadow: none;
   border-radius: 0.25rem;
   color: #5f5f5f;
-  background: white;
+  background: ${({ theme }) => theme.authColor[0]};
   transition-duration: 0.08s;
   transition-property: all;
   transition-timing-function: ease-in-out;
@@ -105,7 +105,7 @@ const Footer = styled.div`
   span {
     font-weight: lighter;
     margin-right: 0.75rem;
-    color: ${palette.gray[6]};
+    color: ${({ theme }) => theme.authColor[1]};
   }
 `;
 

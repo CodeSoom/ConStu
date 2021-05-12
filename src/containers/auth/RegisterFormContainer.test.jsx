@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render, fireEvent } from '@testing-library/react';
 
 import RegisterFormContainer from './RegisterFormContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 const mockPush = jest.fn();
 
@@ -36,9 +37,11 @@ describe('RegisterFormContainer', () => {
   });
 
   const renderRegisterFormContainer = () => render((
-    <MemoryRouter>
-      <RegisterFormContainer />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <RegisterFormContainer />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   it('renders register form text', () => {
