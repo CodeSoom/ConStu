@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import ParticipantList from './ParticipantList';
+import MockTheme from '../../common/test/MockTheme';
 
 describe('ParticipantList', () => {
   const handleUpdate = jest.fn();
@@ -12,10 +13,12 @@ describe('ParticipantList', () => {
   });
 
   const renderParticipantList = (participant) => render((
-    <ParticipantList
-      participant={participant}
-      onUpdate={handleUpdate}
-    />
+    <MockTheme>
+      <ParticipantList
+        participant={participant}
+        onUpdate={handleUpdate}
+      />
+    </MockTheme>
   ));
 
   context('with confirm', () => {

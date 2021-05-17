@@ -5,7 +5,6 @@ import _ from 'lodash';
 import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
-import palette from '../../styles/palette';
 
 import Review from './Review';
 import AverageReview from './AverageReview';
@@ -24,12 +23,12 @@ const EmptyReviewWrapper = styled.div`
     margin: ['1rem 0 2rem 0', '2rem 0 3rem 0'],
   })};
 
-  background-color: #f8f8f8;
-  color: ${palette.gray[6]};
+  background-color: ${({ theme }) => theme.reviewColor[0]};
+  color: ${({ theme }) => theme.hoverFontColor[0]};
   display: flex;
   align-items: center;
   flex-direction: column;
-  border: 1px solid ${palette.gray[3]};
+  border: 1px solid ${({ theme }) => theme.borderTone[3]};
   border-radius: 5px;
 `;
 

@@ -2,9 +2,10 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import ApplicantViewButton from './ApplicantViewButton';
-
 import STUDY_GROUP from '../../../fixtures/study-group';
+
+import MockTheme from '../common/test/MockTheme';
+import ApplicantViewButton from './ApplicantViewButton';
 
 describe('ApplicantViewButton', () => {
   const handleApply = jest.fn();
@@ -16,15 +17,17 @@ describe('ApplicantViewButton', () => {
   });
 
   const renderApplicantViewButton = ({ group, time, user }) => render((
-    <ApplicantViewButton
-      user={user}
-      group={group}
-      applyFields={{ reason: 'reason', wantToGet: 'reason' }}
-      realTime={time}
-      onApply={handleApply}
-      onApplyCancel={handleApplyCancel}
-      clearForm={handleClearForm}
-    />
+    <MockTheme>
+      <ApplicantViewButton
+        user={user}
+        group={group}
+        applyFields={{ reason: 'reason', wantToGet: 'reason' }}
+        realTime={time}
+        onApply={handleApply}
+        onApplyCancel={handleApplyCancel}
+        clearForm={handleClearForm}
+      />
+    </MockTheme>
   ));
 
   context('When the host and logged in user are the same', () => {

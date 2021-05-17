@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fireEvent, render } from '@testing-library/react';
 
 import { twoSecondsLater, tomorrow } from '../../util/utils';
+
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 import IntroduceHeaderContainer from './IntroduceHeaderContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 describe('IntroduceHeaderContainer', () => {
   const dispatch = jest.fn();
@@ -30,9 +32,11 @@ describe('IntroduceHeaderContainer', () => {
   });
 
   const renderIntroduceHeaderContainer = () => render((
-    <MemoryRouter>
-      <IntroduceHeaderContainer />
-    </MemoryRouter>
+    <MockTheme>
+      <MemoryRouter>
+        <IntroduceHeaderContainer />
+      </MemoryRouter>
+    </MockTheme>
   ));
 
   context('with group', () => {

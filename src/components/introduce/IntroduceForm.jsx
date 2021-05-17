@@ -40,9 +40,9 @@ const IntroduceReferenceWrapper = styled.div`
   })};
 
   font-weight: lighter;
-  color: ${palette.gray[7]};
+  color: ${({ theme }) => theme.fontColor[1]};
+  background-color: ${({ theme }) => theme.subBaseTone[0]};
   display: flex;
-  background-color: ${palette.gray[1]};
   
   label {
     ${introduceLabelMq}
@@ -98,12 +98,12 @@ const IntroduceContent = styled.div`
 
   font-family: 'Nanum Godic', sans-serif;
   position: relative;
-  border: 0.0625rem solid ${palette.gray[3]};
+  border: 0.0625rem solid ${({ theme }) => theme.borderTone[3]};
 
   p {
     word-break: keep-all;
     overflow-wrap: break-word;
-    color: ${palette.fontColor[0]};
+    color: ${({ theme }) => theme.fontColor[4]};
     line-height: 1.5;
     letter-spacing: -0.004em;
   }

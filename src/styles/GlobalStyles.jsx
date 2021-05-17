@@ -6,7 +6,9 @@ import { Global, css, useTheme } from '@emotion/react';
 
 import mq from './responsive';
 
-const setGlobalStyles = ({ baseFont, baseTone, baseShadow }) => css`
+const setGlobalStyles = ({
+  baseFont, baseTone, baseShadow, preColor,
+}) => css`
   ${emotionReset}
 
   * {
@@ -39,11 +41,14 @@ const setGlobalStyles = ({ baseFont, baseTone, baseShadow }) => css`
   code {
     line-height: 25px;
     font-size: 85%;
-    background-color: rgba(27, 31, 35, 0.05);
     font-family: 'D2Coding', monospace;
-    padding: 0.2rem 0.4rem;
     margin: 0 .2rem 0 0;
     border-radius: 6px;
+    white-space: normal;
+    background: #ece5f1;
+    color: #4b2043;
+    padding: .2rem .4rem;
+    border-radius: .2rem;
   }
 
   pre {
@@ -51,8 +56,8 @@ const setGlobalStyles = ({ baseFont, baseTone, baseShadow }) => css`
     padding: ['.7rem 1rem', '1rem 1.5rem'],
   })};
 
-    background: #f4f4f4;
-    color: #666;
+    background: ${preColor[0]};
+    color: ${preColor[2]};
     page-break-inside: avoid;
     font-family: 'D2Coding', monospace;
     word-wrap: break-word;
@@ -60,7 +65,7 @@ const setGlobalStyles = ({ baseFont, baseTone, baseShadow }) => css`
     max-width: 100%;
     overflow: auto;
     display: block;
-    border: 1px solid #ddd;
+    border: 1px solid ${preColor[1]};
     border-left: 3px solid #38d9a9;
     margin: 1rem 0;    
   }

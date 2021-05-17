@@ -9,7 +9,6 @@ import { useMediaQuery } from 'react-responsive';
 import { STUDY_REVIEW_FORM } from '../../util/constants/constants';
 
 import mq from '../../styles/responsive';
-import palette from '../../styles/palette';
 
 import Button from '../../styles/Button';
 import Textarea from '../../styles/Textarea';
@@ -22,12 +21,12 @@ const StudyReviewFormWrapper = styled.div`
     padding: ['20px', '20px'],
   })};
 
+  background-color: ${({ theme }) => theme.reviewColor[0]};
   display: flex;
   flex-direction: column;
   padding: 20px 20px 20px 20px;
-  border: 1px solid ${palette.gray[3]};
+  border: 1px solid ${({ theme }) => theme.borderTone[3]};
   border-radius: 5px;
-  background-color: #f8f8f8;
 `;
 
 const StudyReviewFormHeader = styled.div`
@@ -56,7 +55,7 @@ const StudyReviewFormBody = styled.div`
 
 const StudyReviewFormButton = styled(Button)`
   ${mq({
-    margin: [0, 0, '1px 0 0.8rem 0.5rem'],
+    margin: [0, 0, '0 0 0.8rem 0.5rem'],
   })};
 `;
 

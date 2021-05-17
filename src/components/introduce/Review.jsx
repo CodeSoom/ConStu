@@ -18,11 +18,11 @@ const ReviewWrapper = styled.div`
     padding: ['20px', '20px 35px 20px 35px'],
   })};
 
-  background-color: #f8f8f8;
+  background-color: ${({ theme }) => theme.reviewColor[0]};
   display: flex;
   flex-direction: column;
   margin: 1rem 0 1rem 0;
-  border: 1px solid ${palette.gray[3]};
+  border: 1px solid ${({ theme }) => theme.borderTone[4]};
   border-radius: 5px;
 `;
 
@@ -35,7 +35,7 @@ const ReviewContent = styled.p`
   line-height: 21px;
   word-break: keep-all;
   overflow-wrap: break-word;
-  color: ${palette.gray[8]};
+  color: ${({ theme }) => theme.reviewColor[1]};
   margin: .7rem 0 .8rem 0;
 `;
 

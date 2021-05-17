@@ -4,11 +4,14 @@ export const lightTheme = {
     '#f1f3f5',
     '#FFFFFF',
     '#f5f5f5',
+    '#e9ecef',
   ],
   borderTone: [
     '#ced4da',
     '#D7E2EB',
     '#D7E2EB',
+    '#dee2e6',
+    '#dee2e6',
   ],
   baseShadow: '0 0 0.1px rgb(0 0 0 / 30%);',
   baseFont: '#212529',
@@ -23,6 +26,7 @@ export const lightTheme = {
     '#495057',
     '#adb5bd',
     '#495057',
+    '#222426',
   ],
   hoverFontColor: [
     '#868e96',
@@ -47,6 +51,18 @@ export const lightTheme = {
     '#495057',
   ],
   autofillShadow: '0 0 0px 1000px #FFFFFF inset',
+  preColor: [
+    '#f4f4f4',
+    '#ddd',
+    '#666',
+  ],
+  reviewColor: [
+    '#f8f8f8',
+    '#343a40',
+    '#D7E2EB',
+    '#fff',
+    '#495057',
+  ],
 };
 
 export const darkTheme = {
@@ -55,10 +71,13 @@ export const darkTheme = {
     '#50555f',
     '#7c818c',
     '#50555f',
+    '#212121',
   ],
   borderTone: [
     '#495057',
     '#d2dae2',
+    '#50555f',
+    '#7c818c',
     '#50555f',
   ],
   baseShadow: '0 0 0.1px hsl(0deg 0% 100% / 30%)',
@@ -74,6 +93,7 @@ export const darkTheme = {
     '#ced4da',
     '#a4b0be',
     '#a4b0be',
+    '#eee',
   ],
   hoverFontColor: [
     '#a4b0be',
@@ -98,4 +118,16 @@ export const darkTheme = {
     '#a5b1c2',
   ],
   autofillShadow: '0 0 0px 1000px #282c35 inset',
+  preColor: [
+    '#212121',
+    '#212121',
+    '#eee',
+  ],
+  reviewColor: [
+    '#50555f',
+    '#eee',
+    '#282c35',
+    '#50555f',
+    '#eee',
+  ],
 };

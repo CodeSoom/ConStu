@@ -3,6 +3,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
 import ReviewList from './ReviewList';
+import MockTheme from '../common/test/MockTheme';
 
 describe('ReviewList', () => {
   const mockReviews = [{
@@ -15,11 +16,13 @@ describe('ReviewList', () => {
   const handleClick = jest.fn();
 
   const renderReviewList = (reviews) => render((
-    <ReviewList
-      user="test@test.com"
-      reviews={reviews}
-      onDelete={handleClick}
-    />
+    <MockTheme>
+      <ReviewList
+        user="test@test.com"
+        reviews={reviews}
+        onDelete={handleClick}
+      />
+    </MockTheme>
   ));
 
   context('With reviews', () => {

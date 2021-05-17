@@ -8,11 +8,14 @@ import mq from './responsive';
 import palette from './palette';
 
 const TextareaWrapper = styled.textarea`
-  ${mq({ border: ['1px solid #D7E2EB', '2px solid #D7E2EB'] })};
+  ${({ theme }) => mq({
+    border: [`1px solid ${theme.reviewColor[2]}`, `2px solid ${theme.reviewColor[2]}`],
+  })};
 
   font-family: 'Nanum Gothic', sans-serif;
   font-size: .9rem;
-  color: ${palette.gray[8]};
+  background: ${({ theme }) => theme.baseTone};
+  color: ${({ theme }) => theme.reviewColor[1]};
   resize: none;
   outline: none;
   line-height: 17px;

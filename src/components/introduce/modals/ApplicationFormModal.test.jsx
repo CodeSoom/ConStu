@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import MockTheme from '../../common/test/MockTheme';
 import ApplicationFormModal from './ApplicationFormModal';
 
 describe('ApplicationFormModal', () => {
@@ -14,13 +15,15 @@ describe('ApplicationFormModal', () => {
   });
 
   const renderApplicationFormModal = ({ visible, fields }) => render((
-    <ApplicationFormModal
-      visible={visible}
-      fields={fields}
-      onChangeApply={handleChange}
-      onConfirm={handleConfirm}
-      onCancel={handleCancel}
-    />
+    <MockTheme>
+      <ApplicationFormModal
+        visible={visible}
+        fields={fields}
+        onChangeApply={handleChange}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+    </MockTheme>
   ));
 
   context('with visible', () => {
