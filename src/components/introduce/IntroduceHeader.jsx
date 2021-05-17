@@ -3,7 +3,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import mq from '../../styles/responsive';
-import palette from '../../styles/palette';
 
 const IntroduceHeaderWrapper = styled.div`
   ${mq({
@@ -15,7 +14,7 @@ const IntroduceHeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid ${palette.gray[4]};
+  border-bottom: 2px solid ${({ theme }) => theme.borderTone[0]};
   
   h1 {
   ${mq({
@@ -25,6 +24,7 @@ const IntroduceHeaderWrapper = styled.div`
   
     word-break: keep-all;
     overflow-wrap: break-word;
+    text-rendering: optimizeLegibility;
     line-height: 1.5;
     margin: 0;
   }

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import MockTheme from '../../common/test/MockTheme';
 import ApplicationViewModal from './ApplicationViewModal';
 
 describe('ApplicationViewModal', () => {
@@ -12,11 +13,13 @@ describe('ApplicationViewModal', () => {
   });
 
   const renderApplicationViewModal = ({ visible, participant }) => render((
-    <ApplicationViewModal
-      visible={visible}
-      participant={participant}
-      onClose={handleClose}
-    />
+    <MockTheme>
+      <ApplicationViewModal
+        visible={visible}
+        participant={participant}
+        onClose={handleClose}
+      />
+    </MockTheme>
   ));
 
   context('with visible', () => {

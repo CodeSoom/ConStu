@@ -6,8 +6,10 @@ import { render, fireEvent } from '@testing-library/react';
 
 import STUDY_GROUP from '../../../fixtures/study-group';
 
-import ReviewContainer from './ReviewContainer';
 import { yesterday, tomorrow } from '../../util/utils';
+
+import ReviewContainer from './ReviewContainer';
+import MockTheme from '../../components/common/test/MockTheme';
 
 describe('ReviewContainer', () => {
   const dispatch = jest.fn();
@@ -38,7 +40,9 @@ describe('ReviewContainer', () => {
   });
 
   const renderReviewContainer = () => render((
-    <ReviewContainer />
+    <MockTheme>
+      <ReviewContainer />
+    </MockTheme>
   ));
 
   it('When there are no reviews, renders nothing review message', () => {

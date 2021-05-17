@@ -3,6 +3,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
 import Review from './Review';
+import MockTheme from '../common/test/MockTheme';
 
 describe('Review', () => {
   const mockReview = {
@@ -15,11 +16,13 @@ describe('Review', () => {
   const handleClick = jest.fn();
 
   const renderReview = (review) => render((
-    <Review
-      user={given.user}
-      review={review}
-      onClick={handleClick}
-    />
+    <MockTheme>
+      <Review
+        user={given.user}
+        review={review}
+        onClick={handleClick}
+      />
+    </MockTheme>
   ));
 
   context("When it's my review", () => {

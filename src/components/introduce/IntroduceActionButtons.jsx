@@ -13,10 +13,10 @@ import AskArticleDeleteModal from './modals/AskArticleDeleteModal';
 const { EDIT, DELETE } = BUTTON_NAME;
 
 const IntroduceActionButtonsWrapper = styled.div`
-  ${mq({
+  ${({ theme }) => mq({
     width: ['unset', 'unset', '30%'],
     marginTop: ['1rem', '1rem', '1.2rem'],
-    borderTop: [`1px solid ${palette.gray[3]}`, `1px solid ${palette.gray[3]}`, 0],
+    borderTop: [`1px solid ${theme.borderTone[3]}`, `1px solid ${theme.borderTone[3]}`, 0],
     paddingTop: ['1rem', '1rem', 0],
   })};
 
@@ -32,22 +32,23 @@ const ActionButton = styled.button`
   })};
 
   color: ${palette.gray[6]};
-  background: ${palette.gray[2]};
+  background: ${({ theme }) => theme.subBaseTone[3]};
   font-family: 'Jua', sans-serif;
   margin-left: 0.5rem;
   border-radius: 4px;
   border: none;
+  transition: background-color .3s;
 
-  ${({ revise }) => revise && css`
+  ${({ revise, theme }) => revise && css`
     &:hover {
-      background: ${palette.gray[1]};
+      background: ${theme.subBaseTone[0]};
       color: ${palette.teal[6]};
     }
   `};
 
-  ${({ remove }) => remove && css`
+  ${({ remove, theme }) => remove && css`
     &:hover {
-      background: ${palette.gray[1]};
+      background: ${theme.subBaseTone[0]};
       color: ${palette.warn[2]};
     }
   `};

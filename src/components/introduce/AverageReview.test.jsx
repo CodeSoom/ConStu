@@ -5,14 +5,17 @@ import { render } from '@testing-library/react';
 import { Context as ResponsiveContext } from 'react-responsive';
 
 import AverageReview from './AverageReview';
+import MockTheme from '../common/test/MockTheme';
 
 describe('AverageReview', () => {
   const renderAverageReview = ({ reviews, width = 700 }) => render((
-    <ResponsiveContext.Provider value={{ width }}>
-      <AverageReview
-        reviews={reviews}
-      />
-    </ResponsiveContext.Provider>
+    <MockTheme>
+      <ResponsiveContext.Provider value={{ width }}>
+        <AverageReview
+          reviews={reviews}
+        />
+      </ResponsiveContext.Provider>
+    </MockTheme>
   ));
 
   context('When Desktop screen', () => {

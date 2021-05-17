@@ -14,10 +14,11 @@ const AverageReviewWrapper = styled.div`
     padding: ['1rem 0rem', '1.5rem 0 1rem 0'],
   })};
 
+  background-color: ${({ theme }) => theme.reviewColor[3]};
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid ${palette.gray[3]};
+  border: 1px solid ${({ theme }) => theme.borderTone[3]};
   border-radius: 5px;
 `;
 
@@ -27,7 +28,7 @@ const AverageReviewTitle = styled.div`
   })};
 
   line-height: 40px;
-  color: ${palette.gray[7]};
+  color: ${({ theme }) => theme.reviewColor[4]};
   font-weight: bold;
 
   span {
@@ -56,7 +57,7 @@ const AverageRatingWrapper = styled.div`
   })};
 
     font-weight: bold;
-    color: ${palette.gray[7]};
+    color: ${({ theme }) => theme.reviewColor[4]};
   }
 
   .total-rating {

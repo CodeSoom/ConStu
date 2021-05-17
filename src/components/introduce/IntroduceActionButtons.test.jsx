@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import MockTheme from '../common/test/MockTheme';
 import IntroduceActionButtons from './IntroduceActionButtons';
 
 describe('IntroduceActionButtons', () => {
@@ -12,9 +13,11 @@ describe('IntroduceActionButtons', () => {
   });
 
   const renderIntroduceActionButtons = () => render((
-    <IntroduceActionButtons
-      onRemove={handleRemove}
-    />
+    <MockTheme>
+      <IntroduceActionButtons
+        onRemove={handleRemove}
+      />
+    </MockTheme>
   ));
 
   it('renders revise button and delete button', () => {

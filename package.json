@@ -87,7 +87,7 @@
     "jest": "^26.6.3",
     "jest-plugin-context": "^2.9.0",
     "mini-css-extract-plugin": "^1.4.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "optimize-css-assets-webpack-plugin": "^6.0.0",
     "redux-mock-store": "^1.5.4",
     "start-server-and-test": "^1.11.5",
     "style-loader": "^2.0.0",

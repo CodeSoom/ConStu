@@ -5,6 +5,7 @@ import { render, fireEvent } from '@testing-library/react';
 import { Context as ResponsiveContext } from 'react-responsive';
 
 import ReviewForm from './ReviewForm';
+import MockTheme from '../common/test/MockTheme';
 
 describe('ReviewForm', () => {
   beforeEach(() => {
@@ -19,16 +20,17 @@ describe('ReviewForm', () => {
   const renderReviewForm = ({
     group, user, fields = reviewForm, width = 700,
   }) => render((
-    <ResponsiveContext.Provider value={{ width }}>
-      <ReviewForm
-        user={user}
-        group={group}
-        fields={fields}
-        onSubmit={handleSubmit}
-        onChangeReview={handleChange}
-      />
-    </ResponsiveContext.Provider>
-
+    <MockTheme>
+      <ResponsiveContext.Provider value={{ width }}>
+        <ReviewForm
+          user={user}
+          group={group}
+          fields={fields}
+          onSubmit={handleSubmit}
+          onChangeReview={handleChange}
+        />
+      </ResponsiveContext.Provider>
+    </MockTheme>
   ));
 
   context('When Mobile Screen', () => {
