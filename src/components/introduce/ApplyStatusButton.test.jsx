@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import MockTheme from '../common/test/MockTheme';
 import ApplyStatusButton from './ApplyStatusButton';
 
 describe('ApplyStatusButton', () => {
@@ -11,11 +12,13 @@ describe('ApplyStatusButton', () => {
     userStatus,
     timeStatus = false,
   }) => render((
-    <ApplyStatusButton
-      userStatus={userStatus}
-      onApply={handleApply}
-      timeStatus={timeStatus}
-    />
+    <MockTheme>
+      <ApplyStatusButton
+        userStatus={userStatus}
+        onApply={handleApply}
+        timeStatus={timeStatus}
+      />
+    </MockTheme>
   ));
 
   context('When the applicant applies before the application deadline', () => {

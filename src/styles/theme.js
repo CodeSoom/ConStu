@@ -63,6 +63,7 @@ export const lightTheme = {
     '#fff',
     '#495057',
   ],
+  dateTimeBackground: '#FCF6F5',
 };
 
 export const darkTheme = {
@@ -130,4 +131,5 @@ export const darkTheme = {
     '#50555f',
     '#eee',
   ],
+  dateTimeBackground: '#50555f',
 };

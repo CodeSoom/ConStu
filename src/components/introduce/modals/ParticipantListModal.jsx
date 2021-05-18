@@ -7,7 +7,6 @@ import { css } from '@emotion/react';
 
 import { PARTICIPANT_FORM, BUTTON_NAME } from '../../../util/constants/constants';
 
-import palette from '../../../styles/palette';
 import { mq4 } from '../../../styles/responsive';
 
 import Button from '../../../styles/Button';
@@ -61,9 +60,9 @@ const ModalBoxWrapper = styled.div`
   flex-direction: column;
   padding: 1.5rem;
   border-radius: 6px;
-  height: 550px;
+  height: auto;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
-  background: white;
+  background: ${({ theme }) => theme.subBaseTone[0]};
 
   .buttons {
     display: flex;
@@ -105,10 +104,10 @@ const ParticipantTitleWrapper = styled.div`
 const ParticipantListWrapper = styled.div`
   margin-bottom: 1rem;
   border-radius: 4px;
-  border: 2px solid ${palette.gray[3]};
+  border: 2px solid ${({ theme }) => theme.borderTone[3]};
   padding-top: 0.5rem;
   width: 99%;
-  height: 100%;
+  height: 400px;
   overflow: auto;
 `;
 
@@ -116,7 +115,7 @@ const NoExistListWrapper = styled.div`
   font-weight: bold;
   font-size: 1.1rem;
   text-align: center;
-  color: ${palette.gray[6]};
+  color: ${({ theme }) => theme.hoverFontColor[0]};
   margin-top: .8rem;
 `;
 

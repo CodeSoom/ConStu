@@ -47,7 +47,7 @@ const ModalBoxWrapper = styled.div`
   padding: 1.5rem;
   border-radius: 6px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
-  background: white;
+  background: ${({ theme }) => theme.subBaseTone[0]};
 
   h2 {
     ${mq({ fontSize: ['1.2rem', '1.4rem'] })};

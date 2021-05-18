@@ -41,14 +41,14 @@ const StyledApplyStatusButtonWrapper = styled.button`
     cursor: not-allowed;
     border: 2px solid ${palette.warn[0]};
     color: ${palette.warn[1]};
-    background: ${palette.gray[1]};
+    background: ${({ theme }) => theme.subBaseTone[0]};
   }
 
   &.apply-complete { 
     cursor: unset;
     border: 2px solid #a5d8ff;
     color: #74c0fc;
-    background: ${palette.gray[1]};
+    background: ${({ theme }) => theme.subBaseTone[0]};
   }
 
   &.apply {
