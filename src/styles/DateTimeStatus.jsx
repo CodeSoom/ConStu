@@ -51,13 +51,13 @@ const DateTimeStatusWrapper = styled.div`
     background: #ed6f63;
   `}
 
-  ${({ status }) => status === 'introduceRecruit' && css`
+  ${({ status, theme }) => status === 'introduceRecruit' && css`
     ${introduceDateTimeStatus}
     align-items: center;
     margin: 0;
     border-radius: 0.5rem;
     border: 2px solid ${palette.teal[7]};
-    background: #FCF6F5;
+    background: ${theme.dateTimeBackground};
     color: ${palette.teal[7]};
     animation: blink-animation 1.5s steps(5, start) infinite;
     -webkit-animation: blink-animation 1.5s steps(5, start) infinite;
@@ -75,13 +75,13 @@ const DateTimeStatusWrapper = styled.div`
     }
   `}
 
-  ${({ status }) => status === 'introduceDeadline' && css`
+  ${({ status, theme }) => status === 'introduceDeadline' && css`
     ${introduceDateTimeStatus}
     align-items: center;
     margin: 0;
     border: 2px solid #ed6f63;
     color: #ed6f63;
-    background: #FCF6F5;
+    background: ${theme.dateTimeBackground};
   `}
 `;
 
