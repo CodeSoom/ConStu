@@ -25,7 +25,7 @@ const TextareaWrapper = styled.textarea`
   border-radius: 3px;
   transition-property: all;
   transition-delay: initial;
-  transition-duration: 0.08s;
+  transition-duration: 0.15s;
   transition-timing-function: ease-in-out;
 
   &:focus {

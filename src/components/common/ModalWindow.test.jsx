@@ -3,19 +3,22 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import ModalWindow from './ModalWindow';
+import MockTheme from './test/MockTheme';
 
 describe('ModalWindow', () => {
   const handleConfirm = jest.fn();
   const handleCancel = jest.fn();
 
   const renderModalWindow = ({ visible, title, description }) => render((
-    <ModalWindow
-      visible={visible}
-      title={title}
-      description={description}
-      onConfirm={handleConfirm}
-      onCancel={handleCancel}
-    />
+    <MockTheme>
+      <ModalWindow
+        visible={visible}
+        title={title}
+        description={description}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+    </MockTheme>
   ));
 
   context('with visible', () => {

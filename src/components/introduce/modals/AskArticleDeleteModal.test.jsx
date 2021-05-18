@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import MockTheme from '../../common/test/MockTheme';
 import AskArticleDeleteModal from './AskArticleDeleteModal';
 
 describe('AskArticleDeleteModal', () => {
@@ -9,11 +10,13 @@ describe('AskArticleDeleteModal', () => {
   const handleConfirm = jest.fn();
 
   const renderAskArticleDeleteModal = ({ visible }) => render((
-    <AskArticleDeleteModal
-      visible={visible}
-      onConfirm={handleConfirm}
-      onCancel={handleCancel}
-    />
+    <MockTheme>
+      <AskArticleDeleteModal
+        visible={visible}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+    </MockTheme>
   ));
 
   context('with visible', () => {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import MockTheme from '../../common/test/MockTheme';
 import ParticipantListModal from './ParticipantListModal';
 
 describe('ParticipantListModal', () => {
@@ -13,12 +14,14 @@ describe('ParticipantListModal', () => {
   });
 
   const renderParticipantListModal = ({ visible, participants }) => render((
-    <ParticipantListModal
-      visible={visible}
-      participants={participants}
-      onClose={handleClose}
-      onUpdate={handleUpdate}
-    />
+    <MockTheme>
+      <ParticipantListModal
+        visible={visible}
+        participants={participants}
+        onClose={handleClose}
+        onUpdate={handleUpdate}
+      />
+    </MockTheme>
   ));
 
   context('with visible', () => {

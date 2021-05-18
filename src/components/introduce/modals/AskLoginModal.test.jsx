@@ -3,15 +3,18 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import AskLoginModal from './AskLoginModal';
+import MockTheme from '../../common/test/MockTheme';
 
 describe('AskLoginModal', () => {
   const handleCancel = jest.fn();
 
   const renderAskLoginModal = ({ visible }) => render((
-    <AskLoginModal
-      visible={visible}
-      onCancel={handleCancel}
-    />
+    <MockTheme>
+      <AskLoginModal
+        visible={visible}
+        onCancel={handleCancel}
+      />
+    </MockTheme>
   ));
 
   context('with visible', () => {
