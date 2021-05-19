@@ -45,17 +45,22 @@ const StudyGroupsContainer = () => {
   }, [dispatch]);
 
   const isDesktop = useMediaQuery({
-    query: '(min-width: 1150px)',
+    minWidth: 1051,
+  });
+
+  const isTablet = useMediaQuery({
+    minWidth: 650, maxWidth: 1050,
   });
 
   const isMobile = useMediaQuery({
-    query: '(min-width: 960px)',
+    maxWidth: 450,
   });
 
   if (!tagState && _.isEmpty(groups)) {
     return (
       <ResponsiveGroupsContentLoader
         isDesktop={isDesktop}
+        isTablet={isTablet}
         isMobile={isMobile}
       />
     );
