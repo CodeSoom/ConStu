@@ -64,6 +64,10 @@ export const lightTheme = {
     '#495057',
   ],
   dateTimeBackground: '#FCF6F5',
+  contentLoaderColor: [
+    '#f2f2f2',
+    '#e3e3e3',
+  ],
 };
 
 export const darkTheme = {
@@ -132,4 +136,8 @@ export const darkTheme = {
     '#eee',
   ],
   dateTimeBackground: '#50555f',
+  contentLoaderColor: [
+    '#50555f',
+    '#7c818c',
+  ],
 };
