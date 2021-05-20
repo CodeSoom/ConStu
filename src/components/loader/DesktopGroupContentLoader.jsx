@@ -5,17 +5,18 @@ import { useTheme } from '@emotion/react';
 
 import ContentLoader from 'react-content-loader';
 
-const GroupContentLoader = (props) => {
+const DesktopGroupContentLoader = (props) => {
   const theme = useTheme();
 
   return (
     <ContentLoader
       speed={1}
       viewBox="0 0 1024 900"
-      height={900}
-      width={1024}
+      height="100%"
+      width="100%"
       backgroundColor={theme.contentLoaderColor[0]}
       foregroundColor={theme.contentLoaderColor[1]}
+      title="desktop loading.."
       {...props}
     >
       <rect x="0" y="20" rx="8" ry="8" width="300" height="50" />
@@ -34,4 +35,4 @@ const GroupContentLoader = (props) => {
   );
 };
 
-export default GroupContentLoader;
+export default DesktopGroupContentLoader;
