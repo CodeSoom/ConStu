@@ -72,10 +72,10 @@ describe('IntroduceHeaderContainer', () => {
       wantToGet: '',
     }));
 
-    it('renders "loading.." text', () => {
+    it('Nothing renders group contents', () => {
       const { container } = renderIntroduceHeaderContainer();
 
-      expect(container).toHaveTextContent('Loading...');
+      expect(container).toBeEmptyDOMElement();
     });
   });
 

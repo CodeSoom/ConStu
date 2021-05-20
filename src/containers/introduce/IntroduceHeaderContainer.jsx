@@ -5,6 +5,8 @@ import { Helmet } from 'react-helmet';
 import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useMediaQuery } from 'react-responsive';
+
 import { getAuth, getGroup } from '../../util/utils';
 import {
   changeApplyFields,
@@ -17,12 +19,20 @@ import {
 import IntroduceHeader from '../../components/introduce/IntroduceHeader';
 import ApplicantViewButton from '../../components/introduce/ApplicantViewButton';
 import ModeratorViewButton from '../../components/introduce/ModeratorViewButton';
-import GroupContentLoader from '../../components/loader/GroupContentLoader';
+import ResponsiveGroupContentLoader from '../../components/loader/ResponsiveGroupContentLoader';
 
 const IntroduceHeaderContainer = () => {
   const [realTime, setRealTime] = useState(Date.now());
 
   const dispatch = useDispatch();
+
+  const isDesktop = useMediaQuery({
+    minWidth: 451,
+  });
+
+  const isMobile = useMediaQuery({
+    maxWidth: 450,
+  });
 
   const user = useSelector(getAuth('user'));
   const group = useSelector(getGroup('group'));
@@ -52,7 +62,10 @@ const IntroduceHeaderContainer = () => {
 
   if (!group) {
     return (
-      <GroupContentLoader />
+      <ResponsiveGroupContentLoader
+        isMobile={isMobile}
+        isDesktop={isDesktop}
+      />
     );
   }
 
