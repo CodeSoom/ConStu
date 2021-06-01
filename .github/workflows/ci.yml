@@ -20,9 +20,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install
-      run: npm ci
+      run: npm install
     - name: Test
-      run: npm run test:unit
+      run: npm run test
       env:
         HEADLESS: true
     - name: Lint
