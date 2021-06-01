@@ -22,7 +22,7 @@ jobs:
     - name: Install
       run: npm ci
     - name: Test
-      run: npm run test:unit
+      run: npm run test
       env:
         HEADLESS: true
     - name: Lint
