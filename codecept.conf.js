@@ -34,6 +34,9 @@ exports.config = {
     commentStep: {
       enabled: true,
     },
+    autoDelay: {
+      enabled: true,
+    },
     autoLogin: {
       enabled: true,
       saveToFile: true,

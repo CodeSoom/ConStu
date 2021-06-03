@@ -102,6 +102,7 @@ const Tags = ({ tags, type, onRemove }) => {
               {`#${tag}`}
             </TagStyledDiv>
             <TagSpanWrapper
+              name="closeButton"
               onClick={() => onRemove(tag)}
             >
               x
