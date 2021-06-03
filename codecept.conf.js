@@ -31,5 +31,28 @@ exports.config = {
     screenshotOnFail: {
       enabled: true,
     },
+    commentStep: {
+      enabled: true,
+    },
+    autoLogin: {
+      enabled: true,
+      saveToFile: true,
+      inject: 'login',
+      users: {
+        user: {
+          login: (I) => {
+            I.amOnPage('/login');
+            I.fillField('input[name=userEmail]', 'test@test.com');
+            I.fillField('input[name=password]', '123123');
+            I.click('button[type=submit]');
+          },
+          check: (I) => {
+            I.seeCurrentUrlEquals('/');
+            I.see('로그아웃');
+            I.see('test@test.com');
+          },
+        },
+      },
+    },
   },
 };
