@@ -35,6 +35,7 @@ Scenario('올바르게 스터디 개설을 한 경우', async ({ I }) => {
   I.click('등록하기');
 
   Then('해당 작성 페이지로 이동한다');
+  I.waitInUrl('/introduce', 2);
   const url = await I.grabCurrentUrl();
   const splitUrl = url.split('/');
 
