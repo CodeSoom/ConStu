@@ -94,6 +94,7 @@ const TagsForm = ({ onChange, tags }) => {
     <div>
       <TagInputWrapper
         type="text"
+        name="tagForm"
         placeholder="태그를 입력하세요"
         value={tag}
         error={error}

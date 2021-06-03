@@ -18,8 +18,8 @@ Scenario('로그인 후 메인 페이지에 대한 정보가 올바르게 보이
 });
 
 Scenario('로그아웃 버튼 클릭 후 메인 페이지에 대한 정보가 올바르게 보이는 경우', ({ I, login }) => {
+  Given('로그인한 사용자가 메인 페이지에서');
   login('user');
-  Given('메인 페이지에서');
 
   When('로그아웃 후');
   I.click('로그아웃');
@@ -36,7 +36,7 @@ Scenario('올바르게 다크 모드로 변경되는 경우', ({ I }) => {
   When('theme toggle 버튼을 클릭하면');
   I.click({ css: '.react-toggle' });
 
-  Then('body 배경색이 어두운색으로 바뀐다.');
+  Then('body 배경색이 어두운 색으로 바뀐다.');
   I.seeCssPropertiesOnElements('body', {
     background: 'rgb(40, 44, 53) none repeat scroll 0% 0% / auto padding-box border-box',
   });
