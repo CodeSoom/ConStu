@@ -15,6 +15,7 @@ const createTomorrowDate = () => {
 };
 
 Before(({ login }) => {
+  Given('로그인한 사용자만 스터디를 개설할 수 있다.');
   login('user');
 });
 
