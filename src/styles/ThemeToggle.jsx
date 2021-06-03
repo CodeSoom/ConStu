@@ -82,6 +82,7 @@ const ToggleWrapper = styled(Toggle)`
 
 const ThemeToggle = ({ onChange, theme }) => (
   <ToggleWrapper
+    name="theme-toggle"
     defaultChecked={theme}
     title={theme ? 'dark' : 'light'}
     aria-label="No label tag"

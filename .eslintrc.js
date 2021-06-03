@@ -9,8 +9,8 @@ module.exports = {
     'airbnb',
   ],
   globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+    codeceptjs: 'readonly',
+    Before: 'readonly',
     context: 'readonly',
     Feature: 'readonly',
     Scenario: 'readonly',
