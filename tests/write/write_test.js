@@ -2,9 +2,9 @@ Feature('로그인 한 사용자는 스터디를 개설할 수 있다.');
 
 const step = codeceptjs.container.plugins('commentStep');
 
-const Given = () => step`Given`;
-const When = () => step`When`;
-const Then = () => step`Then`;
+const Given = (given) => step`${given}`;
+const When = (when) => step`${when}`;
+const Then = (then) => step`${then}`;
 
 const createTomorrowDate = () => {
   const date = new Date();
