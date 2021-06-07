@@ -9,6 +9,7 @@ module.exports = {
     'airbnb',
   ],
   globals: {
+    secret: 'readonly',
     session: 'readonly',
     After: 'readonly',
     codeceptjs: 'readonly',

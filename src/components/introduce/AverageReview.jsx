@@ -87,7 +87,7 @@ const AverageReview = ({ reviews }) => {
   const averageRating = useCallback(averageReviews(reviews), [reviews]);
 
   return (
-    <AverageReviewWrapper>
+    <AverageReviewWrapper id="average-review">
       <AverageReviewTitle>
         스터디를 참여한&nbsp;
         <span>

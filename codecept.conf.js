@@ -46,7 +46,7 @@ exports.config = {
           login: (I) => {
             I.amOnPage('/login');
             I.fillField('input[name=userEmail]', 'test@test.com');
-            I.fillField('input[name=password]', '123123');
+            I.fillField('input[name=password]', secret('123123'));
             I.click('button[type=submit]');
           },
           check: (I) => {
@@ -59,7 +59,7 @@ exports.config = {
           login: (I) => {
             I.amOnPage('/login');
             I.fillField('input[name=userEmail]', 'test1@test.com');
-            I.fillField('input[name=password]', '123123');
+            I.fillField('input[name=password]', secret('123123'));
             I.click('button[type=submit]');
           },
           check: (I) => {
