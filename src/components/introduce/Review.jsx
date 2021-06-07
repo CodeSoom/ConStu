@@ -81,6 +81,7 @@ const Review = ({ user, review, onClick }) => {
         />
         {user === id && (
           <CloseIcon
+            name="closeIcon"
             data-testid="close-icon"
             onClick={() => onClick(id)}
           />

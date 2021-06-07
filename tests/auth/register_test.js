@@ -2,9 +2,9 @@ Feature('사용자가 스터디 개설 및 스터디 참여를 하기 위해 회
 
 const step = codeceptjs.container.plugins('commentStep');
 
-const Given = () => step`Given`;
-const When = () => step`When`;
-const Then = () => step`Then`;
+const Given = (given) => step`${given}`;
+const When = (when) => step`${when}`;
+const Then = (then) => step`${then}`;
 
 Scenario('이메일 또는 비밀번호, 비밀번호 확인 필드에 입력을 하지 않은 경우', ({ I }) => {
   Given('회원가입 페이지에서');
@@ -26,8 +26,8 @@ Scenario('이메일 형식으로 입력하지 않은 경우', ({ I }) => {
 
   When('이메일 형식이 아닌 형태로 입력 후 회원가입 버튼을 클릭하면');
   I.fillField('input[name=userEmail]', 'test');
-  I.fillField('input[name=password]', '123123');
-  I.fillField('input[name=passwordConfirm]', '123123');
+  I.fillField('input[name=password]', secret('123123'));
+  I.fillField('input[name=passwordConfirm]', secret('123123'));
   I.click('button[type=submit]');
 
   Then('"이메일 형식으로 입력하세요." 메시지가 보인다.');

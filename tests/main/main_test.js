@@ -2,9 +2,9 @@ Feature('Main Page');
 
 const step = codeceptjs.container.plugins('commentStep');
 
-const Given = () => step`Given`;
-const When = () => step`When`;
-const Then = () => step`Then`;
+const Given = (given) => step`${given}`;
+const When = (when) => step`${when}`;
+const Then = (then) => step`${then}`;
 
 Scenario('로그인 후 메인 페이지에 대한 정보가 올바르게 보이는 경우', ({ I, login }) => {
   Given('메인 페이지에서');

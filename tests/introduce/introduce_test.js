@@ -101,6 +101,69 @@ Scenario('로그인한 사용자가 소개글 작성자가 아닐 경우', ({ I,
   });
 });
 
+Scenario('스터디에 신청한 사용자인 경우', ({ I, login }) => {
+  session('스터디에 신청한 사용자', () => {
+    Given('로그인해서 작성된 스터디 소개글로 이동해서');
+    login('user2');
+    I.waitInUrl('/', 2);
+    I.click('테스트 제목');
+
+    When('"신청하기" 버튼을 클릭한 뒤 스터디 신청서를 작성 후 "확인" 버튼을 클릭');
+    I.see('신청하기');
+    I.click('신청하기');
+    I.fillField('#apply-reason', '테스트 신청');
+    I.fillField('#study-want', '테스트 신청');
+    I.click('확인');
+
+    Then('"승인 대기 중.."과 "신청 취소"버튼이 보인다.');
+    I.see('승인 대기 중..');
+    I.see('신청 취소');
+  });
+});
+
+Scenario('스터디 참여에 신청 완료된 사용자인 경우', ({ I, login }) => {
+  session('스터디에 신청한 사용자', () => {
+    Given('로그인해서 작성된 스터디 소개글로 이동해서');
+    login('user2');
+    I.waitInUrl('/', 2);
+    I.click('테스트 제목');
+
+    When('"신청하기" 버튼을 클릭한 뒤 스터디 신청서를 작성 후 "확인" 버튼을 클릭');
+    I.see('신청하기');
+    I.click('신청하기');
+    I.fillField('#apply-reason', '테스트 신청');
+    I.fillField('#study-want', '테스트 신청');
+    I.click('확인');
+
+    Then('"승인 대기 중.."이 보인다.');
+    I.see('승인 대기 중..');
+  });
+
+  session('스터디 소개글 작성자', () => {
+    Given('스터디 소개글 작성자로 로그인 후 해당 소개글로 이동해서');
+    login('user');
+    I.waitInUrl('/', 2);
+    I.click('테스트 제목');
+
+    When('"스터디 참여 승인하기" 버튼을 클릭해서 "승인하기" 버튼을 클릭하면');
+    I.click('스터디 참여 승인하기');
+    I.click('승인하기');
+
+    Then('"취소하기" 버튼이 보인다.');
+    I.see('취소하기');
+  });
+
+  session('스터디에 신청한 사용자', async () => {
+    const url = await I.grabCurrentUrl();
+
+    When('신청한 소개글로 이동하면');
+    I.amOnPage(url);
+
+    Then('"신청 완료"가 보인다.');
+    I.see('신청 완료');
+  });
+});
+
 Scenario('모집이 마감된 스터디 소개글인 경우', ({ I }) => {
   session('비 로그인 사용자', () => {
     Given('모집이 마감된 스터디 소개글로 이동해서');
