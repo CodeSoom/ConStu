@@ -14,7 +14,7 @@
     "coverage": "npm run test:unit -- --coverage",
     "coverage:ci": "npm run test:unit --ci --coverage && codecov",
     "lint": "eslint --ext js,jsx .",
-    "build": "cross-env NODE_ENV=production webpack --progress"
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
