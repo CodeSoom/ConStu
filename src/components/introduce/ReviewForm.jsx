@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+
+import _ from 'lodash';
 
 import styled from '@emotion/styled';
 
@@ -69,9 +71,19 @@ const isValidateAboutUser = (user, group) => {
 const ReviewForm = ({
   group, user, fields, onChangeReview, onSubmit,
 }) => {
+  const [error, setError] = useState(false);
   const { rating, content } = fields;
 
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
+
+  const handleSubmit = useCallback(() => {
+    if (!_.trim(content)) {
+      setError(true);
+      return;
+    }
+
+    onSubmit();
+  }, [content]);
 
   const handleChangeRating = (newRating, name) => onChangeReview({
     name,
@@ -81,10 +93,8 @@ const ReviewForm = ({
   const handleChangeReview = (event) => {
     const { name, value } = event.target;
 
-    onChangeReview({
-      name,
-      value,
-    });
+    setError(false);
+    onChangeReview({ name, value });
   };
 
   if (isValidateAboutUser(user, group)) {
@@ -111,13 +121,14 @@ const ReviewForm = ({
           rows="3"
           cols="100"
           name="content"
+          error={error}
           value={content}
           placeholder="후기를 입력해주세요!"
           onChange={handleChangeReview}
         />
         <StudyReviewFormButton
           success
-          onClick={onSubmit}
+          onClick={handleSubmit}
         >
           {REVIEW_SUBMIT}
         </StudyReviewFormButton>

@@ -53,11 +53,11 @@ const setGlobalStyles = ({
 
   pre {
   ${mq({
-    padding: ['.7rem 1rem', '1rem 1.5rem'],
+    padding: ['.7rem 1rem !important', '1rem 1.5rem !important'],
   })};
 
-    background: ${preColor[0]};
-    color: ${preColor[2]};
+    background: ${preColor[0]} !important;
+    color: ${preColor[2]} !important;
     page-break-inside: avoid;
     font-family: 'D2Coding', monospace;
     word-wrap: break-word;
@@ -66,6 +66,7 @@ const setGlobalStyles = ({
     overflow: auto;
     display: block;
     border: 1px solid ${preColor[1]};
+    border-radius: 0 !important;
     border-left: 3px solid #38d9a9;
     margin: 1rem 0;    
   }

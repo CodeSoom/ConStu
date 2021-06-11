@@ -39,7 +39,7 @@ https://sweet-1cfff.firebaseapp.com
 ## 💻 Project Structure
 
 ```
-📦src
+📦 src
  ┣ 📂 assets
  ┃ ┣ 📂 css
  ┃ ┗ 📂 icons
@@ -113,7 +113,7 @@ https://sweet-1cfff.firebaseapp.com
 #### 📢 Start dev-server
 
 ```bash
-> npm start
+> npm run start
 ```
 
 #### 📢 Run tests

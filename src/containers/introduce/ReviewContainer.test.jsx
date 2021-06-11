@@ -30,7 +30,7 @@ describe('ReviewContainer', () => {
         group: given.group,
         studyReviewFields: {
           rating: 3,
-          review: '',
+          content: given.content,
         },
       },
       authReducer: {
@@ -178,6 +178,8 @@ describe('ReviewContainer', () => {
         });
 
         describe('Click the button to submit for study review', () => {
+          given('content', () => '후기입니다.');
+
           it('dispatch actions call setStudyReview', () => {
             const { getByText } = renderReviewContainer();
 

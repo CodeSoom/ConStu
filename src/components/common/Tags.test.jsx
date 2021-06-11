@@ -8,7 +8,7 @@ import Tags from './Tags';
 import MockTheme from './test/MockTheme';
 
 describe('Tags', () => {
-  const renderTags = ({ tags, type }) => render((
+  const renderTags = ({ tags = [], type }) => render((
     <MockTheme>
       <MemoryRouter>
         <Tags

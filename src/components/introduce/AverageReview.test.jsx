@@ -8,7 +8,7 @@ import AverageReview from './AverageReview';
 import MockTheme from '../common/test/MockTheme';
 
 describe('AverageReview', () => {
-  const renderAverageReview = ({ reviews, width = 700 }) => render((
+  const renderAverageReview = ({ reviews = [], width = 700 }) => render((
     <MockTheme>
       <ResponsiveContext.Provider value={{ width }}>
         <AverageReview
