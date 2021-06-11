@@ -98,12 +98,29 @@ describe('ReviewForm', () => {
             expect(handleChange).toBeCalled();
           });
 
-          it('call event click for review form', () => {
-            const { getByText } = renderReviewForm(settings);
+          describe('When Click the "후기 등록하기" button', () => {
+            context('With review content', () => {
+              it('call event submit about review form', () => {
+                const { getByText } = renderReviewForm({
+                  ...settings,
+                  fields: { content: 'test', rating: 3 },
+                });
 
-            fireEvent.click(getByText('후기 등록하기'));
+                fireEvent.click(getByText('후기 등록하기'));
 
-            expect(handleSubmit).toBeCalled();
+                expect(handleSubmit).toBeCalled();
+              });
+            });
+
+            context('Without review content', () => {
+              it("doesn't call event submit about review form", () => {
+                const { getByText } = renderReviewForm(settings);
+
+                fireEvent.click(getByText('후기 등록하기'));
+
+                expect(handleSubmit).not.toBeCalled();
+              });
+            });
           });
         });
 
