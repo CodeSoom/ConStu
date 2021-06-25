@@ -8,6 +8,7 @@ import {
   formatGroup,
   getCommon,
   getTheme,
+  isDevLevel,
 } from './utils';
 
 test('getAuth', () => {
@@ -78,6 +79,24 @@ describe('getTheme', () => {
       const result = getTheme();
 
       expect(result).toBe(false);
+    });
+  });
+});
+
+describe('isDevLevel', () => {
+  context('With production', () => {
+    it('Should be return false', () => {
+      const result = isDevLevel('production');
+
+      expect(result).toBeFalsy();
+    });
+  });
+
+  context('Without production', () => {
+    it('Should be return true', () => {
+      const result = isDevLevel('development');
+
+      expect(result).toBeTruthy();
     });
   });
 });
