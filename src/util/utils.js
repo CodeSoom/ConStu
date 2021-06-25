@@ -22,6 +22,14 @@ export const getTheme = (theme) => {
   return LIGHT;
 };
 
+export const isDevLevel = (env) => {
+  if (env === 'production') {
+    return false;
+  }
+
+  return true;
+};
+
 export const authorizedUsersNumber = (participants) => participants
   .filter(({ confirm }) => confirm && confirm === true)
   .length + 1;

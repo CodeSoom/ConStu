@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { createLogger } from 'redux-logger';
 
 import rootReducer from './rootSlice';
 
-const store = configureStore({ reducer: rootReducer }, composeWithDevTools(createLogger()));
+import { isDevLevel } from '../util/utils';
+
+const store = configureStore({
+  reducer: rootReducer,
+  devTools: isDevLevel(process.env.NODE_ENV),
+});
 
 export default store;
