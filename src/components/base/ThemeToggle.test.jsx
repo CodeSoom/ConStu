@@ -2,14 +2,14 @@ import React from 'react';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import ThemeToggleButton from './ThemeToggleButton';
+import ThemeToggle from './ThemeToggle';
 
 jest.mock('../../services/storage');
-describe('ThemeToggleButton', () => {
+describe('ThemeToggle', () => {
   const handleChange = jest.fn();
 
-  const renderThemeToggleButton = (theme) => render((
-    <ThemeToggleButton
+  const renderThemeToggle = (theme) => render((
+    <ThemeToggle
       theme={theme}
       onChange={handleChange}
     />
@@ -21,7 +21,7 @@ describe('ThemeToggleButton', () => {
 
   context('When theme is Light', () => {
     it('renders theme toggle button', () => {
-      const { getByTestId } = renderThemeToggleButton(false);
+      const { getByTestId } = renderThemeToggle(false);
 
       expect(getByTestId('theme-toggle')).not.toBeNull();
       expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'light');
@@ -29,7 +29,7 @@ describe('ThemeToggleButton', () => {
 
     describe('Click toggle button', () => {
       it('should be calls change event', () => {
-        const { getByTestId } = renderThemeToggleButton(false);
+        const { getByTestId } = renderThemeToggle(false);
 
         const button = getByTestId('theme-toggle');
 
@@ -44,7 +44,7 @@ describe('ThemeToggleButton', () => {
 
   context('When theme is Dark', () => {
     it('renders theme toggle button', () => {
-      const { getByTestId } = renderThemeToggleButton(true);
+      const { getByTestId } = renderThemeToggle(true);
 
       expect(getByTestId('theme-toggle')).not.toBeNull();
       expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
@@ -52,7 +52,7 @@ describe('ThemeToggleButton', () => {
 
     describe('Click toggle button', () => {
       it('should be calls change event', () => {
-        const { getByTestId } = renderThemeToggleButton(true);
+        const { getByTestId } = renderThemeToggle(true);
 
         const button = getByTestId('theme-toggle');
 

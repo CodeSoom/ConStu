@@ -17,10 +17,10 @@ const AppBlockWrapper = styled.div(() => mq({
   width: ['calc(100% - 3rem)', '1024px'],
 }));
 
-const AppBlock = ({ children, ...rest }) => (
+const GlobalBlock = ({ children, ...rest }) => (
   <AppBlockWrapper {...rest}>
     {children}
   </AppBlockWrapper>
 );
 
-export default AppBlock;
+export default GlobalBlock;

@@ -35,6 +35,18 @@ After(({ I }) => {
   I.click('확인');
 });
 
+Scenario('올바르게 다크 모드로 변경되는 경우', ({ I }) => {
+  Given('스터디 소개글 페이지로 이동해서');
+
+  When('theme toggle 버튼을 클릭하면');
+  I.click({ css: '.react-toggle' });
+
+  Then('body 배경색이 어두운 색으로 바뀐다.');
+  I.seeCssPropertiesOnElements('body', {
+    background: 'rgb(40, 44, 53) none repeat scroll 0% 0% / auto padding-box border-box',
+  });
+});
+
 Scenario('스터디 소개글 작성자가 올바르게 수정한 경우', async ({ I }) => {
   Given('해당 소개글 페이지로 이동해서');
 

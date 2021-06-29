@@ -1,3 +1,5 @@
+import '../util/__mocks__/matchMedia';
+
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +26,9 @@ describe('WritePage', () => {
       authReducer: {
         user: 'user1',
       },
+      commonReducer: {
+        theme: false,
+      },
     }));
   });
 
@@ -34,6 +39,12 @@ describe('WritePage', () => {
   ));
 
   describe('render Write Page contents text', () => {
+    it('renders theme toggle button', () => {
+      const { getByTestId } = renderWritePage();
+
+      expect(getByTestId('theme-toggle')).not.toBeNull();
+    });
+
     it('renders Write Editor placeholder text', () => {
       const { container } = renderWritePage();
 

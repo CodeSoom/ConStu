@@ -11,7 +11,6 @@ import mq from '../../styles/responsive';
 
 import StudyGroup from './StudyGroup';
 import EstablishStudy from './EstablishStudy';
-import ThemeToggleButton from '../base/ThemeToggleButton';
 
 const StudyGroupsWrapper = styled.div`
   display: flex;
@@ -47,17 +46,11 @@ const TitleHeader = styled.div`
   }
 `;
 
-const StudyGroups = ({
-  groups, realTime, user, theme, onChangeTheme,
-}) => {
+const StudyGroups = ({ groups, realTime, user }) => {
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
 
   return (
     <>
-      <ThemeToggleButton
-        theme={theme}
-        onChange={onChangeTheme}
-      />
       <TitleHeader isMobile={isMobileScreen}>
         <h2>스터디를 직접 개설하거나 참여해보세요!</h2>
         {user && (

@@ -2,8 +2,9 @@ import React from 'react';
 
 import { Helmet } from 'react-helmet';
 
-import AppBlock from '../styles/AppBlock';
+import GlobalBlock from '../styles/GlobalBlock';
 
+import ThemeToggleContainer from '../containers/base/ThemeToggleContainer';
 import StudyGroupsContainer from '../containers/groups/StudyGroupsContainer';
 
 const MainPage = () => (
@@ -11,9 +12,10 @@ const MainPage = () => (
     <Helmet>
       <title>ConStu</title>
     </Helmet>
-    <AppBlock>
+    <GlobalBlock>
+      <ThemeToggleContainer />
       <StudyGroupsContainer />
-    </AppBlock>
+    </GlobalBlock>
   </>
 );
 

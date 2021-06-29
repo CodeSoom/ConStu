@@ -81,22 +81,6 @@ describe('StudyGroupsContainer', () => {
 
       expect(container).toHaveTextContent(/모집 마감/i);
     });
-
-    describe('When click theme button', () => {
-      given('theme', () => false);
-
-      it('should be calls change theme dispatch', () => {
-        const { getByTestId } = renderStudyGroupsContainer();
-
-        const button = getByTestId('theme-toggle');
-
-        fireEvent.click(button);
-
-        expect(dispatch).toBeCalledWith({
-          type: 'common/changeTheme',
-        });
-      });
-    });
   });
 
   context('without groups', () => {

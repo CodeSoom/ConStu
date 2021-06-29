@@ -8,9 +8,9 @@ import SunIcon from '../assets/icons/sun.svg';
 import MoonIcon from '../assets/icons/moon.svg';
 
 import mq from './responsive';
+import palette from './palette';
 
 import 'react-toggle/style.css';
-import palette from './palette';
 
 const ToggleWrapper = styled(Toggle)`
   &.react-toggle .react-toggle-track {
@@ -80,7 +80,7 @@ const ToggleWrapper = styled(Toggle)`
   }
 `;
 
-const ThemeToggle = ({ onChange, theme }) => (
+const ThemeToggleButton = ({ onChange, theme }) => (
   <ToggleWrapper
     name="theme-toggle"
     defaultChecked={theme}
@@ -94,4 +94,4 @@ const ThemeToggle = ({ onChange, theme }) => (
     data-testid="theme-toggle"
   />
 );
-export default ThemeToggle;
+export default ThemeToggleButton;
