@@ -1,3 +1,5 @@
+import '../util/__mocks__/matchMedia';
+
 import reducer, {
   changeTheme,
 } from './commonSlice';

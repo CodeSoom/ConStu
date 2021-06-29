@@ -3,6 +3,7 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import { DARK, LIGHT } from './constants/theme';
+import { saveItem, loadItem } from '../services/storage';
 
 export const getAuth = (key) => (obj) => obj.authReducer[key];
 
@@ -14,11 +15,19 @@ export function equal(key, value) {
   return (obj) => obj[key] === value;
 }
 
-export const getTheme = (theme) => {
-  if (theme === DARK) {
+export const getInitTheme = () => {
+  const theme = loadItem('theme');
+
+  if (_.isBoolean(theme)) {
+    return theme;
+  }
+
+  if (matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) {
+    saveItem('theme', DARK);
     return DARK;
   }
 
+  saveItem('theme', LIGHT);
   return LIGHT;
 };
 

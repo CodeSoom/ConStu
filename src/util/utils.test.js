@@ -1,3 +1,5 @@
+import setMatchMedia from './__mocks__/matchMedia';
+
 import {
   getAuth,
   getGroup,
@@ -7,10 +9,13 @@ import {
   toStringEndDateFormat,
   formatGroup,
   getCommon,
-  getTheme,
+  getInitTheme,
   isDevLevel,
 } from './utils';
 
+import { loadItem } from '../services/storage';
+
+jest.mock('../services/storage');
 test('getAuth', () => {
   const state = {
     authReducer: {
@@ -65,20 +70,54 @@ test('equal', () => {
   expect(g(state)).toBeFalsy();
 });
 
-describe('getTheme', () => {
-  context('theme is dark', () => {
-    it('Should be return 1', () => {
-      const result = getTheme(true);
+describe('getInitTheme', () => {
+  context('Have theme in localStorage', () => {
+    describe('theme is dark', () => {
+      beforeEach(() => {
+        loadItem.mockImplementationOnce(() => true);
+      });
+      it('Should be return true', () => {
+        const result = getInitTheme();
 
-      expect(result).toBe(true);
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('theme is light', () => {
+      beforeEach(() => {
+        loadItem.mockImplementationOnce(() => false);
+      });
+      it('Should be return false', () => {
+        const result = getInitTheme();
+
+        expect(result).toBeFalsy();
+      });
     });
   });
 
-  context('theme is without dark', () => {
-    it('Should be return 0', () => {
-      const result = getTheme();
+  context("Haven't theme in localStorage", () => {
+    describe('theme is dark', () => {
+      beforeEach(() => {
+        setMatchMedia(true);
+      });
 
-      expect(result).toBe(false);
+      it('Should be return true', () => {
+        const result = getInitTheme();
+
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('theme is light', () => {
+      beforeEach(() => {
+        setMatchMedia(false);
+      });
+
+      it('Should be return false', () => {
+        const result = getInitTheme();
+
+        expect(result).toBeFalsy();
+      });
     });
   });
 });

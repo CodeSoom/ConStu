@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { saveItem, loadItem } from '../services/storage';
-import { getTheme } from '../util/utils';
+import { saveItem } from '../services/storage';
+import { getInitTheme } from '../util/utils';
 
 const { actions, reducer } = createSlice({
   name: 'common',
   initialState: {
-    theme: getTheme(loadItem('theme')),
+    theme: getInitTheme(),
   },
 
   reducers: {

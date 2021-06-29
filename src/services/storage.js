@@ -3,9 +3,9 @@ export const saveItem = (key, value) => {
 };
 
 export const loadItem = (key) => {
-  const user = localStorage.getItem(key);
+  const item = localStorage.getItem(key);
 
-  return JSON.parse(user);
+  return JSON.parse(item);
 };
 
 export const removeItem = (key) => localStorage.removeItem(key);
