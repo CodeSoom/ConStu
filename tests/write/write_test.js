@@ -19,6 +19,19 @@ Before(({ login }) => {
   login('user');
 });
 
+Scenario('올바르게 다크 모드로 변경되는 경우', ({ I }) => {
+  Given('스터디 개설 페이지에서');
+  I.click('스터디 개설하기');
+
+  When('theme toggle 버튼을 클릭하면');
+  I.click({ css: '.react-toggle' });
+
+  Then('body 배경색이 어두운 색으로 바뀐다.');
+  I.seeCssPropertiesOnElements('body', {
+    background: 'rgb(40, 44, 53) none repeat scroll 0% 0% / auto padding-box border-box',
+  });
+});
+
 Scenario('올바르게 스터디 개설을 한 경우', async ({ I }) => {
   Given('스터디 개설 페이지에서');
   I.click('스터디 개설하기');

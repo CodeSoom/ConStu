@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import { mq2 } from '../../styles/responsive';
 
-import ThemeToggle from '../../styles/ThemeToggle';
+import ThemeToggleButton from '../../styles/ThemeToggleButton';
 
 const ThemeToggleButtonWrapper = styled.div`
   ${mq2({
@@ -16,13 +16,13 @@ const ThemeToggleButtonWrapper = styled.div`
   justify-content: flex-end;  
 `;
 
-const ThemeToggleButton = ({ theme, onChange }) => (
+const ThemeToggle = ({ theme, onChange }) => (
   <ThemeToggleButtonWrapper>
-    <ThemeToggle
+    <ThemeToggleButton
       theme={theme}
       onChange={onChange}
     />
   </ThemeToggleButtonWrapper>
 );
 
-export default ThemeToggleButton;
+export default ThemeToggle;

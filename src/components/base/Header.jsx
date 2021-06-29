@@ -9,7 +9,7 @@ import mq from '../../styles/responsive';
 import { LOGIN, REGISTER } from '../../util/constants/constants';
 
 import Button from '../../styles/Button';
-import AppBlock from '../../styles/AppBlock';
+import GlobalBlock from '../../styles/GlobalBlock';
 import UserHeaderStatus from './UserHeaderStatus';
 
 const HeaderWrapper = styled.div`
@@ -20,7 +20,7 @@ const HeaderWrapper = styled.div`
   background: ${({ theme }) => theme.subBaseTone[0]};
 `;
 
-const Wrapper = styled(AppBlock)`
+const Wrapper = styled(GlobalBlock)`
   display: flex;
   align-items: center;
   justify-content: space-between;

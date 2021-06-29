@@ -3,20 +3,13 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import styled from '@emotion/styled';
-
 import { loadStudyGroup } from '../reducers/groupSlice';
 
-import mq from '../styles/responsive';
-
-import AppBlock from '../styles/AppBlock';
+import GlobalBlock from '../styles/GlobalBlock';
+import ReviewContainer from '../containers/introduce/ReviewContainer';
+import ThemeToggleContainer from '../containers/base/ThemeToggleContainer';
 import IntroduceFormContainer from '../containers/introduce/IntroduceFormContainer';
 import IntroduceHeaderContainer from '../containers/introduce/IntroduceHeaderContainer';
-import ReviewContainer from '../containers/introduce/ReviewContainer';
-
-const IntroducePageWrapper = styled(AppBlock)`
-  ${mq({ marginTop: ['1rem', '2rem'] })};
-`;
 
 const IntroducePage = ({ params }) => {
   const { id } = params || useParams();
@@ -28,11 +21,12 @@ const IntroducePage = ({ params }) => {
   }, [dispatch, id]);
 
   return (
-    <IntroducePageWrapper>
+    <GlobalBlock>
+      <ThemeToggleContainer />
       <IntroduceHeaderContainer />
       <IntroduceFormContainer />
       <ReviewContainer />
-    </IntroducePageWrapper>
+    </GlobalBlock>
   );
 };
 export default React.memo(IntroducePage);

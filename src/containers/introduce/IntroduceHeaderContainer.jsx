@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react';
 
-import { Helmet } from 'react-helmet';
-
 import { useInterval } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -70,29 +68,24 @@ const IntroduceHeaderContainer = () => {
   }
 
   return (
-    <>
-      <Helmet>
-        <title>{`ConStu | ${group.title}`}</title>
-      </Helmet>
-      <IntroduceHeader group={group}>
-        <ApplicantViewButton
-          user={user}
-          group={group}
-          realTime={realTime}
-          applyFields={applyFields}
-          onApply={onApplyStudy}
-          onApplyCancel={onApplyCancel}
-          clearForm={clearApplyForm}
-          onChangeApplyFields={onChangeApplyFields}
-        />
-        <ModeratorViewButton
-          user={user}
-          group={group}
-          realTime={realTime}
-          onUpdateConfirm={onUpdateConfirmParticipant}
-        />
-      </IntroduceHeader>
-    </>
+    <IntroduceHeader title={group?.title}>
+      <ApplicantViewButton
+        user={user}
+        group={group}
+        realTime={realTime}
+        applyFields={applyFields}
+        onApply={onApplyStudy}
+        onApplyCancel={onApplyCancel}
+        clearForm={clearApplyForm}
+        onChangeApplyFields={onChangeApplyFields}
+      />
+      <ModeratorViewButton
+        user={user}
+        group={group}
+        realTime={realTime}
+        onUpdateConfirm={onUpdateConfirmParticipant}
+      />
+    </IntroduceHeader>
   );
 };
 

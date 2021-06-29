@@ -1,3 +1,5 @@
+import '../util/__mocks__/matchMedia';
+
 import React from 'react';
 
 import { MemoryRouter } from 'react-router-dom';
@@ -41,14 +43,15 @@ describe('IntroducePage', () => {
         },
       },
       authReducer: {},
+      commonReducer: false,
     }));
   });
 
   context('with params props', () => {
-    it('renders title', () => {
+    it('renders title and theme toggle button', () => {
       const params = { id: '1' };
 
-      const { container } = render((
+      const { container, getByTestId } = render((
         <MockTheme>
           <MemoryRouter>
             <IntroducePage params={params} />
@@ -59,12 +62,14 @@ describe('IntroducePage', () => {
       expect(dispatch).toBeCalledTimes(1);
 
       expect(container).toHaveTextContent('스터디를 소개합니다. 1');
+
+      expect(getByTestId('theme-toggle')).not.toBeNull();
     });
   });
 
   context('without params props', () => {
-    it('renders title', () => {
-      const { container } = render((
+    it('renders title and theme toggle button', () => {
+      const { container, getByTestId } = render((
         <MockTheme>
           <MemoryRouter initialEntries={['/introduce/1']}>
             <IntroducePage />
@@ -75,6 +80,8 @@ describe('IntroducePage', () => {
       expect(dispatch).toBeCalledTimes(1);
 
       expect(container).toHaveTextContent('스터디를 소개합니다. 1');
+
+      expect(getByTestId('theme-toggle')).not.toBeNull();
     });
   });
 });

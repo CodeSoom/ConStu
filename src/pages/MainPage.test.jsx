@@ -43,6 +43,12 @@ describe('MainPage', () => {
   ));
 
   describe('renders Main Page text contents', () => {
+    it('renders theme toggle button', () => {
+      const { getByTestId } = renderMainPage();
+
+      expect(getByTestId('theme-toggle')).not.toBeNull();
+    });
+
     it('renders Main Page Title', () => {
       const { container } = renderMainPage();
 
