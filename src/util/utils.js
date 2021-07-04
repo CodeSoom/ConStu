@@ -52,9 +52,7 @@ export const isCheckedTimeStatus = ({
 
 export const isCheckedOnlyTimeStatus = ({ time, applyEndTime }) => (time - applyEndTime >= 0);
 
-const checkTrim = (value) => _.trim(value);
-
-export const isCheckValidate = (values) => values.map(checkTrim).includes('');
+export const isNullFields = (fields) => Object.values(fields).some((field) => !_.trim(field));
 
 export const changeDateToTime = (date) => new Date(date).getTime();
 

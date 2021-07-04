@@ -4,10 +4,9 @@ import { useUnmount } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getAuth, isCheckValidate } from '../../util/utils';
-import {
-  changeAuthField, clearAuth, clearAuthFields, requestLogin,
-} from '../../reducers/authSlice';
+import { clearAuth, requestLogin } from '../../reducers/authSlice';
+
+import { getAuth, isNullFields } from '../../util/utils';
 import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/constants/messages';
 
 import AuthForm from '../../components/auth/AuthForm';
@@ -20,34 +19,21 @@ const LoginFormContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const login = useSelector(getAuth('login'));
   const user = useSelector(getAuth('user'));
   const authError = useSelector(getAuth('authError'));
 
-  const onChangeLoginField = useCallback(({ name, value }) => {
-    dispatch(
-      changeAuthField({
-        form: 'login',
-        name,
-        value,
-      }),
-    );
-  });
-
-  const onSubmit = () => {
-    const { userEmail, password } = login;
-
-    if (isCheckValidate([userEmail, password])) {
+  const onSubmit = useCallback((formData) => {
+    if (isNullFields(formData)) {
       setError(NO_INPUT);
       return;
     }
 
-    dispatch(requestLogin());
-  };
+    dispatch(requestLogin(formData));
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
-      history.push('/');
+      history.goBack();
     }
   }, [user, history]);
 
@@ -57,7 +43,7 @@ const LoginFormContainer = () => {
         FIREBASE_AUTH_ERROR_MESSAGE[authError]
         || FAILURE_LOGIN,
       );
-      dispatch(clearAuthFields());
+
       return;
     }
 
@@ -65,7 +51,6 @@ const LoginFormContainer = () => {
   }, [authError, dispatch]);
 
   useUnmount(() => {
-    dispatch(clearAuthFields());
     dispatch(clearAuth());
   });
 
@@ -73,8 +58,6 @@ const LoginFormContainer = () => {
     <AuthForm
       type="login"
       error={error}
-      fields={login}
-      onChange={onChangeLoginField}
       onSubmit={onSubmit}
     />
   );

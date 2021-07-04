@@ -4,8 +4,6 @@ import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
 import reducer, {
-  changeAuthField,
-  clearAuthFields,
   setAuth,
   setAuthError,
   clearAuth,
@@ -26,15 +24,6 @@ jest.mock('../services/api');
 describe('reducer', () => {
   context('when previous state is undefined', () => {
     const initialState = {
-      login: {
-        userEmail: '',
-        password: '',
-      },
-      register: {
-        userEmail: '',
-        password: '',
-        passwordConfirm: '',
-      },
       user: null,
       auth: null,
       authError: null,
@@ -44,71 +33,6 @@ describe('reducer', () => {
       const state = reducer(undefined, { type: 'action' });
 
       expect(state).toEqual(initialState);
-    });
-  });
-
-  describe('changeAuthField', () => {
-    const initialState = {
-      register: {
-        userEmail: '',
-        password: '',
-        passwordConfirm: '',
-      },
-      login: {
-        userEmail: '',
-        password: '',
-      },
-    };
-
-    context('When the form name is login', () => {
-      it('login form is change', () => {
-        const state = reducer(initialState,
-          changeAuthField(
-            {
-              form: 'login',
-              name: 'userEmail',
-              value: 'tktmdals',
-            },
-          ));
-
-        expect(state.login.userEmail).toBe('tktmdals');
-      });
-    });
-
-    context('When the form name is register', () => {
-      it('register form is change', () => {
-        const state = reducer(initialState,
-          changeAuthField(
-            {
-              form: 'register',
-              name: 'userEmail',
-              value: 'tktmdals',
-            },
-          ));
-
-        expect(state.register.userEmail).toBe('tktmdals');
-      });
-    });
-  });
-
-  describe('clearAuthFields', () => {
-    const initialState = {
-      register: {
-        userEmail: 'seungmin@naver.com',
-        password: '1234',
-        passwordConfirm: '1234',
-      },
-      login: {
-        userEmail: 'seungmin@naver.com',
-        password: '1234',
-      },
-    };
-
-    it('auth form is all cleared', () => {
-      const { register, login } = reducer(initialState, clearAuthFields());
-
-      expect(register.userEmail).toBe('');
-      expect(login.userEmail).toBe('');
     });
   });
 
@@ -191,11 +115,7 @@ describe('async actions', () => {
     };
 
     beforeEach(() => {
-      store = mockStore({
-        authReducer: {
-          register,
-        },
-      });
+      store = mockStore({});
     });
 
     context('without auth error', () => {
@@ -208,7 +128,7 @@ describe('async actions', () => {
       }));
 
       it('dispatches requestRegister action success to return user email', async () => {
-        await store.dispatch(requestRegister());
+        await store.dispatch(requestRegister(register));
 
         const actions = store.getActions();
 
@@ -223,7 +143,7 @@ describe('async actions', () => {
 
       it('dispatches requestRegister action failure to return error', async () => {
         try {
-          await store.dispatch(requestRegister());
+          await store.dispatch(requestRegister(register));
         } catch (error) {
           const actions = store.getActions();
 
@@ -240,11 +160,7 @@ describe('async actions', () => {
     };
 
     beforeEach(() => {
-      store = mockStore({
-        authReducer: {
-          login,
-        },
-      });
+      store = mockStore({});
     });
 
     context('without auth error', () => {
@@ -257,7 +173,7 @@ describe('async actions', () => {
       }));
 
       it('dispatches requestLogin action success to return user email', async () => {
-        await store.dispatch(requestLogin());
+        await store.dispatch(requestLogin(login));
 
         const actions = store.getActions();
 
@@ -272,7 +188,7 @@ describe('async actions', () => {
 
       it('dispatches requestLogin action failure to return error', async () => {
         try {
-          await store.dispatch(requestLogin());
+          await store.dispatch(requestLogin(login));
         } catch (error) {
           const actions = store.getActions();
 

@@ -3,17 +3,20 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent } from '@testing-library/react';
 
 import LoginFormContainer from './LoginFormContainer';
 import MockTheme from '../../components/common/test/MockTheme';
 
-const mockPush = jest.fn();
+const mockBack = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useHistory() {
-    return { push: mockPush };
+    return {
+      goBack: mockBack,
+    };
   },
 }));
 
@@ -22,13 +25,12 @@ describe('LoginFormContainer', () => {
 
   beforeEach(() => {
     dispatch.mockClear();
-    mockPush.mockClear();
+    mockBack.mockClear();
 
     useDispatch.mockImplementation(() => dispatch);
 
     useSelector.mockImplementation((selector) => selector({
       authReducer: {
-        login: given.login,
         user: given.user,
         authError: given.authError,
       },
@@ -44,11 +46,6 @@ describe('LoginFormContainer', () => {
   ));
 
   it('renders login form text', () => {
-    given('login', () => ({
-      userEmail: '',
-      password: '',
-    }));
-
     const { container, getByPlaceholderText } = renderLoginFormContainer();
 
     expect(container).toHaveTextContent('로그인');
@@ -57,70 +54,48 @@ describe('LoginFormContainer', () => {
   });
 
   describe('action dispatch in login page', () => {
-    given('login', () => ({
-      userEmail: '',
-      password: '',
-    }));
-
-    it('change event calls dispatch', () => {
-      const { getByPlaceholderText } = renderLoginFormContainer();
-
+    context('without validation error', () => {
       const inputs = [
-        { value: 'seungmin@naver.com', name: 'userEmail', placeholder: '이메일' },
-        { value: '345', name: 'password', placeholder: '비밀번호' },
+        { value: 'test@test.com', name: 'userEmail', placeholder: '이메일' },
+        { value: '111111', name: 'password', placeholder: '비밀번호' },
       ];
 
-      inputs.forEach(({ name, value, placeholder }) => {
-        const field = getByPlaceholderText(placeholder);
-
-        expect(field).not.toBeNull();
-
-        fireEvent.change(field, { target: { value, name } });
-
-        expect(dispatch).toBeCalledWith({
-          type: 'auth/changeAuthField',
-          payload: {
-            form: 'login',
-            name,
-            value,
-          },
-        });
-      });
-    });
-
-    context('without validation error', () => {
-      given('login', () => ({
-        userEmail: 'example@example.com',
-        password: '123456',
-      }));
-
-      it('submit event calls dispatch', () => {
-        const { getByTestId } = renderLoginFormContainer();
+      it('submit event calls dispatch', async () => {
+        const { getByTestId, getByPlaceholderText } = renderLoginFormContainer();
 
         const button = getByTestId('auth-button');
 
+        await act(async () => {
+          inputs.forEach(({ name, value, placeholder }) => {
+            const field = getByPlaceholderText(placeholder);
+
+            expect(field).not.toBeNull();
+
+            fireEvent.change(field, { target: { value, name } });
+          });
+        });
+
         expect(button).not.toBeNull();
 
-        fireEvent.submit(button);
+        await act(async () => {
+          fireEvent.submit(button);
+        });
 
-        expect(dispatch).toBeCalled();
+        expect(dispatch).toBeCalledTimes(1);
       });
     });
 
     context('with validation error', () => {
-      given('login', () => ({
-        userEmail: '',
-        password: '',
-      }));
-
-      it('renders error message "There are some items that have not been entered."', () => {
+      it('renders error message "There are some items that have not been entered."', async () => {
         const { getByTestId, container } = renderLoginFormContainer();
 
         const button = getByTestId('auth-button');
 
         expect(button).not.toBeNull();
 
-        fireEvent.submit(button);
+        await act(async () => {
+          fireEvent.submit(button);
+        });
 
         expect(dispatch).not.toBeCalled();
 
@@ -130,19 +105,15 @@ describe('LoginFormContainer', () => {
   });
 
   describe('actions after login', () => {
-    given('login', () => ({
-      userEmail: '',
-      password: '',
-    }));
     context('when success auth to login', () => {
       given('user', () => ({
         user: 'seungmin@naver.com',
       }));
 
-      it('redirection go to main page', () => {
+      it('Go to back Page', () => {
         renderLoginFormContainer();
 
-        expect(mockPush).toBeCalledWith('/');
+        expect(mockBack).toBeCalledTimes(1);
       });
     });
 
@@ -155,10 +126,6 @@ describe('LoginFormContainer', () => {
         const { container } = renderLoginFormContainer();
 
         expect(container).toHaveTextContent('로그인에 실패하였습니다.');
-
-        expect(dispatch).toBeCalledWith({
-          type: 'auth/clearAuthFields',
-        });
       });
     });
   });

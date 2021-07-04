@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import produce from 'immer';
-
 import {
   postUserLogin,
   postUserLogout,
@@ -10,44 +8,15 @@ import {
 
 import { removeItem, saveItem } from '../services/storage';
 
-const authInitialState = {
-  register: {
-    userEmail: '',
-    password: '',
-    passwordConfirm: '',
-  },
-  login: {
-    userEmail: '',
-    password: '',
-  },
-};
-
 const { actions, reducer } = createSlice({
   name: 'auth',
   initialState: {
-    login: authInitialState.login,
-    register: authInitialState.register,
     user: null,
     auth: null,
     authError: null,
   },
 
   reducers: {
-    changeAuthField(state, { payload: { form, name, value } }) {
-      return produce(state, (draft) => {
-        draft[form][name] = value;
-      });
-    },
-
-    clearAuthFields(state) {
-      const { login, register } = authInitialState;
-      return {
-        ...state,
-        register,
-        login,
-      };
-    },
-
     setAuth(state, { payload: auth }) {
       return {
         ...state,
@@ -87,8 +56,6 @@ const { actions, reducer } = createSlice({
 });
 
 export const {
-  changeAuthField,
-  clearAuthFields,
   setAuth,
   setAuthError,
   clearAuth,
@@ -96,13 +63,9 @@ export const {
   logout,
 } = actions;
 
-export const requestRegister = () => async (dispatch, getState) => {
-  const { authReducer: { register } } = getState();
-
-  const { userEmail, password } = register;
-
+export const requestRegister = (formData) => async (dispatch) => {
   try {
-    const { user } = await postUserRegister({ userEmail, password });
+    const { user } = await postUserRegister(formData);
 
     dispatch(setAuth(user.email));
   } catch (error) {
@@ -110,19 +73,13 @@ export const requestRegister = () => async (dispatch, getState) => {
   }
 };
 
-export const requestLogin = () => async (dispatch, getState) => {
-  const { authReducer: { login } } = getState();
-
-  const { userEmail, password } = login;
-
+export const requestLogin = (formData) => async (dispatch) => {
   try {
-    const { user } = await postUserLogin({ userEmail, password });
+    const { user } = await postUserLogin(formData);
 
     const { email } = user;
 
-    saveItem('user', {
-      email,
-    });
+    saveItem('user', { email });
 
     dispatch(setUser(email));
   } catch (error) {

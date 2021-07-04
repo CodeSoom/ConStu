@@ -2,137 +2,130 @@ import React from 'react';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import AuthForm from './AuthForm';
 import MockTheme from '../common/test/MockTheme';
 
 describe('AuthForm', () => {
-  const handleChange = jest.fn();
   const handleSubmit = jest.fn();
 
   beforeEach(() => {
-    handleChange.mockClear();
     handleSubmit.mockClear();
   });
 
-  const renderAuthForm = ({ type, fields }) => render((
+  const renderAuthForm = ({ type, error = '' }) => render((
     <MockTheme>
       <MemoryRouter>
         <AuthForm
           type={type}
-          fields={fields}
-          onChange={handleChange}
+          error={error}
           onSubmit={handleSubmit}
         />
       </MemoryRouter>
     </MockTheme>
   ));
 
-  context('when type is login', () => {
-    const login = {
+  context('Has error status', () => {
+    const state = {
       type: 'login',
-      fields: {
-        userEmail: 'tktmdals@naver.com',
-        password: '1234',
-      },
+      error: '에러!',
     };
 
-    it('renders login form text', () => {
-      const { container, getByPlaceholderText } = renderAuthForm(login);
+    it('renders error message', () => {
+      const { container } = renderAuthForm(state);
 
-      expect(container).toHaveTextContent('로그인');
-      expect(getByPlaceholderText('이메일')).not.toBeNull();
-      expect(getByPlaceholderText('비밀번호')).not.toBeNull();
-    });
-
-    it('listens event call change', () => {
-      const { getByPlaceholderText } = renderAuthForm(login);
-
-      const inputs = [
-        { value: 'seungmin@naver.com', name: 'userEmail', placeholder: '이메일' },
-        { value: '345', name: 'password', placeholder: '비밀번호' },
-      ];
-
-      inputs.forEach(({ name, value, placeholder }) => {
-        const field = getByPlaceholderText(placeholder);
-
-        expect(field).not.toBeNull();
-
-        fireEvent.change(field, { target: { value, name } });
-
-        expect(handleChange).toBeCalled();
-      });
+      expect(container).toHaveTextContent('에러!');
     });
   });
 
-  context('when type is register', () => {
-    const register = {
-      type: 'register',
-      fields: {
-        userEmail: 'tktmdals@naver.com',
-        password: '1234',
-        passwordConfirm: '1234',
-      },
-    };
+  context("hasn't error status", () => {
+    context('when type is login', () => {
+      const login = {
+        type: 'login',
+      };
 
-    it('renders register form text', () => {
-      const { container, getByPlaceholderText } = renderAuthForm(register);
+      it('renders login form text', () => {
+        const { container, getByPlaceholderText } = renderAuthForm(login);
 
-      expect(container).toHaveTextContent('회원가입');
-      expect(getByPlaceholderText('이메일')).not.toBeNull();
-      expect(getByPlaceholderText('비밀번호')).not.toBeNull();
-      expect(getByPlaceholderText('비밀번호 확인')).not.toBeNull();
-    });
-
-    it('listens event call change', () => {
-      const { getByPlaceholderText } = renderAuthForm(register);
-
-      const inputs = [
-        { value: 'seungmin@naver.com', name: 'userEmail', placeholder: '이메일' },
-        { value: '345', name: 'password', placeholder: '비밀번호' },
-        { value: '345', name: 'passwordConfirm', placeholder: '비밀번호 확인' },
-      ];
-
-      inputs.forEach(({ name, value, placeholder }) => {
-        const field = getByPlaceholderText(placeholder);
-
-        expect(field).not.toBeNull();
-
-        fireEvent.change(field, { target: { value, name } });
-
-        expect(handleChange).toBeCalled();
+        expect(container).toHaveTextContent('로그인');
+        expect(getByPlaceholderText('이메일')).not.toBeNull();
+        expect(getByPlaceholderText('비밀번호')).not.toBeNull();
       });
+
+      it('renders register link', () => {
+        const { getByTestId } = renderAuthForm(login);
+
+        const link = getByTestId('sign-up-link');
+
+        expect(link).not.toBeNull();
+      });
+
+      // it('listens event call change', () => {
+      //   const { getByPlaceholderText } = renderAuthForm(login);
+
+      //   const inputs = [
+      //     { value: 'seungmin@naver.com', name: 'userEmail', placeholder: '이메일' },
+      //     { value: '345', name: 'password', placeholder: '비밀번호' },
+      //   ];
+
+      //   inputs.forEach(({ name, value, placeholder }) => {
+      //     const field = getByPlaceholderText(placeholder);
+
+      //     expect(field).not.toBeNull();
+
+      //     fireEvent.change(field, { target: { value, name } });
+
+      //     expect(handleChange).toBeCalled();
+      //   });
+      // });
     });
 
-    it('listens event call submit', () => {
-      const { getByTestId } = renderAuthForm(register);
+    context('when type is register', () => {
+      const register = {
+        type: 'register',
+      };
 
-      const button = getByTestId('auth-button');
+      it('renders register form text', () => {
+        const { container, getByPlaceholderText } = renderAuthForm(register);
 
-      expect(button).not.toBeNull();
+        expect(container).toHaveTextContent('회원가입');
+        expect(getByPlaceholderText('이메일')).not.toBeNull();
+        expect(getByPlaceholderText('비밀번호')).not.toBeNull();
+        expect(getByPlaceholderText('비밀번호 확인')).not.toBeNull();
+      });
 
-      fireEvent.submit(button);
+      // it('listens event call change', () => {
+      //   const { getByPlaceholderText } = renderAuthForm(register);
 
-      expect(handleSubmit).toBeCalled();
-    });
-  });
+      //   const inputs = [
+      //     { value: 'seungmin@naver.com', name: 'userEmail', placeholder: '이메일' },
+      //     { value: '345', name: 'password', placeholder: '비밀번호' },
+      //     { value: '345', name: 'passwordConfirm', placeholder: '비밀번호 확인' },
+      //   ];
 
-  context('when type is login', () => {
-    const login = {
-      type: 'login',
-      fields: {
-        userEmail: 'tktmdals@naver.com',
-        password: '1234',
-      },
-    };
+      //   inputs.forEach(({ name, value, placeholder }) => {
+      //     const field = getByPlaceholderText(placeholder);
 
-    it('renders register link', () => {
-      const { getByTestId } = renderAuthForm(login);
+      //     expect(field).not.toBeNull();
 
-      const link = getByTestId('sign-up-link');
+      //     fireEvent.change(field, { target: { value, name } });
 
-      expect(link).not.toBeNull();
+      //     expect(handleChange).toBeCalled();
+      //   });
+      // });
+
+      // it('listens event call submit', () => {
+      //   const { getByTestId } = renderAuthForm(register);
+
+      //   const button = getByTestId('auth-button');
+
+      //   expect(button).not.toBeNull();
+
+      //   fireEvent.submit(button);
+
+      //   expect(handleSubmit).toBeCalled();
+      // });
     });
   });
 });
