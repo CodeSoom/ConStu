@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { useForm } from 'react-hook-form';
+
 import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
@@ -134,54 +136,34 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const AuthForm = ({
-  type, fields, onChange, onSubmit, error,
-}) => {
+const AuthForm = ({ type, onSubmit, error }) => {
+  const { register, handleSubmit } = useForm();
+
   const formType = FORM_TYPE[type];
-
-  const { userEmail, password } = fields;
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    onChange({ name, value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    onSubmit();
-  };
 
   return (
     <AuthBlock>
       <AuthFormWrapper>
         <h2>{formType}</h2>
-        <FormWrapper onSubmit={handleSubmit}>
+        <FormWrapper onSubmit={handleSubmit(onSubmit)}>
           <InputWrapper
             type="text"
-            value={userEmail}
-            name="userEmail"
             placeholder="이메일"
             autoComplete="email"
-            onChange={handleChange}
+            {...register('userEmail')}
           />
           <InputWrapper
             type="password"
-            value={password}
-            name="password"
             placeholder="비밀번호"
             autoComplete="password"
-            onChange={handleChange}
+            {...register('password')}
           />
           {type === 'register' && (
             <InputWrapper
               type="password"
-              value={fields.passwordConfirm}
-              name="passwordConfirm"
               placeholder="비밀번호 확인"
               autoComplete="new-password"
-              onChange={handleChange}
+              {...register('passwordConfirm')}
             />
           )}
           {error && (

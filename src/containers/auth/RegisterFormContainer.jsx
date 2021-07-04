@@ -4,10 +4,9 @@ import { useUnmount } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getAuth, isCheckValidate } from '../../util/utils';
-import {
-  changeAuthField, clearAuth, clearAuthFields, requestRegister,
-} from '../../reducers/authSlice';
+import { clearAuth, requestRegister } from '../../reducers/authSlice';
+
+import { getAuth, isNullFields } from '../../util/utils';
 import { ERROR_MESSAGE, FIREBASE_AUTH_ERROR_MESSAGE } from '../../util/constants/messages';
 
 import AuthForm from '../../components/auth/AuthForm';
@@ -20,38 +19,25 @@ const RegisterFormContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const register = useSelector(getAuth('register'));
   const auth = useSelector(getAuth('auth'));
   const user = useSelector(getAuth('user'));
   const authError = useSelector(getAuth('authError'));
 
-  const onChangeRegisterField = useCallback(({ name, value }) => {
-    dispatch(
-      changeAuthField({
-        form: 'register',
-        name,
-        value,
-      }),
-    );
-  }, [dispatch]);
+  const onSubmit = useCallback((formData) => {
+    const { userEmail, password, passwordConfirm } = formData;
 
-  const onSubmit = () => {
-    const { userEmail, password, passwordConfirm } = register;
-
-    if (isCheckValidate([userEmail, password, passwordConfirm])) {
+    if (isNullFields(formData)) {
       setError(NO_INPUT);
       return;
     }
 
     if (password !== passwordConfirm) {
       setError(NOT_MATCH_PASSWORD);
-      dispatch(changeAuthField({ form: 'register', name: 'password', value: '' }));
-      dispatch(changeAuthField({ form: 'register', name: 'passwordConfirm', value: '' }));
       return;
     }
 
-    dispatch(requestRegister());
-  };
+    dispatch(requestRegister({ userEmail, password }));
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -76,7 +62,6 @@ const RegisterFormContainer = () => {
   }, [auth, authError]);
 
   useUnmount(() => {
-    dispatch(clearAuthFields());
     dispatch(clearAuth());
   });
 
@@ -84,8 +69,6 @@ const RegisterFormContainer = () => {
     <AuthForm
       type="register"
       error={error}
-      fields={register}
-      onChange={onChangeRegisterField}
       onSubmit={onSubmit}
     />
   );

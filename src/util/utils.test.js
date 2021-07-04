@@ -11,6 +11,7 @@ import {
   getCommon,
   getInitTheme,
   isDevLevel,
+  isNullFields,
 } from './utils';
 
 import { loadItem } from '../services/storage';
@@ -68,6 +69,34 @@ test('equal', () => {
 
   expect(f(state)).toBeTruthy();
   expect(g(state)).toBeFalsy();
+});
+
+describe('isNullFields', () => {
+  context('with fields data', () => {
+    const formData = {
+      userEmail: 'test@test.com',
+      password: '1111',
+    };
+
+    it('Should be return false', () => {
+      const result = isNullFields(formData);
+
+      expect(result).toBeFalsy();
+    });
+  });
+
+  context('without fields data', () => {
+    const formData = {
+      userEmail: '',
+      password: '1111',
+    };
+
+    it('Should be return true', () => {
+      const result = isNullFields(formData);
+
+      expect(result).toBeTruthy();
+    });
+  });
 });
 
 describe('getInitTheme', () => {

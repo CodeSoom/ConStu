@@ -57,5 +57,6 @@ module.exports = {
     'linebreak-style': 'off',
     'no-proto': 'off',
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['draft'] }],
+    'react/jsx-props-no-spreading': ['error', { exceptions: ['InputWrapper'] }],
   },
 };

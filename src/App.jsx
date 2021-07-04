@@ -40,9 +40,9 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route path="/introduce/:id" component={IntroducePage} />
-        <Route component={LoginPage} path="/login" />
-        <Route component={RegisterPage} path="/register" />
         <Route path="/write" component={WritePage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterPage} />
       </Switch>
     </ThemeProvider>
   );
