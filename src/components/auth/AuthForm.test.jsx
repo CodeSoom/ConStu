@@ -60,25 +60,6 @@ describe('AuthForm', () => {
 
         expect(link).not.toBeNull();
       });
-
-      // it('listens event call change', () => {
-      //   const { getByPlaceholderText } = renderAuthForm(login);
-
-      //   const inputs = [
-      //     { value: 'seungmin@naver.com', name: 'userEmail', placeholder: '이메일' },
-      //     { value: '345', name: 'password', placeholder: '비밀번호' },
-      //   ];
-
-      //   inputs.forEach(({ name, value, placeholder }) => {
-      //     const field = getByPlaceholderText(placeholder);
-
-      //     expect(field).not.toBeNull();
-
-      //     fireEvent.change(field, { target: { value, name } });
-
-      //     expect(handleChange).toBeCalled();
-      //   });
-      // });
     });
 
     context('when type is register', () => {
@@ -94,38 +75,6 @@ describe('AuthForm', () => {
         expect(getByPlaceholderText('비밀번호')).not.toBeNull();
         expect(getByPlaceholderText('비밀번호 확인')).not.toBeNull();
       });
-
-      // it('listens event call change', () => {
-      //   const { getByPlaceholderText } = renderAuthForm(register);
-
-      //   const inputs = [
-      //     { value: 'seungmin@naver.com', name: 'userEmail', placeholder: '이메일' },
-      //     { value: '345', name: 'password', placeholder: '비밀번호' },
-      //     { value: '345', name: 'passwordConfirm', placeholder: '비밀번호 확인' },
-      //   ];
-
-      //   inputs.forEach(({ name, value, placeholder }) => {
-      //     const field = getByPlaceholderText(placeholder);
-
-      //     expect(field).not.toBeNull();
-
-      //     fireEvent.change(field, { target: { value, name } });
-
-      //     expect(handleChange).toBeCalled();
-      //   });
-      // });
-
-      // it('listens event call submit', () => {
-      //   const { getByTestId } = renderAuthForm(register);
-
-      //   const button = getByTestId('auth-button');
-
-      //   expect(button).not.toBeNull();
-
-      //   fireEvent.submit(button);
-
-      //   expect(handleSubmit).toBeCalled();
-      // });
     });
   });
 });

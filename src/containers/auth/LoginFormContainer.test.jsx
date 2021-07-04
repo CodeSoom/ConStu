@@ -9,13 +9,13 @@ import { render, fireEvent } from '@testing-library/react';
 import LoginFormContainer from './LoginFormContainer';
 import MockTheme from '../../components/common/test/MockTheme';
 
-const mockBack = jest.fn();
+const mockPush = jest.fn();
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useHistory() {
     return {
-      goBack: mockBack,
+      push: mockPush,
     };
   },
 }));
@@ -25,7 +25,7 @@ describe('LoginFormContainer', () => {
 
   beforeEach(() => {
     dispatch.mockClear();
-    mockBack.mockClear();
+    mockPush.mockClear();
 
     useDispatch.mockImplementation(() => dispatch);
 
@@ -110,10 +110,10 @@ describe('LoginFormContainer', () => {
         user: 'seungmin@naver.com',
       }));
 
-      it('Go to back Page', () => {
+      it('redirection go to main Page', () => {
         renderLoginFormContainer();
 
-        expect(mockBack).toBeCalledTimes(1);
+        expect(mockPush).toBeCalledWith('/');
       });
     });
 

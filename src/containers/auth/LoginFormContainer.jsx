@@ -33,7 +33,7 @@ const LoginFormContainer = () => {
 
   useEffect(() => {
     if (user) {
-      history.goBack();
+      history.push('/');
     }
   }, [user, history]);
 
