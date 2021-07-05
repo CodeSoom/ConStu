@@ -40,8 +40,3 @@ export const APPLY_STATUS = {
   REJECT: '승인 거절',
   COMPLETE: '신청 완료',
 };
-
-export const STUDY_REVIEW_FORM = {
-  FORM_TITLE: '스터디 후기를 작성해주세요!',
-  REVIEW_SUBMIT: '후기 등록하기',
-};

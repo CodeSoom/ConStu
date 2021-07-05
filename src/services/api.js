@@ -62,8 +62,8 @@ export const editPostStudyGroup = async ({
   });
 };
 
-export const postUpdateStudyReview = async ({ id, review }) => {
-  const group = db.collection('groups').doc(id);
+export const postUpdateStudyReview = async ({ groupId, review }) => {
+  const group = db.collection('groups').doc(groupId);
 
   await group.set({
     reviews: fireStore.FieldValue.arrayUnion({

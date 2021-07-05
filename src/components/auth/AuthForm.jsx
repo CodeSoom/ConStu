@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useForm } from 'react-hook-form';
-
 import facepaint from 'facepaint';
 import styled from '@emotion/styled';
 
@@ -136,16 +134,16 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const AuthForm = ({ type, onSubmit, error }) => {
-  const { register, handleSubmit } = useForm();
-
+const AuthForm = ({
+  type, onSubmit, register, error,
+}) => {
   const formType = FORM_TYPE[type];
 
   return (
     <AuthBlock>
       <AuthFormWrapper>
         <h2>{formType}</h2>
-        <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+        <FormWrapper onSubmit={onSubmit}>
           <InputWrapper
             type="text"
             placeholder="이메일"

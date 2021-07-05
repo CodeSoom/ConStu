@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useUnmount } from 'react-use';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -23,6 +24,8 @@ const RegisterFormContainer = () => {
   const user = useSelector(getAuth('user'));
   const authError = useSelector(getAuth('authError'));
 
+  const { register, handleSubmit, setValue } = useForm();
+
   const onSubmit = useCallback((formData) => {
     const { userEmail, password, passwordConfirm } = formData;
 
@@ -32,6 +35,8 @@ const RegisterFormContainer = () => {
     }
 
     if (password !== passwordConfirm) {
+      setValue('password', '');
+      setValue('passwordConfirm', '');
       setError(NOT_MATCH_PASSWORD);
       return;
     }
@@ -69,7 +74,8 @@ const RegisterFormContainer = () => {
     <AuthForm
       type="register"
       error={error}
-      onSubmit={onSubmit}
+      register={register}
+      onSubmit={handleSubmit(onSubmit)}
     />
   );
 };

@@ -18,16 +18,16 @@ describe('ReviewForm', () => {
   const reviewForm = { rating: 3, content: '' };
 
   const renderReviewForm = ({
-    group, user, fields = reviewForm, width = 700,
+    error, fields = reviewForm, width = 700, hasPermission,
   }) => render((
     <MockTheme>
       <ResponsiveContext.Provider value={{ width }}>
         <ReviewForm
-          user={user}
-          group={group}
+          error={error}
           fields={fields}
           onSubmit={handleSubmit}
-          onChangeReview={handleChange}
+          onChange={handleChange}
+          hasPermission={hasPermission}
         />
       </ResponsiveContext.Provider>
     </MockTheme>
@@ -36,12 +36,9 @@ describe('ReviewForm', () => {
   context('When Mobile Screen', () => {
     describe('When the user is approved applicant and applyEndDate is Deadline', () => {
       const settings = {
-        group: {
-          participants: [{ id: 'user1', confirm: true }],
-          reviews: [],
-        },
-        user: 'user1',
+        error: false,
         width: 400,
+        hasPermission: true,
       };
 
       it('renders study review form', () => {
@@ -53,102 +50,61 @@ describe('ReviewForm', () => {
   });
 
   context('When Desktop Screen', () => {
-    context('with user', () => {
-      context('When you have already written a review', () => {
+    context('Has Permission about write review', () => {
+      context('Has error', () => {
         const settings = {
-          group: {
-            participants: [{ id: 'user1', confirm: true }],
-            reviews: [{ id: 'user1', content: 'review' }],
-          },
-          user: 'user1',
+          error: true,
+          hasPermission: true,
         };
 
-        it('Should be nothing renders', () => {
-          const { container } = renderReviewForm(settings);
-          expect(container).toBeEmptyDOMElement();
+        it('should be textarea border color changes to red', () => {
+          const { getByPlaceholderText } = renderReviewForm(settings);
+
+          const textarea = getByPlaceholderText('후기를 입력해주세요!');
+
+          expect(textarea).toHaveStyle('border: 1px solid #ff8787');
         });
       });
 
-      context("When you didn't write a review", () => {
-        describe('When the user is approved applicant and applyEndDate is Deadline', () => {
-          const settings = {
-            group: {
-              participants: [{ id: 'user1', confirm: true }],
-              reviews: [],
+      context("Hasn't error", () => {
+        const settings = {
+          error: false,
+          hasPermission: true,
+        };
+
+        it('call event change review form', () => {
+          const { getByPlaceholderText } = renderReviewForm(settings);
+
+          const textarea = getByPlaceholderText('후기를 입력해주세요!');
+
+          fireEvent.change(textarea, {
+            target: {
+              name: 'content',
+              value: 'test',
             },
-            user: 'user1',
-          };
-
-          it('renders study review form', () => {
-            const { container } = renderReviewForm(settings);
-            expect(container).toHaveTextContent('스터디 후기를 작성해주세요!');
-          });
-          it('call event change review form', () => {
-            const { getByPlaceholderText } = renderReviewForm(settings);
-
-            const textarea = getByPlaceholderText('후기를 입력해주세요!');
-
-            fireEvent.change(textarea, {
-              target: {
-                name: 'content',
-                value: 'test',
-              },
-            });
-
-            expect(handleChange).toBeCalled();
           });
 
-          describe('When Click the "후기 등록하기" button', () => {
-            context('With review content', () => {
-              it('call event submit about review form', () => {
-                const { getByText } = renderReviewForm({
-                  ...settings,
-                  fields: { content: 'test', rating: 3 },
-                });
-
-                fireEvent.click(getByText('후기 등록하기'));
-
-                expect(handleSubmit).toBeCalled();
-              });
-            });
-
-            context('Without review content', () => {
-              it("doesn't call event submit about review form", () => {
-                const { getByText } = renderReviewForm(settings);
-
-                fireEvent.click(getByText('후기 등록하기'));
-
-                expect(handleSubmit).not.toBeCalled();
-              });
-            });
-          });
+          expect(handleChange).toBeCalled();
         });
 
-        describe('When the user is not approved applicant', () => {
-          it('nothing renders study review form', () => {
-            const { container } = renderReviewForm({
-              group: {
-                participants: [],
-                reviews: [],
-              },
-              user: 'user2',
-            });
+        it('call event submit about review form', () => {
+          const { getByText } = renderReviewForm(settings);
 
-            expect(container).toBeEmptyDOMElement();
-          });
+          fireEvent.click(getByText('후기 등록하기'));
+
+          expect(handleSubmit).toBeCalled();
         });
       });
     });
 
-    context('without user', () => {
-      it('nothing renders study review form', () => {
-        const { container } = renderReviewForm({
-          group: {
-            participants: [],
-            reviews: [],
-          },
-          user: null,
-        });
+    context("Hasn't Permission about write review", () => {
+      const settings = {
+        error: false,
+        hasPermission: false,
+      };
+
+      it('Should be nothing renders', () => {
+        const { container } = renderReviewForm(settings);
 
         expect(container).toBeEmptyDOMElement();
       });

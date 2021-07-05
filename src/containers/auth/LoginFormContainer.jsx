@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useUnmount } from 'react-use';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -21,6 +22,8 @@ const LoginFormContainer = () => {
 
   const user = useSelector(getAuth('user'));
   const authError = useSelector(getAuth('authError'));
+
+  const { register, handleSubmit, setValue } = useForm();
 
   const onSubmit = useCallback((formData) => {
     if (isNullFields(formData)) {
@@ -43,6 +46,7 @@ const LoginFormContainer = () => {
         FIREBASE_AUTH_ERROR_MESSAGE[authError]
         || FAILURE_LOGIN,
       );
+      setValue('password', '');
 
       return;
     }
@@ -58,7 +62,8 @@ const LoginFormContainer = () => {
     <AuthForm
       type="login"
       error={error}
-      onSubmit={onSubmit}
+      register={register}
+      onSubmit={handleSubmit(onSubmit)}
     />
   );
 };

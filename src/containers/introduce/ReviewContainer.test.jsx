@@ -28,10 +28,6 @@ describe('ReviewContainer', () => {
     useSelector.mockImplementation((state) => state({
       groupReducer: {
         group: given.group,
-        studyReviewFields: {
-          rating: 3,
-          content: given.content,
-        },
       },
       authReducer: {
         user: given.user,
@@ -45,29 +41,30 @@ describe('ReviewContainer', () => {
     </MockTheme>
   ));
 
-  it('When there are no reviews, renders nothing review message', () => {
-    given('group', () => ({
-      moderatorId: 'user2',
-      personnel: 3,
-      participants: [
-        { id: 'user2' },
-        {
-          id: 'user1',
-          confirm: true,
-        },
-      ],
-      reviews: [],
-      applyEndDate: yesterday,
-    }));
-    given('user', () => ('user1'));
-
-    const { container } = renderReviewContainer();
-
-    expect(container).toHaveTextContent('등록된 후기가 존재하지 않습니다!');
-  });
-
   context('with login and group', () => {
     given('user', () => ('user1'));
+
+    describe('When there is no reviews', () => {
+      given('group', () => ({
+        moderatorId: 'user2',
+        personnel: 3,
+        participants: [
+          { id: 'user2' },
+          {
+            id: 'user1',
+            confirm: true,
+          },
+        ],
+        reviews: [],
+        applyEndDate: yesterday,
+      }));
+
+      it('renders nothing review message', () => {
+        const { container } = renderReviewContainer();
+
+        expect(container).toHaveTextContent('등록된 후기가 존재하지 않습니다!');
+      });
+    });
 
     context("when apply end date isn't DeadLine", () => {
       given('group', () => ({
@@ -159,33 +156,39 @@ describe('ReviewContainer', () => {
           });
         });
 
-        it('dispatch actions call changeStudyReviewFields', () => {
-          const form = {
-            name: 'review',
-            value: '후기입니다.',
-          };
-
-          const { getByPlaceholderText } = renderReviewContainer();
-
-          const textarea = getByPlaceholderText('후기를 입력해주세요!');
-
-          fireEvent.change(textarea, { target: form });
-
-          expect(dispatch).toBeCalledWith({
-            type: 'group/changeStudyReviewFields',
-            payload: form,
-          });
-        });
-
         describe('Click the button to submit for study review', () => {
-          given('content', () => '후기입니다.');
+          context('Has Error status', () => {
+            describe('empty review content', () => {
+              it('Review textarea border color changes to red', () => {
+                const { getByText, getByPlaceholderText } = renderReviewContainer();
 
-          it('dispatch actions call setStudyReview', () => {
-            const { getByText } = renderReviewContainer();
+                const textarea = getByPlaceholderText('후기를 입력해주세요!');
 
-            fireEvent.click(getByText('후기 등록하기'));
+                fireEvent.click(getByText('후기 등록하기'));
 
-            expect(dispatch).toBeCalledTimes(1);
+                expect(dispatch).not.toBeCalled();
+                expect(textarea).toHaveStyle('border: 1px solid #ff8787');
+              });
+            });
+          });
+
+          context("hasn't Error status", () => {
+            const form = {
+              name: 'content',
+              value: '후기입니다.',
+            };
+
+            it('dispatch actions call setStudyReview', () => {
+              const { getByText, getByPlaceholderText } = renderReviewContainer();
+
+              const textarea = getByPlaceholderText('후기를 입력해주세요!');
+
+              fireEvent.change(textarea, { target: form });
+              fireEvent.click(getByText('후기 등록하기'));
+
+              expect(dispatch).toBeCalledTimes(1);
+              expect(textarea).toHaveValue('');
+            });
           });
         });
       });
