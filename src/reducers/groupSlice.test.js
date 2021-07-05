@@ -21,8 +21,6 @@ import reducer, {
   setOriginalArticle,
   editStudyGroup,
   setGroupError,
-  changeStudyReviewFields,
-  clearStudyReviewFields,
   setStudyReview,
   setGroupReview,
   deleteStudyReview,
@@ -62,10 +60,6 @@ describe('reducer', () => {
       applyFields: {
         reason: '',
         wantToGet: '',
-      },
-      studyReviewFields: {
-        rating: 3,
-        content: '',
       },
     };
 
@@ -232,42 +226,6 @@ describe('reducer', () => {
 
       expect(originalArticleId).toBe('1');
       expect(writeField.title).toBe('title');
-    });
-  });
-
-  describe('changeStudyReviewFields', () => {
-    it('changes a field of study review form', () => {
-      const initialState = {
-        studyReviewFields: {
-          rating: 3,
-          review: '',
-        },
-      };
-
-      const state = reducer(
-        initialState,
-        changeStudyReviewFields({ name: 'rating', value: 5 }),
-      );
-
-      expect(state.studyReviewFields.rating).toBe(5);
-    });
-  });
-
-  describe('clearStudyReviewFields', () => {
-    const initialState = {
-      studyReviewFields: {
-        rating: 5,
-        content: 'test',
-      },
-    };
-
-    it('clears fields of study review form', () => {
-      const state = reducer(initialState, clearStudyReviewFields());
-
-      const { studyReviewFields: { rating, content } } = state;
-
-      expect(rating).toBe(3);
-      expect(content).toBe('');
     });
   });
 
@@ -617,7 +575,7 @@ describe('async actions', () => {
       });
     });
 
-    it('dispatches setGroupReview and clearStudyReviewFields', async () => {
+    it('dispatches setGroupReview', async () => {
       await store.dispatch(setStudyReview({
         id: 'user',
         review: 'test',
@@ -633,9 +591,6 @@ describe('async actions', () => {
           review: 'test',
           id: 'user',
         },
-      });
-      expect(actions[1]).toEqual({
-        type: 'group/clearStudyReviewFields',
       });
     });
   });

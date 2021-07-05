@@ -1,6 +1,4 @@
-import React, { useState, useCallback } from 'react';
-
-import _ from 'lodash';
+import React from 'react';
 
 import styled from '@emotion/styled';
 
@@ -8,14 +6,10 @@ import StarRatings from 'react-star-ratings';
 
 import { useMediaQuery } from 'react-responsive';
 
-import { STUDY_REVIEW_FORM } from '../../util/constants/constants';
-
 import mq from '../../styles/responsive';
 
 import Button from '../../styles/Button';
 import Textarea from '../../styles/Textarea';
-
-const { FORM_TITLE, REVIEW_SUBMIT } = STUDY_REVIEW_FORM;
 
 const StudyReviewFormWrapper = styled.div`
   ${mq({
@@ -61,31 +55,14 @@ const StudyReviewFormButton = styled(Button)`
   })};
 `;
 
-const isValidateAboutUser = (user, group) => {
-  const { participants, reviews } = group;
-
-  return !participants.some(({ id, confirm }) => id === user && confirm && confirm === true)
-    || reviews.some(({ id }) => id && id === user);
-};
-
 const ReviewForm = ({
-  group, user, fields, onChangeReview, onSubmit,
+  hasPermission, fields, onChange, onSubmit, error,
 }) => {
-  const [error, setError] = useState(false);
   const { rating, content } = fields;
 
   const isMobileScreen = useMediaQuery({ query: '(max-width: 450px)' });
 
-  const handleSubmit = useCallback(() => {
-    if (!_.trim(content)) {
-      setError(true);
-      return;
-    }
-
-    onSubmit();
-  }, [content]);
-
-  const handleChangeRating = (newRating, name) => onChangeReview({
+  const handleChangeRating = (newRating, name) => onChange({
     name,
     value: newRating,
   });
@@ -93,18 +70,17 @@ const ReviewForm = ({
   const handleChangeReview = (event) => {
     const { name, value } = event.target;
 
-    setError(false);
-    onChangeReview({ name, value });
+    onChange({ name, value });
   };
 
-  if (isValidateAboutUser(user, group)) {
+  if (!hasPermission) {
     return null;
   }
 
   return (
     <StudyReviewFormWrapper>
       <StudyReviewFormHeader>
-        <h2>{FORM_TITLE}</h2>
+        <h2>스터디 후기를 작성해주세요!</h2>
         <StarRatings
           rating={rating}
           starRatedColor="#ffc816"
@@ -128,9 +104,9 @@ const ReviewForm = ({
         />
         <StudyReviewFormButton
           success
-          onClick={handleSubmit}
+          onClick={onSubmit}
         >
-          {REVIEW_SUBMIT}
+          후기 등록하기
         </StudyReviewFormButton>
       </StudyReviewFormBody>
     </StudyReviewFormWrapper>

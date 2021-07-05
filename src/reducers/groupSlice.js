@@ -32,11 +32,6 @@ const applyInitialState = {
   wantToGet: '',
 };
 
-const studyReviewInitialState = {
-  rating: 3,
-  content: '',
-};
-
 const { actions, reducer } = createSlice({
   name: 'group',
   initialState: {
@@ -47,7 +42,6 @@ const { actions, reducer } = createSlice({
     originalArticleId: null,
     writeField: writeInitialState,
     applyFields: applyInitialState,
-    studyReviewFields: studyReviewInitialState,
   },
 
   reducers: {
@@ -126,19 +120,6 @@ const { actions, reducer } = createSlice({
       };
     },
 
-    changeStudyReviewFields(state, { payload: { name, value } }) {
-      return produce(state, (draft) => {
-        draft.studyReviewFields[name] = value;
-      });
-    },
-
-    clearStudyReviewFields(state) {
-      return {
-        ...state,
-        studyReviewFields: studyReviewInitialState,
-      };
-    },
-
     setGroupReview(state, { payload: review }) {
       return produce(state, (draft) => {
         draft.group.reviews.push({
@@ -160,8 +141,6 @@ export const {
   changeApplyFields,
   clearApplyFields,
   setOriginalArticle,
-  changeStudyReviewFields,
-  clearStudyReviewFields,
   setGroupReview,
 } = actions;
 
@@ -303,15 +282,13 @@ export const deleteGroup = (groupId) => async (dispatch) => {
 
 export const setStudyReview = (review) => async (dispatch, getState) => {
   const { groupReducer: { group } } = getState();
-  const { id } = group;
 
   await postUpdateStudyReview({
-    id,
+    groupId: group.id,
     review,
   });
 
   dispatch(setGroupReview(review));
-  dispatch(clearStudyReviewFields());
 };
 
 export const deleteStudyReview = (reviewId) => async (dispatch, getState) => {
