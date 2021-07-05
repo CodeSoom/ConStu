@@ -9,9 +9,11 @@ import MockTheme from '../common/test/MockTheme';
 
 describe('AuthForm', () => {
   const handleSubmit = jest.fn();
+  const mockRegister = jest.fn();
 
   beforeEach(() => {
     handleSubmit.mockClear();
+    mockRegister.mockClear();
   });
 
   const renderAuthForm = ({ type, error = '' }) => render((
@@ -20,6 +22,7 @@ describe('AuthForm', () => {
         <AuthForm
           type={type}
           error={error}
+          register={mockRegister}
           onSubmit={handleSubmit}
         />
       </MemoryRouter>
