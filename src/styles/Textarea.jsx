@@ -51,8 +51,8 @@ const TextareaWrapper = styled.textarea`
   `};
 `;
 
-const Textarea = (props) => (
-  <TextareaWrapper {...props} />
-);
+const Textarea = React.forwardRef((props, ref) => (
+  <TextareaWrapper {...props} ref={ref} />
+));
 
 export default Textarea;

@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react';
-
-import _ from 'lodash';
+import React from 'react';
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+
+import { useForm } from 'react-hook-form';
 
 import { APPLY_FORM_TITLE, BUTTON_NAME } from '../../../util/constants/constants';
 
@@ -121,39 +121,20 @@ const BooksIcon = styled(BooksSvg)`
   })};
 `;
 
-const ApplicationFormModal = ({
-  visible, onCancel, onConfirm, onChangeApply, fields,
-}) => {
-  const [error, setError] = useState(null);
-
-  const { reason, wantToGet } = fields;
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setError(null);
-    onChangeApply({ name, value });
-  };
+const ApplicationFormModal = ({ visible, onCancel, onSubmit }) => {
+  const {
+    register, handleSubmit, formState: { errors }, reset,
+  } = useForm();
 
   const handleCancel = () => {
-    setError(null);
     onCancel();
+    reset();
   };
 
-  const handleConfirm = useCallback(() => {
-    if (!_.trim(reason)) {
-      setError('reason');
-      return;
-    }
-
-    if (!_.trim(wantToGet)) {
-      setError('wantToGet');
-      return;
-    }
-
-    setError(null);
-    onConfirm();
-  }, [reason, wantToGet, onConfirm]);
+  const formSubmitHandler = (formData) => {
+    onSubmit(formData);
+    reset();
+  };
 
   if (!visible) {
     return null;
@@ -168,34 +149,32 @@ const ApplicationFormModal = ({
             스터디 참여 신청서
           </h2>
         </HeaderWrapper>
-        <ContentBoxWrapper>
-          <label htmlFor="apply-reason">{APPLY_REASON}</label>
-          <Textarea
-            error={error && error === 'reason'}
-            rows="10"
-            id="apply-reason"
-            name="reason"
-            placeholder="내용을 입력해주세요."
-            value={reason}
-            onChange={handleChange}
-          />
-        </ContentBoxWrapper>
-        <ContentBoxWrapper>
-          <label htmlFor="study-want">{WANT_TO_GET}</label>
-          <Textarea
-            error={error && error === 'wantToGet'}
-            rows="10"
-            id="study-want"
-            name="wantToGet"
-            placeholder="내용을 입력해주세요."
-            value={wantToGet}
-            onChange={handleChange}
-          />
-        </ContentBoxWrapper>
-        <div className="buttons">
-          <StyledButton onClick={handleCancel}>{CANCEL}</StyledButton>
-          <StyledButton success onClick={handleConfirm}>{CONFIRM}</StyledButton>
-        </div>
+        <form onSubmit={handleSubmit(formSubmitHandler)}>
+          <ContentBoxWrapper>
+            <label htmlFor="apply-reason">{APPLY_REASON}</label>
+            <Textarea
+              rows="10"
+              id="apply-reason"
+              placeholder="내용을 입력해주세요."
+              error={errors?.reason}
+              {...register('reason', { required: true })}
+            />
+          </ContentBoxWrapper>
+          <ContentBoxWrapper>
+            <label htmlFor="study-want">{WANT_TO_GET}</label>
+            <Textarea
+              rows="10"
+              id="study-want"
+              placeholder="내용을 입력해주세요."
+              error={errors?.wantToGet}
+              {...register('wantToGet', { required: true })}
+            />
+          </ContentBoxWrapper>
+          <div className="buttons">
+            <StyledButton type="button" onClick={handleCancel}>{CANCEL}</StyledButton>
+            <StyledButton type="submit" success>{CONFIRM}</StyledButton>
+          </div>
+        </form>
       </ModalBoxWrapper>
     </ApplicationFormModalWrapper>
   );
