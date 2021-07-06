@@ -6,10 +6,10 @@ import mq from '../../styles/responsive';
 
 import { changeDateToTime, isCheckedTimeStatus } from '../../util/utils';
 
-import ApplyStatusButton from './ApplyStatusButton';
-import ApplicationFormModal from './modals/ApplicationFormModal';
-import AskApplyCancelModal from './modals/AskApplyCancelModal';
 import AskLoginModal from './modals/AskLoginModal';
+import ApplyStatusButton from './ApplyStatusButton';
+import AskApplyCancelModal from './modals/AskApplyCancelModal';
+import ApplicationFormModal from './modals/ApplicationFormModal';
 
 const ParticipantsStatus = styled.div`
   ${mq({
@@ -24,27 +24,15 @@ const ParticipantsStatus = styled.div`
 `;
 
 const ApplicantViewButton = ({
-  group, onApply, user, realTime, onApplyCancel, onChangeApplyFields, applyFields, clearForm,
+  group, user, realTime, onApply, onApplyCancel,
 }) => {
+  const [modalForm, setModalForm] = useState(false);
   const [loginCheckModal, setLoginCheckModal] = useState(false);
   const [applyCancelModal, setApplyCancelModal] = useState(false);
-  const [modalForm, setModalForm] = useState(false);
 
   const { moderatorId, participants, applyEndDate } = group;
 
   const applyEndTime = changeDateToTime(applyEndDate);
-
-  const handleApplyCancelConfirmClick = () => {
-    setApplyCancelModal(true);
-  };
-
-  const handleLoginCheckCancel = () => {
-    setLoginCheckModal(false);
-  };
-
-  const handleApplyCancel = () => {
-    setApplyCancelModal(false);
-  };
 
   const handleApplyCancelConfirm = () => {
     setApplyCancelModal(false);
@@ -60,14 +48,9 @@ const ApplicantViewButton = ({
     setModalForm(true);
   };
 
-  const handleFormSubmit = () => {
+  const handleApplicationSubmit = (formData) => {
     setModalForm(false);
-    onApply(applyFields);
-  };
-
-  const handleFormCancel = () => {
-    setModalForm(false);
-    clearForm();
+    onApply(formData);
   };
 
   const isCheckedUserStatus = (applicant, userEmail) => applicant
@@ -89,26 +72,24 @@ const ApplicantViewButton = ({
         <ApplyStatusButton
           user={user}
           onApply={handleApply}
-          onCancel={handleApplyCancelConfirmClick}
+          onCancel={() => setApplyCancelModal(true)}
           userStatus={isCheckedUserStatus(participants, user)}
           timeStatus={isCheckedTimeStatus(status)}
         />
       </ParticipantsStatus>
       <AskLoginModal
         visible={loginCheckModal}
-        onCancel={handleLoginCheckCancel}
+        onCancel={() => setLoginCheckModal(false)}
       />
       <AskApplyCancelModal
         visible={applyCancelModal}
-        onCancel={handleApplyCancel}
+        onCancel={() => setApplyCancelModal(true)}
         onConfirm={handleApplyCancelConfirm}
       />
       <ApplicationFormModal
         visible={modalForm}
-        onCancel={handleFormCancel}
-        onConfirm={handleFormSubmit}
-        onChangeApply={onChangeApplyFields}
-        fields={applyFields}
+        onCancel={() => setModalForm(false)}
+        onSubmit={handleApplicationSubmit}
       />
     </>
   );

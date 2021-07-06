@@ -27,11 +27,6 @@ const writeInitialState = {
   tags: [],
 };
 
-const applyInitialState = {
-  reason: '',
-  wantToGet: '',
-};
-
 const { actions, reducer } = createSlice({
   name: 'group',
   initialState: {
@@ -41,7 +36,6 @@ const { actions, reducer } = createSlice({
     groupError: null,
     originalArticleId: null,
     writeField: writeInitialState,
-    applyFields: applyInitialState,
   },
 
   reducers: {
@@ -89,19 +83,6 @@ const { actions, reducer } = createSlice({
       };
     },
 
-    changeApplyFields(state, { payload: { name, value } }) {
-      return produce(state, (draft) => {
-        draft.applyFields[name] = value;
-      });
-    },
-
-    clearApplyFields(state) {
-      return {
-        ...state,
-        applyFields: applyInitialState,
-      };
-    },
-
     setOriginalArticle(state, { payload: fields }) {
       const {
         title, contents, applyEndDate, tags, personnel, id,
@@ -138,8 +119,6 @@ export const {
   changeWriteField,
   clearWriteFields,
   successWrite,
-  changeApplyFields,
-  clearApplyFields,
   setOriginalArticle,
   setGroupReview,
 } = actions;
@@ -203,14 +182,13 @@ export const editStudyGroup = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateParticipant = ({ reason, wantToGet }) => async (dispatch, getState) => {
+export const updateParticipant = (formData) => async (dispatch, getState) => {
   const { groupReducer: { group }, authReducer: { user } } = getState();
 
   const userInfo = {
     id: user,
-    reason,
-    wantToGet,
     confirm: false,
+    ...formData,
   };
 
   const newGroup = produce(group, (draft) => {
@@ -223,7 +201,6 @@ export const updateParticipant = ({ reason, wantToGet }) => async (dispatch, get
   });
 
   dispatch(setStudyGroup(newGroup));
-  dispatch(clearApplyFields());
 };
 
 export const deleteParticipant = () => async (dispatch, getState) => {

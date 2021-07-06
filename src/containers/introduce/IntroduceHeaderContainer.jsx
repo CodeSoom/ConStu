@@ -6,13 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 
 import { getAuth, getGroup } from '../../util/utils';
-import {
-  changeApplyFields,
-  clearApplyFields,
-  deleteParticipant,
-  updateConfirmParticipant,
-  updateParticipant,
-} from '../../reducers/groupSlice';
+import { deleteParticipant, updateConfirmParticipant, updateParticipant } from '../../reducers/groupSlice';
 
 import IntroduceHeader from '../../components/introduce/IntroduceHeader';
 import ApplicantViewButton from '../../components/introduce/ApplicantViewButton';
@@ -34,24 +28,15 @@ const IntroduceHeaderContainer = () => {
 
   const user = useSelector(getAuth('user'));
   const group = useSelector(getGroup('group'));
-  const applyFields = useSelector(getGroup('applyFields'));
 
   useInterval(() => setRealTime(Date.now()), 1000);
 
-  const onApplyStudy = useCallback(({ reason, wantToGet }) => {
-    dispatch(updateParticipant({ reason, wantToGet }));
+  const onApplyStudy = useCallback((formData) => {
+    dispatch(updateParticipant(formData));
   }, [dispatch]);
 
   const onApplyCancel = useCallback(() => {
     dispatch(deleteParticipant());
-  }, [dispatch]);
-
-  const onChangeApplyFields = useCallback(({ name, value }) => {
-    dispatch(changeApplyFields({ name, value }));
-  }, [dispatch]);
-
-  const clearApplyForm = useCallback(() => {
-    dispatch(clearApplyFields());
   }, [dispatch]);
 
   const onUpdateConfirmParticipant = useCallback((id) => {
@@ -73,11 +58,8 @@ const IntroduceHeaderContainer = () => {
         user={user}
         group={group}
         realTime={realTime}
-        applyFields={applyFields}
         onApply={onApplyStudy}
         onApplyCancel={onApplyCancel}
-        clearForm={clearApplyForm}
-        onChangeApplyFields={onChangeApplyFields}
       />
       <ModeratorViewButton
         user={user}

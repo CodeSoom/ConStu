@@ -14,8 +14,6 @@ import reducer, {
   successWrite,
   updateParticipant,
   deleteParticipant,
-  changeApplyFields,
-  clearApplyFields,
   updateConfirmParticipant,
   deleteGroup,
   setOriginalArticle,
@@ -56,10 +54,6 @@ describe('reducer', () => {
         participants: [],
         personnel: '1',
         tags: [],
-      },
-      applyFields: {
-        reason: '',
-        wantToGet: '',
       },
     };
 
@@ -159,42 +153,6 @@ describe('reducer', () => {
       const state = reducer(initialState, successWrite('1'));
 
       expect(state.groupId).toBe('1');
-    });
-  });
-
-  describe('changeApplyFields', () => {
-    it('changes a field of study participation application form', () => {
-      const initialState = {
-        applyFields: {
-          reason: '',
-          wantToGet: '',
-        },
-      };
-
-      const state = reducer(
-        initialState,
-        changeApplyFields({ name: 'reason', value: '참여합니다.' }),
-      );
-
-      expect(state.applyFields.reason).toBe('참여합니다.');
-    });
-  });
-
-  describe('clearApplyFields', () => {
-    const initialState = {
-      applyFields: {
-        reason: '타이틀',
-        wantToGet: '내용',
-      },
-    };
-
-    it('clears fields of application', () => {
-      const state = reducer(initialState, clearApplyFields());
-
-      const { applyFields: { reason, wantToGet } } = state;
-
-      expect(reason).toBe('');
-      expect(wantToGet).toBe('');
     });
   });
 
@@ -451,7 +409,6 @@ describe('async actions', () => {
           confirm: false,
         }],
       }));
-      expect(actions[1]).toEqual(clearApplyFields());
     });
   });
 

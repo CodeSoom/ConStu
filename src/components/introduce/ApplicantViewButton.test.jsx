@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { act } from 'react-dom/test-utils';
 import { fireEvent, render } from '@testing-library/react';
 
 import STUDY_GROUP from '../../../fixtures/study-group';
@@ -10,7 +11,6 @@ import ApplicantViewButton from './ApplicantViewButton';
 describe('ApplicantViewButton', () => {
   const handleApply = jest.fn();
   const handleApplyCancel = jest.fn();
-  const handleClearForm = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -21,11 +21,9 @@ describe('ApplicantViewButton', () => {
       <ApplicantViewButton
         user={user}
         group={group}
-        applyFields={{ reason: 'reason', wantToGet: 'reason' }}
         realTime={time}
         onApply={handleApply}
         onApplyCancel={handleApplyCancel}
-        clearForm={handleClearForm}
       />
     </MockTheme>
   ));
@@ -70,7 +68,6 @@ describe('ApplicantViewButton', () => {
           expect(button).not.toBeNull();
 
           fireEvent.click(button);
-
           fireEvent.click(getByText('확인'));
 
           expect(handleApplyCancel).toBeCalled();
@@ -86,7 +83,6 @@ describe('ApplicantViewButton', () => {
           expect(button).not.toBeNull();
 
           fireEvent.click(button);
-
           fireEvent.click(getByText('취소'));
 
           expect(handleApplyCancel).not.toBeCalled();
@@ -186,8 +182,13 @@ describe('ApplicantViewButton', () => {
         };
 
         context('Click confirm Study participation application', () => {
-          it('renders modal window appears and application failure message', () => {
-            const { container, getByText } = renderApplicantViewButton({ group, time, user: 'user' });
+          const textareaFixtures = [
+            { label: '신청하게 된 이유', name: 'reason', value: '내용' },
+            { label: '스터디를 통해 얻고 싶은 것은 무엇인가요?', name: 'wantToGet', value: '내용' },
+          ];
+
+          it('renders modal window appears and application failure message', async () => {
+            const { container, getByText, getByLabelText } = renderApplicantViewButton({ group, time, user: 'user' });
 
             const button = getByText('신청하기');
 
@@ -195,7 +196,15 @@ describe('ApplicantViewButton', () => {
 
             fireEvent.click(button);
 
-            fireEvent.click(getByText('확인'));
+            textareaFixtures.forEach(({ label, name, value }) => {
+              const textarea = getByLabelText(label);
+
+              fireEvent.change(textarea, { target: { name, value } });
+            });
+
+            await act(async () => {
+              fireEvent.submit(getByText('확인'));
+            });
 
             expect(handleApply).toBeCalled();
 
@@ -212,7 +221,6 @@ describe('ApplicantViewButton', () => {
             expect(button).not.toBeNull();
 
             fireEvent.click(button);
-
             fireEvent.click(getByText('취소'));
 
             expect(handleApply).not.toBeCalled();
@@ -243,7 +251,6 @@ describe('ApplicantViewButton', () => {
           fireEvent.click(button);
 
           expect(handleApply).not.toBeCalled();
-
           expect(container).toHaveTextContent('로그인 후 신청 가능합니다.');
 
           fireEvent.click(getByText('확인'));

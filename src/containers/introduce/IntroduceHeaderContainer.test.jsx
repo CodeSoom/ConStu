@@ -3,6 +3,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { act } from 'react-dom/test-utils';
 import { fireEvent, render } from '@testing-library/react';
 
 import { twoSecondsLater, tomorrow } from '../../util/utils';
@@ -26,7 +27,6 @@ describe('IntroduceHeaderContainer', () => {
       },
       groupReducer: {
         group: given.group,
-        applyFields: given.applyFields,
       },
     }));
   });
@@ -53,10 +53,6 @@ describe('IntroduceHeaderContainer', () => {
         'Algorithm',
       ],
     }));
-    given('applyFields', () => ({
-      reason: '',
-      wantToGet: '',
-    }));
 
     it('renders study group title', () => {
       const { container } = renderIntroduceHeaderContainer();
@@ -67,10 +63,6 @@ describe('IntroduceHeaderContainer', () => {
 
   context('without group ', () => {
     given('group', () => (null));
-    given('applyFields', () => ({
-      reason: '',
-      wantToGet: '',
-    }));
 
     it('Nothing renders group contents', () => {
       const { container } = renderIntroduceHeaderContainer();
@@ -80,64 +72,37 @@ describe('IntroduceHeaderContainer', () => {
   });
 
   context('When the logged-in user is not the author', () => {
+    const textareaFixtures = [
+      { label: '신청하게 된 이유', name: 'reason', value: '내용' },
+      { label: '스터디를 통해 얻고 싶은 것은 무엇인가요?', name: 'wantToGet', value: '내용' },
+    ];
+
     context('with group & user', () => {
       given('group', () => (STUDY_GROUP));
       given('user', () => ('user'));
-      given('applyFields', () => ({
-        reason: 'reason',
-        wantToGet: 'wantToGet',
-      }));
 
-      it('click event dispatches action call updateParticipant', () => {
-        const { getByText } = renderIntroduceHeaderContainer();
-
-        const button = getByText('신청하기');
-
-        expect(button).not.toBeNull();
-
-        fireEvent.click(button);
-
-        fireEvent.click(getByText('확인'));
-
-        expect(dispatch).toBeCalledTimes(1);
-      });
-
-      it('dispatches action calls changeApplyFields', () => {
-        const form = {
-          name: 'reason',
-          value: '내용',
-        };
-
+      it('click event dispatches action call updateParticipant', async () => {
         const { getByText, getByLabelText } = renderIntroduceHeaderContainer();
 
         const button = getByText('신청하기');
 
-        fireEvent.click(button);
-
-        const input = getByLabelText('신청하게 된 이유');
-
-        fireEvent.change(input, { target: form });
-
-        expect(dispatch).toBeCalledWith({
-          type: 'group/changeApplyFields',
-          payload: form,
-        });
-      });
-
-      it('click cancel dispatches call action clearApplyFields', () => {
-        const { getByText } = renderIntroduceHeaderContainer();
-
-        const button = getByText('신청하기');
-
         expect(button).not.toBeNull();
 
         fireEvent.click(button);
 
-        fireEvent.click(getByText('취소'));
+        textareaFixtures.forEach(({ label, name, value }) => {
+          const textarea = getByLabelText(label);
 
-        expect(dispatch).toBeCalledWith({
-          type: 'group/clearApplyFields',
+          fireEvent.change(textarea, { target: { name, value } });
+
+          expect(textarea).toHaveValue(value);
         });
+
+        await act(async () => {
+          fireEvent.submit(getByText('확인'));
+        });
+
+        expect(dispatch).toBeCalledTimes(1);
       });
     });
 
@@ -155,10 +120,6 @@ describe('IntroduceHeaderContainer', () => {
 
       given('group', () => (group));
       given('user', () => ('user'));
-      given('applyFields', () => ({
-        reason: '',
-        wantToGet: '',
-      }));
 
       context('click confirm', () => {
         it('click event dispatches action call deleteParticipant', () => {
@@ -210,10 +171,6 @@ describe('IntroduceHeaderContainer', () => {
       ],
     }));
     given('user', () => ('user2'));
-    given('applyFields', () => ({
-      reason: '',
-      wantToGet: '',
-    }));
 
     describe('Click "Approve to participate in the study" button and then click "Approve" button', () => {
       it('dispatches call action "updateConfirmParticipant"', () => {
