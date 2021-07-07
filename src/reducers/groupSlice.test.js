@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
 import thunk from 'redux-thunk';
 
 import configureStore from 'redux-mock-store';
@@ -268,27 +268,64 @@ describe('async actions', () => {
       applyEndDate: new Date(),
       reviews: [],
     };
+    const data = jest.fn();
 
     beforeEach(() => {
-      const data = jest.fn().mockReturnValueOnce(settings);
+      data.mockReturnValueOnce(settings);
 
       store = mockStore({});
-      getStudyGroup.mockReturnValueOnce({
-        data,
-        id: '1',
+    });
+
+    context('without getStudyGroup error', () => {
+      context('without response', () => {
+        getStudyGroup.mockReturnValueOnce({
+          data,
+          id: '1',
+        });
+
+        it('dispatch calls setNotFound event', async () => {
+          await store.dispatch(loadStudyGroup(1));
+
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual(setStudyGroup(null));
+          expect(actions[1]).toEqual(setStudyGroup({
+            ...settings,
+            id: '1',
+          }));
+        });
+      });
+
+      context('with response', () => {
+        getStudyGroup.mockReturnValueOnce(null);
+
+        it('load study group detail', async () => {
+          await store.dispatch(loadStudyGroup(1));
+
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual(setStudyGroup(null));
+          expect(actions[1]).toEqual({
+            type: 'common/setNotFound',
+          });
+        });
       });
     });
 
-    it('load study group detail', async () => {
-      await store.dispatch(loadStudyGroup(1));
+    context('with getStudyGroup error', () => {
+      getStudyGroup.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
 
-      const actions = store.getActions();
+      it('dispatches loadStudyGroup action failure to return error', async () => {
+        try {
+          await store.dispatch(loadStudyGroup(1));
+        } catch (error) {
+          const actions = store.getActions();
 
-      expect(actions[0]).toEqual(setStudyGroup(null));
-      expect(actions[1]).toEqual(setStudyGroup({
-        ...settings,
-        id: '1',
-      }));
+          expect(actions[0]).toEqual(setGroupError(error));
+        }
+      });
     });
   });
 
