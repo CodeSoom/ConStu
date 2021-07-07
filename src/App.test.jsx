@@ -58,6 +58,7 @@ describe('App', () => {
       },
       commonReducer: {
         theme: given.theme,
+        errorType: null,
       },
     }));
   });
@@ -98,6 +99,16 @@ describe('App', () => {
           expect(getByTestId('theme-toggle')).toHaveAttribute('title', 'dark');
         });
       });
+    });
+  });
+
+  context('with Not Found path', () => {
+    given('group', () => ([]));
+
+    it('renders the study introduce page', () => {
+      const { container } = renderApp({ path: '/some-not-found' });
+
+      expect(container).toHaveTextContent('아무것도 없어요!');
     });
   });
 
