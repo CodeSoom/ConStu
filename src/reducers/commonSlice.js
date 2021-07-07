@@ -7,6 +7,7 @@ const { actions, reducer } = createSlice({
   name: 'common',
   initialState: {
     theme: getInitTheme(),
+    errorType: null,
   },
 
   reducers: {
@@ -18,11 +19,25 @@ const { actions, reducer } = createSlice({
         theme: !state.theme,
       };
     },
+    setNotFound(state) {
+      return {
+        ...state,
+        errorType: 'NOT_FOUND',
+      };
+    },
+    resetError(state) {
+      return {
+        ...state,
+        errorType: null,
+      };
+    },
   },
 });
 
 export const {
   changeTheme,
+  setNotFound,
+  resetError,
 } = actions;
 
 export default reducer;

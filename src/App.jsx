@@ -11,13 +11,15 @@ import { setUser } from './reducers/authSlice';
 
 import { lightTheme, darkTheme } from './styles/theme';
 
+import ErrorBoundary from './ErrorBoundary';
+
 import MainPage from './pages/MainPage';
 import WritePage from './pages/WritePage';
-import GlobalStyles from './styles/GlobalStyles';
-import IntroducePage from './pages/IntroducePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import HeaderContainer from './containers/base/HeaderContainer';
+import NotFoundPage from './pages/NotFoundPage';
+import GlobalStyles from './styles/GlobalStyles';
+import IntroducePage from './pages/IntroducePage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,17 +36,19 @@ const App = () => {
   }, [dispatch, user]);
 
   return (
-    <ThemeProvider theme={theme ? darkTheme : lightTheme}>
-      <GlobalStyles />
-      <HeaderContainer />
-      <Switch>
-        <Route exact path="/" component={MainPage} />
-        <Route path="/introduce/:id" component={IntroducePage} />
-        <Route path="/write" component={WritePage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} />
-      </Switch>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+        <GlobalStyles />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/introduce/:id" component={IntroducePage} />
+          <Route path="/write" component={WritePage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 };
 

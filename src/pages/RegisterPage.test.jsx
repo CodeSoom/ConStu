@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
+import { MemoryRouter } from 'react-router-dom';
 import RegisterPage from './RegisterPage';
 import MockTheme from '../components/common/test/MockTheme';
 
@@ -28,7 +29,9 @@ describe('RegisterPage', () => {
 
   const renderRegisterPage = () => render((
     <MockTheme>
-      <RegisterPage />
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>
     </MockTheme>
   ));
 

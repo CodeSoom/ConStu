@@ -15,6 +15,8 @@ import {
   deletePostReview,
 } from '../services/api';
 
+import { setNotFound } from './commonSlice';
+
 import { formatGroup } from '../util/utils';
 
 const writeInitialState = {
@@ -138,9 +140,17 @@ export const loadStudyGroups = (tag) => async (dispatch) => {
 export const loadStudyGroup = (id) => async (dispatch) => {
   dispatch(setStudyGroup(null));
 
-  const response = await getStudyGroup(id);
+  try {
+    const response = await getStudyGroup(id);
 
-  dispatch(setStudyGroup(formatGroup(response)));
+    if (!response) {
+      dispatch(setNotFound());
+    }
+
+    dispatch(setStudyGroup(formatGroup(response)));
+  } catch (error) {
+    dispatch(setGroupError(error.code));
+  }
 };
 
 export const writeStudyGroup = () => async (dispatch, getState) => {
