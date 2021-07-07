@@ -18,3 +18,5 @@ export const formatGroup = (group) => {
     reviews: reviews && [...formatReviewDate(reviews)],
   };
 };
+
+export const getInitTheme = jest.fn();

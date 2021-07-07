@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 
 import { LOGIN } from '../util/constants/constants';
 
+import HeaderContainer from '../containers/base/HeaderContainer';
 import LoginFormContainer from '../containers/auth/LoginFormContainer';
 
 const LoginPage = () => (
@@ -11,6 +12,7 @@ const LoginPage = () => (
     <Helmet>
       <title>{`ConStu | ${LOGIN}`}</title>
     </Helmet>
+    <HeaderContainer />
     <LoginFormContainer />
   </>
 );

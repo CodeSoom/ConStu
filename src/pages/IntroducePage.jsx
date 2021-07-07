@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { loadStudyGroup } from '../reducers/groupSlice';
 
 import GlobalBlock from '../styles/GlobalBlock';
+import HeaderContainer from '../containers/base/HeaderContainer';
 import ReviewContainer from '../containers/introduce/ReviewContainer';
 import ThemeToggleContainer from '../containers/base/ThemeToggleContainer';
 import IntroduceFormContainer from '../containers/introduce/IntroduceFormContainer';
@@ -21,12 +22,15 @@ const IntroducePage = ({ params }) => {
   }, [dispatch, id]);
 
   return (
-    <GlobalBlock>
-      <ThemeToggleContainer />
-      <IntroduceHeaderContainer />
-      <IntroduceFormContainer />
-      <ReviewContainer />
-    </GlobalBlock>
+    <>
+      <HeaderContainer />
+      <GlobalBlock>
+        <ThemeToggleContainer />
+        <IntroduceHeaderContainer />
+        <IntroduceFormContainer />
+        <ReviewContainer />
+      </GlobalBlock>
+    </>
   );
 };
 export default React.memo(IntroducePage);
