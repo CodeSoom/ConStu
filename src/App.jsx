@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 
 import { Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { ThemeProvider } from '@emotion/react';
 
-import { getCommon } from './util/utils';
+import useTheme from './hooks/useTheme';
+
 import { loadItem } from './services/storage';
 import { setUser } from './reducers/authSlice';
 
@@ -23,8 +24,8 @@ import IntroducePage from './pages/IntroducePage';
 
 const App = () => {
   const dispatch = useDispatch();
+  const { theme } = useTheme();
 
-  const theme = useSelector(getCommon('theme'));
   const user = loadItem('user');
 
   useEffect(() => {
@@ -36,9 +37,9 @@ const App = () => {
   }, [dispatch, user]);
 
   return (
-    <ErrorBoundary>
-      <ThemeProvider theme={theme ? darkTheme : lightTheme}>
-        <GlobalStyles />
+    <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+      <GlobalStyles />
+      <ErrorBoundary>
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route exact path="/introduce/:id" component={IntroducePage} />
@@ -47,8 +48,8 @@ const App = () => {
           <Route path="/register" component={RegisterPage} />
           <Route component={NotFoundPage} />
         </Switch>
-      </ThemeProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </ThemeProvider>
   );
 };
 

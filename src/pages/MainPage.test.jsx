@@ -1,12 +1,9 @@
-import '../util/__mocks__/matchMedia';
-
 import React from 'react';
 
+import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
-
-import { MemoryRouter } from 'react-router-dom';
 
 import STUDY_GROUPS from '../../fixtures/study-groups';
 

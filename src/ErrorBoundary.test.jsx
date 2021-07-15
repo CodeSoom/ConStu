@@ -1,10 +1,12 @@
-import './util/__mocks__/matchMedia';
-
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import { ThemeProvider } from '@emotion/react';
+
 import { render } from '@testing-library/react';
+
+import { lightTheme } from './styles/theme';
 
 import ErrorBoundary from './ErrorBoundary';
 
@@ -72,7 +74,9 @@ describe('ErrorBoundary', () => {
       it('should be Success render component', () => {
         const { container } = renderErrorBoundary((
           <ErrorBoundary>
-            <MockComponent />
+            <ThemeProvider theme={lightTheme}>
+              <MockComponent />
+            </ThemeProvider>
           </ErrorBoundary>
         ));
 

@@ -27,11 +27,12 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // logErrorToMyService(error, errorInfo);
+    // TODO - 추후 로직 추가
   }
 
   render() {
     if (this.state.hasError) {
+      // TODO - 알 수 없는 오류 페이지 추가
       return <h1>앗! 알 수 없는 오류가 발생했어요!</h1>;
     }
 
