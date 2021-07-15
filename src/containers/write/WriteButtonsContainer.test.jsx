@@ -1,15 +1,13 @@
-import '../../util/__mocks__/matchMedia';
-
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import WriteButtonsContainer from './WriteButtonsContainer';
-
 import WRITE_FORM from '../../../fixtures/write-form';
+
+import WriteButtonsContainer from './WriteButtonsContainer';
 
 const mockPush = jest.fn();
 

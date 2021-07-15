@@ -1,23 +1,16 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-import { getCommon } from '../../util/utils';
-import { changeTheme } from '../../reducers/commonSlice';
+import useTheme from '../../hooks/useTheme';
 
 import ThemeToggle from '../../components/base/ThemeToggle';
 
 const ThemeToggleContainer = () => {
-  const dispatch = useDispatch();
-
-  const theme = useSelector(getCommon('theme'));
-
-  const onChange = useCallback(() => dispatch(changeTheme()), [dispatch]);
+  const { theme, changeMode } = useTheme();
 
   return (
     <ThemeToggle
       theme={theme}
-      onChange={onChange}
+      onChange={changeMode}
     />
   );
 };
