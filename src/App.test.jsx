@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
-
-import { ThemeProvider } from '@emotion/react';
 
 import { loadItem } from './services/storage';
 import { lightTheme, darkTheme } from './styles/theme';
@@ -14,6 +11,7 @@ import STUDY_GROUPS from '../fixtures/study-groups';
 import STUDY_GROUP from '../fixtures/study-group';
 
 import App from './App';
+import InjectMockProviders from './components/common/test/InjectMockProviders';
 
 jest.mock('react-redux');
 jest.mock('./services/storage');
@@ -62,11 +60,12 @@ describe('App', () => {
   });
 
   const renderApp = ({ path, theme = lightTheme }) => render((
-    <ThemeProvider theme={theme}>
-      <MemoryRouter initialEntries={[path]}>
-        <App />
-      </MemoryRouter>
-    </ThemeProvider>
+    <InjectMockProviders
+      path={path}
+      theme={theme}
+    >
+      <App />
+    </InjectMockProviders>
   ));
 
   context('with path /', () => {

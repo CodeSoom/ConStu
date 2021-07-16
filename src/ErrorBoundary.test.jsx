@@ -2,13 +2,10 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ThemeProvider } from '@emotion/react';
-
 import { render } from '@testing-library/react';
 
-import { lightTheme } from './styles/theme';
-
 import ErrorBoundary from './ErrorBoundary';
+import InjectMockProviders from './components/common/test/InjectMockProviders';
 
 jest.mock('react-redux');
 
@@ -73,11 +70,11 @@ describe('ErrorBoundary', () => {
 
       it('should be Success render component', () => {
         const { container } = renderErrorBoundary((
-          <ErrorBoundary>
-            <ThemeProvider theme={lightTheme}>
+          <InjectMockProviders>
+            <ErrorBoundary>
               <MockComponent />
-            </ThemeProvider>
-          </ErrorBoundary>
+            </ErrorBoundary>
+          </InjectMockProviders>
         ));
 
         expect(container).toHaveTextContent('아무것도 없어요!');

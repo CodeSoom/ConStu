@@ -1,13 +1,9 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
-
 import { render, fireEvent } from '@testing-library/react';
 
-import { Context as ResponsiveContext } from 'react-responsive';
-
 import Header from './Header';
-import MockTheme from '../common/test/MockTheme';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('Header', () => {
   beforeEach(() => {
@@ -17,16 +13,12 @@ describe('Header', () => {
   const handleClick = jest.fn();
 
   const renderHeader = ({ user, width = 700 }) => render((
-    <MockTheme>
-      <MemoryRouter>
-        <ResponsiveContext.Provider value={{ width }}>
-          <Header
-            user={user}
-            onLogout={handleClick}
-          />
-        </ResponsiveContext.Provider>
-      </MemoryRouter>
-    </MockTheme>
+    <InjectMockProviders width={width}>
+      <Header
+        user={user}
+        onLogout={handleClick}
+      />
+    </InjectMockProviders>
   ));
 
   context('with user', () => {

@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
 import IntroducePage from './IntroducePage';
-import MockTheme from '../components/common/test/MockTheme';
+import InjectMockProviders from '../components/common/test/InjectMockProviders';
 
 describe('IntroducePage', () => {
   const dispatch = jest.fn();
@@ -50,11 +49,9 @@ describe('IntroducePage', () => {
       const params = { id: '1' };
 
       const { container, getByTestId } = render((
-        <MockTheme>
-          <MemoryRouter>
-            <IntroducePage params={params} />
-          </MemoryRouter>
-        </MockTheme>
+        <InjectMockProviders>
+          <IntroducePage params={params} />
+        </InjectMockProviders>
       ));
 
       expect(dispatch).toBeCalledTimes(1);
@@ -68,11 +65,9 @@ describe('IntroducePage', () => {
   context('without params props', () => {
     it('renders title and theme toggle button', () => {
       const { container, getByTestId } = render((
-        <MockTheme>
-          <MemoryRouter initialEntries={['/introduce/1']}>
-            <IntroducePage />
-          </MemoryRouter>
-        </MockTheme>
+        <InjectMockProviders path="/introduce/1">
+          <IntroducePage />
+        </InjectMockProviders>
       ));
 
       expect(dispatch).toBeCalledTimes(1);

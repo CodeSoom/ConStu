@@ -2,10 +2,8 @@ import React from 'react';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import { Context as ResponsiveContext } from 'react-responsive';
-
 import ReviewForm from './ReviewForm';
-import MockTheme from '../common/test/MockTheme';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('ReviewForm', () => {
   beforeEach(() => {
@@ -20,17 +18,15 @@ describe('ReviewForm', () => {
   const renderReviewForm = ({
     error, fields = reviewForm, width = 700, hasPermission,
   }) => render((
-    <MockTheme>
-      <ResponsiveContext.Provider value={{ width }}>
-        <ReviewForm
-          error={error}
-          fields={fields}
-          onSubmit={handleSubmit}
-          onChange={handleChange}
-          hasPermission={hasPermission}
-        />
-      </ResponsiveContext.Provider>
-    </MockTheme>
+    <InjectMockProviders width={width}>
+      <ReviewForm
+        error={error}
+        fields={fields}
+        onSubmit={handleSubmit}
+        onChange={handleChange}
+        hasPermission={hasPermission}
+      />
+    </InjectMockProviders>
   ));
 
   context('When Mobile Screen', () => {
