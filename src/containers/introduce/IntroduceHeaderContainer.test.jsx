@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { act } from 'react-dom/test-utils';
@@ -11,7 +10,7 @@ import { twoSecondsLater, tomorrow } from '../../util/utils';
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 import IntroduceHeaderContainer from './IntroduceHeaderContainer';
-import MockTheme from '../../components/common/test/MockTheme';
+import InjectMockProviders from '../../components/common/test/InjectMockProviders';
 
 describe('IntroduceHeaderContainer', () => {
   const dispatch = jest.fn();
@@ -32,11 +31,9 @@ describe('IntroduceHeaderContainer', () => {
   });
 
   const renderIntroduceHeaderContainer = () => render((
-    <MockTheme>
-      <MemoryRouter>
-        <IntroduceHeaderContainer />
-      </MemoryRouter>
-    </MockTheme>
+    <InjectMockProviders>
+      <IntroduceHeaderContainer />
+    </InjectMockProviders>
   ));
 
   context('with group', () => {
@@ -61,13 +58,13 @@ describe('IntroduceHeaderContainer', () => {
     });
   });
 
-  context('without group ', () => {
+  context('without group', () => {
     given('group', () => (null));
 
-    it('Nothing renders group contents', () => {
+    it('renders Contents Loader', () => {
       const { container } = renderIntroduceHeaderContainer();
 
-      expect(container).toBeEmptyDOMElement();
+      expect(container).toHaveTextContent(/loading../ig);
     });
   });
 
@@ -130,7 +127,6 @@ describe('IntroduceHeaderContainer', () => {
           expect(button).not.toBeNull();
 
           fireEvent.click(button);
-
           fireEvent.click(getByText('확인'));
 
           expect(dispatch).toBeCalledTimes(1);
@@ -146,7 +142,6 @@ describe('IntroduceHeaderContainer', () => {
           expect(button).not.toBeNull();
 
           fireEvent.click(button);
-
           fireEvent.click(getByText('취소'));
 
           expect(dispatch).not.toBeCalled();
@@ -181,7 +176,6 @@ describe('IntroduceHeaderContainer', () => {
         expect(button).not.toBeNull();
 
         fireEvent.click(button);
-
         fireEvent.click(getByText('승인하기'));
 
         expect(dispatch).toBeCalled();

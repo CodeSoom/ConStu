@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
 import WritePage from './WritePage';
-import MockTheme from '../components/common/test/MockTheme';
+import InjectMockProviders from '../components/common/test/InjectMockProviders';
 
 describe('WritePage', () => {
   const dispatch = jest.fn();
@@ -32,11 +31,9 @@ describe('WritePage', () => {
   });
 
   const renderWritePage = () => render((
-    <MockTheme>
-      <MemoryRouter>
-        <WritePage />
-      </MemoryRouter>
-    </MockTheme>
+    <InjectMockProviders>
+      <WritePage />
+    </InjectMockProviders>
   ));
 
   describe('render Write Page contents text', () => {

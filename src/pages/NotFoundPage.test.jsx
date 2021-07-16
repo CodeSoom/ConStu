@@ -3,10 +3,13 @@ import React from 'react';
 import { render } from '@testing-library/react';
 
 import NotFoundPage from './NotFoundPage';
+import InjectMockProviders from '../components/common/test/InjectMockProviders';
 
 describe('NotFoundPage', () => {
   const renderNotFoundPage = () => render((
-    <NotFoundPage />
+    <InjectMockProviders>
+      <NotFoundPage />
+    </InjectMockProviders>
   ));
 
   describe('Renders NotFound(404) Contents', () => {

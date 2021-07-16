@@ -2,31 +2,23 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { Context as ResponsiveContext } from 'react-responsive';
-
-import { MemoryRouter } from 'react-router-dom';
-
 import STUDY_GROUPS from '../../../fixtures/study-groups';
 
 import StudyGroups from './StudyGroups';
-import MockTheme from '../common/test/MockTheme';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('StudyGroups', () => {
   const handleThemeChange = jest.fn();
 
   const renderStudyGroups = ({ groups, width = 700, user = 'test' }) => render((
-    <MockTheme>
-      <ResponsiveContext.Provider value={{ width }}>
-        <MemoryRouter>
-          <StudyGroups
-            user={user}
-            theme={false}
-            groups={groups}
-            onChangeTheme={handleThemeChange}
-          />
-        </MemoryRouter>
-      </ResponsiveContext.Provider>
-    </MockTheme>
+    <InjectMockProviders width={width}>
+      <StudyGroups
+        user={user}
+        theme={false}
+        groups={groups}
+        onChangeTheme={handleThemeChange}
+      />
+    </InjectMockProviders>
   ));
 
   context('When desktop screen', () => {

@@ -2,23 +2,19 @@ import React from 'react';
 
 import { render, fireEvent } from '@testing-library/react';
 
-import { Context as ResponsiveContext } from 'react-responsive';
-
 import UserHeaderStatus from './UserHeaderStatus';
-import MockTheme from '../common/test/MockTheme';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('UserHeaderStatus', () => {
   const handleClick = jest.fn();
 
   const renderUserHeaderStatus = (width) => render((
-    <MockTheme>
-      <ResponsiveContext.Provider value={{ width }}>
-        <UserHeaderStatus
-          user={given.user}
-          onClick={handleClick}
-        />
-      </ResponsiveContext.Provider>
-    </MockTheme>
+    <InjectMockProviders width={width}>
+      <UserHeaderStatus
+        user={given.user}
+        onClick={handleClick}
+      />
+    </InjectMockProviders>
   ));
 
   context('Is mobile Screen', () => {

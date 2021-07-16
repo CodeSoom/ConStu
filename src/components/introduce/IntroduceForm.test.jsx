@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
-
-import { Context as ResponsiveContext } from 'react-responsive';
-
 import { fireEvent, render } from '@testing-library/react';
 
 import STUDY_GROUP from '../../../fixtures/study-group';
 
 import IntroduceForm from './IntroduceForm';
-import MockTheme from '../common/test/MockTheme';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('IntroduceForm', () => {
   const handleRemove = jest.fn();
@@ -17,18 +13,14 @@ describe('IntroduceForm', () => {
   const renderIntroduceForm = ({
     group, time, user = 'user2', width = 830,
   }) => render((
-    <MockTheme>
-      <ResponsiveContext.Provider value={{ width }}>
-        <MemoryRouter>
-          <IntroduceForm
-            user={user}
-            group={group}
-            realTime={time}
-            onRemove={handleRemove}
-          />
-        </MemoryRouter>
-      </ResponsiveContext.Provider>
-    </MockTheme>
+    <InjectMockProviders width={width}>
+      <IntroduceForm
+        user={user}
+        group={group}
+        realTime={time}
+        onRemove={handleRemove}
+      />
+    </InjectMockProviders>
   ));
 
   context('When the screen view is greater than 820px', () => {

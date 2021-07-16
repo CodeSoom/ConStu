@@ -2,26 +2,22 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { Context as ResponsiveContext } from 'react-responsive';
-
 import STUDY_GROUP from '../../../fixtures/study-group';
 
-import MockTheme from '../common/test/MockTheme';
 import ModeratorViewButton from './ModeratorViewButton';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('ModeratorViewButton', () => {
   const renderModeratorViewButton = ({
     group, user, realTime, width = 700,
   }) => render((
-    <MockTheme>
-      <ResponsiveContext.Provider value={{ width }}>
-        <ModeratorViewButton
-          user={user}
-          group={group}
-          realTime={realTime}
-        />
-      </ResponsiveContext.Provider>
-    </MockTheme>
+    <InjectMockProviders width={width}>
+      <ModeratorViewButton
+        user={user}
+        group={group}
+        realTime={realTime}
+      />
+    </InjectMockProviders>
   ));
 
   context('When the organizer and the logged-in user are different', () => {

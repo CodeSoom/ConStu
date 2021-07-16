@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
@@ -8,7 +7,7 @@ import { render } from '@testing-library/react';
 import STUDY_GROUPS from '../../fixtures/study-groups';
 
 import MainPage from './MainPage';
-import MockTheme from '../components/common/test/MockTheme';
+import InjectMockProviders from '../components/common/test/InjectMockProviders';
 
 describe('MainPage', () => {
   const dispatch = jest.fn();
@@ -32,11 +31,9 @@ describe('MainPage', () => {
   });
 
   const renderMainPage = () => render((
-    <MockTheme>
-      <MemoryRouter initialEntries={['/?tag=JavaScript']}>
-        <MainPage />
-      </MemoryRouter>
-    </MockTheme>
+    <InjectMockProviders path="/?tag=JavaScript">
+      <MainPage />
+    </InjectMockProviders>
   ));
 
   describe('renders Main Page text contents', () => {

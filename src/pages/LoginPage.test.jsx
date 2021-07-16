@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
 import LoginPage from './LoginPage';
-import MockTheme from '../components/common/test/MockTheme';
+import InjectMockProviders from '../components/common/test/InjectMockProviders';
 
 describe('LoginPage', () => {
   const dispatch = jest.fn();
@@ -27,11 +26,10 @@ describe('LoginPage', () => {
   });
 
   const renderLoginPage = () => render((
-    <MockTheme>
-      <MemoryRouter>
-        <LoginPage />
-      </MemoryRouter>
-    </MockTheme>
+    <InjectMockProviders>
+
+      <LoginPage />
+    </InjectMockProviders>
   ));
 
   describe('renders Login page text contents', () => {

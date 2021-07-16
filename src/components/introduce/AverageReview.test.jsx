@@ -2,20 +2,16 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { Context as ResponsiveContext } from 'react-responsive';
-
 import AverageReview from './AverageReview';
-import MockTheme from '../common/test/MockTheme';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('AverageReview', () => {
   const renderAverageReview = ({ reviews = [], width = 700 }) => render((
-    <MockTheme>
-      <ResponsiveContext.Provider value={{ width }}>
-        <AverageReview
-          reviews={reviews}
-        />
-      </ResponsiveContext.Provider>
-    </MockTheme>
+    <InjectMockProviders width={width}>
+      <AverageReview
+        reviews={reviews}
+      />
+    </InjectMockProviders>
   ));
 
   context('When Desktop screen', () => {
