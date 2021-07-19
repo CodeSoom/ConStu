@@ -31,20 +31,14 @@ describe('NotFoundContainer', () => {
   ));
 
   it('should be renders error template contents', () => {
-    const { container } = renderNotFoundContainer({
-      message: '아무것도 없어요!',
-      buttonText: '홈으로',
-    });
+    const { container } = renderNotFoundContainer();
 
     expect(container).toHaveTextContent('아무것도 없어요!');
     expect(container).toHaveTextContent('홈으로');
   });
 
   it('handle Click event', () => {
-    const { getByText } = renderNotFoundContainer({
-      message: '아무것도 없어요!',
-      buttonText: '홈으로',
-    });
+    const { getByText } = renderNotFoundContainer();
 
     fireEvent.click(getByText('홈으로'));
 

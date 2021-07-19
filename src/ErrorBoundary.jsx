@@ -2,9 +2,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
+import * as Sentry from '@sentry/react';
+
 import useNotFound from './hooks/useNotFound';
 
 import NotFoundPage from './pages/NotFoundPage';
+import CrashErrorPage from './pages/CrashErrorPage';
 
 function ErrorBoundaryWrapper({ children }) {
   const { isNotFound } = useNotFound();
@@ -19,21 +22,31 @@ function ErrorBoundaryWrapper({ children }) {
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = {
+      hasError: false,
+    };
+    this.handleResolveError = this.handleResolveError.bind(this);
   }
 
   static getDerivedStateFromError(error) {
-    return { hasError: true };
+    return {
+      hasError: true,
+    };
   }
 
   componentDidCatch(error, errorInfo) {
-    // TODO - 추후 로직 추가
+    Sentry.captureException(error);
+  }
+
+  handleResolveError() {
+    this.setState({
+      hasError: false,
+    });
   }
 
   render() {
     if (this.state.hasError) {
-      // TODO - 알 수 없는 오류 페이지 추가
-      return <h1>앗! 알 수 없는 오류가 발생했어요!</h1>;
+      return <CrashErrorPage onResolve={this.handleResolveError} />;
     }
 
     return (

@@ -9,7 +9,7 @@ import mq from '../../styles/responsive';
 import useNotFound from '../../hooks/useNotFound';
 
 import NotFoundSvg from '../../assets/icons/404.svg';
-import ErrorScreenTemplate from '../../components/common/ErrorScreenTemplate';
+import ErrorScreenTemplate from '../../components/error/ErrorScreenTemplate';
 
 const NotFoundImage = styled(NotFoundSvg)`
   ${mq({

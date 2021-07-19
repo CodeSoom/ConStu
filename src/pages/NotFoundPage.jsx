@@ -7,7 +7,7 @@ import NotFoundContainer from '../containers/error/NotFoundContainer';
 const NotFoundPage = () => (
   <>
     <Helmet>
-      <title>ConStu - 404</title>
+      <title>404</title>
     </Helmet>
     <NotFoundContainer />
   </>

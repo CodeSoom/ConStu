@@ -1,4 +1,4 @@
-Feature('사용자는 에러 상태에 대해서 경험할 수 있다.');
+Feature('사용자는 존재하지 않는 페이지에 접근할 수 있다.');
 
 const step = codeceptjs.container.plugins('commentStep');
 
