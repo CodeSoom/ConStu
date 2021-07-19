@@ -2,11 +2,21 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import ErrorBoundary from './ErrorBoundary';
 import InjectMockProviders from './components/common/test/InjectMockProviders';
 
+const mockPush = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory() {
+    return {
+      push: mockPush,
+    };
+  },
+}));
 jest.mock('react-redux');
 
 describe('ErrorBoundary', () => {
@@ -26,25 +36,45 @@ describe('ErrorBoundary', () => {
 
   const renderErrorBoundary = (ui) => render(ui);
 
-  context('Has Unknown Error', () => {
+  context('Has Crash Error', () => {
     given('errorType', () => null);
 
     const MockComponent = () => {
       throw new Error('error');
     };
 
-    it('should be renders "앗! 알 수 없는 오류가 발생했어요!" Error Message', () => {
+    it('should be renders "이런.. 오류가 발생했어요!" Error Message', () => {
       const { container } = renderErrorBoundary((
-        <ErrorBoundary>
-          <MockComponent />
-        </ErrorBoundary>
+        <InjectMockProviders>
+          <ErrorBoundary>
+            <MockComponent />
+          </ErrorBoundary>
+        </InjectMockProviders>
       ));
 
-      expect(container).toHaveTextContent('앗! 알 수 없는 오류가 발생했어요!');
+      expect(container).toHaveTextContent('이런.. 오류가 발생했어요!');
+    });
+
+    describe('When Crash Error Page, click the "홈으로" button.', () => {
+      it('should be call history push: path is "/"', () => {
+        const { container, getByText } = renderErrorBoundary((
+          <InjectMockProviders>
+            <ErrorBoundary>
+              <MockComponent />
+            </ErrorBoundary>
+          </InjectMockProviders>
+        ));
+
+        expect(container).toHaveTextContent('이런.. 오류가 발생했어요!');
+
+        fireEvent.click(getByText('홈으로'));
+
+        expect(mockPush).toBeCalledWith('/');
+      });
     });
   });
 
-  context("Hasn't Unknown Error", () => {
+  context("Hasn't Crash Error", () => {
     context('Without Not Found Error Type', () => {
       given('errorType', () => null);
       const MockComponent = () => (
