@@ -109,7 +109,7 @@ const WriteButtons = ({
       return;
     }
 
-    if (isCheckPersonnel(parseInt(personnel, 10))) {
+    if (isCheckPersonnel(Number(personnel))) {
       setError(ERROR_PERSONNEL);
       return;
     }
