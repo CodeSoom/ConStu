@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
-import { loadItem } from './services/storage';
 import { lightTheme, darkTheme } from './styles/theme';
 
 import STUDY_GROUPS from '../fixtures/study-groups';
@@ -14,7 +13,6 @@ import App from './App';
 import InjectMockProviders from './components/common/test/InjectMockProviders';
 
 jest.mock('react-redux');
-jest.mock('./services/storage');
 
 describe('App', () => {
   const dispatch = jest.fn();
@@ -141,25 +139,6 @@ describe('App', () => {
       const { container } = renderApp({ path: '/register' });
 
       expect(container).toHaveTextContent('회원가입');
-    });
-  });
-
-  context('when logged in', () => {
-    const user = {
-      email: 'seungmin@naver.com',
-    };
-
-    beforeEach(() => {
-      loadItem.mockImplementation(() => user);
-    });
-
-    it('calls dispatch with "setUser" action', () => {
-      renderApp({ path: '/' });
-
-      expect(dispatch).toBeCalledWith({
-        type: 'auth/setUser',
-        payload: user.email,
-      });
     });
   });
 });
