@@ -10,7 +10,10 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 
 import store from './reducers/store';
+import { setUser } from './reducers/authSlice';
+
 import { isDevLevel } from './util/utils';
+import { loadItem } from './services/storage';
 
 import App from './App';
 
@@ -20,6 +23,20 @@ Sentry.init({
   environment: process.env.NODE_ENV,
   tracesSampleRate: 1.0,
 });
+
+const loadUser = () => {
+  const user = loadItem('user');
+
+  if (!user) {
+    return;
+  }
+
+  const { email } = user;
+
+  store.dispatch(setUser(email));
+};
+
+loadUser();
 
 ReactDOM.render(
   (

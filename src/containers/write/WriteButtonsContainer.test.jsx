@@ -148,29 +148,6 @@ describe('WriteButtonsContainer', () => {
           });
         });
       });
-
-      context('without user', () => {
-        given('user', () => (null));
-
-        given('writeField', () => ({
-          title: '123',
-          contents: '우리는 이것저것 합니다.1',
-          moderatorId: 'user1',
-          applyEndDate: '2020-10-01',
-          participants: [],
-          personnel: '1',
-          tags: [
-            'javascript',
-            'react',
-          ],
-        }));
-
-        it('go to redirection main page', () => {
-          renderWriteButtonsContainer();
-
-          expect(mockPush).toBeCalledWith('/');
-        });
-      });
     });
   });
 });
