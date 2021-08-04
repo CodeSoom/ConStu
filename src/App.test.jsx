@@ -141,4 +141,26 @@ describe('App', () => {
       expect(container).toHaveTextContent('회원가입');
     });
   });
+
+  context('with My Info path', () => {
+    given('user', () => ('user1'));
+
+    it('renders My Info Page', () => {
+      const { container } = renderApp({ path: '/myinfo' });
+
+      expect(container).toHaveTextContent('내 정보');
+    });
+
+    it('renders My Study Info Page', () => {
+      const { container } = renderApp({ path: '/myinfo/study' });
+
+      expect(container).toHaveTextContent('내 스터디 정보');
+    });
+
+    it('renders Profile Setting Page', () => {
+      const { container } = renderApp({ path: '/myinfo/setting' });
+
+      expect(container).toHaveTextContent('계정 설정');
+    });
+  });
 });

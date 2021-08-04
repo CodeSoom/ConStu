@@ -9,14 +9,15 @@ import useTheme from './hooks/useTheme';
 import { lightTheme, darkTheme } from './styles/theme';
 
 import ErrorBoundary from './ErrorBoundary';
+import GlobalStyles from './styles/GlobalStyles';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import MainPage from './pages/MainPage';
 import WritePage from './pages/WritePage';
 import LoginPage from './pages/LoginPage';
+import MyInfoPage from './pages/myInfo/MyInfoPage';
 import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
-import GlobalStyles from './styles/GlobalStyles';
 import IntroducePage from './pages/IntroducePage';
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route exact path="/" component={MainPage} />
           <Route exact path="/introduce/:id" component={IntroducePage} />
           <PrivateRoute path="/write" component={WritePage} />
+          <PrivateRoute exact path={['/myinfo', '/myinfo/:tab(study|setting)']} component={MyInfoPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route component={NotFoundPage} />
