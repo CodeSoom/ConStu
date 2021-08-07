@@ -15,8 +15,8 @@ const MyInfoTab = () => {
 
   return (
     <MyInfoTabWrapper>
-      <NavLink exact activeStyle={activeStyle} to="/myinfo/study">내 스터디 정보</NavLink>
       <NavLink exact activeStyle={activeStyle} to="/myinfo/setting">계정 설정</NavLink>
+      <NavLink exact activeStyle={activeStyle} to="/myinfo/study">내 스터디 정보</NavLink>
     </MyInfoTabWrapper>
   );
 };
