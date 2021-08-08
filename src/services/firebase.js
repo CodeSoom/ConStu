@@ -7,6 +7,8 @@ import config from '../util/config';
 
 firebase.initializeApp(config(process.env.NODE_ENV));
 
+firebase.auth().languageCode = 'ko';
+
 export const fireStore = firebase.firestore;
 
 export const db = firebase.firestore();

@@ -2,15 +2,22 @@ import React from 'react';
 
 import { MemoryRouter } from 'react-router-dom';
 
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import ProfileSettingForm from './ProfileSettingForm';
 
 describe('ProfileSettingForm', () => {
+  const handleSendEmailVerification = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   const renderProfileSettingForm = () => render((
     <MemoryRouter>
       <ProfileSettingForm
         user={given.user}
+        onSendEmailVerification={handleSendEmailVerification}
       />
     </MemoryRouter>
   ));
@@ -87,6 +94,16 @@ describe('ProfileSettingForm', () => {
         const { container } = renderProfileSettingForm();
 
         expect(container).toHaveTextContent(/이메일 인증 하기/i);
+      });
+
+      describe('When click "이메인 인증 하기" button', () => {
+        it('Call onSendEmailVerification click event', () => {
+          const { getByText } = renderProfileSettingForm();
+
+          fireEvent.click(getByText(/이메일 인증 하기/i));
+
+          expect(handleSendEmailVerification).toBeCalledTimes(1);
+        });
       });
     });
   });

@@ -4,8 +4,10 @@ import {
   postUserLogin,
   postUserLogout,
   postUserRegister,
+  sendEmailVerification,
 } from '../services/api';
 
+import { isDevLevel } from '../util/utils';
 import { removeItem, saveItem } from '../services/storage';
 
 const { actions, reducer } = createSlice({
@@ -93,6 +95,16 @@ export const requestLogout = () => async (dispatch) => {
   removeItem('user');
 
   dispatch(logout());
+};
+
+export const requestEmailVerification = () => async (dispatch) => {
+  try {
+    await sendEmailVerification(isDevLevel(process.env.NODE_ENV));
+
+    dispatch(setAuth(true));
+  } catch (error) {
+    dispatch(setAuthError(error.code));
+  }
 };
 
 export default reducer;
