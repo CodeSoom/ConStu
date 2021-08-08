@@ -59,6 +59,7 @@
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-star-ratings": "^2.3.0",
+    "react-toastify": "^7.0.4",
     "react-toggle": "^4.1.2",
     "react-use": "^15.3.4",
     "redux": "^4.0.5",
