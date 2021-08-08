@@ -14,6 +14,7 @@ import {
   editPostStudyGroup,
   postUpdateStudyReview,
   updatePostParticipant,
+  sendEmailVerification,
 } from './api';
 
 import STUDY_GROUP from '../../fixtures/study-group';
@@ -211,6 +212,33 @@ describe('api', () => {
       await postUserLogout();
 
       expect(signOut).toBeCalledTimes(1);
+    });
+  });
+
+  describe('sendEmailVerification', () => {
+    const mockEmailVerification = jest.fn();
+
+    beforeEach(() => {
+      auth.currentUser = {
+        email: 'test@test.com',
+        sendEmailVerification: mockEmailVerification,
+      };
+    });
+
+    it('call sendEmailVerification api with dev level', async () => {
+      await sendEmailVerification(true);
+
+      expect(mockEmailVerification).toBeCalledWith({
+        url: 'http://localhost:8080/myinfo/setting/?email=test@test.com',
+      });
+    });
+
+    it('call sendEmailVerification api prod level', async () => {
+      await sendEmailVerification(false);
+
+      expect(mockEmailVerification).toBeCalledWith({
+        url: 'https://sweet-1cfff.firebaseapp.com/myinfo/setting/?email=test@test.com',
+      });
     });
   });
 

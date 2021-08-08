@@ -12,9 +12,12 @@ import reducer, {
   setUser,
   logout,
   requestLogout,
+  requestEmailVerification,
 } from './authSlice';
 
-import { postUserLogin, postUserLogout, postUserRegister } from '../services/api';
+import {
+  postUserLogin, postUserLogout, postUserRegister, sendEmailVerification,
+} from '../services/api';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -211,6 +214,46 @@ describe('async actions', () => {
       const actions = store.getActions();
 
       expect(actions[0]).toEqual(logout());
+    });
+  });
+
+  describe('requestEmailVerification', () => {
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    context('without auth error', () => {
+      sendEmailVerification.mockImplementationOnce(() => ({}));
+
+      it('success to Email Verification', async () => {
+        await store.dispatch(requestEmailVerification());
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({
+          payload: true,
+          type: 'auth/setAuth',
+        });
+      });
+    });
+
+    context('with auth error', () => {
+      sendEmailVerification.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('fail to Email Verification', async () => {
+        try {
+          await store.dispatch(requestEmailVerification());
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual({
+            payload: error,
+            type: 'auth/setAuthError',
+          });
+        }
+      });
     });
   });
 });

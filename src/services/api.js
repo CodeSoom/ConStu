@@ -131,3 +131,15 @@ export const postUserLogin = async ({ userEmail, password }) => {
 export const postUserLogout = async () => {
   await auth.signOut();
 };
+
+export const sendEmailVerification = async (config) => {
+  const { currentUser } = auth;
+
+  const urlPrefix = config ? 'http://localhost:8080' : 'https://sweet-1cfff.firebaseapp.com';
+
+  const actionCodeSettings = {
+    url: `${urlPrefix}/myinfo/setting/?email=${currentUser.email}`,
+  };
+
+  await currentUser.sendEmailVerification(actionCodeSettings);
+};

@@ -8,8 +8,8 @@ import useTheme from './hooks/useTheme';
 
 import { lightTheme, darkTheme } from './styles/theme';
 
+import Core from './components/base/Core';
 import ErrorBoundary from './ErrorBoundary';
-import GlobalStyles from './styles/GlobalStyles';
 import PrivateRoute from './components/common/PrivateRoute';
 
 import MainPage from './pages/MainPage';
@@ -25,7 +25,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme ? darkTheme : lightTheme}>
-      <GlobalStyles />
+      <Core />
       <ErrorBoundary>
         <Switch>
           <Route exact path="/" component={MainPage} />

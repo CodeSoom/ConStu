@@ -1,10 +1,27 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import ProfileSettingContainer from './ProfileSettingContainer';
 
 describe('ProfileSettingContainer', () => {
+  const dispatch = jest.fn();
+
+  beforeEach(() => {
+    dispatch.mockClear();
+
+    useDispatch.mockImplementation(() => dispatch);
+
+    useSelector.mockImplementation((state) => state({
+      authReducer: {
+        auth: given.auth,
+        authError: given.authError,
+      },
+    }));
+  });
+
   const renderProfileSettingContainer = (user) => render((
     <ProfileSettingContainer
       user={user}
@@ -24,6 +41,44 @@ describe('ProfileSettingContainer', () => {
 
       expect(container).toHaveTextContent(currentUser.email);
       expect(container).toHaveTextContent(currentUser.displayName);
+    });
+
+    describe('Click email verification button', () => {
+      it('should listen dispatch action "requestEmailVerification" event', () => {
+        const { getByText } = renderProfileSettingContainer(currentUser);
+
+        fireEvent.click(getByText(/이메일 인증 하기/i));
+
+        expect(dispatch).toBeCalledTimes(1);
+      });
+    });
+
+    describe('Click email verification after action', () => {
+      context('When success dispatch action', () => {
+        given('auth', () => (true));
+
+        it('should render "이메일을 확인해주세요!" message', () => {
+          renderProfileSettingContainer(currentUser);
+
+          expect(screen.findByText('이메일을 확인해주세요!')).not.toBeNull();
+        });
+      });
+
+      context('When failure dispatch action', () => {
+        given('authError', () => ('error'));
+
+        it('should render "이메일 인증 메일 전송에 실패하였습니다." message', () => {
+          renderProfileSettingContainer(currentUser);
+
+          expect(screen.findByText('이메일 인증 메일 전송에 실패하였습니다.')).not.toBeNull();
+        });
+
+        it('should render "잠시 후 다시 시도해 주세요." message', () => {
+          given('authError', () => ('auth/too-many-requests'));
+
+          expect(screen.findByText('잠시 후 다시 시도해 주세요.')).not.toBeNull();
+        });
+      });
     });
   });
 

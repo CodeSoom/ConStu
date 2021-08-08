@@ -8,14 +8,18 @@ const ProfileDetailFormWrapper = styled.div`
 
 `;
 
-const ProfileDetailForm = ({ user }) => (
+const ProfileDetailForm = ({ user, onSendEmailVerification }) => (
   <ProfileDetailFormWrapper>
     <div>
       {`이메일: ${user.email}`}
       {user.emailVerified ? (
         <div> 이메일 인증 완료 </div>
       ) : (
-        <Button>이메일 인증 하기</Button>
+        <Button
+          onClick={onSendEmailVerification}
+        >
+          이메일 인증 하기
+        </Button>
       )}
     </div>
     <div>
