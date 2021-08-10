@@ -5,6 +5,7 @@ import {
   postUserLogout,
   postUserRegister,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from '../services/api';
 
 import { isDevLevel } from '../util/utils';
@@ -100,6 +101,18 @@ export const requestLogout = () => async (dispatch) => {
 export const requestEmailVerification = () => async (dispatch) => {
   try {
     await sendEmailVerification(isDevLevel(process.env.NODE_ENV));
+
+    dispatch(setAuth(true));
+  } catch (error) {
+    dispatch(setAuthError(error.code));
+  }
+};
+
+export const requestResetPassword = () => async (dispatch, getState) => {
+  const { authReducer: { user } } = getState();
+
+  try {
+    await sendPasswordResetEmail(user);
 
     dispatch(setAuth(true));
   } catch (error) {

@@ -1,4 +1,8 @@
-import { db, auth, fireStore } from './firebase';
+import {
+  db, auth, fireStore, actionCodeSettings,
+} from './firebase';
+
+import { isDevLevel } from '../util/utils';
 
 const timeStamp = (dateTime) => fireStore.Timestamp.fromDate(new Date(dateTime));
 
@@ -132,14 +136,15 @@ export const postUserLogout = async () => {
   await auth.signOut();
 };
 
-export const sendEmailVerification = async (config) => {
-  const { currentUser } = auth;
+export const sendEmailVerification = async () => {
+  await auth
+    .currentUser
+    .sendEmailVerification(actionCodeSettings(isDevLevel(process.env.NODE_ENV)));
+};
 
-  const urlPrefix = config ? 'http://localhost:8080' : 'https://sweet-1cfff.firebaseapp.com';
-
-  const actionCodeSettings = {
-    url: `${urlPrefix}/myinfo/setting/?email=${currentUser.email}`,
-  };
-
-  await currentUser.sendEmailVerification(actionCodeSettings);
+export const sendPasswordResetEmail = async (email) => {
+  await auth.sendPasswordResetEmail(
+    email,
+    actionCodeSettings(isDevLevel(process.env.NODE_ENV)),
+  );
 };

@@ -14,3 +14,13 @@ export const fireStore = firebase.firestore;
 export const db = firebase.firestore();
 
 export const auth = firebase.auth();
+
+export const actionCodeSettings = (isDevLevel) => {
+  const { currentUser } = auth;
+
+  const urlPrefix = isDevLevel ? 'http://localhost:8080' : 'https://sweet-1cfff.firebaseapp.com';
+
+  return {
+    url: `${urlPrefix}/myinfo/setting/?email=${currentUser.email}`,
+  };
+};

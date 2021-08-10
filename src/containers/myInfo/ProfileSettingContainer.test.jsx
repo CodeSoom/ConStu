@@ -44,7 +44,7 @@ describe('ProfileSettingContainer', () => {
     });
 
     describe('Click email verification button', () => {
-      it('should listen dispatch action "requestEmailVerification" event', () => {
+      it('should listen dispatch action event', () => {
         const { getByText } = renderProfileSettingContainer(currentUser);
 
         fireEvent.click(getByText(/이메일 인증 하기/i));
@@ -53,7 +53,17 @@ describe('ProfileSettingContainer', () => {
       });
     });
 
-    describe('Click email verification after action', () => {
+    describe('Click password reset button', () => {
+      it('should listen dispatch action event', () => {
+        const { getByText } = renderProfileSettingContainer(currentUser);
+
+        fireEvent.click(getByText(/비밀번호 재설정/i));
+
+        expect(dispatch).toBeCalledTimes(1);
+      });
+    });
+
+    describe('Clicks send email after action', () => {
       context('When success dispatch action', () => {
         given('auth', () => (true));
 
@@ -67,10 +77,10 @@ describe('ProfileSettingContainer', () => {
       context('When failure dispatch action', () => {
         given('authError', () => ('error'));
 
-        it('should render "이메일 인증 메일 전송에 실패하였습니다." message', () => {
+        it('should render "메일 전송에 실패하였습니다." message', () => {
           renderProfileSettingContainer(currentUser);
 
-          expect(screen.findByText('이메일 인증 메일 전송에 실패하였습니다.')).not.toBeNull();
+          expect(screen.findByText('메일 전송에 실패하였습니다.')).not.toBeNull();
         });
 
         it('should render "잠시 후 다시 시도해 주세요." message', () => {
