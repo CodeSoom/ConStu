@@ -13,10 +13,11 @@ import reducer, {
   logout,
   requestLogout,
   requestEmailVerification,
+  requestResetPassword,
 } from './authSlice';
 
 import {
-  postUserLogin, postUserLogout, postUserRegister, sendEmailVerification,
+  postUserLogin, postUserLogout, postUserRegister, sendEmailVerification, sendPasswordResetEmail,
 } from '../services/api';
 
 const middlewares = [thunk];
@@ -245,6 +246,50 @@ describe('async actions', () => {
       it('fail to Email Verification', async () => {
         try {
           await store.dispatch(requestEmailVerification());
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual({
+            payload: error,
+            type: 'auth/setAuthError',
+          });
+        }
+      });
+    });
+  });
+
+  describe('requestResetPassword', () => {
+    beforeEach(() => {
+      store = mockStore({
+        authReducer: {
+          user: 'test@test.com',
+        },
+      });
+    });
+
+    context('without auth error', () => {
+      sendPasswordResetEmail.mockImplementationOnce(() => ({}));
+
+      it('success to send password reset email', async () => {
+        await store.dispatch(requestResetPassword());
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({
+          payload: true,
+          type: 'auth/setAuth',
+        });
+      });
+    });
+
+    context('with auth error', () => {
+      sendPasswordResetEmail.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('fail to send password reset email', async () => {
+        try {
+          await store.dispatch(requestResetPassword());
         } catch (error) {
           const actions = store.getActions();
 

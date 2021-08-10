@@ -8,6 +8,7 @@ import ProfileSettingForm from './ProfileSettingForm';
 
 describe('ProfileSettingForm', () => {
   const handleSendEmailVerification = jest.fn();
+  const handleSendPasswordReset = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -18,6 +19,7 @@ describe('ProfileSettingForm', () => {
       <ProfileSettingForm
         user={given.user}
         onSendEmailVerification={handleSendEmailVerification}
+        onSendPasswordResetEmail={handleSendPasswordReset}
       />
     </MemoryRouter>
   ));
@@ -36,74 +38,91 @@ describe('ProfileSettingForm', () => {
       expect(container).toHaveTextContent('비밀번호 재설정');
       expect(container).toHaveTextContent('회원 탈퇴');
     });
+  });
 
-    context('Is email verify', () => {
-      context('with displayName and photoURL', () => {
-        given('user', () => ({
-          email: 'test@test.com',
-          emailVerified: true,
-          displayName: 'test',
-          photoURL: 'test url',
-        }));
+  describe('When click "비밀번호 재설정" button', () => {
+    given('user', () => ({
+      email: 'test@test.com',
+      emailVerified: false,
+      displayName: null,
+      photoURL: null,
+    }));
 
-        it('should render "이메일 인증 완료"', () => {
-          const { container } = renderProfileSettingForm();
+    it('should call click event', () => {
+      const { getByText } = renderProfileSettingForm();
 
-          expect(container).toHaveTextContent(/이메일 인증 완료/i);
-        });
+      fireEvent.click(getByText('비밀번호 재설정'));
 
-        it('should render display name and photoUrl', () => {
-          const { container } = renderProfileSettingForm();
+      expect(handleSendPasswordReset).toBeCalledTimes(1);
+    });
+  });
 
-          expect(container).toHaveTextContent(/test url/i);
-          expect(container).toHaveTextContent(/test/i);
-        });
+  context('Is email verify', () => {
+    context('with displayName and photoURL', () => {
+      given('user', () => ({
+        email: 'test@test.com',
+        emailVerified: true,
+        displayName: 'test',
+        photoURL: 'test url',
+      }));
+
+      it('should render "이메일 인증 완료"', () => {
+        const { container } = renderProfileSettingForm();
+
+        expect(container).toHaveTextContent(/이메일 인증 완료/i);
       });
 
-      context('without displayName and photoURL', () => {
-        given('user', () => ({
-          email: 'test@test.com',
-          emailVerified: true,
-          displayName: null,
-          photoURL: null,
-        }));
+      it('should render display name and photoUrl', () => {
+        const { container } = renderProfileSettingForm();
 
-        it('should render "이메일 인증 완료"', () => {
-          const { container } = renderProfileSettingForm();
-
-          expect(container).toHaveTextContent(/이메일 인증 완료/i);
-        });
-
-        it('should render "없음"', () => {
-          const { container } = renderProfileSettingForm();
-
-          expect(container).toHaveTextContent(/없음/i);
-        });
+        expect(container).toHaveTextContent(/test url/i);
+        expect(container).toHaveTextContent(/test/i);
       });
     });
 
-    context("Isn't email verify", () => {
+    context('without displayName and photoURL', () => {
       given('user', () => ({
         email: 'test@test.com',
-        emailVerified: false,
+        emailVerified: true,
         displayName: null,
         photoURL: null,
       }));
 
-      it('should render "이메일 인증 하기" button', () => {
+      it('should render "이메일 인증 완료"', () => {
         const { container } = renderProfileSettingForm();
 
-        expect(container).toHaveTextContent(/이메일 인증 하기/i);
+        expect(container).toHaveTextContent(/이메일 인증 완료/i);
       });
 
-      describe('When click "이메인 인증 하기" button', () => {
-        it('Call onSendEmailVerification click event', () => {
-          const { getByText } = renderProfileSettingForm();
+      it('should render "없음"', () => {
+        const { container } = renderProfileSettingForm();
 
-          fireEvent.click(getByText(/이메일 인증 하기/i));
+        expect(container).toHaveTextContent(/없음/i);
+      });
+    });
+  });
 
-          expect(handleSendEmailVerification).toBeCalledTimes(1);
-        });
+  context("Isn't email verify", () => {
+    given('user', () => ({
+      email: 'test@test.com',
+      emailVerified: false,
+      displayName: null,
+      photoURL: null,
+    }));
+
+    it('should render "이메일 인증 하기" button', () => {
+      const { container } = renderProfileSettingForm();
+
+      expect(container).toHaveTextContent(/이메일 인증 하기/i);
+    });
+
+    describe('When click "이메인 인증 하기" button', () => {
+      it('Call onSendEmailVerification click event', () => {
+        const { getByText } = renderProfileSettingForm();
+
+        fireEvent.click(getByText(/이메일 인증 하기/i));
+
+        expect(handleSendEmailVerification).toBeCalledTimes(1);
       });
     });
   });

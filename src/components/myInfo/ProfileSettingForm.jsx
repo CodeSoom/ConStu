@@ -8,7 +8,7 @@ const ProfileDetailFormWrapper = styled.div`
 
 `;
 
-const ProfileDetailForm = ({ user, onSendEmailVerification }) => (
+const ProfileDetailForm = ({ user, onSendEmailVerification, onSendPasswordResetEmail }) => (
   <ProfileDetailFormWrapper>
     <div>
       {`이메일: ${user.email}`}
@@ -28,7 +28,10 @@ const ProfileDetailForm = ({ user, onSendEmailVerification }) => (
     <div>
       {`프로필: ${user.photoURL || '없음'} `}
     </div>
-    <Button success>
+    <Button
+      success
+      onClick={onSendPasswordResetEmail}
+    >
       비밀번호 재설정
     </Button>
     <Button warn>

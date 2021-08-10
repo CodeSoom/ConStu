@@ -25,3 +25,5 @@ export const postUpdateStudyReview = jest.fn();
 export const deletePostReview = jest.fn();
 
 export const sendEmailVerification = jest.fn();
+
+export const sendPasswordResetEmail = jest.fn();

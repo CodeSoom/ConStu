@@ -12,7 +12,7 @@ export const ERROR_MESSAGE = {
   ERROR_PERSONNEL: '참여 인원 수를 입력하지 않았거나, 잘못된 값을 입력하였습니다.',
   FAILURE_OPEN_STUDY: '스터디 개설에 실패하였습니다.',
   FAILURE_EDIT_STUDY: '수정에 실패하였습니다.',
-  FAILURE_SEND_EMAIL_VERIFICATION: '이메일 인증 메일 전송에 실패하였습니다.',
+  FAILURE_SEND_EMAIL: '메일 전송에 실패하였습니다.',
 };
 
 export const FIREBASE_AUTH_ERROR_MESSAGE = {

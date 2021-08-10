@@ -15,6 +15,7 @@ import {
   postUpdateStudyReview,
   updatePostParticipant,
   sendEmailVerification,
+  sendPasswordResetEmail,
 } from './api';
 
 import STUDY_GROUP from '../../fixtures/study-group';
@@ -226,18 +227,28 @@ describe('api', () => {
     });
 
     it('call sendEmailVerification api with dev level', async () => {
-      await sendEmailVerification(true);
+      await sendEmailVerification();
 
       expect(mockEmailVerification).toBeCalledWith({
         url: 'http://localhost:8080/myinfo/setting/?email=test@test.com',
       });
     });
+  });
 
-    it('call sendEmailVerification api prod level', async () => {
-      await sendEmailVerification(false);
+  describe('sendPasswordRestEmail', () => {
+    const email = 'test@test.com';
 
-      expect(mockEmailVerification).toBeCalledWith({
-        url: 'https://sweet-1cfff.firebaseapp.com/myinfo/setting/?email=test@test.com',
+    const mockPasswordResetEmail = jest.fn();
+
+    beforeEach(() => {
+      auth.sendPasswordResetEmail = mockPasswordResetEmail;
+    });
+
+    it('call sendPasswordResetEmail api', async () => {
+      await sendPasswordResetEmail(email);
+
+      expect(mockPasswordResetEmail).toBeCalledWith(email, {
+        url: 'http://localhost:8080/myinfo/setting/?email=test@test.com',
       });
     });
   });
