@@ -7,7 +7,9 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth } from '../../util/utils';
-import { requestEmailVerification, clearAuth, requestResetPassword } from '../../reducers/authSlice';
+import {
+  requestEmailVerification, clearAuth, requestResetPassword, requestDeleteUser,
+} from '../../reducers/authSlice';
 import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE } from '../../util/constants/messages';
 
 import ProfileSettingForm from '../../components/myInfo/ProfileSettingForm';
@@ -29,6 +31,11 @@ const ProfileSettingContainer = ({ user }) => {
 
   const onClickSendPasswordResetEmail = useCallback(
     () => dispatch(requestResetPassword()),
+    [dispatch],
+  );
+
+  const onClickMembershipWithdrawal = useCallback(
+    () => dispatch(requestDeleteUser()),
     [dispatch],
   );
 
@@ -58,6 +65,7 @@ const ProfileSettingContainer = ({ user }) => {
     <ProfileSettingContainerWrapper>
       <ProfileSettingForm
         user={user}
+        onMembershipWithdrawal={onClickMembershipWithdrawal}
         onSendEmailVerification={onClickSendEmailVerification}
         onSendPasswordResetEmail={onClickSendPasswordResetEmail}
       />

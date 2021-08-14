@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { render, fireEvent, screen } from '@testing-library/react';
 
 import ProfileSettingContainer from './ProfileSettingContainer';
+import InjectMockProviders from '../../components/common/test/InjectMockProviders';
 
 describe('ProfileSettingContainer', () => {
   const dispatch = jest.fn();
@@ -23,9 +24,11 @@ describe('ProfileSettingContainer', () => {
   });
 
   const renderProfileSettingContainer = (user) => render((
-    <ProfileSettingContainer
-      user={user}
-    />
+    <InjectMockProviders>
+      <ProfileSettingContainer
+        user={user}
+      />
+    </InjectMockProviders>
   ));
 
   context('with user', () => {
@@ -60,6 +63,28 @@ describe('ProfileSettingContainer', () => {
         fireEvent.click(getByText(/비밀번호 재설정/i));
 
         expect(dispatch).toBeCalledTimes(1);
+      });
+    });
+
+    describe('Click membership withdrawal button', () => {
+      it('should visible ask membership withdrawal modal', () => {
+        const { getByText, container } = renderProfileSettingContainer(currentUser);
+
+        fireEvent.click(getByText(/회원 탈퇴/i));
+
+        expect(container).toHaveTextContent('회원을 탈퇴하시겠습니까?');
+      });
+
+      describe('Click membership withdrawal modal confirm button', () => {
+        it('should listen dispatch action event', () => {
+          const { getByText } = renderProfileSettingContainer(currentUser);
+
+          fireEvent.click(getByText(/회원 탈퇴/i));
+
+          fireEvent.click(getByText(/확인/i));
+
+          expect(dispatch).toBeCalledTimes(1);
+        });
       });
     });
 
