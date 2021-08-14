@@ -14,10 +14,18 @@ import reducer, {
   requestLogout,
   requestEmailVerification,
   requestResetPassword,
+  requestDeleteUser,
+  requestReauthenticateWithCredential,
 } from './authSlice';
 
 import {
-  postUserLogin, postUserLogout, postUserRegister, sendEmailVerification, sendPasswordResetEmail,
+  postUserLogin,
+  postUserLogout,
+  postUserRegister,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  deleteUser,
+  postReauthenticateWithCredential,
 } from '../services/api';
 
 const middlewares = [thunk];
@@ -290,6 +298,82 @@ describe('async actions', () => {
       it('fail to send password reset email', async () => {
         try {
           await store.dispatch(requestResetPassword());
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual({
+            payload: error,
+            type: 'auth/setAuthError',
+          });
+        }
+      });
+    });
+  });
+
+  describe('requestDeleteUser', () => {
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    context('without auth error', () => {
+      deleteUser.mockImplementationOnce(() => ({}));
+
+      it('dispatches requestDeleteUser action success to logout', async () => {
+        await store.dispatch(requestDeleteUser());
+
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({
+          type: 'auth/logout',
+        });
+      });
+    });
+
+    context('with auth error', () => {
+      deleteUser.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('fail to delete user', async () => {
+        try {
+          await store.dispatch(requestDeleteUser());
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual({
+            payload: error,
+            type: 'auth/setAuthError',
+          });
+        }
+      });
+    });
+  });
+
+  describe('requestReauthenticateWithCredential', () => {
+    const password = 'test';
+
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    context('without auth error', () => {
+      postReauthenticateWithCredential.mockImplementationOnce(() => ({}));
+
+      it('dispatches requestReauthenticateWithCredential action success', async () => {
+        await store.dispatch(requestReauthenticateWithCredential(password));
+
+        expect(postReauthenticateWithCredential).toBeCalledWith(password);
+      });
+    });
+
+    context('with auth error', () => {
+      postReauthenticateWithCredential.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('dispatches action setAuthError', async () => {
+        try {
+          await store.dispatch(requestReauthenticateWithCredential(password));
         } catch (error) {
           const actions = store.getActions();
 
