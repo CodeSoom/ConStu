@@ -27,3 +27,7 @@ export const deletePostReview = jest.fn();
 export const sendEmailVerification = jest.fn();
 
 export const sendPasswordResetEmail = jest.fn();
+
+export const deleteUser = jest.fn();
+
+export const postReauthenticateWithCredential = jest.fn();

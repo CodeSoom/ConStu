@@ -1,4 +1,6 @@
-import { auth, db, fireStore } from './firebase';
+import {
+  auth, db, fireStore, authProvider,
+} from './firebase';
 
 import {
   postUserRegister,
@@ -16,6 +18,8 @@ import {
   updatePostParticipant,
   sendEmailVerification,
   sendPasswordResetEmail,
+  deleteUser,
+  postReauthenticateWithCredential,
 } from './api';
 
 import STUDY_GROUP from '../../fixtures/study-group';
@@ -226,7 +230,7 @@ describe('api', () => {
       };
     });
 
-    it('call sendEmailVerification api with dev level', async () => {
+    it('call sendEmailVerification api', async () => {
       await sendEmailVerification();
 
       expect(mockEmailVerification).toBeCalledWith({
@@ -250,6 +254,49 @@ describe('api', () => {
       expect(mockPasswordResetEmail).toBeCalledWith(email, {
         url: 'http://localhost:8080/myinfo/setting/?email=test@test.com',
       });
+    });
+  });
+
+  describe('deleteUser', () => {
+    const mockDeleteUser = jest.fn();
+
+    beforeEach(() => {
+      auth.currentUser = {
+        delete: mockDeleteUser,
+      };
+    });
+
+    it('call deleteUser api', async () => {
+      await deleteUser();
+
+      expect(mockDeleteUser).toBeCalledTimes(1);
+    });
+  });
+
+  describe('postReauthenticateWithCredential', () => {
+    const password = 'test';
+    const mockCredential = jest.fn().mockReturnValue({
+      email: 'test@test.com',
+      password,
+    });
+    const mockEeauthenticateWithCredential = jest.fn();
+
+    beforeEach(() => {
+      auth.currentUser = {
+        email: 'test@test.com',
+        reauthenticateWithCredential: mockEeauthenticateWithCredential,
+      };
+
+      authProvider.EmailAuthProvider = {
+        credential: mockCredential,
+      };
+    });
+
+    it('call postReauthenticateWithCredential api', async () => {
+      await postReauthenticateWithCredential(password);
+
+      expect(mockCredential).toBeCalledWith('test@test.com', password);
+      expect(mockEeauthenticateWithCredential).toBeCalledTimes(1);
     });
   });
 

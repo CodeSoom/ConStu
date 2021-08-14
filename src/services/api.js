@@ -1,5 +1,5 @@
 import {
-  db, auth, fireStore, actionCodeSettings,
+  db, auth, fireStore, actionCodeSettings, authProvider,
 } from './firebase';
 
 import { isDevLevel } from '../util/utils';
@@ -147,4 +147,19 @@ export const sendPasswordResetEmail = async (email) => {
     email,
     actionCodeSettings(isDevLevel(process.env.NODE_ENV)),
   );
+};
+
+export const deleteUser = async () => {
+  await auth.currentUser.delete();
+};
+
+export const postReauthenticateWithCredential = async (password) => {
+  const user = auth.currentUser;
+
+  const credential = authProvider.EmailAuthProvider.credential(
+    user.email,
+    password,
+  );
+
+  await user.reauthenticateWithCredential(credential);
 };

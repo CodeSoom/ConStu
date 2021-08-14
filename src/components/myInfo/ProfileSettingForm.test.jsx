@@ -1,44 +1,29 @@
 import React from 'react';
 
-import { MemoryRouter } from 'react-router-dom';
-
 import { render, fireEvent } from '@testing-library/react';
 
 import ProfileSettingForm from './ProfileSettingForm';
+import InjectMockProviders from '../common/test/InjectMockProviders';
 
 describe('ProfileSettingForm', () => {
   const handleSendEmailVerification = jest.fn();
   const handleSendPasswordReset = jest.fn();
+  const handleMembershipWithdrawal = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   const renderProfileSettingForm = () => render((
-    <MemoryRouter>
+    <InjectMockProviders>
       <ProfileSettingForm
         user={given.user}
-        onSendEmailVerification={handleSendEmailVerification}
         onSendPasswordResetEmail={handleSendPasswordReset}
+        onMembershipWithdrawal={handleMembershipWithdrawal}
+        onSendEmailVerification={handleSendEmailVerification}
       />
-    </MemoryRouter>
+    </InjectMockProviders>
   ));
-
-  describe('render profile detail form', () => {
-    it('render reset password button and withdrawal', () => {
-      given('user', () => ({
-        email: 'test@test.com',
-        emailVerified: false,
-        displayName: null,
-        photoURL: null,
-      }));
-
-      const { container } = renderProfileSettingForm();
-
-      expect(container).toHaveTextContent('비밀번호 재설정');
-      expect(container).toHaveTextContent('회원 탈퇴');
-    });
-  });
 
   describe('When click "비밀번호 재설정" button', () => {
     given('user', () => ({
@@ -54,6 +39,47 @@ describe('ProfileSettingForm', () => {
       fireEvent.click(getByText('비밀번호 재설정'));
 
       expect(handleSendPasswordReset).toBeCalledTimes(1);
+    });
+  });
+
+  describe('When click "회원 탈퇴" button', () => {
+    given('user', () => ({
+      email: 'test@test.com',
+      emailVerified: false,
+      displayName: null,
+      photoURL: null,
+    }));
+
+    it('should visible ask membership withdrawal', () => {
+      const { getByText, container } = renderProfileSettingForm();
+
+      fireEvent.click(getByText('회원 탈퇴'));
+
+      expect(container).toHaveTextContent('회원을 탈퇴하시겠습니까?');
+    });
+
+    describe('Click membership withdrawal modal confirm button', () => {
+      it('should call membership withdrawal', () => {
+        const { getByText } = renderProfileSettingForm();
+
+        fireEvent.click(getByText('회원 탈퇴'));
+
+        fireEvent.click(getByText('확인'));
+
+        expect(handleMembershipWithdrawal).toBeCalledTimes(1);
+      });
+    });
+
+    describe('Click membership withdrawal modal cancel button', () => {
+      it("shouldn't call membership withdrawal", () => {
+        const { getByText } = renderProfileSettingForm();
+
+        fireEvent.click(getByText('회원 탈퇴'));
+
+        fireEvent.click(getByText('취소'));
+
+        expect(handleMembershipWithdrawal).not.toBeCalled();
+      });
     });
   });
 

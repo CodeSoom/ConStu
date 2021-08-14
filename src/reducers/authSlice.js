@@ -6,6 +6,8 @@ import {
   postUserRegister,
   sendEmailVerification,
   sendPasswordResetEmail,
+  deleteUser,
+  postReauthenticateWithCredential,
 } from '../services/api';
 
 import { isDevLevel } from '../util/utils';
@@ -115,6 +117,26 @@ export const requestResetPassword = () => async (dispatch, getState) => {
     await sendPasswordResetEmail(user);
 
     dispatch(setAuth(true));
+  } catch (error) {
+    dispatch(setAuthError(error.code));
+  }
+};
+
+export const requestDeleteUser = () => async (dispatch) => {
+  try {
+    await deleteUser();
+
+    removeItem('user');
+
+    dispatch(logout());
+  } catch (error) {
+    dispatch(setAuthError(error.code));
+  }
+};
+
+export const requestReauthenticateWithCredential = (password) => async (dispatch) => {
+  try {
+    await postReauthenticateWithCredential(password);
   } catch (error) {
     dispatch(setAuthError(error.code));
   }

@@ -15,6 +15,8 @@ export const db = firebase.firestore();
 
 export const auth = firebase.auth();
 
+export const authProvider = firebase.auth;
+
 export const actionCodeSettings = (isDevLevel) => {
   const { currentUser } = auth;
 
