@@ -67,23 +67,48 @@ describe('ProfileSettingContainer', () => {
     });
 
     describe('Click membership withdrawal button', () => {
-      it('should visible ask membership withdrawal modal', () => {
+      it('should be visible verification Password modal', () => {
         const { getByText, container } = renderProfileSettingContainer(currentUser);
 
         fireEvent.click(getByText(/회원 탈퇴/i));
 
-        expect(container).toHaveTextContent('회원을 탈퇴하시겠습니까?');
+        expect(container).toHaveTextContent('비밀번호 확인');
+      });
+
+      describe('Click verification Password modal confirm button', () => {
+        it('should listen dispatch action event', () => {
+          const { getByText, getByLabelText } = renderProfileSettingContainer(currentUser);
+
+          fireEvent.click(getByText(/회원 탈퇴/i));
+
+          const input = getByLabelText('password-confirm-input');
+
+          fireEvent.change(input, {
+            target: { value: 'password' },
+          });
+
+          fireEvent.submit(input);
+
+          expect(dispatch).toBeCalledTimes(1);
+        });
       });
 
       describe('Click membership withdrawal modal confirm button', () => {
         it('should listen dispatch action event', () => {
-          const { getByText } = renderProfileSettingContainer(currentUser);
+          const { getByText, getByLabelText } = renderProfileSettingContainer(currentUser);
 
           fireEvent.click(getByText(/회원 탈퇴/i));
 
+          const input = getByLabelText('password-confirm-input');
+
+          fireEvent.change(input, {
+            target: { value: 'password' },
+          });
+
+          fireEvent.submit(input);
           fireEvent.click(getByText(/확인/i));
 
-          expect(dispatch).toBeCalledTimes(1);
+          expect(dispatch).toBeCalledTimes(2);
         });
       });
     });
