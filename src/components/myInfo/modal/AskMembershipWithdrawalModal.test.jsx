@@ -3,15 +3,15 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import MockTheme from '../../common/test/MockTheme';
-import AskMembershipWithdrawal from './AskMembershipWithdrawal';
+import AskMembershipWithdrawalModal from './AskMembershipWithdrawalModal';
 
-describe('AskMembershipWithdrawal', () => {
+describe('AskMembershipWithdrawalModal', () => {
   const handleCancel = jest.fn();
   const handleConfirm = jest.fn();
 
-  const renderAskMembershipWithdrawal = ({ visible }) => render((
+  const renderAskMembershipWithdrawalModal = ({ visible }) => render((
     <MockTheme>
-      <AskMembershipWithdrawal
+      <AskMembershipWithdrawalModal
         visible={visible}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
@@ -25,14 +25,14 @@ describe('AskMembershipWithdrawal', () => {
     };
 
     it('renders Modal text', () => {
-      const { container } = renderAskMembershipWithdrawal(modal);
+      const { container } = renderAskMembershipWithdrawalModal(modal);
 
       expect(container).toHaveTextContent('회원 탈퇴');
       expect(container).toHaveTextContent('회원을 탈퇴하시겠습니까?');
     });
 
     it('calls confirm event action', () => {
-      const { getByText } = renderAskMembershipWithdrawal(modal);
+      const { getByText } = renderAskMembershipWithdrawalModal(modal);
 
       const button = getByText('확인');
 
@@ -42,7 +42,7 @@ describe('AskMembershipWithdrawal', () => {
     });
 
     it('calls cancel event action', () => {
-      const { getByText } = renderAskMembershipWithdrawal(modal);
+      const { getByText } = renderAskMembershipWithdrawalModal(modal);
 
       const button = getByText('취소');
 
@@ -58,7 +58,7 @@ describe('AskMembershipWithdrawal', () => {
     };
 
     it("doesn't renders Modal text", () => {
-      const { container } = renderAskMembershipWithdrawal(modal);
+      const { container } = renderAskMembershipWithdrawalModal(modal);
 
       expect(container).toBeEmptyDOMElement();
     });

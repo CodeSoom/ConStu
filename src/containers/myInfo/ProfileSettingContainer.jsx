@@ -8,7 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth } from '../../util/utils';
 import {
-  requestEmailVerification, clearAuth, requestResetPassword, requestDeleteUser,
+  clearAuth,
+  requestDeleteUser,
+  requestResetPassword,
+  requestEmailVerification,
+  requestReauthenticateWithCredential,
 } from '../../reducers/authSlice';
 import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE } from '../../util/constants/messages';
 
@@ -39,6 +43,11 @@ const ProfileSettingContainer = ({ user }) => {
     [dispatch],
   );
 
+  const onClickVerificationPassword = useCallback(
+    (password) => dispatch(requestReauthenticateWithCredential(password)),
+    [dispatch],
+  );
+
   useEffect(() => {
     if (authError) {
       toast.error(
@@ -48,6 +57,7 @@ const ProfileSettingContainer = ({ user }) => {
       return;
     }
 
+    // TODO - 성공시 상수로 메시지를 분리해 auth 로직을 분리해주기
     if (auth) {
       toast.success('이메일을 확인해주세요!');
     }
@@ -68,6 +78,7 @@ const ProfileSettingContainer = ({ user }) => {
         onMembershipWithdrawal={onClickMembershipWithdrawal}
         onSendEmailVerification={onClickSendEmailVerification}
         onSendPasswordResetEmail={onClickSendPasswordResetEmail}
+        onVerificationPassword={onClickVerificationPassword}
       />
     </ProfileSettingContainerWrapper>
   );
