@@ -4,17 +4,19 @@ import styled from '@emotion/styled';
 
 import { useUnmount } from 'react-use';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAuth } from '../../util/utils';
 import {
+  logout,
   clearAuth,
   requestDeleteUser,
   requestResetPassword,
   requestEmailVerification,
   requestReauthenticateWithCredential,
 } from '../../reducers/authSlice';
-import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE } from '../../util/constants/messages';
+import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE, SUCCESS_AUTH_MESSAGE } from '../../util/constants/messages';
 
 import ProfileSettingForm from '../../components/myInfo/ProfileSettingForm';
 
@@ -24,6 +26,7 @@ const ProfileSettingContainerWrapper = styled.div`
 
 const ProfileSettingContainer = ({ user }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const auth = useSelector(getAuth('auth'));
   const authError = useSelector(getAuth('authError'));
@@ -52,16 +55,25 @@ const ProfileSettingContainer = ({ user }) => {
     if (authError) {
       toast.error(
         FIREBASE_AUTH_ERROR_MESSAGE[authError]
-        || ERROR_MESSAGE.FAILURE_SEND_EMAIL,
+        || ERROR_MESSAGE.UNKNOWN,
       );
-      return;
+      dispatch(clearAuth());
+    }
+  }, [authError]);
+
+  useEffect(() => {
+    if (auth === 'CONFIRM_EMAIL') {
+      toast.success(SUCCESS_AUTH_MESSAGE.CONFIRM_EMAIL);
     }
 
-    // TODO - 성공시 상수로 메시지를 분리해 auth 로직을 분리해주기
-    if (auth) {
-      toast.success('이메일을 확인해주세요!');
+    if (auth === 'WITHDRAWAL') {
+      history.push('/');
+      toast.success(SUCCESS_AUTH_MESSAGE.MEMBERSHIP_WITHDRAWAL);
+      dispatch(logout());
     }
-  }, [authError, auth]);
+
+    dispatch(clearAuth());
+  }, [auth]);
 
   useUnmount(() => {
     dispatch(clearAuth());
@@ -75,6 +87,7 @@ const ProfileSettingContainer = ({ user }) => {
     <ProfileSettingContainerWrapper>
       <ProfileSettingForm
         user={user}
+        auth={auth}
         onMembershipWithdrawal={onClickMembershipWithdrawal}
         onSendEmailVerification={onClickSendEmailVerification}
         onSendPasswordResetEmail={onClickSendPasswordResetEmail}

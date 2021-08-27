@@ -104,7 +104,7 @@ export const requestEmailVerification = () => async (dispatch) => {
   try {
     await sendEmailVerification(isDevLevel(process.env.NODE_ENV));
 
-    dispatch(setAuth(true));
+    dispatch(setAuth('CONFIRM_EMAIL'));
   } catch (error) {
     dispatch(setAuthError(error.code));
   }
@@ -116,7 +116,7 @@ export const requestResetPassword = () => async (dispatch, getState) => {
   try {
     await sendPasswordResetEmail(user);
 
-    dispatch(setAuth(true));
+    dispatch(setAuth('CONFIRM_EMAIL'));
   } catch (error) {
     dispatch(setAuthError(error.code));
   }
@@ -126,9 +126,9 @@ export const requestDeleteUser = () => async (dispatch) => {
   try {
     await deleteUser();
 
-    removeItem('user');
+    dispatch(setAuth('WITHDRAWAL'));
 
-    dispatch(logout());
+    removeItem('user');
   } catch (error) {
     dispatch(setAuthError(error.code));
   }
@@ -137,6 +137,8 @@ export const requestDeleteUser = () => async (dispatch) => {
 export const requestReauthenticateWithCredential = (password) => async (dispatch) => {
   try {
     await postReauthenticateWithCredential(password);
+
+    dispatch(setAuth('REAUTHENTICATE'));
   } catch (error) {
     dispatch(setAuthError(error.code));
   }

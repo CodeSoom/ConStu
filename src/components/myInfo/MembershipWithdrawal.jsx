@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -11,16 +11,23 @@ const MembershipWithdrawalWrapper = styled.div`
 
 `;
 
-const MembershipWithdrawal = ({ onMembershipWithdrawal, onVerificationPassword }) => {
+const MembershipWithdrawal = ({ onMembershipWithdrawal, onVerificationPassword, auth }) => {
+  const [error, setError] = useState(false);
   const [password, setPassword] = useState('');
   const [askModal, setAskModal] = useState(false);
   const [verificationPasswordModal, setVerificationPasswordModal] = useState(false);
 
   const handleClickDeleteUser = () => setVerificationPasswordModal(true);
 
-  const handleMembershipWithdrawalCancel = () => setAskModal(false);
+  const handleMembershipWithdrawalCancel = () => {
+    setAskModal(false);
+    setPassword('');
+  };
 
-  const handleChange = (e) => setPassword(e.target.value);
+  const handleChange = (e) => {
+    setError(false);
+    setPassword(e.target.value);
+  };
 
   const handleMembershipWithdrawalConfirm = () => {
     setAskModal(false);
@@ -31,16 +38,26 @@ const MembershipWithdrawal = ({ onMembershipWithdrawal, onVerificationPassword }
     e.preventDefault();
 
     if (!password.trim()) {
+      setError(true);
       return;
     }
 
     onVerificationPassword(password);
-    // TODO - 성공 / 실패 분리 로직 추가하기
-    setVerificationPasswordModal(false);
-    setAskModal(true);
+    setPassword('');
   }, [password]);
 
-  const handleVerificationPasswordCancel = () => setVerificationPasswordModal(false);
+  const handleVerificationPasswordCancel = () => {
+    setError(false);
+    setVerificationPasswordModal(false);
+    setPassword('');
+  };
+
+  useEffect(() => {
+    if (auth === 'REAUTHENTICATE') {
+      setVerificationPasswordModal(false);
+      setAskModal(true);
+    }
+  }, [auth]);
 
   return (
     <MembershipWithdrawalWrapper>
@@ -56,6 +73,7 @@ const MembershipWithdrawal = ({ onMembershipWithdrawal, onVerificationPassword }
         onConfirm={handleMembershipWithdrawalConfirm}
       />
       <ConfirmPasswordModal
+        error={error}
         password={password}
         handleChange={handleChange}
         visible={verificationPasswordModal}

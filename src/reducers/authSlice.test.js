@@ -240,7 +240,7 @@ describe('async actions', () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual({
-          payload: true,
+          payload: 'CONFIRM_EMAIL',
           type: 'auth/setAuth',
         });
       });
@@ -284,7 +284,7 @@ describe('async actions', () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual({
-          payload: true,
+          payload: 'CONFIRM_EMAIL',
           type: 'auth/setAuth',
         });
       });
@@ -324,7 +324,8 @@ describe('async actions', () => {
         const actions = store.getActions();
 
         expect(actions[0]).toEqual({
-          type: 'auth/logout',
+          payload: 'WITHDRAWAL',
+          type: 'auth/setAuth',
         });
       });
     });
@@ -362,7 +363,13 @@ describe('async actions', () => {
       it('dispatches requestReauthenticateWithCredential action success', async () => {
         await store.dispatch(requestReauthenticateWithCredential(password));
 
+        const actions = store.getActions();
+
         expect(postReauthenticateWithCredential).toBeCalledWith(password);
+        expect(actions[0]).toEqual({
+          payload: 'REAUTHENTICATE',
+          type: 'auth/setAuth',
+        });
       });
     });
 

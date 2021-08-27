@@ -13,6 +13,7 @@ export const ERROR_MESSAGE = {
   FAILURE_OPEN_STUDY: '스터디 개설에 실패하였습니다.',
   FAILURE_EDIT_STUDY: '수정에 실패하였습니다.',
   FAILURE_SEND_EMAIL: '메일 전송에 실패하였습니다.',
+  UNKNOWN: '알 수 없는 오류가 발생했습니다.',
 };
 
 export const FIREBASE_AUTH_ERROR_MESSAGE = {
@@ -26,4 +27,9 @@ export const FIREBASE_AUTH_ERROR_MESSAGE = {
 
 export const FIREBASE_GROUP_ERROR_MESSAGE = {
   'permission-denied': '권한이 거부되었습니다.',
+};
+
+export const SUCCESS_AUTH_MESSAGE = {
+  CONFIRM_EMAIL: '이메일을 확인해주세요!',
+  MEMBERSHIP_WITHDRAWAL: '탈퇴되었습니다.',
 };
