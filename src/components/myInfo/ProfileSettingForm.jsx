@@ -11,6 +11,7 @@ const ProfileDetailFormWrapper = styled.div`
 
 const ProfileDetailForm = ({
   user,
+  auth,
   onMembershipWithdrawal,
   onSendEmailVerification,
   onSendPasswordResetEmail,
@@ -42,6 +43,7 @@ const ProfileDetailForm = ({
       비밀번호 재설정
     </Button>
     <MembershipWithdrawal
+      auth={auth}
       onVerificationPassword={onVerificationPassword}
       onMembershipWithdrawal={onMembershipWithdrawal}
     />

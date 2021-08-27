@@ -6,18 +6,19 @@ import MockTheme from '../common/test/MockTheme';
 import MembershipWithdrawal from './MembershipWithdrawal';
 
 describe('MembershipWithdrawal', () => {
-  const handleMembershipWithdrawalClick = jest.fn();
   const handleVerificationPassword = jest.fn();
+  const handleMembershipWithdrawalClick = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  const renderMembershipWithdrawal = () => render((
+  const renderMembershipWithdrawal = (auth = '') => render((
     <MockTheme>
       <MembershipWithdrawal
-        onMembershipWithdrawal={handleMembershipWithdrawalClick}
+        auth={auth}
         onVerificationPassword={handleVerificationPassword}
+        onMembershipWithdrawal={handleMembershipWithdrawalClick}
       />
     </MockTheme>
   ));
@@ -49,7 +50,7 @@ describe('MembershipWithdrawal', () => {
       });
 
       describe('When Click VerificationPassword Confirm button ', () => {
-        it('nothing happen anywhere so, renders verification password modal', () => {
+        it('change input border color to red', () => {
           const { getByText, getByLabelText, container } = renderMembershipWithdrawal();
 
           fireEvent.click(getByText('회원 탈퇴'));
@@ -62,6 +63,7 @@ describe('MembershipWithdrawal', () => {
 
           fireEvent.submit(getByText('확인'));
 
+          expect(input).toHaveStyle('border: 1px solid #ff8787');
           expect(container).toHaveTextContent('비밀번호 확인');
         });
       });
@@ -83,26 +85,7 @@ describe('MembershipWithdrawal', () => {
       });
 
       describe('When Click VerificationPassword Confirm button ', () => {
-        it('should be render ask membership withdrawal modal and call VerificationPassword', () => {
-          const { getByText, getByLabelText, container } = renderMembershipWithdrawal();
-
-          fireEvent.click(getByText('회원 탈퇴'));
-
-          const input = getByLabelText('password-confirm-input');
-
-          fireEvent.change(input, {
-            target: { value: 'password' },
-          });
-
-          fireEvent.submit(getByText('확인'));
-
-          expect(handleVerificationPassword).toBeCalledWith('password');
-          expect(container).toHaveTextContent('회원을 탈퇴하시겠습니까?');
-        });
-      });
-
-      describe('When Click in membership withdrawal modal Confirm button ', () => {
-        it('should be call membership withdrawal', () => {
+        it('should be  call VerificationPassword', () => {
           const { getByText, getByLabelText } = renderMembershipWithdrawal();
 
           fireEvent.click(getByText('회원 탈퇴'));
@@ -115,9 +98,28 @@ describe('MembershipWithdrawal', () => {
 
           fireEvent.submit(getByText('확인'));
 
+          expect(handleVerificationPassword).toBeCalledWith('password');
+        });
+      });
+
+      describe('When Click in membership withdrawal modal Confirm button ', () => {
+        it('should be call membership withdrawal', () => {
+          const { getByText } = renderMembershipWithdrawal('REAUTHENTICATE');
+
           fireEvent.click(getByText('확인'));
 
           expect(handleMembershipWithdrawalClick).toBeCalledTimes(1);
+        });
+      });
+
+      describe('When Click in membership withdrawal modal Cancel button ', () => {
+        it("shouldn't call membership withdrawal and disappear ask membership withdrawal modal", () => {
+          const { getByText, container } = renderMembershipWithdrawal('REAUTHENTICATE');
+
+          fireEvent.click(getByText('취소'));
+
+          expect(handleMembershipWithdrawalClick).not.toBeCalled();
+          expect(container).not.toHaveTextContent('회원을 탈퇴하시겠습니까?');
         });
       });
     });

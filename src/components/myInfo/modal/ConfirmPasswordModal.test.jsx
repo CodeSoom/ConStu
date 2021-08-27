@@ -13,6 +13,7 @@ describe('ConfirmPasswordModal', () => {
   const renderConfirmPasswordModal = ({ visible }) => render((
     <MockTheme>
       <ConfirmPasswordModal
+        error={false}
         password=""
         visible={visible}
         onCancel={handleCancel}

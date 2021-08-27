@@ -52,7 +52,7 @@ describe('ProfileSettingContainer', () => {
 
         fireEvent.click(getByText(/이메일 인증 하기/i));
 
-        expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).toBeCalledTimes(2);
       });
     });
 
@@ -62,7 +62,7 @@ describe('ProfileSettingContainer', () => {
 
         fireEvent.click(getByText(/비밀번호 재설정/i));
 
-        expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).toBeCalledTimes(2);
       });
     });
 
@@ -89,33 +89,38 @@ describe('ProfileSettingContainer', () => {
 
           fireEvent.submit(input);
 
-          expect(dispatch).toBeCalledTimes(1);
+          expect(dispatch).toBeCalledTimes(2);
         });
       });
 
       describe('Click membership withdrawal modal confirm button', () => {
         it('should listen dispatch action event', () => {
-          const { getByText, getByLabelText } = renderProfileSettingContainer(currentUser);
+          given('auth', () => 'REAUTHENTICATE');
+          const { getByText } = renderProfileSettingContainer(currentUser);
 
-          fireEvent.click(getByText(/회원 탈퇴/i));
-
-          const input = getByLabelText('password-confirm-input');
-
-          fireEvent.change(input, {
-            target: { value: 'password' },
-          });
-
-          fireEvent.submit(input);
           fireEvent.click(getByText(/확인/i));
 
           expect(dispatch).toBeCalledTimes(2);
+        });
+
+        describe('After success membership withdrawal dispatch action', () => {
+          given('auth', () => 'WITHDRAWAL');
+
+          it('Render "탈퇴되었습니다." success message and go to home', () => {
+            renderProfileSettingContainer(currentUser);
+
+            expect(screen.findByText('탈퇴되었습니다.')).not.toBeNull();
+            expect(dispatch).toBeCalledWith({
+              type: 'auth/clearAuth',
+            });
+          });
         });
       });
     });
 
     describe('Clicks send email after action', () => {
       context('When success dispatch action', () => {
-        given('auth', () => (true));
+        given('auth', () => ('CONFIRM_EMAIL'));
 
         it('should render "이메일을 확인해주세요!" message', () => {
           renderProfileSettingContainer(currentUser);
@@ -125,12 +130,11 @@ describe('ProfileSettingContainer', () => {
       });
 
       context('When failure dispatch action', () => {
-        given('authError', () => ('error'));
-
-        it('should render "메일 전송에 실패하였습니다." message', () => {
+        it('should render "알 수 없는 오류가 발생했습니다." message', () => {
+          given('authError', () => ('error'));
           renderProfileSettingContainer(currentUser);
 
-          expect(screen.findByText('메일 전송에 실패하였습니다.')).not.toBeNull();
+          expect(screen.findByText('알 수 없는 오류가 발생했습니다.')).not.toBeNull();
         });
 
         it('should render "잠시 후 다시 시도해 주세요." message', () => {
