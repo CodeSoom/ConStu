@@ -8,7 +8,6 @@ import InjectMockProviders from '../common/test/InjectMockProviders';
 describe('ProfileSettingForm', () => {
   const handleSendEmailVerification = jest.fn();
   const handleSendPasswordReset = jest.fn();
-  const handleMembershipWithdrawal = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -19,7 +18,6 @@ describe('ProfileSettingForm', () => {
       <ProfileSettingForm
         user={given.user}
         onSendPasswordResetEmail={handleSendPasswordReset}
-        onMembershipWithdrawal={handleMembershipWithdrawal}
         onSendEmailVerification={handleSendEmailVerification}
       />
     </InjectMockProviders>

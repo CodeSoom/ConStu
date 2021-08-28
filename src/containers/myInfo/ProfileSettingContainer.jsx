@@ -19,6 +19,7 @@ import {
 import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE, SUCCESS_AUTH_MESSAGE } from '../../util/constants/messages';
 
 import ProfileSettingForm from '../../components/myInfo/ProfileSettingForm';
+import MembershipWithdrawal from '../../components/myInfo/MembershipWithdrawal';
 
 const ProfileSettingContainerWrapper = styled.div`
 
@@ -87,10 +88,12 @@ const ProfileSettingContainer = ({ user }) => {
     <ProfileSettingContainerWrapper>
       <ProfileSettingForm
         user={user}
-        auth={auth}
-        onMembershipWithdrawal={onClickMembershipWithdrawal}
         onSendEmailVerification={onClickSendEmailVerification}
         onSendPasswordResetEmail={onClickSendPasswordResetEmail}
+      />
+      <MembershipWithdrawal
+        auth={auth}
+        onMembershipWithdrawal={onClickMembershipWithdrawal}
         onVerificationPassword={onClickVerificationPassword}
       />
     </ProfileSettingContainerWrapper>
