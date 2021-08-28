@@ -2,6 +2,8 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import { useHistory } from 'react-router-dom';
+
 import palette from '../../styles/palette';
 
 const DropDownWrapper = styled.div`
@@ -42,6 +44,8 @@ const MenuContent = styled.div`
 `;
 
 const DropDown = ({ visible, onLogout, user }) => {
+  const history = useHistory();
+
   if (!visible) {
     return null;
   }
@@ -51,6 +55,11 @@ const DropDown = ({ visible, onLogout, user }) => {
       <div className="menu-wrapper">
         <MenuContent className="user-id">
           {user}
+        </MenuContent>
+        <MenuContent
+          onClick={() => history.push('/myinfo')}
+        >
+          내 정보
         </MenuContent>
         <MenuContent
           onClick={onLogout}

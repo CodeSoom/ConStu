@@ -42,6 +42,7 @@ describe('UserHeaderStatus', () => {
 
       expect(container).toHaveTextContent('로그아웃');
       expect(container).toHaveTextContent('test');
+      expect(container).toHaveTextContent('내 정보');
     });
 
     it('Click logout button calls handleClick', () => {
