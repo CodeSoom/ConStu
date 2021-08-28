@@ -3,20 +3,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import Button from '../../styles/Button';
-import MembershipWithdrawal from './MembershipWithdrawal';
 
 const ProfileDetailFormWrapper = styled.div`
 
 `;
 
-const ProfileDetailForm = ({
-  user,
-  auth,
-  onMembershipWithdrawal,
-  onSendEmailVerification,
-  onSendPasswordResetEmail,
-  onVerificationPassword,
-}) => (
+const ProfileDetailForm = ({ user, onSendEmailVerification, onSendPasswordResetEmail }) => (
   <ProfileDetailFormWrapper>
     <div>
       {`이메일: ${user.email}`}
@@ -42,11 +34,6 @@ const ProfileDetailForm = ({
     >
       비밀번호 재설정
     </Button>
-    <MembershipWithdrawal
-      auth={auth}
-      onVerificationPassword={onVerificationPassword}
-      onMembershipWithdrawal={onMembershipWithdrawal}
-    />
   </ProfileDetailFormWrapper>
 );
 
