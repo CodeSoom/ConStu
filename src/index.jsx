@@ -10,9 +10,10 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 
 import store from './reducers/store';
-import { setUser } from './reducers/authSlice';
+import { setUser, setUserDetail } from './reducers/authSlice';
 
 import { isDevLevel } from './util/utils';
+import { auth } from './services/firebase';
 import { loadItem } from './services/storage';
 
 import App from './App';
@@ -37,6 +38,24 @@ const loadUser = () => {
 };
 
 loadUser();
+
+auth.onAuthStateChanged((user) => {
+  if (!user) {
+    return;
+  }
+
+  const {
+    email, emailVerified, displayName, photoURL,
+  } = user;
+
+  store.dispatch(setUser(email));
+  store.dispatch(setUserDetail({
+    email,
+    emailVerified,
+    displayName,
+    photoURL,
+  }));
+});
 
 ReactDOM.render(
   (

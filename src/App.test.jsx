@@ -6,8 +6,9 @@ import { render } from '@testing-library/react';
 
 import { lightTheme, darkTheme } from './styles/theme';
 
-import STUDY_GROUPS from '../fixtures/study-groups';
+import USER_DETAIL from '../fixtures/user-detail';
 import STUDY_GROUP from '../fixtures/study-group';
+import STUDY_GROUPS from '../fixtures/study-groups';
 
 import App from './App';
 import InjectMockProviders from './components/common/test/InjectMockProviders';
@@ -39,16 +40,8 @@ describe('App', () => {
         },
       },
       authReducer: {
-        register: {
-          userEmail: '',
-          password: '',
-          passwordConfirm: '',
-        },
-        login: {
-          userEmail: '',
-          password: '',
-        },
         user: given.user,
+        userDetail: given.userDetail,
       },
       commonReducer: {
         theme: given.theme,
@@ -158,6 +151,9 @@ describe('App', () => {
     });
 
     it('renders Profile Setting Page', () => {
+      given('user', () => USER_DETAIL.email);
+      given('userDetail', () => (USER_DETAIL));
+
       const { container } = renderApp({ path: '/myinfo/setting' });
 
       expect(container).toHaveTextContent('계정 설정');

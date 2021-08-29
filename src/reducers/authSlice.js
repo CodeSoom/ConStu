@@ -19,6 +19,7 @@ const { actions, reducer } = createSlice({
     user: null,
     auth: null,
     authError: null,
+    userDetail: null,
   },
 
   reducers: {
@@ -45,16 +46,27 @@ const { actions, reducer } = createSlice({
     },
 
     setUser(state, { payload: user }) {
+      saveItem('user', { email: user });
+
       return {
         ...state,
         user,
       };
     },
 
-    logout(state) {
+    setUserDetail(state, { payload: userDetail }) {
       return {
         ...state,
+        userDetail,
+      };
+    },
+
+    logout() {
+      return {
         user: null,
+        auth: null,
+        authError: null,
+        userDetail: null,
       };
     },
   },
@@ -66,6 +78,7 @@ export const {
   clearAuth,
   setUser,
   logout,
+  setUserDetail,
 } = actions;
 
 export const requestRegister = (formData) => async (dispatch) => {
@@ -82,11 +95,7 @@ export const requestLogin = (formData) => async (dispatch) => {
   try {
     const { user } = await postUserLogin(formData);
 
-    const { email } = user;
-
-    saveItem('user', { email });
-
-    dispatch(setUser(email));
+    dispatch(setUser(user.email));
   } catch (error) {
     dispatch(setAuthError(error.code));
   }

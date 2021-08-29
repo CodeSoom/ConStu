@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { render, fireEvent, screen } from '@testing-library/react';
 
+import USER_DETAIL from '../../../fixtures/user-detail';
+
 import ProfileSettingContainer from './ProfileSettingContainer';
 import InjectMockProviders from '../../components/common/test/InjectMockProviders';
 
@@ -19,36 +21,30 @@ describe('ProfileSettingContainer', () => {
       authReducer: {
         auth: given.auth,
         authError: given.authError,
+        userDetail: given.userDetail,
       },
     }));
   });
 
-  const renderProfileSettingContainer = (user) => render((
+  const renderProfileSettingContainer = () => render((
     <InjectMockProviders>
-      <ProfileSettingContainer
-        user={user}
-      />
+      <ProfileSettingContainer />
     </InjectMockProviders>
   ));
 
-  context('with user', () => {
-    const currentUser = {
-      displayName: 'test@test.com',
-      email: 'test@test.com',
-      emailVerified: false,
-      photoURL: null,
-    };
+  context('with userDetail', () => {
+    given('userDetail', () => USER_DETAIL);
 
     it('should render profile form content', () => {
-      const { container } = renderProfileSettingContainer(currentUser);
+      const { container } = renderProfileSettingContainer();
 
-      expect(container).toHaveTextContent(currentUser.email);
-      expect(container).toHaveTextContent(currentUser.displayName);
+      expect(container).toHaveTextContent('test@test.com');
+      expect(container).toHaveTextContent('test');
     });
 
     describe('Click email verification button', () => {
       it('should listen dispatch action event', () => {
-        const { getByText } = renderProfileSettingContainer(currentUser);
+        const { getByText } = renderProfileSettingContainer();
 
         fireEvent.click(getByText(/이메일 인증 하기/i));
 
@@ -58,7 +54,7 @@ describe('ProfileSettingContainer', () => {
 
     describe('Click password reset button', () => {
       it('should listen dispatch action event', () => {
-        const { getByText } = renderProfileSettingContainer(currentUser);
+        const { getByText } = renderProfileSettingContainer();
 
         fireEvent.click(getByText(/비밀번호 재설정/i));
 
@@ -68,7 +64,7 @@ describe('ProfileSettingContainer', () => {
 
     describe('Click membership withdrawal button', () => {
       it('should be visible verification Password modal', () => {
-        const { getByText, container } = renderProfileSettingContainer(currentUser);
+        const { getByText, container } = renderProfileSettingContainer();
 
         fireEvent.click(getByText(/회원 탈퇴/i));
 
@@ -77,7 +73,7 @@ describe('ProfileSettingContainer', () => {
 
       describe('Click verification Password modal confirm button', () => {
         it('should listen dispatch action event', () => {
-          const { getByText, getByLabelText } = renderProfileSettingContainer(currentUser);
+          const { getByText, getByLabelText } = renderProfileSettingContainer();
 
           fireEvent.click(getByText(/회원 탈퇴/i));
 
@@ -96,7 +92,7 @@ describe('ProfileSettingContainer', () => {
       describe('Click membership withdrawal modal confirm button', () => {
         it('should listen dispatch action event', () => {
           given('auth', () => 'REAUTHENTICATE');
-          const { getByText } = renderProfileSettingContainer(currentUser);
+          const { getByText } = renderProfileSettingContainer();
 
           fireEvent.click(getByText(/확인/i));
 
@@ -107,7 +103,7 @@ describe('ProfileSettingContainer', () => {
           given('auth', () => 'WITHDRAWAL');
 
           it('Render "탈퇴되었습니다." success message and go to home', () => {
-            renderProfileSettingContainer(currentUser);
+            renderProfileSettingContainer();
 
             expect(screen.findByText('탈퇴되었습니다.')).not.toBeNull();
             expect(dispatch).toBeCalledWith({
@@ -123,7 +119,7 @@ describe('ProfileSettingContainer', () => {
         given('auth', () => ('CONFIRM_EMAIL'));
 
         it('should render "이메일을 확인해주세요!" message', () => {
-          renderProfileSettingContainer(currentUser);
+          renderProfileSettingContainer();
 
           expect(screen.findByText('이메일을 확인해주세요!')).not.toBeNull();
         });
@@ -132,7 +128,7 @@ describe('ProfileSettingContainer', () => {
       context('When failure dispatch action', () => {
         it('should render "알 수 없는 오류가 발생했습니다." message', () => {
           given('authError', () => ('error'));
-          renderProfileSettingContainer(currentUser);
+          renderProfileSettingContainer();
 
           expect(screen.findByText('알 수 없는 오류가 발생했습니다.')).not.toBeNull();
         });
@@ -146,11 +142,11 @@ describe('ProfileSettingContainer', () => {
     });
   });
 
-  context('without user', () => {
-    it('render "로그인 후 이용해주세요"', () => {
+  context('without userDetail', () => {
+    it('should be renders "로딩중.." message', () => {
       const { container } = renderProfileSettingContainer();
 
-      expect(container).toHaveTextContent(/로그인 후 이용해주세요/i);
+      expect(container).toHaveTextContent('로딩중..');
     });
   });
 });
