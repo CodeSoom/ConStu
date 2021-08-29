@@ -5,9 +5,8 @@ import styled from '@emotion/styled';
 import { useUnmount } from 'react-use';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { getAuth } from '../../util/utils';
 import {
   logout,
   clearAuth,
@@ -18,6 +17,8 @@ import {
 } from '../../reducers/authSlice';
 import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE, SUCCESS_AUTH_MESSAGE } from '../../util/constants/messages';
 
+import useAuth from '../../hooks/useAuth';
+
 import ProfileSettingForm from '../../components/myInfo/ProfileSettingForm';
 import MembershipWithdrawal from '../../components/myInfo/MembershipWithdrawal';
 
@@ -25,12 +26,11 @@ const ProfileSettingContainerWrapper = styled.div`
 
 `;
 
-const ProfileSettingContainer = ({ user }) => {
+const ProfileSettingContainer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const auth = useSelector(getAuth('auth'));
-  const authError = useSelector(getAuth('authError'));
+  const { auth, authError, userDetail } = useAuth();
 
   const onClickSendEmailVerification = useCallback(
     () => dispatch(requestEmailVerification()),
@@ -80,14 +80,14 @@ const ProfileSettingContainer = ({ user }) => {
     dispatch(clearAuth());
   });
 
-  if (!user) {
-    return <div>로그인 후 이용해주세요</div>;
+  if (!userDetail) {
+    return <div>로딩중..</div>;
   }
 
   return (
     <ProfileSettingContainerWrapper>
       <ProfileSettingForm
-        user={user}
+        user={userDetail}
         onSendEmailVerification={onClickSendEmailVerification}
         onSendPasswordResetEmail={onClickSendPasswordResetEmail}
       />

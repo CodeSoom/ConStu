@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { render } from '@testing-library/react';
 
+import USER_DETAIL from '../../../fixtures/user-detail';
+
 import ProfileSettingPage from './ProfileSettingPage';
 
 jest.mock('react-redux');
@@ -18,9 +20,10 @@ describe('ProfileSettingPage', () => {
 
     useSelector.mockImplementation((selector) => selector({
       authReducer: {
-        user: '',
+        user: USER_DETAIL.email,
         auth: null,
         authError: null,
+        userDetail: USER_DETAIL,
       },
     }));
   });

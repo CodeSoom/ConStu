@@ -36,5 +36,4 @@ const ProfileDetailForm = ({ user, onSendEmailVerification, onSendPasswordResetE
     </Button>
   </ProfileDetailFormWrapper>
 );
-
 export default ProfileDetailForm;

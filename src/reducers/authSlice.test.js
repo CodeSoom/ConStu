@@ -16,6 +16,7 @@ import reducer, {
   requestResetPassword,
   requestDeleteUser,
   requestReauthenticateWithCredential,
+  setUserDetail,
 } from './authSlice';
 
 import {
@@ -39,6 +40,7 @@ describe('reducer', () => {
       user: null,
       auth: null,
       authError: null,
+      userDetail: null,
     };
 
     it('returns initialState', () => {
@@ -104,15 +106,37 @@ describe('reducer', () => {
     });
   });
 
+  describe('setUserDetail', () => {
+    const initialState = {
+      userDetail: null,
+    };
+
+    const detailInfo = {
+      displayName: 'test',
+      emailVerified: true,
+    };
+
+    it('success set user Detail information', () => {
+      const { userDetail } = reducer(initialState, setUserDetail(detailInfo));
+
+      expect(userDetail).toEqual(detailInfo);
+    });
+  });
+
   describe('logout', () => {
     const initialState = {
       user: 'seungmin@naver.com',
     };
 
     it('after logout clear user', () => {
-      const { user } = reducer(initialState, logout());
+      const state = reducer(initialState, logout());
 
-      expect(user).toBe(null);
+      expect(state).toEqual({
+        user: null,
+        auth: null,
+        authError: null,
+        userDetail: null,
+      });
     });
   });
 });

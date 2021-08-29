@@ -22,6 +22,8 @@ firebase.firestore = jest.fn().mockImplementation(() => ({
   })),
 }));
 
-firebase.auth = jest.fn().mockReturnValue({});
+firebase.auth = jest.fn().mockImplementation(() => ({
+  onAuthStateChanged: jest.fn(),
+}));
 
 export default firebase;
