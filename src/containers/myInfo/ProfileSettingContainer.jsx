@@ -17,9 +17,10 @@ import {
 } from '../../reducers/authSlice';
 import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE, SUCCESS_AUTH_MESSAGE } from '../../util/constants/messages';
 
+import useAuth from '../../hooks/useAuth';
+
 import ProfileSettingForm from '../../components/myInfo/ProfileSettingForm';
 import MembershipWithdrawal from '../../components/myInfo/MembershipWithdrawal';
-import useAuth from '../../hooks/useAuth';
 
 const ProfileSettingContainerWrapper = styled.div`
 
