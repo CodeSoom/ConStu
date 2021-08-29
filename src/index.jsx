@@ -48,7 +48,6 @@ auth.onAuthStateChanged((user) => {
     email, emailVerified, displayName, photoURL,
   } = user;
 
-  store.dispatch(setUser(email));
   store.dispatch(setUserDetail({
     email,
     emailVerified,
