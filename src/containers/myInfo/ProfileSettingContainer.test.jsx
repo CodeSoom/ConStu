@@ -13,6 +13,7 @@ describe('ProfileSettingContainer', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => {
+    jest.clearAllMocks();
     dispatch.mockClear();
 
     useDispatch.mockImplementation(() => dispatch);
@@ -36,10 +37,9 @@ describe('ProfileSettingContainer', () => {
     given('userDetail', () => USER_DETAIL);
 
     it('should render profile form content', () => {
-      const { container } = renderProfileSettingContainer();
+      const { getByLabelText } = renderProfileSettingContainer();
 
-      expect(container).toHaveTextContent('test@test.com');
-      expect(container).toHaveTextContent('test');
+      expect(getByLabelText('이메일')).toHaveValue('test@test.com');
     });
 
     describe('Click email verification button', () => {
@@ -138,6 +138,24 @@ describe('ProfileSettingContainer', () => {
 
           expect(screen.findByText('잠시 후 다시 시도해 주세요.')).not.toBeNull();
         });
+      });
+    });
+
+    describe('Click Save button', () => {
+      it('should listen dispatch action event', () => {
+        const { getByText } = renderProfileSettingContainer();
+
+        fireEvent.click(getByText(/저장/i));
+
+        expect(dispatch).toBeCalledTimes(2);
+      });
+
+      it('click save button after auth success action', () => {
+        given('auth', () => ('UPDATE_PROFILE'));
+
+        renderProfileSettingContainer();
+
+        expect(screen.findByText('정상적으로 저장되었습니다.')).not.toBeNull();
       });
     });
   });
