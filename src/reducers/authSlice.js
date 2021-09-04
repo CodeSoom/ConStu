@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
   deleteUser,
   postReauthenticateWithCredential,
+  updateUserProfile,
 } from '../services/api';
 
 import { isDevLevel } from '../util/utils';
@@ -148,6 +149,22 @@ export const requestReauthenticateWithCredential = (password) => async (dispatch
     await postReauthenticateWithCredential(password);
 
     dispatch(setAuth('REAUTHENTICATE'));
+  } catch (error) {
+    dispatch(setAuthError(error.code));
+  }
+};
+
+export const requestUpdateProfile = (newProfile) => async (dispatch, getState) => {
+  const { authReducer: { userDetail } } = getState();
+
+  try {
+    await updateUserProfile(newProfile);
+
+    dispatch(setAuth('UPDATE_PROFILE'));
+    dispatch(setUserDetail({
+      ...userDetail,
+      ...newProfile,
+    }));
   } catch (error) {
     dispatch(setAuthError(error.code));
   }

@@ -20,6 +20,7 @@ import {
   sendPasswordResetEmail,
   deleteUser,
   postReauthenticateWithCredential,
+  updateUserProfile,
 } from './api';
 
 import STUDY_GROUP from '../../fixtures/study-group';
@@ -338,6 +339,25 @@ describe('api', () => {
       await deletePostGroup('1');
 
       expect(remove).toBeCalledTimes(1);
+    });
+  });
+
+  describe('updateUserProfile', () => {
+    const displayName = 'test';
+    const mockUpdateProfile = jest.fn();
+
+    beforeEach(() => {
+      auth.currentUser = {
+        updateProfile: mockUpdateProfile,
+      };
+    });
+
+    it('call updateUserProfile api', async () => {
+      await updateUserProfile({ displayName });
+
+      expect(mockUpdateProfile).toBeCalledWith({
+        displayName,
+      });
     });
   });
 });
