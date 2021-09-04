@@ -32,4 +32,5 @@ export const FIREBASE_GROUP_ERROR_MESSAGE = {
 export const SUCCESS_AUTH_MESSAGE = {
   CONFIRM_EMAIL: '이메일을 확인해주세요!',
   MEMBERSHIP_WITHDRAWAL: '탈퇴되었습니다.',
+  UPDATE_PROFILE: '정상적으로 저장되었습니다',
 };

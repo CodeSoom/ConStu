@@ -163,3 +163,12 @@ export const postReauthenticateWithCredential = async (password) => {
 
   await user.reauthenticateWithCredential(credential);
 };
+
+export const updateUserProfile = async ({ displayName }) => {
+  const user = auth.currentUser;
+
+  // TODO - photoURL 추가
+  await user.updateProfile({
+    displayName,
+  });
+};

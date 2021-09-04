@@ -17,6 +17,7 @@ import reducer, {
   requestDeleteUser,
   requestReauthenticateWithCredential,
   setUserDetail,
+  requestUpdateProfile,
 } from './authSlice';
 
 import {
@@ -27,6 +28,7 @@ import {
   sendPasswordResetEmail,
   deleteUser,
   postReauthenticateWithCredential,
+  updateUserProfile,
 } from '../services/api';
 
 const middlewares = [thunk];
@@ -405,6 +407,66 @@ describe('async actions', () => {
       it('dispatches action setAuthError', async () => {
         try {
           await store.dispatch(requestReauthenticateWithCredential(password));
+        } catch (error) {
+          const actions = store.getActions();
+
+          expect(actions[0]).toEqual({
+            payload: error,
+            type: 'auth/setAuthError',
+          });
+        }
+      });
+    });
+  });
+
+  describe('requestUpdateProfile', () => {
+    const displayName = 'test';
+    const userDetail = {
+      email: 'test@test.com',
+      displayName: '',
+      photoURL: null,
+      emailVerified: false,
+    };
+
+    beforeEach(() => {
+      store = mockStore({
+        authReducer: {
+          userDetail,
+        },
+      });
+    });
+
+    context('without auth error', () => {
+      updateUserProfile.mockImplementationOnce(() => ({}));
+
+      it('dispatches requestUpdateProfile action success', async () => {
+        await store.dispatch(requestUpdateProfile({ displayName }));
+
+        const actions = store.getActions();
+
+        expect(updateUserProfile).toBeCalledWith({ displayName });
+        expect(actions[0]).toEqual({
+          payload: 'UPDATE_PROFILE',
+          type: 'auth/setAuth',
+        });
+        expect(actions[1]).toEqual({
+          payload: {
+            ...userDetail,
+            displayName,
+          },
+          type: 'auth/setUserDetail',
+        });
+      });
+    });
+
+    context('with auth error', () => {
+      updateUserProfile.mockImplementationOnce(() => {
+        throw new Error('error');
+      });
+
+      it('dispatches action setAuthError', async () => {
+        try {
+          await store.dispatch(requestUpdateProfile({ displayName }));
         } catch (error) {
           const actions = store.getActions();
 

@@ -14,6 +14,7 @@ import {
   requestResetPassword,
   requestEmailVerification,
   requestReauthenticateWithCredential,
+  requestUpdateProfile,
 } from '../../reducers/authSlice';
 import { FIREBASE_AUTH_ERROR_MESSAGE, ERROR_MESSAGE, SUCCESS_AUTH_MESSAGE } from '../../util/constants/messages';
 
@@ -52,6 +53,11 @@ const ProfileSettingContainer = () => {
     [dispatch],
   );
 
+  const onUpdateProfile = useCallback(
+    (newProfile) => dispatch(requestUpdateProfile(newProfile)),
+    [dispatch],
+  );
+
   useEffect(() => {
     if (authError) {
       toast.error(
@@ -73,6 +79,10 @@ const ProfileSettingContainer = () => {
       dispatch(logout());
     }
 
+    if (auth === 'UPDATE_PROFILE') {
+      toast.success(SUCCESS_AUTH_MESSAGE.UPDATE_PROFILE);
+    }
+
     dispatch(clearAuth());
   }, [auth]);
 
@@ -88,6 +98,7 @@ const ProfileSettingContainer = () => {
     <ProfileSettingContainerWrapper>
       <ProfileSettingForm
         user={userDetail}
+        onSave={onUpdateProfile}
         onSendEmailVerification={onClickSendEmailVerification}
         onSendPasswordResetEmail={onClickSendPasswordResetEmail}
       />

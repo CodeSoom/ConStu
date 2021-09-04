@@ -7,6 +7,7 @@ import { render } from '@testing-library/react';
 import USER_DETAIL from '../../../fixtures/user-detail';
 
 import ProfileSettingPage from './ProfileSettingPage';
+import InjectMockProviders from '../../components/common/test/InjectMockProviders';
 
 jest.mock('react-redux');
 
@@ -29,7 +30,9 @@ describe('ProfileSettingPage', () => {
   });
 
   const renderProfileSettingPage = () => render((
-    <ProfileSettingPage />
+    <InjectMockProviders>
+      <ProfileSettingPage />
+    </InjectMockProviders>
   ));
 
   it('renders My Info Setting Text Contents', () => {

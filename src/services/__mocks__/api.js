@@ -31,3 +31,5 @@ export const sendPasswordResetEmail = jest.fn();
 export const deleteUser = jest.fn();
 
 export const postReauthenticateWithCredential = jest.fn();
+
+export const updateUserProfile = jest.fn();

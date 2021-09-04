@@ -8,6 +8,7 @@ import InjectMockProviders from '../common/test/InjectMockProviders';
 describe('ProfileSettingForm', () => {
   const handleSendEmailVerification = jest.fn();
   const handleSendPasswordReset = jest.fn();
+  const handleSave = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -17,6 +18,7 @@ describe('ProfileSettingForm', () => {
     <InjectMockProviders>
       <ProfileSettingForm
         user={given.user}
+        onSave={handleSave}
         onSendPasswordResetEmail={handleSendPasswordReset}
         onSendEmailVerification={handleSendEmailVerification}
       />
@@ -40,6 +42,29 @@ describe('ProfileSettingForm', () => {
     });
   });
 
+  describe('When click "저장" button', () => {
+    given('user', () => ({
+      email: 'test@test.com',
+      emailVerified: false,
+      displayName: null,
+      photoURL: null,
+    }));
+
+    it('should call click event', () => {
+      const { getByText, getByLabelText } = renderProfileSettingForm();
+
+      const input = getByLabelText('별명');
+
+      fireEvent.change(input, {
+        target: { value: 'test' },
+      });
+
+      fireEvent.click(getByText('저장'));
+
+      expect(handleSave).toBeCalledWith({ displayName: 'test' });
+    });
+  });
+
   context('Is email verify', () => {
     context('with displayName and photoURL', () => {
       given('user', () => ({
@@ -55,11 +80,11 @@ describe('ProfileSettingForm', () => {
         expect(container).toHaveTextContent(/이메일 인증 완료/i);
       });
 
-      it('should render display name and photoUrl', () => {
-        const { container } = renderProfileSettingForm();
+      it('should render email and photoUrl', () => {
+        const { getByLabelText } = renderProfileSettingForm();
 
-        expect(container).toHaveTextContent(/test url/i);
-        expect(container).toHaveTextContent(/test/i);
+        expect(getByLabelText('프로필')).toHaveValue('test url');
+        expect(getByLabelText('이메일')).toHaveValue('test@test.com');
       });
     });
 
@@ -78,9 +103,9 @@ describe('ProfileSettingForm', () => {
       });
 
       it('should render "없음"', () => {
-        const { container } = renderProfileSettingForm();
+        const { getByLabelText } = renderProfileSettingForm();
 
-        expect(container).toHaveTextContent(/없음/i);
+        expect(getByLabelText('프로필')).toHaveValue('없음');
       });
     });
   });
