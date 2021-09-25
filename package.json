@@ -14,7 +14,8 @@
     "coverage": "npm run test:unit -- --coverage",
     "coverage:ci": "npm run test:unit --ci --coverage && codecov",
     "lint": "eslint --ext js,jsx .",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -93,6 +94,7 @@
     "file-loader": "^6.2.0",
     "given2": "^2.1.7",
     "html-webpack-plugin": "^4.5.0",
+    "husky": "^7.0.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "jest-plugin-context": "^2.9.0",
