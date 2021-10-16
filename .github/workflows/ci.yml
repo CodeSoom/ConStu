@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -18,10 +18,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Install
-      run: npm install
-    - name: Test
-      run: npm run test
+      run: yarn install
+    - name: Unit & e2e Test
+      run: yarn run test
       env:
         HEADLESS: true
     - name: Lint
-      run: npm run lint
+      run: yarn run lint

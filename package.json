@@ -6,13 +6,13 @@
   "scripts": {
     "start": "webpack-dev-server --progress",
     "test:unit": "jest",
-    "test:watch": "npm run test:unit -- --watch-all",
+    "test:watch": "yarn run test:unit -- --watch-all",
     "test:e2e": "codeceptjs run --steps",
     "test:e2e:headless": "HEADLESS=true codeceptjs run --steps",
     "test:e2e:ui": "codecept-ui --app",
-    "test": "npm run coverage && start-server-and-test start http://localhost:8080 test:e2e",
-    "coverage": "npm run test:unit -- --coverage",
-    "coverage:ci": "npm run test:unit --ci --coverage && codecov",
+    "test": "yarn run coverage && start-server-and-test start http://localhost:8080 test:e2e:headless",
+    "coverage": "yarn run test:unit -- --coverage",
+    "coverage:ci": "yarn run test:unit --ci --coverage && codecov",
     "lint": "eslint --ext js,jsx .",
     "build": "cross-env NODE_ENV=production webpack",
     "prepare": "husky install"
