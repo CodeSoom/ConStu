@@ -9,7 +9,7 @@ import { tomorrow } from '../../util/utils';
 import StudyGroup from './StudyGroup';
 import MockTheme from '../common/test/MockTheme';
 
-const isCheckOverTen = (calendar) => (calendar < 10 ? '0' : '');
+const isCheckOverTen = (calendar) => (calendar < 9 ? '0' : '');
 
 describe('StudyGroup', () => {
   const renderStudyGroup = ({ group }) => render((
