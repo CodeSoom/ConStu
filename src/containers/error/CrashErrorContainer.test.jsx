@@ -29,10 +29,11 @@ describe('CrashErrorContainer', () => {
   ));
 
   it('should be renders error template contents', () => {
-    const { container } = renderCrashErrorContainer();
+    const { container, getByTestId } = renderCrashErrorContainer();
 
     expect(container).toHaveTextContent('이런.. 오류가 발생했어요!');
     expect(container).toHaveTextContent('홈으로');
+    expect(getByTestId('computer-image')).not.toBeNull();
   });
 
   it('handle Click event', () => {
