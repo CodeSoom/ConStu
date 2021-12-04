@@ -26,6 +26,10 @@
   <img src="https://img.shields.io/github/license/CodeSoom/ConStu?style=flat-square">
 </a>
 
+## 👉 ConStu Version 2: Conners 개발중..
+- [Github Repository](https://github.com/jennie-harang/Conners)
+- https://www.conners.io/
+
 ## 🚀 Hosting URL
 
 https://sweet-1cfff.firebaseapp.com
